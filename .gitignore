@@ -1,0 +1,56 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+.swiftpm
+
+# IntelliJ project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code project files
+.vscode/
+
+# Flutter/Dart specific
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Symbol files
+*.aot
+*.dartndk
+*.o
+*.snapshot
+
+# Secrets & Environment variables
+.env
+!.env.example
+
+# Android specific
+android/app/debug
+android/app/release
+android/key.properties
+android/local.properties
+
+# iOS specific
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flr
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+Pods/
+Podfile.lock
