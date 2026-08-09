@@ -1,0 +1,123 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import '../errors/exceptions.dart';
+import 'logger_service.dart';
+
+/// Low-level authentication service encapsulating FirebaseAuth instance.
+/// Maps raw Firebase exceptions into clean, user-friendly exception messages.
+class AuthService {
+  final FirebaseAuth _firebaseAuth;
+
+  AuthService({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+
+  /// Returns current authenticated Firebase user
+  User? get currentUser => _firebaseAuth.currentUser;
+
+  /// Stream listening to authentication state changes
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  /// Signs up a new user with Email and Password
+  Future<UserCredential> signUp({
+    required String email,
+    required String password,
+    String? displayName,
+  }) async {
+    try {
+      LoggerService.info('Attempting Firebase Sign Up for email: $email');
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+
+      if (displayName != null && displayName.isNotEmpty) {
+        await credential.user?.updateDisplayName(displayName.trim());
+        await credential.user?.reload();
+      }
+
+      LoggerService.info('Sign Up Successful for UID: ${credential.user?.uid}');
+      return credential;
+    } on FirebaseAuthException catch (e, stackTrace) {
+      LoggerService.error('FirebaseAuthException during Sign Up [Code: ${e.code}]', e, stackTrace);
+      throw ServerException(message: _mapFirebaseAuthException(e));
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error during Sign Up', e, stackTrace);
+      throw ServerException(message: 'An unexpected authentication error occurred. Please try again.');
+    }
+  }
+
+  /// Signs in an existing user with Email and Password
+  Future<UserCredential> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      LoggerService.info('Attempting Firebase Sign In for email: $email');
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+
+      LoggerService.info('Sign In Successful for UID: ${credential.user?.uid}');
+      return credential;
+    } on FirebaseAuthException catch (e, stackTrace) {
+      LoggerService.error('FirebaseAuthException during Sign In [Code: ${e.code}]', e, stackTrace);
+      throw ServerException(message: _mapFirebaseAuthException(e));
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error during Sign In', e, stackTrace);
+      throw ServerException(message: 'An unexpected authentication error occurred. Please try again.');
+    }
+  }
+
+  /// Sends password reset email
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    final trimmedEmail = email.trim();
+    try {
+      LoggerService.info('Password reset requested for email: $trimmedEmail');
+      await _firebaseAuth.sendPasswordResetEmail(email: trimmedEmail);
+      LoggerService.info('Password reset email sent successfully to: $trimmedEmail');
+    } on FirebaseAuthException catch (e, stackTrace) {
+      LoggerService.error('Password reset failed: ${e.code} - ${e.message}', e, stackTrace);
+      throw ServerException(message: _mapFirebaseAuthException(e));
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error during Password Reset', e, stackTrace);
+      throw ServerException(message: 'Unable to send password reset email. Please try again later.');
+    }
+  }
+
+  /// Signs out current user
+  Future<void> signOut() async {
+    try {
+      final uid = currentUser?.uid;
+      LoggerService.info('Signing out user UID: $uid');
+      await _firebaseAuth.signOut();
+      LoggerService.info('Sign Out Successful');
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error during Sign Out', e, stackTrace);
+      throw ServerException(message: 'Failed to sign out. Please try again.');
+    }
+  }
+
+  /// Converts raw FirebaseAuthException codes to user-friendly messages
+  String _mapFirebaseAuthException(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'email-already-in-use':
+        return 'This email address is already registered. Please sign in or use another email.';
+      case 'invalid-email':
+        return 'The email address format is invalid. Please check and try again.';
+      case 'weak-password':
+        return 'The password provided is too weak. Please use a stronger password (minimum 8 characters).';
+      case 'user-not-found':
+      case 'wrong-password':
+      case 'invalid-credential':
+        return 'Invalid email or password.';
+      case 'user-disabled':
+        return 'This user account has been disabled. Please contact support.';
+      case 'too-many-requests':
+        return 'Too many failed login attempts. Please wait a moment and try again.';
+      case 'network-request-failed':
+        return 'Network connection failed. Please check your internet connection.';
+      default:
+        return e.message ?? 'Authentication failed. Please verify your credentials and try again.';
+    }
+  }
+}

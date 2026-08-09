@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426798853994",
+    "project_id": "fitfuel-ab042",
+    "storage_bucket": "fitfuel-ab042.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426798853994:android:17c7788a7f8ce0ec66ff13",
+        "android_client_info": {
+          "package_name": "com.example.fitfuel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_6YUgjJJI9vdZ6EJ_ReUjfNOUSIhxwT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
