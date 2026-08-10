@@ -1,14 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../errors/exceptions.dart';
+import 'firestore_service.dart';
 import 'logger_service.dart';
 
 /// Low-level authentication service encapsulating FirebaseAuth instance.
 /// Maps raw Firebase exceptions into clean, user-friendly exception messages.
 class AuthService {
   final FirebaseAuth _firebaseAuth;
+  final FirestoreService _firestoreService;
 
-  AuthService({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  AuthService({FirebaseAuth? firebaseAuth, FirestoreService? firestoreService})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _firestoreService = firestoreService ?? FirestoreService();
 
   /// Returns current authenticated Firebase user
   User? get currentUser => _firebaseAuth.currentUser;
@@ -16,25 +19,48 @@ class AuthService {
   /// Stream listening to authentication state changes
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  /// Signs up a new user with Email and Password
+  /// Signs up a new user with Email and Password & provisions Firestore profile users/{uid}
   Future<UserCredential> signUp({
     required String email,
     required String password,
     String? displayName,
   }) async {
     try {
-      LoggerService.info('Attempting Firebase Sign Up for email: $email');
+      final trimmedEmail = email.trim();
+      final trimmedName = displayName?.trim() ?? '';
+      LoggerService.info('Attempting Firebase Sign Up for email: $trimmedEmail');
+
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email.trim(),
+        email: trimmedEmail,
         password: password,
       );
 
-      if (displayName != null && displayName.isNotEmpty) {
-        await credential.user?.updateDisplayName(displayName.trim());
-        await credential.user?.reload();
+      final user = credential.user;
+      if (user != null) {
+        if (trimmedName.isNotEmpty) {
+          await user.updateDisplayName(trimmedName);
+          await user.reload();
+        }
+
+        // Check if profile exists before creating to prevent duplicate creation
+        final existingDoc = await _firestoreService.getUserProfile(user.uid);
+        if (!existingDoc.exists) {
+          LoggerService.info('Auto-provisioning Firestore profile document for UID: ${user.uid}');
+          await _firestoreService.createUserProfile(
+            uid: user.uid,
+            data: {
+              'uid': user.uid,
+              'email': user.email ?? trimmedEmail,
+              'displayName': trimmedName.isNotEmpty ? trimmedName : user.displayName,
+              'photoUrl': user.photoURL,
+              'emailVerified': user.emailVerified,
+            },
+          );
+          LoggerService.info('Firestore profile document successfully created for UID: ${user.uid}');
+        }
       }
 
-      LoggerService.info('Sign Up Successful for UID: ${credential.user?.uid}');
+      LoggerService.info('Sign Up Successful for UID: ${user?.uid}');
       return credential;
     } on FirebaseAuthException catch (e, stackTrace) {
       LoggerService.error('FirebaseAuthException during Sign Up [Code: ${e.code}]', e, stackTrace);
@@ -51,13 +77,32 @@ class AuthService {
     required String password,
   }) async {
     try {
-      LoggerService.info('Attempting Firebase Sign In for email: $email');
+      final trimmedEmail = email.trim();
+      LoggerService.info('Attempting Firebase Sign In for email: $trimmedEmail');
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email.trim(),
+        email: trimmedEmail,
         password: password,
       );
 
-      LoggerService.info('Sign In Successful for UID: ${credential.user?.uid}');
+      final user = credential.user;
+      if (user != null) {
+        final existingDoc = await _firestoreService.getUserProfile(user.uid);
+        if (!existingDoc.exists) {
+          LoggerService.info('Provisioning missing Firestore profile on sign-in for UID: ${user.uid}');
+          await _firestoreService.createUserProfile(
+            uid: user.uid,
+            data: {
+              'uid': user.uid,
+              'email': user.email ?? trimmedEmail,
+              'displayName': user.displayName,
+              'photoUrl': user.photoURL,
+              'emailVerified': user.emailVerified,
+            },
+          );
+        }
+      }
+
+      LoggerService.info('Sign In Successful for UID: ${user?.uid}');
       return credential;
     } on FirebaseAuthException catch (e, stackTrace) {
       LoggerService.error('FirebaseAuthException during Sign In [Code: ${e.code}]', e, stackTrace);

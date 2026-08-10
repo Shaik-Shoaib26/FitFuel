@@ -6,6 +6,9 @@ import '../../features/authentication/presentation/screens/forgot_password_scree
 import '../../features/authentication/presentation/screens/login_screen.dart';
 import '../../features/authentication/presentation/screens/sign_up_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/nutrition/presentation/screens/history_screen.dart';
+import '../../features/nutrition/presentation/screens/meal_plan_screen.dart';
+import '../../features/nutrition/presentation/screens/insights_screen.dart';
 
 abstract class AppRoutes {
   static const String splash = '/';
@@ -22,6 +25,8 @@ abstract class AppRoutes {
   static const String profile = '/profile';
   static const String settings = '/settings';
   static const String premium = '/premium';
+  static const String mealPlan = '/meal-plan';
+  static const String insights = '/insights';
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -82,6 +87,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.dashboard,
         builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.history,
+        builder: (context, state) => const HistoryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.mealPlan,
+        builder: (context, state) => const MealPlanScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.insights,
+        builder: (context, state) => const InsightsScreen(),
       ),
     ],
   );
