@@ -7,6 +7,13 @@ class UserProfileModel {
   final String? displayName;
   final String? photoUrl;
   final bool emailVerified;
+  final int? age;
+  final String? gender;
+  final double? height;
+  final double? weight;
+  final String? activityLevel;
+  final String? fitnessGoal;
+  final String? dietaryPreference;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -16,6 +23,13 @@ class UserProfileModel {
     this.displayName,
     this.photoUrl,
     this.emailVerified = false,
+    this.age,
+    this.gender,
+    this.height,
+    this.weight,
+    this.activityLevel,
+    this.fitnessGoal,
+    this.dietaryPreference,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -34,12 +48,31 @@ class UserProfileModel {
       return DateTime.now();
     }
 
+    double? parseDouble(dynamic value) {
+      if (value is num) return value.toDouble();
+      if (value is String) return double.tryParse(value);
+      return null;
+    }
+
+    int? parseInt(dynamic value) {
+      if (value is num) return value.toInt();
+      if (value is String) return int.tryParse(value);
+      return null;
+    }
+
     return UserProfileModel(
       uid: doc.id.isNotEmpty ? doc.id : (data['uid'] as String? ?? ''),
       email: data['email'] as String? ?? '',
       displayName: data['displayName'] as String?,
       photoUrl: data['photoUrl'] as String?,
       emailVerified: data['emailVerified'] as bool? ?? false,
+      age: parseInt(data['age']),
+      gender: data['gender'] as String?,
+      height: parseDouble(data['height']),
+      weight: parseDouble(data['weight']),
+      activityLevel: data['activityLevel'] as String?,
+      fitnessGoal: data['fitnessGoal'] as String?,
+      dietaryPreference: data['dietaryPreference'] as String?,
       createdAt: parseDateTime(data['createdAt']),
       updatedAt: parseDateTime(data['updatedAt']),
     );
@@ -52,6 +85,13 @@ class UserProfileModel {
       'displayName': displayName,
       'photoUrl': photoUrl,
       'emailVerified': emailVerified,
+      'age': age,
+      'gender': gender,
+      'height': height,
+      'weight': weight,
+      'activityLevel': activityLevel,
+      'fitnessGoal': fitnessGoal,
+      'dietaryPreference': dietaryPreference,
       'createdAt': Timestamp.fromDate(createdAt),
       'updatedAt': Timestamp.fromDate(updatedAt),
     };
@@ -64,6 +104,13 @@ class UserProfileModel {
       displayName: entity.displayName,
       photoUrl: entity.photoUrl,
       emailVerified: entity.emailVerified,
+      age: entity.age,
+      gender: entity.gender,
+      height: entity.height,
+      weight: entity.weight,
+      activityLevel: entity.activityLevel,
+      fitnessGoal: entity.fitnessGoal,
+      dietaryPreference: entity.dietaryPreference,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
     );
@@ -76,6 +123,13 @@ class UserProfileModel {
       displayName: displayName,
       photoUrl: photoUrl,
       emailVerified: emailVerified,
+      age: age,
+      gender: gender,
+      height: height,
+      weight: weight,
+      activityLevel: activityLevel,
+      fitnessGoal: fitnessGoal,
+      dietaryPreference: dietaryPreference,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );

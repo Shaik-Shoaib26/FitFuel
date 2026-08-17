@@ -16,7 +16,7 @@ class FitFuelApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark, // Default Dark Theme according to design spec
+      themeMode: ThemeMode.light, // Default Light / Bright / Premium Wellness Theme
       routerConfig: router,
     );
   }

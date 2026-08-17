@@ -3,14 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
+import '../../../../core/utils/tdee_calculator.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
-import '../../domain/entities/nutrition_goals_entity.dart';
-import '../controllers/nutrition_goals_controller.dart';
+import '../../domain/entities/user_profile_entity.dart';
+import '../controllers/user_profile_controller.dart';
+import '../providers/profile_providers.dart';
 
 class EditGoalsSheet extends ConsumerStatefulWidget {
   final String uid;
-  final NutritionGoalsEntity? existingGoals;
+  final dynamic existingGoals; // Keep to support old signature
 
   const EditGoalsSheet({
     super.key,
@@ -24,46 +26,124 @@ class EditGoalsSheet extends ConsumerStatefulWidget {
 
 class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _caloriesController;
-  late final TextEditingController _proteinController;
-  late final TextEditingController _carbsController;
-  late final TextEditingController _fatsController;
+  final _ageController = TextEditingController();
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+
+  String? _selectedGender;
+  String? _selectedActivityLevel;
+  String? _selectedFitnessGoal;
+  String? _selectedDietaryPreference;
+
+  // Real-time calculated previews
+  int _calcCalories = 2000;
+  double _calcProtein = 150.0;
+  double _calcCarbs = 200.0;
+  double _calcFats = 65.0;
 
   @override
   void initState() {
     super.initState();
-    final goals = widget.existingGoals;
-    _caloriesController = TextEditingController(text: goals?.dailyCalorieTarget.toString() ?? '2000');
-    _proteinController = TextEditingController(text: goals?.proteinTargetGrams.toString() ?? '150.0');
-    _carbsController = TextEditingController(text: goals?.carbsTargetGrams.toString() ?? '200.0');
-    _fatsController = TextEditingController(text: goals?.fatTargetGrams.toString() ?? '65.0');
+    // Pre-fill fields from stream state safely after widget bounds are initialized
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final profile = ref.read(currentProfileStreamProvider).value;
+      if (profile != null) {
+        setState(() {
+          if (profile.age != null) _ageController.text = profile.age.toString();
+          if (profile.height != null) _heightController.text = profile.height.toString();
+          if (profile.weight != null) _weightController.text = profile.weight.toString();
+          _selectedGender = profile.gender;
+          _selectedActivityLevel = profile.activityLevel;
+          _selectedFitnessGoal = profile.fitnessGoal;
+          _selectedDietaryPreference = profile.dietaryPreference;
+          _recalculatePreview();
+        });
+      }
+    });
+
+    _ageController.addListener(_recalculatePreview);
+    _heightController.addListener(_recalculatePreview);
+    _weightController.addListener(_recalculatePreview);
   }
 
   @override
   void dispose() {
-    _caloriesController.dispose();
-    _proteinController.dispose();
-    _carbsController.dispose();
-    _fatsController.dispose();
+    _ageController.dispose();
+    _heightController.dispose();
+    _weightController.dispose();
     super.dispose();
+  }
+
+  void _recalculatePreview() {
+    final age = int.tryParse(_ageController.text);
+    final height = double.tryParse(_heightController.text);
+    final weight = double.tryParse(_weightController.text);
+
+    if (age != null &&
+        height != null &&
+        weight != null &&
+        _selectedGender != null &&
+        _selectedActivityLevel != null &&
+        _selectedFitnessGoal != null) {
+      
+      final bmr = TDEECalculator.calculateBMR(
+        weightKg: weight,
+        heightCm: height,
+        age: age,
+        gender: _selectedGender!,
+      );
+
+      final tdee = TDEECalculator.calculateTDEE(
+        bmr: bmr,
+        activityLevel: _selectedActivityLevel!,
+      );
+
+      final calories = TDEECalculator.calculateCalorieTarget(
+        tdee: tdee,
+        goal: _selectedFitnessGoal!,
+      );
+
+      final macros = TDEECalculator.calculateMacroTargets(
+        calorieTarget: calories,
+        weightKg: weight,
+      );
+
+      setState(() {
+        _calcCalories = calories;
+        _calcProtein = macros['proteinGrams'] ?? 150.0;
+        _calcCarbs = macros['carbsGrams'] ?? 200.0;
+        _calcFats = macros['fatGrams'] ?? 65.0;
+      });
+    }
   }
 
   void _onSaveSubmitted() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final controller = ref.read(nutritionGoalsControllerProvider.notifier);
+    final controller = ref.read(userProfileControllerProvider.notifier);
+    final currentProfile = ref.read(currentProfileStreamProvider).value;
 
-    final goals = NutritionGoalsEntity(
-      userId: widget.uid,
-      dailyCalorieTarget: int.tryParse(_caloriesController.text) ?? 2000,
-      proteinTargetGrams: double.tryParse(_proteinController.text) ?? 150.0,
-      carbsTargetGrams: double.tryParse(_carbsController.text) ?? 200.0,
-      fatTargetGrams: double.tryParse(_fatsController.text) ?? 65.0,
+    final updatedProfile = UserProfileEntity(
+      uid: widget.uid,
+      email: currentProfile?.email ?? '',
+      displayName: currentProfile?.displayName,
+      photoUrl: currentProfile?.photoUrl,
+      emailVerified: currentProfile?.emailVerified ?? false,
+      age: int.tryParse(_ageController.text),
+      gender: _selectedGender,
+      height: double.tryParse(_heightController.text),
+      weight: double.tryParse(_weightController.text),
+      activityLevel: _selectedActivityLevel,
+      fitnessGoal: _selectedFitnessGoal,
+      dietaryPreference: _selectedDietaryPreference,
+      createdAt: currentProfile?.createdAt ?? DateTime.now(),
       updatedAt: DateTime.now(),
     );
 
-    final success = await controller.saveGoals(widget.uid, goals);
+    final success = await controller.updateProfile(updatedProfile);
     if (success && mounted) {
+      ref.invalidate(currentProfileStreamProvider);
+      ref.invalidate(nutritionGoalsStreamProvider);
       Navigator.of(context).pop();
     }
   }
@@ -71,8 +151,8 @@ class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final controllerState = ref.watch(nutritionGoalsControllerProvider);
-    final isLoading = controllerState is NutritionGoalsLoadingState;
+    final controllerState = ref.watch(userProfileControllerProvider);
+    final isLoading = controllerState is UserProfileLoadingState;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -98,7 +178,7 @@ class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Update Nutrition Goals',
+                      'Update Health Profile',
                       style: AppTypography.heading2(isDark: isDark),
                     ),
                     IconButton(
@@ -109,8 +189,7 @@ class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
                 ),
                 const SizedBox(height: AppConstants.spaceMd),
 
-                // Error message from controller
-                if (controllerState is NutritionGoalsErrorState) ...[
+                if (controllerState is UserProfileErrorState) ...[
                   Text(
                     controllerState.message,
                     style: const TextStyle(color: AppColors.stateError, fontSize: 13),
@@ -118,72 +197,165 @@ class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
                   const SizedBox(height: AppConstants.spaceSm),
                 ],
 
-                // Calories Target Field
-                TextFormField(
-                  controller: _caloriesController,
-                  enabled: !isLoading,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Daily Calories Goal (kcal)',
-                    prefixIcon: Icon(Icons.local_fire_department_rounded),
-                  ),
-                  validator: (val) {
-                    if (val == null || val.trim().isEmpty) return 'Calories goal is required';
-                    final num = int.tryParse(val);
-                    if (num == null || num <= 0) return 'Please enter a valid positive integer';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-
-                // Protein, Carbs, Fats Target Fields Row
+                // Age, Height, Weight fields
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: _proteinController,
+                        controller: _ageController,
                         enabled: !isLoading,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Protein (g)',
-                        ),
-                        validator: (val) => Validators.validateNumber(val, min: 0),
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(labelText: 'Age'),
+                        validator: (val) {
+                          if (val == null || val.isEmpty) return 'Required';
+                          final n = int.tryParse(val);
+                          if (n == null || n <= 0) return 'Invalid';
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(width: AppConstants.spaceSm),
                     Expanded(
                       child: TextFormField(
-                        controller: _carbsController,
+                        controller: _heightController,
                         enabled: !isLoading,
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Carbs (g)',
-                        ),
-                        validator: (val) => Validators.validateNumber(val, min: 0),
+                        decoration: const InputDecoration(labelText: 'Height (cm)'),
+                        validator: (val) => Validators.validateNumber(val, min: 30),
                       ),
                     ),
                     const SizedBox(width: AppConstants.spaceSm),
                     Expanded(
                       child: TextFormField(
-                        controller: _fatsController,
+                        controller: _weightController,
                         enabled: !isLoading,
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Fats (g)',
-                        ),
-                        validator: (val) => Validators.validateNumber(val, min: 0),
+                        decoration: const InputDecoration(labelText: 'Weight (kg)'),
+                        validator: (val) => Validators.validateNumber(val, min: 10),
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(height: AppConstants.spaceMd),
+
+                // Gender, Activity Level, Fitness Goal
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedGender,
+                  decoration: const InputDecoration(labelText: 'Gender'),
+                  items: const [
+                    DropdownMenuItem(value: 'male', child: Text('Male')),
+                    DropdownMenuItem(value: 'female', child: Text('Female')),
+                    DropdownMenuItem(value: 'other', child: Text('Other')),
+                  ],
+                  onChanged: isLoading
+                      ? null
+                      : (val) {
+                          setState(() {
+                            _selectedGender = val;
+                            _recalculatePreview();
+                          });
+                        },
+                  validator: (val) => val == null ? 'Required' : null,
+                ),
+                const SizedBox(height: AppConstants.spaceMd),
+
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedActivityLevel,
+                  decoration: const InputDecoration(labelText: 'Activity Level'),
+                  items: const [
+                    DropdownMenuItem(value: 'sedentary', child: Text('Sedentary (desk job)')),
+                    DropdownMenuItem(value: 'lightly_active', child: Text('Lightly Active (1-3 days/wk)')),
+                    DropdownMenuItem(value: 'moderately_active', child: Text('Moderately Active (3-5 days/wk)')),
+                    DropdownMenuItem(value: 'very_active', child: Text('Very Active (6-7 days/wk)')),
+                  ],
+                  onChanged: isLoading
+                      ? null
+                      : (val) {
+                          setState(() {
+                            _selectedActivityLevel = val;
+                            _recalculatePreview();
+                          });
+                        },
+                  validator: (val) => val == null ? 'Required' : null,
+                ),
+                const SizedBox(height: AppConstants.spaceMd),
+
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedFitnessGoal,
+                  decoration: const InputDecoration(labelText: 'Fitness Goal'),
+                  items: const [
+                    DropdownMenuItem(value: 'lose_weight', child: Text('Lose Weight')),
+                    DropdownMenuItem(value: 'maintain', child: Text('Maintain Weight')),
+                    DropdownMenuItem(value: 'gain_muscle', child: Text('Gain Muscle')),
+                  ],
+                  onChanged: isLoading
+                      ? null
+                      : (val) {
+                          setState(() {
+                            _selectedFitnessGoal = val;
+                            _recalculatePreview();
+                          });
+                        },
+                  validator: (val) => val == null ? 'Required' : null,
+                ),
+                const SizedBox(height: AppConstants.spaceMd),
+
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedDietaryPreference,
+                  decoration: const InputDecoration(labelText: 'Dietary Preference'),
+                  items: const [
+                    DropdownMenuItem(value: 'anything', child: Text('Anything / No Limit')),
+                    DropdownMenuItem(value: 'vegetarian', child: Text('Vegetarian')),
+                    DropdownMenuItem(value: 'vegan', child: Text('Vegan')),
+                    DropdownMenuItem(value: 'keto', child: Text('Keto')),
+                    DropdownMenuItem(value: 'paleo', child: Text('Paleo')),
+                    DropdownMenuItem(value: 'low_carb', child: Text('Low Carb')),
+                  ],
+                  onChanged: isLoading
+                      ? null
+                      : (val) {
+                          setState(() {
+                            _selectedDietaryPreference = val;
+                          });
+                        },
+                  validator: (val) => val == null ? 'Required' : null,
+                ),
                 const SizedBox(height: AppConstants.spaceLg),
 
-                // Save Action Button
+                // Calculated goals preview section
+                Container(
+                  padding: const EdgeInsets.all(AppConstants.spaceMd),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary500.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMd),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Recalculated Daily Targets Preview:',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Calories: $_calcCalories kcal', style: const TextStyle(fontSize: 12)),
+                          Text('Protein: ${_calcProtein.toStringAsFixed(0)}g', style: const TextStyle(fontSize: 12)),
+                          Text('Carbs: ${_calcCarbs.toStringAsFixed(0)}g', style: const TextStyle(fontSize: 12)),
+                          Text('Fats: ${_calcFats.toStringAsFixed(0)}g', style: const TextStyle(fontSize: 12)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppConstants.spaceLg),
+
                 FitFuelButton(
-                  label: 'Save Goals',
+                  label: 'Save Profile & Recalculate Goals',
                   onPressed: isLoading ? null : _onSaveSubmitted,
                   isLoading: isLoading,
-                  icon: Icons.save_rounded,
+                  icon: Icons.check_circle_outline_rounded,
                 ),
               ],
             ),

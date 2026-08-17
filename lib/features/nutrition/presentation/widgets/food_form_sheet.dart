@@ -5,8 +5,12 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
+import '../../domain/entities/meal_type.dart';
 import '../../domain/entities/nutrition_record_entity.dart';
 import '../controllers/nutrition_controller.dart';
+import '../../../food/domain/entities/food_entity.dart';
+import '../../../food/presentation/providers/food_providers.dart';
+import '../../../food/data/datasources/predefined_food_data.dart';
 
 class FoodFormSheet extends ConsumerStatefulWidget {
   final String uid;
@@ -33,7 +37,7 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
   late final TextEditingController _servingController;
   String _selectedMealType = 'Breakfast';
 
-  final List<String> _mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
+  final List<String> _mealTypes = MealType.displayNames;
 
   @override
   void initState() {
@@ -46,7 +50,7 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
     _fatsController = TextEditingController(text: record?.fats.toString() ?? '');
     _sugarController = TextEditingController(text: record?.sugar.toString() ?? '');
     _servingController = TextEditingController(text: record?.servingSize.toString() ?? '');
-    _selectedMealType = record?.mealType ?? 'Breakfast';
+    _selectedMealType = MealType.normalize(record?.mealType ?? 'Breakfast');
   }
 
   @override
@@ -142,6 +146,37 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
                   ),
                   const SizedBox(height: AppConstants.spaceSm),
                 ],
+
+                // Search Food Database Button
+                ElevatedButton.icon(
+                  onPressed: isLoading
+                      ? null
+                      : () async {
+                          final selectedFood = await showDialog<FoodEntity>(
+                            context: context,
+                            builder: (context) => const _FoodSearchDialog(),
+                          );
+                          if (selectedFood != null) {
+                            setState(() {
+                              _nameController.text = selectedFood.name;
+                              _caloriesController.text = selectedFood.calories.toStringAsFixed(0);
+                              _proteinController.text = selectedFood.protein.toStringAsFixed(1);
+                              _carbsController.text = selectedFood.carbohydrates.toStringAsFixed(1);
+                              _fatsController.text = selectedFood.fats.toStringAsFixed(1);
+                              _sugarController.text = selectedFood.sugar.toStringAsFixed(1);
+                              _servingController.text = selectedFood.servingSize.toStringAsFixed(0);
+                            });
+                          }
+                        },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary500.withAlpha(20),
+                    foregroundColor: AppColors.primary500,
+                    elevation: 0,
+                  ),
+                  icon: const Icon(Icons.search_rounded),
+                  label: const Text('Search Food Database'),
+                ),
+                const SizedBox(height: AppConstants.spaceMd),
 
                 // Food Name Field
                 TextFormField(
@@ -280,6 +315,124 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _FoodSearchDialog extends ConsumerStatefulWidget {
+  const _FoodSearchDialog();
+
+  @override
+  ConsumerState<_FoodSearchDialog> createState() => _FoodSearchDialogState();
+}
+
+class _FoodSearchDialogState extends ConsumerState<_FoodSearchDialog> {
+  final TextEditingController _dialogSearchController = TextEditingController();
+  List<FoodEntity> _dialogFoods = [];
+  bool _dialogLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _dialogSearchController.addListener(_onSearchChanged);
+    _loadInitialFoods();
+  }
+
+  @override
+  void dispose() {
+    _dialogSearchController.dispose();
+    super.dispose();
+  }
+
+  void _loadInitialFoods() async {
+    setState(() => _dialogLoading = true);
+    try {
+      final repo = ref.read(foodRepositoryProvider);
+      final list = await repo.searchFoods('');
+      if (mounted) {
+        setState(() {
+          _dialogFoods = list.isNotEmpty
+              ? list
+              : PredefinedFoodData.foods.map((e) => e.toEntity()).toList();
+          _dialogLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _dialogLoading = false);
+      }
+    }
+  }
+
+  void _onSearchChanged() async {
+    final query = _dialogSearchController.text.trim();
+    if (query.isEmpty) {
+      _loadInitialFoods();
+      return;
+    }
+    setState(() => _dialogLoading = true);
+    try {
+      final repo = ref.read(foodRepositoryProvider);
+      final list = await repo.searchFoods(query);
+      if (mounted) {
+        setState(() {
+          _dialogFoods = list;
+          _dialogLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _dialogLoading = false);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Search Food Database'),
+      content: SizedBox(
+        width: double.maxFinite,
+        height: 400,
+        child: Column(
+          children: [
+            TextField(
+              controller: _dialogSearchController,
+              decoration: const InputDecoration(
+                hintText: 'Search by name or category...',
+                prefixIcon: Icon(Icons.search_rounded),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: _dialogLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _dialogFoods.isEmpty
+                      ? const Center(child: Text('No results found.'))
+                      : ListView.builder(
+                          itemCount: _dialogFoods.length,
+                          itemBuilder: (context, index) {
+                            final food = _dialogFoods[index];
+                            return ListTile(
+                              title: Text(food.name),
+                              subtitle: Text('${food.category} • ${food.servingSize.toStringAsFixed(0)} ${food.servingUnit}'),
+                              trailing: Text('${food.calories.toStringAsFixed(0)} kcal'),
+                              onTap: () {
+                                Navigator.of(context).pop(food);
+                              },
+                            );
+                          },
+                        ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Close'),
+        ),
+      ],
     );
   }
 }
