@@ -27,6 +27,19 @@ class FoodModel {
   final bool isVegetarian;
   final bool isVegan;
 
+  // New conceptual fields for Phase 31.1
+  final String? dietType;
+  final String? cuisine;
+  final List<String>? ingredients;
+  final String? recipe;
+  final List<String>? instructions;
+  final int? prepTimeMinutes;
+  final int? cookTimeMinutes;
+  final int? totalTimeMinutes;
+  final int? servings;
+  final String? difficulty;
+  final List<String>? tags;
+
   const FoodModel({
     required this.id,
     required this.name,
@@ -50,6 +63,17 @@ class FoodModel {
     this.isIndian = false,
     this.isVegetarian = false,
     this.isVegan = false,
+    this.dietType,
+    this.cuisine,
+    this.ingredients,
+    this.recipe,
+    this.instructions,
+    this.prepTimeMinutes,
+    this.cookTimeMinutes,
+    this.totalTimeMinutes,
+    this.servings,
+    this.difficulty,
+    this.tags,
   });
 
   factory FoodModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -82,6 +106,13 @@ class FoodModel {
       return const [];
     }
 
+    List<String>? parseListNullable(dynamic value) {
+      if (value is List) {
+        return value.map((e) => e.toString()).toList();
+      }
+      return null;
+    }
+
     return FoodModel(
       id: doc.id,
       name: data['name'] as String? ?? '',
@@ -105,6 +136,17 @@ class FoodModel {
       isIndian: data['isIndian'] as bool? ?? false,
       isVegetarian: data['isVegetarian'] as bool? ?? false,
       isVegan: data['isVegan'] as bool? ?? false,
+      dietType: data['dietType'] as String?,
+      cuisine: data['cuisine'] as String?,
+      ingredients: parseListNullable(data['ingredients']),
+      recipe: data['recipe'] as String?,
+      instructions: parseListNullable(data['instructions']),
+      prepTimeMinutes: data['prepTimeMinutes'] as int?,
+      cookTimeMinutes: data['cookTimeMinutes'] as int?,
+      totalTimeMinutes: data['totalTimeMinutes'] as int?,
+      servings: data['servings'] as int?,
+      difficulty: data['difficulty'] as String?,
+      tags: parseListNullable(data['tags']),
     );
   }
 
@@ -134,6 +176,13 @@ class FoodModel {
       return const [];
     }
 
+    List<String>? parseListNullable(dynamic value) {
+      if (value is List) {
+        return value.map((e) => e.toString()).toList();
+      }
+      return null;
+    }
+
     return FoodModel(
       id: id,
       name: data['name'] as String? ?? '',
@@ -157,6 +206,17 @@ class FoodModel {
       isIndian: data['isIndian'] as bool? ?? false,
       isVegetarian: data['isVegetarian'] as bool? ?? false,
       isVegan: data['isVegan'] as bool? ?? false,
+      dietType: data['dietType'] as String?,
+      cuisine: data['cuisine'] as String?,
+      ingredients: parseListNullable(data['ingredients']),
+      recipe: data['recipe'] as String?,
+      instructions: parseListNullable(data['instructions']),
+      prepTimeMinutes: data['prepTimeMinutes'] as int?,
+      cookTimeMinutes: data['cookTimeMinutes'] as int?,
+      totalTimeMinutes: data['totalTimeMinutes'] as int?,
+      servings: data['servings'] as int?,
+      difficulty: data['difficulty'] as String?,
+      tags: parseListNullable(data['tags']),
     );
   }
 
@@ -183,6 +243,17 @@ class FoodModel {
       'isIndian': isIndian,
       'isVegetarian': isVegetarian,
       'isVegan': isVegan,
+      'dietType': dietType,
+      'cuisine': cuisine,
+      'ingredients': ingredients,
+      'recipe': recipe,
+      'instructions': instructions,
+      'prepTimeMinutes': prepTimeMinutes,
+      'cookTimeMinutes': cookTimeMinutes,
+      'totalTimeMinutes': totalTimeMinutes,
+      'servings': servings,
+      'difficulty': difficulty,
+      'tags': tags,
     };
   }
 
@@ -210,6 +281,17 @@ class FoodModel {
       isIndian: entity.isIndian,
       isVegetarian: entity.isVegetarian,
       isVegan: entity.isVegan,
+      dietType: entity.dietType,
+      cuisine: entity.cuisine,
+      ingredients: entity.ingredients,
+      recipe: entity.recipe,
+      instructions: entity.instructions,
+      prepTimeMinutes: entity.prepTimeMinutes,
+      cookTimeMinutes: entity.cookTimeMinutes,
+      totalTimeMinutes: entity.totalTimeMinutes,
+      servings: entity.servings,
+      difficulty: entity.difficulty,
+      tags: entity.tags,
     );
   }
 
@@ -237,6 +319,17 @@ class FoodModel {
       isIndian: isIndian,
       isVegetarian: isVegetarian,
       isVegan: isVegan,
+      dietType: dietType,
+      cuisine: cuisine,
+      ingredients: ingredients,
+      recipe: recipe,
+      instructions: instructions,
+      prepTimeMinutes: prepTimeMinutes,
+      cookTimeMinutes: cookTimeMinutes,
+      totalTimeMinutes: totalTimeMinutes,
+      servings: servings,
+      difficulty: difficulty,
+      tags: tags,
     );
   }
 }

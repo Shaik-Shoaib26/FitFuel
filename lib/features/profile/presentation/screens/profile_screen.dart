@@ -1,3 +1,4 @@
+import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,21 +6,12 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/widgets/fitfuel_card.dart';
+import '../../../../core/widgets/fitfuel_section_header.dart';
 import '../../../authentication/presentation/providers/auth_providers.dart';
 import '../providers/profile_providers.dart';
-import '../widgets/edit_goals_sheet.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
-
-  void _showEditProfileForm(BuildContext context, String uid) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => EditGoalsSheet(uid: uid),
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +21,7 @@ class ProfileScreen extends ConsumerWidget {
     final goalsAsync = ref.watch(nutritionGoalsStreamProvider);
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: FitFuelAppBar(
         title: const Text('My Health Profile'),
         centerTitle: true,
         elevation: 0,
@@ -42,16 +34,24 @@ class ProfileScreen extends ConsumerWidget {
       body: SafeArea(
         child: profileAsync.when(
           data: (profile) {
-            final displayName = (profile?.displayName != null && profile!.displayName!.isNotEmpty)
+            final displayName = (profile?.displayName != null &&
+                    profile!.displayName!.isNotEmpty)
                 ? profile.displayName!
                 : (authUser?.displayName ?? 'FitFuel User');
-            final email = profile?.email ?? authUser?.email ?? 'user@fitfuel.app';
-            final initial = displayName.isNotEmpty ? displayName[0].toUpperCase() : 'F';
+            final email =
+                profile?.email ?? authUser?.email ?? 'user@fitfuel.app';
+            final initial =
+                displayName.isNotEmpty ? displayName[0].toUpperCase() : 'F';
 
-            final age = profile?.age != null ? '${profile!.age} yrs' : 'Not set';
+            final age =
+                profile?.age != null ? '${profile!.age} yrs' : 'Not set';
             final gender = (profile?.gender ?? 'Not set').toUpperCase();
-            final height = profile?.height != null ? '${profile!.height!.toStringAsFixed(0)} cm' : 'Not set';
-            final weight = profile?.weight != null ? '${profile!.weight!.toStringAsFixed(1)} kg' : 'Not set';
+            final height = profile?.height != null
+                ? '${profile!.height!.toStringAsFixed(0)} cm'
+                : 'Not set';
+            final weight = profile?.weight != null
+                ? '${profile!.weight!.toStringAsFixed(1)} kg'
+                : 'Not set';
             final activityLevel = profile?.activityLevel ?? 'Moderate Activity';
             final fitnessGoal = profile?.fitnessGoal ?? 'Maintain Weight';
             final dietaryPref = profile?.dietaryPreference ?? 'Any / None';
@@ -76,7 +76,8 @@ class ProfileScreen extends ConsumerWidget {
                           backgroundColor: AppColors.primary100,
                           child: Text(
                             initial,
-                            style: AppTypography.displayMedium(isDark: false).copyWith(
+                            style: AppTypography.displayMedium(isDark: false)
+                                .copyWith(
                               color: AppColors.primary500,
                               fontWeight: FontWeight.bold,
                             ),
@@ -93,11 +94,13 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: AppConstants.spaceSm),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
                             color: AppColors.primary500.withAlpha(20),
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppColors.primary500.withAlpha(50)),
+                            border: Border.all(
+                                color: AppColors.primary500.withAlpha(50)),
                           ),
                           child: Text(
                             'Goal: $fitnessGoal',
@@ -125,21 +128,30 @@ class ProfileScreen extends ConsumerWidget {
                         const SizedBox(height: AppConstants.spaceMd),
                         Row(
                           children: [
-                            Expanded(child: _buildMetricTile('Age', age, isDark)),
-                            Expanded(child: _buildMetricTile('Gender', gender, isDark)),
+                            Expanded(
+                                child: _buildMetricTile('Age', age, isDark)),
+                            Expanded(
+                                child:
+                                    _buildMetricTile('Gender', gender, isDark)),
                           ],
                         ),
                         const Divider(height: AppConstants.spaceMd),
                         Row(
                           children: [
-                            Expanded(child: _buildMetricTile('Height', height, isDark)),
-                            Expanded(child: _buildMetricTile('Weight', weight, isDark)),
+                            Expanded(
+                                child:
+                                    _buildMetricTile('Height', height, isDark)),
+                            Expanded(
+                                child:
+                                    _buildMetricTile('Weight', weight, isDark)),
                           ],
                         ),
                         const Divider(height: AppConstants.spaceMd),
-                        _buildMetricTile('Activity Level', activityLevel, isDark),
+                        _buildMetricTile(
+                            'Activity Level', activityLevel, isDark),
                         const SizedBox(height: AppConstants.spaceSm),
-                        _buildMetricTile('Dietary Preference', dietaryPref, isDark),
+                        _buildMetricTile(
+                            'Dietary Preference', dietaryPref, isDark),
                       ],
                     ),
                   ),
@@ -158,37 +170,70 @@ class ProfileScreen extends ConsumerWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildMacroTargetCol('Calories', '$calorieTarget kcal', AppColors.calories),
-                            _buildMacroTargetCol('Protein', '${proteinTarget.toStringAsFixed(0)}g', AppColors.protein),
-                            _buildMacroTargetCol('Carbs', '${carbsTarget.toStringAsFixed(0)}g', AppColors.carbs),
-                            _buildMacroTargetCol('Fats', '${fatTarget.toStringAsFixed(0)}g', AppColors.fat),
+                            _buildMacroTargetCol('Calories',
+                                '$calorieTarget kcal', AppColors.calories),
+                            _buildMacroTargetCol(
+                                'Protein',
+                                '${proteinTarget.toStringAsFixed(0)}g',
+                                AppColors.protein),
+                            _buildMacroTargetCol(
+                                'Carbs',
+                                '${carbsTarget.toStringAsFixed(0)}g',
+                                AppColors.carbs),
+                            _buildMacroTargetCol(
+                                'Fats',
+                                '${fatTarget.toStringAsFixed(0)}g',
+                                AppColors.fat),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: AppConstants.spaceLg),
+                   const SizedBox(height: AppConstants.spaceLg),
 
-                  // Edit Actions Buttons
-                  if (authUser != null) ...[
-                    SizedBox(
-                      height: 48,
-                      child: ElevatedButton.icon(
-                        onPressed: () => _showEditProfileForm(context, authUser.uid),
-                        icon: const Icon(Icons.edit_rounded, size: 18),
-                        label: const Text('Edit Health Profile & Goals', style: TextStyle(fontWeight: FontWeight.bold)),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isDark ? AppColors.primary400 : AppColors.primary500,
-                          foregroundColor: isDark ? Colors.black : Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppConstants.radiusFull),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
+                   // Settings Navigation Section
+                   const FitFuelSectionHeader(
+                     title: 'Settings',
+                     subtitle: 'Configure your preferences and accounts.',
+                   ),
+                   const SizedBox(height: AppConstants.spaceSm),
+                   _buildSettingsTile(
+                     context: context,
+                     icon: Icons.tune,
+                     title: 'Health Profile & Goals',
+                     subtitle: 'Body metrics, activity and targets',
+                     onTap: () => context.push('/settings/goals'),
+                     isDark: isDark,
+                   ),
+                   const SizedBox(height: AppConstants.spaceSm),
+                   _buildSettingsTile(
+                     context: context,
+                     icon: Icons.palette_outlined,
+                     title: 'Preferences',
+                     subtitle: 'Appearance and device settings',
+                     onTap: () => context.push('/settings/preferences'),
+                     isDark: isDark,
+                   ),
+                   const SizedBox(height: AppConstants.spaceSm),
+                   _buildSettingsTile(
+                     context: context,
+                     icon: Icons.notifications_outlined,
+                     title: 'Reminders',
+                     subtitle: 'Daily routine and notification times',
+                     onTap: () => context.push('/settings/reminders'),
+                     isDark: isDark,
+                   ),
+                   const SizedBox(height: AppConstants.spaceSm),
+                   _buildSettingsTile(
+                     context: context,
+                     icon: Icons.manage_accounts_outlined,
+                     title: 'Account',
+                     subtitle: 'Sign out and account management',
+                     onTap: () => context.push('/settings/account'),
+                     isDark: isDark,
+                   ),
+                 ],
+               ),
             );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -206,7 +251,9 @@ class ProfileScreen extends ConsumerWidget {
           label,
           style: TextStyle(
             fontSize: 11,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            color: isDark
+                ? AppColors.darkTextSecondary
+                : AppColors.lightTextSecondary,
           ),
         ),
         const SizedBox(height: 2),
@@ -226,7 +273,8 @@ class ProfileScreen extends ConsumerWidget {
       children: [
         Text(
           value,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color),
+          style: TextStyle(
+              fontSize: 13, fontWeight: FontWeight.bold, color: color),
         ),
         const SizedBox(height: 2),
         Text(
@@ -234,6 +282,74 @@ class ProfileScreen extends ConsumerWidget {
           style: const TextStyle(fontSize: 10, color: Colors.grey),
         ),
       ],
+    );
+  }
+
+  Widget _buildSettingsTile({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+      child: Container(
+        padding: const EdgeInsets.all(AppConstants.spaceSm),
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
+          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          border: Border.all(
+            color: isDark
+                ? AppColors.darkBorderSubtle
+                : AppColors.lightBorderSubtle,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 20,
+              color: isDark
+                  ? AppColors.darkTextPrimary
+                  : AppColors.lightTextPrimary,
+            ),
+            const SizedBox(width: AppConstants.spaceSm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: isDark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.lightTextSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 16,
+              color: isDark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.lightTextSecondary,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

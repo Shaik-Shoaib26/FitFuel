@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fitfuel/core/constants/app_colors.dart';
-import 'package:fitfuel/core/constants/app_constants.dart';
-import 'package:fitfuel/core/constants/app_typography.dart';
-import 'package:fitfuel/features/meal_planner/domain/entities/planned_meal_entity.dart';
-import 'package:fitfuel/features/meal_planner/presentation/controllers/meal_planner_controller.dart';
-import 'package:fitfuel/features/meal_planner/presentation/widgets/planned_food_card.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
+import '../../domain/entities/planned_meal_entity.dart';
+import '../controllers/meal_planner_controller.dart';
+import 'planned_food_card.dart';
 
+/// Premium Card for a specific planned meal slot (e.g. Breakfast, Lunch, Dinner)
 class MealPlanCard extends ConsumerWidget {
   final PlannedMealEntity meal;
   final Function(PlannedFoodEntity) onSwap;
@@ -21,78 +22,129 @@ class MealPlanCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppConstants.spaceLg),
+    Color getMealTypeColor(String type) {
+      return switch (type.toLowerCase()) {
+        'breakfast' => AppColors.primary500,
+        'lunch' => AppColors.calories,
+        'dinner' => AppColors.fat,
+        'morning snack' => AppColors.accentCarbs,
+        'evening snack' => AppColors.secondary500,
+        _ => AppColors.secondary500,
+      };
+    }
+
+    final mealColor = getMealTypeColor(meal.mealType);
+
+    return FitFuelCard(
+      margin: const EdgeInsets.only(bottom: AppConstants.spaceMd),
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                meal.mealType.toUpperCase(),
-                style: AppTypography.heading3(isDark: isDark).copyWith(
-                  letterSpacing: 1.2,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.spaceSm,
+                  vertical: 3,
+                ),
+                decoration: BoxDecoration(
+                  color: mealColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+                ),
+                child: Text(
+                  meal.mealType.toUpperCase(),
+                  style: TextStyle(
+                    color: mealColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    letterSpacing: 0.8,
+                  ),
                 ),
               ),
               TextButton.icon(
                 onPressed: () {
-                  ref.read(mealPlannerControllerProvider.notifier).regenerateMeal(meal);
+                  ref
+                      .read(mealPlannerControllerProvider.notifier)
+                      .regenerateMeal(meal);
                 },
-                icon: const Icon(Icons.refresh, size: 18),
+                icon: const Icon(Icons.refresh_rounded, size: 16),
                 label: const Text('Regenerate'),
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.primary500,
+                  visualDensity: VisualDensity.compact,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
               ),
             ],
           ),
           const SizedBox(height: AppConstants.spaceSm),
-          
-          // Meal Summary
-          Row(
+
+          // Meal Macro Summary Line
+          Wrap(
+            spacing: AppConstants.spaceSm,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                '${meal.totalCalories.toStringAsFixed(0)} kcal',
-                style: AppTypography.bodyLarge(isDark: isDark).copyWith(fontWeight: FontWeight.bold),
+                '${meal.totalCalories.round()} kcal',
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(width: AppConstants.spaceMd),
-              Text(
-                'P: ${meal.totalProtein.toStringAsFixed(1)}g',
-                style: AppTypography.bodyMedium(isDark: isDark).copyWith(color: AppColors.protein),
+              Container(
+                width: 4,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  shape: BoxShape.circle,
+                ),
               ),
-              const SizedBox(width: AppConstants.spaceSm),
               Text(
-                'C: ${meal.totalCarbs.toStringAsFixed(1)}g',
-                style: AppTypography.bodyMedium(isDark: isDark).copyWith(color: AppColors.carbs),
+                'P: ${meal.totalProtein.round()}g',
+                style: const TextStyle(
+                  color: AppColors.protein,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
-              const SizedBox(width: AppConstants.spaceSm),
               Text(
-                'F: ${meal.totalFat.toStringAsFixed(1)}g',
-                style: AppTypography.bodyMedium(isDark: isDark).copyWith(color: AppColors.fat),
+                'C: ${meal.totalCarbs.round()}g',
+                style: const TextStyle(
+                  color: AppColors.carbs,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                'F: ${meal.totalFat.round()}g',
+                style: const TextStyle(
+                  color: AppColors.fat,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
           const SizedBox(height: AppConstants.spaceMd),
-          
+
           if (meal.foods.isEmpty)
             Container(
               padding: const EdgeInsets.all(AppConstants.spaceLg),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-                borderRadius: BorderRadius.circular(AppConstants.radiusMd),
-                border: Border.all(
-                  color: isDark ? AppColors.darkBorderSubtle : AppColors.lightBorderSubtle,
-                  width: 1,
-                ),
+                borderRadius: BorderRadius.circular(AppConstants.radiusSm),
               ),
               child: Text(
                 'No foods planned for this meal.',
-                style: AppTypography.bodyMedium(isDark: isDark),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                ),
               ),
             )
           else

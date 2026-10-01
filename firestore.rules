@@ -10,9 +10,63 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
-    // Matches users/{userId} and all of its subcollections (nutrition, goals, etc.) at any depth
-    match /users/{userId}/{document=**} {
+    // Matches users/{userId} and all of its subcollections (nutrition, goals, etc.) with specific validation rules
+    match /users/{userId} {
       allow read, write: if isOwner(userId);
+
+      match /goals/{goalId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && (request.resource.data.dailyCalorieTarget == null || request.resource.data.dailyCalorieTarget > 0)
+          && (request.resource.data.proteinTargetGrams == null || request.resource.data.proteinTargetGrams > 0)
+          && (request.resource.data.carbsTargetGrams == null || request.resource.data.carbsTargetGrams > 0)
+          && (request.resource.data.fatTargetGrams == null || request.resource.data.fatTargetGrams > 0);
+        allow delete: if isOwner(userId);
+      }
+
+      match /nutrition/{docId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && (request.resource.data.calories == null || request.resource.data.calories >= 0)
+          && (request.resource.data.protein == null || request.resource.data.protein >= 0)
+          && (request.resource.data.carbohydrates == null || request.resource.data.carbohydrates >= 0)
+          && (request.resource.data.fats == null || request.resource.data.fats >= 0);
+        allow delete: if isOwner(userId);
+      }
+
+      match /health/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /weightHistory/{docId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && (request.resource.data.weight == null || request.resource.data.weight > 0);
+        allow delete: if isOwner(userId);
+      }
+
+      match /pantry/{docId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && (request.resource.data.quantity == null || request.resource.data.quantity >= 0);
+        allow delete: if isOwner(userId);
+      }
+
+      match /groceryLists/{docId} {
+        allow read, write: if isOwner(userId);
+
+        match /items/{itemId} {
+          allow read: if isOwner(userId);
+          allow create, update: if isOwner(userId)
+            && (request.resource.data.quantity == null || request.resource.data.quantity >= 0);
+          allow delete: if isOwner(userId);
+        }
+      }
+
+      // Generic fallback for any other subcollections under users/{userId}
+      match /{document=**} {
+        allow read, write: if isOwner(userId);
+      }
     }
 
     // Deny all other collections by default

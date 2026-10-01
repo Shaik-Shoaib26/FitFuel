@@ -1,3 +1,4 @@
+import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,7 +37,7 @@ class MealPlanScreen extends ConsumerWidget {
     final authUserUid = ref.watch(authStateStreamProvider).value?.uid;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: FitFuelAppBar(
         title: const Text('Suggested Menu'),
         elevation: 0,
         backgroundColor: Colors.transparent,

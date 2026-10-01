@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/sync/sync_status.dart';
 import '../../domain/entities/pantry_item_entity.dart';
 
 class PantryItemModel {
@@ -10,6 +11,7 @@ class PantryItemModel {
   final DateTime expiryDate;
   final String? imageUrl;
   final DateTime addedAt;
+  final SyncStatus syncStatus;
 
   const PantryItemModel({
     required this.id,
@@ -20,6 +22,7 @@ class PantryItemModel {
     required this.expiryDate,
     this.imageUrl,
     required this.addedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   factory PantryItemModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -47,6 +50,7 @@ class PantryItemModel {
       expiryDate: parseDateTime(data['expiryDate']) ?? DateTime.now(),
       imageUrl: data['imageUrl'] as String?,
       addedAt: parseDateTime(data['addedAt']) ?? DateTime.now(),
+      syncStatus: doc.metadata.hasPendingWrites ? SyncStatus.pending : SyncStatus.synced,
     );
   }
 
@@ -72,6 +76,7 @@ class PantryItemModel {
       expiryDate: entity.expiryDate,
       imageUrl: entity.imageUrl,
       addedAt: entity.addedAt,
+      syncStatus: entity.syncStatus,
     );
   }
 
@@ -85,6 +90,7 @@ class PantryItemModel {
       expiryDate: expiryDate,
       imageUrl: imageUrl,
       addedAt: addedAt,
+      syncStatus: syncStatus,
     );
   }
 }

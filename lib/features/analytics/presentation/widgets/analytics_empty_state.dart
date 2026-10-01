@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 
 class AnalyticsEmptyState extends StatelessWidget {
   const AnalyticsEmptyState({super.key});
@@ -8,76 +13,133 @@ class AnalyticsEmptyState extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.analytics_outlined,
-            size: 80,
-            color: isDark ? Colors.grey[600] : Colors.grey[400],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'No health data yet',
-            style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Log some nutrition, water, or exercise to generate health insights.',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: isDark ? Colors.grey[400] : Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Card(
-            color: isDark ? Colors.grey[900] : Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'What you can do:',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 800),
+        child: Padding(
+          padding: const EdgeInsets.all(AppConstants.spaceMd),
+          child: FitFuelCard(
+            padding: const EdgeInsets.all(AppConstants.spaceLg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMd),
                   ),
-                  const SizedBox(height: 12),
-                  _buildTodoItem(context, Icons.restaurant, 'Log a meal in the Nutrition section'),
-                  _buildTodoItem(context, Icons.local_drink, 'Track water intake'),
-                  _buildTodoItem(context, Icons.fitness_center, 'Record your daily workouts'),
-                  _buildTodoItem(context, Icons.check_circle_outline, 'Complete checklist habits'),
-                  _buildTodoItem(context, Icons.monitor_weight_outlined, 'Log your weight in the Progress Center'),
-                ],
-              ),
+                  child: Icon(
+                    Icons.analytics_outlined,
+                    size: 32,
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
+                ),
+                const SizedBox(height: AppConstants.spaceMd),
+                Text(
+                  'No health data yet',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppConstants.spaceSm),
+                Text(
+                  'Log nutrition, water, exercise, or habits to generate health insights and trends.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppConstants.spaceLg),
+                Wrap(
+                  spacing: AppConstants.spaceSm,
+                  runSpacing: AppConstants.spaceSm,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _buildActionChip(
+                      context,
+                      icon: Icons.restaurant,
+                      label: 'Log Meal',
+                      onTap: () => context.go('/nutrition'),
+                      isDark: isDark,
+                    ),
+                    _buildActionChip(
+                      context,
+                      icon: Icons.local_drink,
+                      label: 'Track Water',
+                      onTap: () => context.go('/health'),
+                      isDark: isDark,
+                    ),
+                    _buildActionChip(
+                      context,
+                      icon: Icons.fitness_center,
+                      label: 'Log Exercise',
+                      onTap: () => context.go('/health'),
+                      isDark: isDark,
+                    ),
+                    _buildActionChip(
+                      context,
+                      icon: Icons.monitor_weight_outlined,
+                      label: 'Log Weight',
+                      onTap: () => context.go('/health'),
+                      isDark: isDark,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 
-  Widget _buildTodoItem(BuildContext context, IconData icon, String text) {
+  Widget _buildActionChip(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        children: [
-          Icon(icon, size: 18, color: theme.colorScheme.primary),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.textTheme.bodyMedium,
-            ),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
+          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          border: Border.all(
+            color: isDark
+                ? AppColors.darkBorderSubtle
+                : AppColors.lightBorderSubtle,
           ),
-        ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 18,
+              color: theme.colorScheme.primary,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -16,15 +16,18 @@ class DashboardRoutineCard extends ConsumerWidget {
     final routine = ref.watch(dailyRoutineProvider);
 
     return FitFuelCard(
+      border: const BorderSide(color: AppColors.primary, width: 1.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Today's Routine",
-                style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+              Expanded(
+                child: Text(
+                  "Today's Routine",
+                  style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+                ),
               ),
               Text(
                 '${routine.completionPercentage.toStringAsFixed(0)}%',

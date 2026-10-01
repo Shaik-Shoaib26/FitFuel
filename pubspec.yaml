@@ -54,7 +54,19 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans.ttf
+        - asset: assets/fonts/PlusJakartaSans-Italic.ttf
+          style: italic
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit.ttf
   assets:
+    - assets/fonts/PlusJakartaSans-OFL.txt
+    - assets/fonts/Outfit-OFL.txt
     - .env
     - .env.example
     - assets/images/foods/
+    - assets/data/

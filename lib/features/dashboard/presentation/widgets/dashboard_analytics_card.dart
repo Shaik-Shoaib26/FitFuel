@@ -17,29 +17,31 @@ class DashboardAnalyticsCard extends ConsumerWidget {
     final analyticsState = ref.watch(analyticsControllerProvider);
 
     return analyticsState.analytics.when(
-      loading: () => FitFuelCard(
+      loading: () => const FitFuelCard(
+        border: BorderSide(color: AppColors.carbs, width: 1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Health Analytics',
-              style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: AppConstants.spaceSm),
-            const Center(child: CircularProgressIndicator()),
+            SizedBox(height: AppConstants.spaceSm),
+            Center(child: CircularProgressIndicator()),
           ],
         ),
       ),
-      error: (err, st) => FitFuelCard(
+      error: (err, st) => const FitFuelCard(
+        border: BorderSide(color: AppColors.carbs, width: 1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Health Analytics',
-              style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: AppConstants.spaceSm),
-            const Text('Could not load health analytics.'),
+            SizedBox(height: AppConstants.spaceSm),
+            Text('Could not load health analytics.'),
           ],
         ),
       ),
@@ -48,6 +50,7 @@ class DashboardAnalyticsCard extends ConsumerWidget {
 
         if (summary.activeLoggingDays == 0) {
           return FitFuelCard(
+            border: const BorderSide(color: AppColors.carbs, width: 1.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -84,6 +87,7 @@ class DashboardAnalyticsCard extends ConsumerWidget {
         final strongest = AnalyticsInsightEngine.detectStrongestCategory(summary);
 
         return FitFuelCard(
+          border: const BorderSide(color: AppColors.carbs, width: 1.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

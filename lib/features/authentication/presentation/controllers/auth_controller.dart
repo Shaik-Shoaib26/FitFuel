@@ -97,6 +97,21 @@ class AuthController extends StateNotifier<AuthUiState> {
     }
   }
 
+  Future<bool> deleteAccount({required String password}) async {
+    state = const AuthUiStateLoading();
+    try {
+      await _authRepository.deleteAccount(password: password);
+      state = const AuthUiStateInitial();
+      return true;
+    } on AuthFailure catch (e) {
+      state = AuthUiStateError(e.message);
+      return false;
+    } catch (e) {
+      state = const AuthUiStateError('An unexpected error occurred during account deletion.');
+      return false;
+    }
+  }
+
   void resetState() {
     state = const AuthUiStateInitial();
   }

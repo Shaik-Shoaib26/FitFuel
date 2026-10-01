@@ -8,6 +8,7 @@ abstract class IAuthRemoteDataSource {
   Future<UserCredential> signIn({required String email, required String password});
   Future<void> sendPasswordResetEmail({required String email});
   Future<void> signOut();
+  Future<void> deleteAccount({required String password});
 }
 
 class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
@@ -42,4 +43,8 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
 
   @override
   Future<void> signOut() => _authService.signOut();
+
+  @override
+  Future<void> deleteAccount({required String password}) =>
+      _authService.deleteAccount(password: password);
 }

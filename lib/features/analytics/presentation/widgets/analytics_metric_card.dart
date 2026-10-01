@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 
+/// Premium Metric Card for Analytics Screen
 class AnalyticsMetricCard extends StatelessWidget {
   final String title;
   final String value;
@@ -25,58 +29,67 @@ class AnalyticsMetricCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: color.withValues(alpha: 0.15),
-                  radius: 20,
-                  child: Icon(icon, color: color, size: 20),
+    return FitFuelCard(
+      margin: const EdgeInsets.only(bottom: AppConstants.spaceMd),
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(AppConstants.radiusSm),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      if (subtitle != null)
-                        Text(
-                          subtitle!,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: isDark ? Colors.grey[400] : Colors.grey[600],
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                _buildTrendBadge(context),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              value,
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
+                child: Icon(icon, color: color, size: 18),
               ),
+              const SizedBox(width: AppConstants.spaceSm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (subtitle != null)
+                      Text(
+                        subtitle!,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDark
+                              ? AppColors.darkTextSecondary
+                              : AppColors.lightTextSecondary,
+                          fontSize: 10,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  ],
+                ),
+              ),
+              _buildTrendBadge(context),
+            ],
+          ),
+          const SizedBox(height: AppConstants.spaceMd),
+          Text(
+            value,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            const Divider(),
-            const SizedBox(height: 8),
-            ...details,
-          ],
-        ),
+          ),
+          const SizedBox(height: AppConstants.spaceSm),
+          Divider(
+            color: isDark ? AppColors.darkBorderSubtle : AppColors.lightBorderSubtle,
+            height: 1,
+          ),
+          const SizedBox(height: AppConstants.spaceSm),
+          ...details,
+        ],
       ),
     );
   }
@@ -88,15 +101,15 @@ class AnalyticsMetricCard extends StatelessWidget {
 
     switch (trend) {
       case 'Improving':
-        badgeColor = Colors.green;
+        badgeColor = AppColors.stateSuccess;
         trendIcon = Icons.trending_up;
         break;
       case 'Declining':
-        badgeColor = Colors.red;
+        badgeColor = AppColors.stateError;
         trendIcon = Icons.trending_down;
         break;
       case 'Stable':
-        badgeColor = Colors.blue;
+        badgeColor = AppColors.primary500;
         trendIcon = Icons.trending_flat;
         break;
       case 'Insufficient':
@@ -108,21 +121,20 @@ class AnalyticsMetricCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-        color: badgeColor.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: badgeColor.withValues(alpha: 0.3)),
+        color: badgeColor.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(AppConstants.radiusSm),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(trendIcon, size: 14, color: badgeColor),
+          Icon(trendIcon, size: 12, color: badgeColor),
           const SizedBox(width: 4),
           Text(
             text,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.bold,
               color: badgeColor,
             ),

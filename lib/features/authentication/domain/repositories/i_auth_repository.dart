@@ -19,4 +19,6 @@ abstract class IAuthRepository {
   Future<void> sendPasswordResetEmail({required String email});
 
   Future<void> signOut();
+
+  Future<void> deleteAccount({required String password});
 }

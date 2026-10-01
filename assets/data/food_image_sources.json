@@ -1,0 +1,954 @@
+{
+  "predefined_idli": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_dosa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_masala_dosa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rava_dosa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_uttapam": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_upma": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_poha": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pongal": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_pesarattu": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_appam": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_aloo_paratha": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_paneer_paratha": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_gobhi_paratha": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chapati": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_roti": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_poori": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_medu_vada": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_sabudana_khichdi": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_dhokla": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rava_upma": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_steamed_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_brown_rice_ind": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_jeera_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_lemon_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tomato_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_curd_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_veg_biryani": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_biryani": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_egg_biryani": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mutton_biryani": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_veg_pulao": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_pulao": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_khichdi_ind": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_kadhi_chawal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rajma_chawal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_dal_tadka": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_dal_fry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_moong_dal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_masoor_dal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_toor_dal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chana_dal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rajma_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chole_masala": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_black_chana_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_green_gram_whole": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sprouted_moong_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_palak_paneer": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_aloo_gobi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bhindi_masala": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_baingan_bharta": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mixed_veg_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_veg_kurma": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sambar": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_rasam": {
+    "source": "FitFuel Branded Fallback",
+    "license": "FitFuel Open Design System"
+  },
+  "predefined_cabbage_poriyal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_beans_thoran": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_carrot_methi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_lauki_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_aloo_methi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_dum_aloo": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bhindi_fry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_ind_grilled_chicken": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tandoori_chicken": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_tikka": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_kebab": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_boiled_egg_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_egg_omelette": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_egg_bhurji": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_egg_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_fish_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_grilled_fish_tikka": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_salmon_tikka": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_prawn_masala": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mutton_curry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_butter_chicken": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_curd": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_greek_yogurt_mint": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_ind_paneer": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_low_fat_paneer": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_buttermilk": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sweet_lassi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mango_lassi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_paneer_bhurji": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_roasted_chana": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_peanut_chaat": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sprouts_chaat": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bhel_puri": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_samosa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_veg_pakora": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_khandvi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_murukku": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rice_kheer": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_gulab_jamun": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rasgulla": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_jalebi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_gajar_halwa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_besan_ladoo": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_coconut_ladoo": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_apple": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_banana": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_orange": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mango": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_papaya": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_watermelon": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_muskmelon": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pineapple": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_grapes": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_guava": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pomegranate": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_kiwi": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_strawberry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_blueberry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_raspberry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pear": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_peach": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_plum": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chikoo": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_fresh_coconut": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_jackfruit": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_dragon_fruit": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_avocado": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_lemon": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sweet_lime": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cherries": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_fig": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_blackberry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_potato": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sweet_potato": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tomato": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_onion": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_carrot": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_beetroot": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_spinach": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_broccoli": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cauliflower": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cabbage": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cucumber": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_capsicum": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_green_beans": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_green_peas": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sweet_corn": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pumpkin": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bottle_gourd": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bitter_gourd": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_ridge_gourd": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_eggplant": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_okra": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mushroom": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_lettuce": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_zucchini": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_kale": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_asparagus": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_garlic": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_ginger": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_oats": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_oatmeal_cooked": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_quinoa": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_brown_rice_grain": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_white_rice_grain": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_whole_wheat_flour": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_whole_wheat_bread": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_multigrain_bread": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_ragi_millet": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_bajra_millet": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_jowar_millet": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_barley": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_corn_meal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_couscous": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_basmati_rice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_oats_bran": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_rice_cakes": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_almonds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_walnuts": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cashews": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pistachios": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_peanuts": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_brazil_nuts": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_hazelnuts": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chia_seeds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_flax_seeds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pumpkin_seeds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sunflower_seeds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_sesame_seeds": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_peanut_butter": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_almond_butter": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tahini": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pecans": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chia_pudding": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_grilled_chicken_breast": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_turkey_breast": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_canned_tuna": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_grilled_salmon": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_steamed_shrimp": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_beef_steak": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_firm_tofu": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tempeh": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_greek_yogurt_plain": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_cottage_cheese": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_scrambled_eggs": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_hard_boiled_eggs": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_protein_oatmeal": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_overnight_oats": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tuna_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_caesar_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mixed_veg_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_quinoa_salad": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_classic_hummus": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_whole_grain_pasta": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_standard_pasta": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_baked_sweet_potato": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_baked_potato": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_honey_granola": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_pb_toast": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_avocado_toast": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_berry_smoothie": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_protein_smoothie": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_whey_protein_shake": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_veg_soup": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_soup": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_egg_white_omelette": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_chicken_wrap": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_protein_bar": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_mineral_water": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_coconut_water": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_low_fat_milk": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_spiced_buttermilk": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_green_tea": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_black_tea": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_filter_coffee": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_black_coffee": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_fresh_orange_juice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_lemon_water": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_tomato_juice": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_matcha_tea": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_paneer_tikka": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  },
+  "predefined_fish_fry": {
+    "source": "Unsplash",
+    "license": "Free to use under the Unsplash License"
+  }
+}

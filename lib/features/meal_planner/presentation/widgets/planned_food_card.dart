@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fitfuel/core/constants/app_colors.dart';
-import 'package:fitfuel/core/constants/app_constants.dart';
-import 'package:fitfuel/core/constants/app_typography.dart';
-import 'package:fitfuel/features/meal_planner/domain/entities/planned_meal_entity.dart';
-import 'package:fitfuel/core/widgets/food_image_resolver.dart';
-import 'package:fitfuel/features/nutrition/domain/entities/nutrition_record_entity.dart';
-import 'package:fitfuel/features/nutrition/presentation/widgets/food_form_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
+import '../../../../core/widgets/food_image_resolver.dart';
+import '../../domain/entities/planned_meal_entity.dart';
+import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
+import '../../../nutrition/presentation/widgets/food_form_sheet.dart';
 
+/// Premium Food Row/Card inside a Planned Meal
 class PlannedFoodCard extends StatelessWidget {
   final PlannedFoodEntity plannedFood;
   final String mealType;
@@ -34,7 +35,8 @@ class PlannedFoodCard extends StatelessWidget {
       protein: plannedFood.protein,
       carbohydrates: plannedFood.carbohydrates,
       fats: plannedFood.fat,
-      sugar: (plannedFood.food.sugar / plannedFood.food.servingSize) * plannedFood.servingQuantity,
+      sugar: (plannedFood.food.sugar / (plannedFood.food.servingSize > 0 ? plannedFood.food.servingSize : 1)) *
+          plannedFood.servingQuantity,
       servingSize: plannedFood.servingQuantity,
       consumedAt: DateTime.now(),
       createdAt: DateTime.now(),
@@ -54,37 +56,32 @@ class PlannedFoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppConstants.spaceMd),
-      padding: const EdgeInsets.all(AppConstants.spaceMd),
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-        borderRadius: BorderRadius.circular(AppConstants.radiusMd),
-        border: Border.all(
-          color: isDark ? AppColors.darkBorderSubtle : AppColors.lightBorderSubtle,
-          width: 1,
-        ),
-      ),
+    return FitFuelCard(
+      margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
+      padding: const EdgeInsets.all(AppConstants.spaceSm),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Food Image
+          // Food Thumbnail
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusSm),
             child: SizedBox(
-              width: 64,
-              height: 64,
+              width: 76,
+              height: 76,
               child: FoodImageCard(
                 food: plannedFood.food,
-                width: 64,
-                height: 64,
+                width: 76,
+                height: 76,
+                borderRadius: AppConstants.radiusSm,
+                semanticDescription: 'Photo of ${plannedFood.food.name}',
               ),
             ),
           ),
           const SizedBox(width: AppConstants.spaceMd),
-          
+
           // Food Details
           Expanded(
             child: Column(
@@ -92,52 +89,65 @@ class PlannedFoodCard extends StatelessWidget {
               children: [
                 Text(
                   plannedFood.food.name,
-                  style: AppTypography.bodyLarge(isDark: isDark).copyWith(
+                  style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
-                  '${plannedFood.servingQuantity.toStringAsFixed(0)} ${plannedFood.unit} • ${plannedFood.calories.toStringAsFixed(0)} kcal',
-                  style: AppTypography.caption(isDark: isDark),
+                  '${plannedFood.servingQuantity.round()} ${plannedFood.unit} • ${plannedFood.calories.round()} kcal',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                Row(
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 4,
+                  runSpacing: 4,
                   children: [
-                    _buildMacroBadge('P: ${plannedFood.protein.toStringAsFixed(1)}g', AppColors.protein),
-                    const SizedBox(width: 8),
-                    _buildMacroBadge('C: ${plannedFood.carbohydrates.toStringAsFixed(1)}g', AppColors.carbs),
-                    const SizedBox(width: 8),
-                    _buildMacroBadge('F: ${plannedFood.fat.toStringAsFixed(1)}g', AppColors.fat),
+                    _buildMacroBadge('P: ${plannedFood.protein.round()}g', AppColors.protein),
+                    _buildMacroBadge('C: ${plannedFood.carbohydrates.round()}g', AppColors.carbs),
+                    _buildMacroBadge('F: ${plannedFood.fat.round()}g', AppColors.fat),
                   ],
                 ),
               ],
             ),
           ),
-          
+
           // Action Buttons
-          Column(
+          Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: const Icon(Icons.add_circle_outline, color: AppColors.primary500),
-                tooltip: 'Add to Food Log',
+                icon: const Icon(Icons.add_circle_outline_rounded,
+                    color: AppColors.primary500, size: 22),
+                tooltip: 'Log Food',
+                visualDensity: VisualDensity.compact,
                 onPressed: () => _addToFoodLog(context),
               ),
               IconButton(
-                icon: const Icon(Icons.swap_horiz, color: AppColors.primary500),
-                tooltip: 'Swap Food',
+                icon: const Icon(Icons.swap_horiz_rounded,
+                    color: AppColors.primary500, size: 22),
+                tooltip: 'Swap Alternative',
+                visualDensity: VisualDensity.compact,
                 onPressed: onSwap,
               ),
               if (onScale != null)
                 PopupMenuButton<double>(
-                  icon: const Icon(Icons.edit, color: AppColors.primary500),
+                  icon: const Icon(Icons.tune_rounded,
+                      color: AppColors.primary500, size: 20),
                   tooltip: 'Adjust Portion',
+                  padding: EdgeInsets.zero,
                   onSelected: onScale,
                   itemBuilder: (context) => [
-                    const PopupMenuItem(value: 0.5, child: Text('0.5 serving')),
-                    const PopupMenuItem(value: 1.0, child: Text('1.0 serving')),
-                    const PopupMenuItem(value: 1.5, child: Text('1.5 servings')),
-                    const PopupMenuItem(value: 2.0, child: Text('2.0 servings')),
+                    const PopupMenuItem(value: 0.5, child: Text('0.5x Portion')),
+                    const PopupMenuItem(value: 0.75, child: Text('0.75x Portion')),
+                    const PopupMenuItem(value: 1.0, child: Text('1.0x Portion')),
+                    const PopupMenuItem(value: 1.25, child: Text('1.25x Portion')),
+                    const PopupMenuItem(value: 1.5, child: Text('1.5x Portion')),
+                    const PopupMenuItem(value: 2.0, child: Text('2.0x Portion')),
                   ],
                 ),
             ],
@@ -149,9 +159,9 @@ class PlannedFoodCard extends StatelessWidget {
 
   Widget _buildMacroBadge(String text, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withAlpha(20),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(

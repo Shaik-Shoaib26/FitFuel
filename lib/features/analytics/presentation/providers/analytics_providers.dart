@@ -8,7 +8,8 @@ import '../../data/repositories/analytics_repository_impl.dart';
 import '../../domain/repositories/i_analytics_repository.dart';
 import '../controllers/analytics_controller.dart';
 
-final analyticsRemoteDataSourceProvider = Provider<IAnalyticsRemoteDataSource>((ref) {
+final analyticsRemoteDataSourceProvider =
+    Provider<IAnalyticsRemoteDataSource>((ref) {
   return AnalyticsRemoteDataSourceImpl();
 });
 
@@ -17,13 +18,20 @@ final analyticsRepositoryProvider = Provider<IAnalyticsRepository>((ref) {
   return AnalyticsRepositoryImpl(dataSource);
 });
 
-final analyticsControllerProvider = StateNotifierProvider<AnalyticsController, AnalyticsState>((ref) {
-  // Listen to underlying stream updates to keep stats live
-  ref.watch(nutritionStreamProvider);
-  ref.watch(healthStreamProvider);
-  ref.watch(weightHistoryStreamProvider);
-
-  final authUser = ref.watch(authStateStreamProvider).value;
+final analyticsControllerProvider =
+    StateNotifierProvider<AnalyticsController, AnalyticsState>((ref) {
+  final uid =
+      ref.watch(authStateStreamProvider.select((auth) => auth.value?.uid));
   final repository = ref.watch(analyticsRepositoryProvider);
-  return AnalyticsController(repository, authUser?.uid);
+  final controller = AnalyticsController(repository, uid);
+  ref.listen(nutritionStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadAnalytics();
+  });
+  ref.listen(healthStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadAnalytics();
+  });
+  ref.listen(weightHistoryStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadAnalytics();
+  });
+  return controller;
 });

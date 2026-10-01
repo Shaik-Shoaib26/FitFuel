@@ -1,10 +1,14 @@
+import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
+import '../../../../core/network/network_status.dart';
+import '../../../../core/network/network_status_provider.dart';
 import '../../../../core/widgets/glassmorphic_container.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 import '../../../authentication/presentation/providers/auth_providers.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
 import '../../../nutrition/domain/utils/nutrition_calculator.dart';
@@ -52,6 +56,19 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   ];
 
   @override
+  void didUpdateWidget(covariant AiAssistantScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final prompt = widget.initialPrompt;
+    if (prompt != null &&
+        prompt.isNotEmpty &&
+        prompt != oldWidget.initialPrompt) {
+      final draft = _messageController.text;
+      _messageController.text =
+          draft.trim().isEmpty ? prompt : '$draft\n\n$prompt';
+    }
+  }
+
+  @override
   void dispose() {
     _messageController.dispose();
     _scrollController.dispose();
@@ -73,6 +90,18 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   void _sendMessage(String text) {
     if (text.trim().isEmpty) return;
 
+    final networkStatus =
+        ref.read(networkStatusProvider).value ?? NetworkStatus.online;
+    if (networkStatus == NetworkStatus.offline) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Internet connection is required for this action.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     final authUserUid = ref.read(authStateStreamProvider).value?.uid;
     if (authUserUid == null) return;
 
@@ -81,9 +110,11 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     final healthRecords = ref.read(healthStreamProvider).value ?? [];
     final weightHistory = ref.read(weightHistoryStreamProvider).value ?? [];
 
-    final filteredToday = NutritionCalculator.filterByDay(todayRecords, DateTime.now());
+    final filteredToday =
+        NutritionCalculator.filterByDay(todayRecords, DateTime.now());
     final todayStr = DateTime.now().toString().split(' ').first;
-    final todayHealth = healthRecords.where((r) => r.date == todayStr).firstOrNull;
+    final todayHealth =
+        healthRecords.where((r) => r.date == todayStr).firstOrNull;
 
     final profile = ref.read(currentProfileStreamProvider).value;
     final mealPlan = ref.read(mealPlannerControllerProvider).value;
@@ -112,7 +143,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     _scrollToBottom();
   }
 
-  void _showFoodForm(BuildContext context, String uid, NutritionRecordEntity record) {
+  void _showFoodForm(
+      BuildContext context, String uid, NutritionRecordEntity record) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -127,14 +159,9 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     final chatState = ref.watch(aiAssistantControllerProvider);
     final authUserUid = ref.watch(authStateStreamProvider).value?.uid;
     final isLoading = chatState is AiAssistantLoading;
-
-    // Active watch declarations to keep Riverpod streams alive and populated in cache
-    ref.watch(currentProfileStreamProvider);
-    ref.watch(nutritionGoalsStreamProvider);
-    ref.watch(nutritionStreamProvider);
-    ref.watch(healthStreamProvider);
-    ref.watch(weightHistoryStreamProvider);
-    ref.watch(mealPlannerControllerProvider);
+    final networkStatus =
+        ref.watch(networkStatusProvider).value ?? NetworkStatus.online;
+    final isOffline = networkStatus == NetworkStatus.offline;
 
     // Trigger scrolling when new replies land
     ref.listen(aiAssistantControllerProvider, (prev, next) {
@@ -142,8 +169,28 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FitFuel AI Assistant'),
+      appBar: FitFuelAppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('FitFuel AI Assistant', style: TextStyle(fontSize: 16)),
+            Text(
+              isOffline
+                  ? 'Offline'
+                  : (chatState.providerUsed == 'Gemini'
+                      ? 'Online'
+                      : 'Offline guidance'),
+              style: TextStyle(
+                fontSize: 11,
+                color: isOffline
+                    ? Colors.red
+                    : (chatState.providerUsed == 'Gemini'
+                        ? Colors.green
+                        : Colors.orange),
+              ),
+            ),
+          ],
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
@@ -161,51 +208,82 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Chat messages list
-            Expanded(
-              child: chatState.messages.isEmpty
-                  ? _buildEmptyState(isDark)
-                  : ListView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.all(AppConstants.spaceMd),
-                      itemCount: chatState.messages.length,
-                      itemBuilder: (context, index) {
-                        final message = chatState.messages[index];
-                        return _buildMessageBubble(message, isDark, authUserUid);
-                      },
-                    ),
-            ),
+        child: ConstrainedBox(
+          key: const ValueKey('ai-workspace'),
+          constraints: const BoxConstraints(maxWidth: 880),
+          child: Column(
+            children: [
+              if (isOffline)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 10),
+                  color: Colors.red.withAlpha(30),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.cloud_off_rounded,
+                          color: Colors.red, size: 16),
+                      SizedBox(width: 8),
+                      Text(
+                        'FitFuel AI requires an internet connection.',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-            // Loading / Thinking indicator
-            if (isLoading)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: _BouncingDotsIndicator(),
+              // Chat messages list
+              Expanded(
+                child: chatState.messages.isEmpty
+                    ? _buildEmptyState(isDark)
+                    : ListView.builder(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.all(AppConstants.spaceMd),
+                        itemCount: chatState.messages.length,
+                        itemBuilder: (context, index) {
+                          final message = chatState.messages[index];
+                          return _buildMessageBubble(
+                              message, isDark, authUserUid);
+                        },
+                      ),
               ),
 
-            // Error display card
-            if (chatState is AiAssistantError)
-              Padding(
-                padding: const EdgeInsets.all(AppConstants.spaceSm),
-                child: GlassmorphicContainer(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                    child: Text(
-                      chatState.message,
-                      style: const TextStyle(color: AppColors.stateError, fontSize: 12),
+              // Loading / Thinking indicator
+              if (isLoading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: _BouncingDotsIndicator(),
+                ),
+
+              // Error display card
+              if (chatState is AiAssistantError)
+                Padding(
+                  padding: const EdgeInsets.all(AppConstants.spaceSm),
+                  child: GlassmorphicContainer(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        chatState.message,
+                        style: const TextStyle(
+                            color: AppColors.stateError, fontSize: 12),
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-            // Suggested prompt chips row
-            if (!isLoading) _buildSuggestedChipsRow(isDark),
+              // Suggested prompt chips row
+              if (!isLoading && !isOffline) _buildSuggestedChipsRow(isDark),
 
-            // Chat input control panel
-            _buildInputPanel(isDark, isLoading),
-          ],
+              // Chat input control panel
+              _buildInputPanel(isDark, isLoading || isOffline),
+            ],
+          ),
         ),
       ),
     );
@@ -214,38 +292,90 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   Widget _buildEmptyState(bool isDark) {
     return Center(
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppConstants.spaceLg),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.smart_toy_rounded,
-                size: 64,
-                color: AppColors.primary500,
-              ),
-              const SizedBox(height: AppConstants.spaceMd),
-              Text(
-                'FitFuel AI 👋',
-                style: AppTypography.heading1(isDark: isDark),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'What would you like help with today?',
-                style: AppTypography.bodyMedium(isDark: isDark),
-                textAlign: TextAlign.center,
-              ),
-            ],
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 700),
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.spaceLg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary500.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusMd),
+                  ),
+                  child: const Icon(
+                    Icons.smart_toy_rounded,
+                    size: 48,
+                    color: AppColors.primary500,
+                  ),
+                ),
+                const SizedBox(height: AppConstants.spaceLg),
+                Text(
+                  'FitFuel AI',
+                  style: AppTypography.heading1(isDark: isDark),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppConstants.spaceSm),
+                Text(
+                  'Your personal health and nutrition assistant',
+                  style: AppTypography.bodyMedium(isDark: isDark),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppConstants.spaceLg),
+                Wrap(
+                  spacing: AppConstants.spaceSm,
+                  runSpacing: AppConstants.spaceSm,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (final prompt in _suggestedChips)
+                      _buildPromptChip(prompt),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMessageBubble(ChatMessage message, bool isDark, String? authUserUid) {
+  Widget _buildPromptChip(String prompt) {
+    return InkWell(
+      onTap: () => _messageController.text = prompt,
+      borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.primary500.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          border: Border.all(
+            color: AppColors.primary500.withValues(alpha: 0.2),
+          ),
+        ),
+        child: Text(
+          prompt,
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMessageBubble(
+      ChatMessage message, bool isDark, String? authUserUid) {
     final isUser = message.sender == MessageSender.user;
-    final alignment = isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    final alignment =
+        isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     final bubbleColor = isUser
         ? (isDark ? AppColors.darkBgSurface : Colors.grey[200])
         : (isDark
@@ -294,7 +424,9 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
           ],
 
           // Food recommendation card integration
-          if (!isUser && message.suggestedFoods != null && message.suggestedFoods!.isNotEmpty) ...[
+          if (!isUser &&
+              message.suggestedFoods != null &&
+              message.suggestedFoods!.isNotEmpty) ...[
             ...message.suggestedFoods!.map((food) {
               return Container(
                 constraints: BoxConstraints(
@@ -310,7 +442,10 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   }
 
   Widget? _buildCoachingCard(String text, bool isDark) {
-    if (!text.contains('**') || (!text.contains('priority') && !text.contains('checklist'))) return null;
+    if (!text.contains('**') ||
+        (!text.contains('priority') && !text.contains('checklist'))) {
+      return null;
+    }
 
     final lines = text.split('\n\n');
     final cards = <Widget>[];
@@ -350,7 +485,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
           margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppConstants.radiusMd),
-            side: BorderSide(color: accentColor.withValues(alpha: 0.3), width: 1.5),
+            side: BorderSide(
+                color: accentColor.withValues(alpha: 0.3), width: 1.5),
           ),
           child: Padding(
             padding: const EdgeInsets.all(AppConstants.spaceMd),
@@ -397,19 +533,23 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     );
   }
 
-  Widget _buildFoodRecommendationCard(dynamic food, bool isDark, String? authUserUid) {
+  Widget _buildFoodRecommendationCard(
+      dynamic food, bool isDark, String? authUserUid) {
     final foodName = food.foodName ?? '';
-    final matchedFood = food.foodName != null ? (
-      PredefinedFoodData.foods
-        .where((f) => f.name.toLowerCase() == foodName.toLowerCase())
-        .firstOrNull
-        ?.toEntity() ?? PredefinedFoodData.foods
-        .where((f) => foodName.toLowerCase().contains(f.name.toLowerCase()))
-        .firstOrNull
-        ?.toEntity()
-    ) : null;
-    
-    final finalFood = matchedFood ?? FoodEntity(
+    final matchedFood = food.foodName != null
+        ? (PredefinedFoodData.foods
+                .where((f) => f.name.toLowerCase() == foodName.toLowerCase())
+                .firstOrNull
+                ?.toEntity() ??
+            PredefinedFoodData.foods
+                .where((f) =>
+                    foodName.toLowerCase().contains(f.name.toLowerCase()))
+                .firstOrNull
+                ?.toEntity())
+        : null;
+
+    final finalFood = matchedFood ??
+        FoodEntity(
           id: 'temp',
           name: foodName,
           category: 'Protein',
@@ -439,70 +579,71 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
       badges.add(_buildCardBadge(tag, Colors.blue));
     }
 
-    return Card(
+    return FitFuelCard(
       margin: const EdgeInsets.only(top: AppConstants.spaceSm),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusMd),
-        side: BorderSide(color: AppColors.primary500.withAlpha(80), width: 1.5),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppConstants.spaceMd),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                FoodImage(food: finalFood, width: 44, height: 44, borderRadius: 6),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        finalFood.name,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                      if (badges.isNotEmpty) ...[
-                        const SizedBox(height: 4),
-                        Wrap(spacing: 4, children: badges),
-                      ],
+      border: const BorderSide(color: AppColors.primary500, width: 1.5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              FoodImage(
+                  food: finalFood, width: 44, height: 44, borderRadius: 6),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      finalFood.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    if (badges.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Wrap(spacing: 4, children: badges),
                     ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildMacroIndicator('Cals', '${food.calories.toStringAsFixed(0)} kcal', Colors.grey),
-                _buildMacroIndicator('Protein', '${food.protein.toStringAsFixed(1)}g', Colors.orange),
-                _buildMacroIndicator('Carbs', '${food.carbohydrates.toStringAsFixed(1)}g', Colors.blue),
-                _buildMacroIndicator('Fats', '${food.fats.toStringAsFixed(1)}g', Colors.green),
-              ],
-            ),
-            const SizedBox(height: AppConstants.spaceSm),
-            SizedBox(
-              width: double.infinity,
-              height: 36,
-              child: ElevatedButton.icon(
-                onPressed: authUserUid == null
-                    ? null
-                    : () {
-                        _showFoodForm(context, authUserUid, food);
-                      },
-                icon: const Icon(Icons.add_rounded, size: 14),
-                label: const Text('Add to Food Log', style: TextStyle(fontSize: 11)),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppConstants.radiusSm),
-                  ),
-                  padding: EdgeInsets.zero,
+                  ],
                 ),
               ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildMacroIndicator('Cals',
+                  '${food.calories.toStringAsFixed(0)} kcal', Colors.grey),
+              _buildMacroIndicator('Protein',
+                  '${food.protein.toStringAsFixed(1)}g', Colors.orange),
+              _buildMacroIndicator('Carbs',
+                  '${food.carbohydrates.toStringAsFixed(1)}g', Colors.blue),
+              _buildMacroIndicator(
+                  'Fats', '${food.fats.toStringAsFixed(1)}g', Colors.green),
+            ],
+          ),
+          const SizedBox(height: AppConstants.spaceSm),
+          SizedBox(
+            width: double.infinity,
+            height: 36,
+            child: ElevatedButton.icon(
+              onPressed: authUserUid == null
+                  ? null
+                  : () {
+                      _showFoodForm(context, authUserUid, food);
+                    },
+              icon: const Icon(Icons.add_rounded, size: 14),
+              label:
+                  const Text('Add to Food Log', style: TextStyle(fontSize: 11)),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+                ),
+                padding: EdgeInsets.zero,
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -517,7 +658,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.bold),
+        style:
+            TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -530,7 +672,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
         const SizedBox(height: 2),
         Text(
           value,
-          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color),
+          style: TextStyle(
+              fontSize: 11, fontWeight: FontWeight.w600, color: color),
         ),
       ],
     );
@@ -569,7 +712,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
               textCapitalization: TextCapitalization.sentences,
               decoration: const InputDecoration(
                 hintText: 'Ask FitFuel AI about your targets...',
-                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               ),
               onSubmitted: _sendMessage,
             ),
@@ -577,7 +721,8 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
           const SizedBox(width: 8),
           IconButton(
             icon: const Icon(Icons.send_rounded, color: AppColors.primary500),
-            onPressed: isLoading ? null : () => _sendMessage(_messageController.text),
+            onPressed:
+                isLoading ? null : () => _sendMessage(_messageController.text),
           ),
         ],
       ),
@@ -592,7 +737,8 @@ class _BouncingDotsIndicator extends StatefulWidget {
   State<_BouncingDotsIndicator> createState() => _BouncingDotsIndicatorState();
 }
 
-class _BouncingDotsIndicatorState extends State<_BouncingDotsIndicator> with SingleTickerProviderStateMixin {
+class _BouncingDotsIndicatorState extends State<_BouncingDotsIndicator>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override

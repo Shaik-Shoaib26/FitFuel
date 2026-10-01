@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 import '../../domain/utils/analytics_insight_engine.dart';
 
+/// Premium Insight Card inside Analytics Screen
 class AnalyticsInsightCard extends StatelessWidget {
   final AnalyticsInsight insight;
 
@@ -15,82 +19,74 @@ class AnalyticsInsightCard extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     IconData icon = Icons.lightbulb_outline;
-    Color color = Colors.amber;
+    Color color = AppColors.ai;
 
     switch (insight.type) {
       case 'hydration':
-        icon = Icons.local_drink;
-        color = Colors.blue;
+        icon = Icons.water_drop_rounded;
+        color = AppColors.hydration;
         break;
       case 'nutrition':
-        icon = Icons.restaurant;
-        color = Colors.green;
+        icon = Icons.restaurant_rounded;
+        color = AppColors.protein;
         break;
       case 'exercise':
-        icon = Icons.fitness_center;
-        color = Colors.orange;
+        icon = Icons.fitness_center_rounded;
+        color = AppColors.calories;
         break;
       case 'wellness':
-        icon = Icons.spa;
-        color = Colors.teal;
+        icon = Icons.favorite_rounded;
+        color = AppColors.fat;
         break;
       case 'weight':
         icon = Icons.monitor_weight_outlined;
-        color = Colors.purple;
+        color = AppColors.primary500;
         break;
       case 'correlation':
-        icon = Icons.auto_awesome;
-        color = Colors.indigo;
+        icon = Icons.auto_awesome_rounded;
+        color = AppColors.ai;
         break;
     }
 
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: isDark ? Colors.grey[850]! : Colors.grey[200]!,
-        ),
-      ),
-      color: isDark ? Colors.grey[900]?.withValues(alpha: 0.5) : Colors.grey[50]?.withValues(alpha: 0.5),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(icon, color: color, size: 20),
+    return FitFuelCard(
+      margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
+      padding: const EdgeInsets.all(AppConstants.spaceSm),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppConstants.radiusSm),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    insight.title,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Icon(icon, color: color, size: 18),
+          ),
+          const SizedBox(width: AppConstants.spaceMd),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  insight.title,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    insight.description,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
-                      height: 1.3,
-                    ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  insight.description,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

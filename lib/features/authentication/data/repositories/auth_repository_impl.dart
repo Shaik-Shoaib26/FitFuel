@@ -80,6 +80,15 @@ class AuthRepositoryImpl implements IAuthRepository {
     }
   }
 
+  @override
+  Future<void> deleteAccount({required String password}) async {
+    try {
+      await _remoteDataSource.deleteAccount(password: password);
+    } on ServerException catch (e) {
+      throw AuthFailure(e.message);
+    }
+  }
+
   AuthUserEntity _mapFirebaseUserToEntity(User user) {
     return AuthUserEntity(
       uid: user.uid,

@@ -1,3 +1,5 @@
+import '../../../../core/sync/sync_status.dart';
+
 class GroceryItemEntity {
   final String id;
   final String? foodId;
@@ -16,6 +18,7 @@ class GroceryItemEntity {
   final DateTime addedAt;
   final DateTime? purchasedAt;
   final String? notes;
+  final SyncStatus syncStatus;
 
   const GroceryItemEntity({
     required this.id,
@@ -35,6 +38,7 @@ class GroceryItemEntity {
     required this.addedAt,
     this.purchasedAt,
     this.notes,
+    this.syncStatus = SyncStatus.synced,
   });
 
   GroceryItemEntity copyWith({
@@ -55,6 +59,7 @@ class GroceryItemEntity {
     DateTime? addedAt,
     DateTime? purchasedAt,
     String? notes,
+    SyncStatus? syncStatus,
   }) {
     return GroceryItemEntity(
       id: id ?? this.id,
@@ -74,6 +79,7 @@ class GroceryItemEntity {
       addedAt: addedAt ?? this.addedAt,
       purchasedAt: purchasedAt ?? this.purchasedAt,
       notes: notes ?? this.notes,
+      syncStatus: syncStatus ?? this.syncStatus,
     );
   }
 }

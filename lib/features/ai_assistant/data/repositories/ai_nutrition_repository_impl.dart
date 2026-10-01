@@ -26,9 +26,10 @@ class AiNutritionRepositoryImpl implements IAiNutritionRepository {
   AiNutritionRepositoryImpl({
     AiNutritionService? remoteDatasource,
     AiNutritionService? mockDatasource,
+    String? apiKeyOverride,
   })  : _remoteDatasource = remoteDatasource ??
             AiNutritionRemoteDatasource(
-              apiKey: dotenv.env['GEMINI_API_KEY'] ?? '',
+              apiKey: apiKeyOverride ?? dotenv.env['GEMINI_API_KEY'] ?? '',
             ),
         _mockDatasource = mockDatasource ?? AiNutritionMockDatasource();
 
@@ -52,13 +53,13 @@ class AiNutritionRepositoryImpl implements IAiNutritionRepository {
     try {
       final foodRepo = FoodRepositoryImpl(FoodRemoteDataSourceImpl());
       final results = await foodRepo.searchFoods('');
-      
+
       // Local heuristic filtering for AI prompt to fit context window
       final pLower = prompt.toLowerCase();
       final isVeg = pLower.contains('vegetarian') || (pLower.contains('veg') && !pLower.contains('vegan'));
       final isVegn = pLower.contains('vegan');
       final isInd = pLower.contains('indian') || pLower.contains('desi') || pLower.contains('roti') || pLower.contains('paneer') || pLower.contains('dosa') || pLower.contains('idli');
-      
+
       String? mealFilter;
       if (pLower.contains('breakfast')) {
         mealFilter = 'Breakfast';
@@ -99,7 +100,6 @@ class AiNutritionRepositoryImpl implements IAiNutritionRepository {
         if (isInd) {
           if (food.isIndian) score += 100.0;
         } else {
-          // Default: slightly favor international foods if not asking for Indian specifically
           if (!food.isIndian) score += 10.0;
         }
 
@@ -122,27 +122,36 @@ class AiNutritionRepositoryImpl implements IAiNutritionRepository {
           score += (300.0 - food.calories).clamp(-100.0, 100.0);
         }
 
-        // Low Fat preference
-        if (pLower.contains('low fat') || pLower.contains('low-fat')) {
-          score += (10.0 - food.fats).clamp(-50.0, 50.0);
-        }
-
-        // High Fiber preference
-        if (pLower.contains('fiber') || pLower.contains('high fiber') || pLower.contains('high-fiber')) {
-          score += food.fiber * 5.0;
-        }
-
-        // Low Sugar preference
-        if (pLower.contains('low sugar') || pLower.contains('low-sugar')) {
-          score += (10.0 - food.sugar).clamp(-50.0, 50.0);
-        }
-
         return _ScoredFood(food: food, score: score);
       }).toList();
 
       scored.sort((a, b) => b.score.compareTo(a.score));
-      foods.addAll(scored.take(25).map((e) => e.food));
+      foods.addAll(scored.take(10).map((e) => e.food)); // Compact context: send top 10 relevant foods
     } catch (_) {}
+
+    final Set<String> chatExclusions = {};
+    final triggers = ['no', 'avoid', 'cannot eat', 'don\'t want', 'rather than', 'exclude', 'without', 'cannot prefer'];
+    final foodsList = ['chicken', 'eggs', 'yogurt', 'dal', 'paneer', 'oats', 'banana', 'rice', 'milk', 'vegetables'];
+
+    void checkExclusions(String text) {
+      final tLower = text.toLowerCase();
+      for (final trigger in triggers) {
+        if (tLower.contains(trigger)) {
+          for (final food in foodsList) {
+            if (tLower.contains(food)) {
+              chatExclusions.add(food);
+            }
+          }
+        }
+      }
+    }
+
+    for (final msg in history) {
+      if (msg.sender == MessageSender.user) {
+        checkExclusions(msg.text);
+      }
+    }
+    checkExclusions(prompt);
 
     final systemContext = AiContextGenerator.generateContext(
       todayRecords: todayRecords,
@@ -157,31 +166,48 @@ class AiNutritionRepositoryImpl implements IAiNutritionRepository {
       dailyRoutine: dailyRoutine,
       groceryItems: groceryItems,
       pantryItems: pantryItems,
+      chatExclusions: chatExclusions.toList(),
+      userPrompt: prompt,
     );
 
     final apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
-    // Delegate to remote provider if configured, otherwise fallback to local mock
-    if (apiKey.trim().isNotEmpty && apiKey != 'YOUR_GEMINI_API_KEY') {
+    // Delegate to remote provider if key is present and valid, otherwise fallback to local mock
+    if (apiKey.trim().isNotEmpty && apiKey != 'YOUR_GEMINI_API_KEY' && apiKey != 'mock') {
       try {
-        return await _remoteDatasource.generateResponse(
+        final reply = await _remoteDatasource.generateResponse(
           userPrompt: prompt,
           systemContext: systemContext,
           history: history,
         );
+        return reply;
       } catch (e) {
-        // Fallback to mock on API errors
-        return _mockDatasource.generateResponse(
+        // Fallback to offline guidance (mock) on remote failures
+        final mockReply = await _mockDatasource.generateResponse(
           userPrompt: prompt,
           systemContext: systemContext,
           history: history,
+        );
+        return ChatMessage(
+          text: mockReply.text,
+          sender: mockReply.sender,
+          timestamp: mockReply.timestamp,
+          suggestedFoods: mockReply.suggestedFoods,
+          providerUsed: 'Offline guidance',
         );
       }
     } else {
-      return _mockDatasource.generateResponse(
+      final mockReply = await _mockDatasource.generateResponse(
         userPrompt: prompt,
         systemContext: systemContext,
         history: history,
+      );
+      return ChatMessage(
+        text: mockReply.text,
+        sender: mockReply.sender,
+        timestamp: mockReply.timestamp,
+        suggestedFoods: mockReply.suggestedFoods,
+        providerUsed: 'Offline guidance',
       );
     }
   }

@@ -13,6 +13,8 @@ import 'package:fitfuel/features/meal_planner/domain/utils/adaptive_meal_planner
 import 'package:fitfuel/features/meal_planner/domain/utils/meal_distribution_engine.dart';
 import 'package:fitfuel/features/meal_planner/domain/utils/meal_plan_calculator.dart';
 import 'package:fitfuel/features/meal_planner/presentation/providers/meal_planner_providers.dart';
+import 'package:fitfuel/core/network/network_status.dart';
+import 'package:fitfuel/core/network/network_status_provider.dart';
 
 final mealPlannerControllerProvider = StateNotifierProvider<MealPlannerController, AsyncValue<MealPlanEntity?>>((ref) {
   return MealPlannerController(ref);
@@ -30,7 +32,7 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
       next.when(
         data: (user) {
           if (user != null) {
-            loadTodayPlan();
+            Future.microtask(() => loadTodayPlan());
           } else {
             state = const AsyncValue.data(null);
           }
@@ -43,6 +45,13 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
         },
       );
     }, fireImmediately: true);
+
+    // Listen to network status changes to auto-refresh when online returns
+    _ref.listen(networkStatusProvider, (prev, next) {
+      if (next.value == NetworkStatus.online && prev?.value != NetworkStatus.online) {
+        loadTodayPlan();
+      }
+    });
 
     // Listen for food log updates to recalculate targets in real-time
     _ref.listen<AsyncValue<List<NutritionRecordEntity>>>(nutritionStreamProvider, (prev, next) {
@@ -84,20 +93,20 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
   }
 
   Future<void> adaptPlanToLogs(List<NutritionRecordEntity> todayLogsList) async {
-    final currentPlan = state.value;
+    final currentPlan = state.valueOrNull;
     if (currentPlan == null) return;
     
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) return;
     
-    final goals = _ref.read(nutritionGoalsStreamProvider).value;
-    final profile = _ref.read(currentProfileStreamProvider).value;
+    final goals = _ref.read(nutritionGoalsStreamProvider).valueOrNull;
+    final profile = _ref.read(currentProfileStreamProvider).valueOrNull;
     if (goals == null || profile == null) return;
     
     try {
       final availableFoods = await _ref.read(searchFoodsProvider.future);
-      final favoriteFoods = _ref.read(favoriteFoodsProvider).value ?? [];
-      final recentFoods = _ref.read(recentFoodsProvider).value ?? [];
+      final favoriteFoods = _ref.read(favoriteFoodsProvider).valueOrNull ?? [];
+      final recentFoods = _ref.read(recentFoodsProvider).valueOrNull ?? [];
       final chatExclusions = _getExclusionsFromChat();
 
       final updatedPlan = AdaptiveMealPlannerEngine.generateAdaptiveMealPlan(
@@ -116,41 +125,43 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
         existingPlan: currentPlan,
       );
 
-      state = AsyncValue.data(updatedPlan);
+      if (mounted) {
+        state = AsyncValue.data(updatedPlan);
+      }
       await _ref.read(mealPlanRepositoryProvider).saveMealPlan(authUser.uid, updatedPlan);
     } catch (_) {}
   }
 
   Future<void> loadTodayPlan() async {
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) {
-      state = const AsyncValue.data(null);
+      if (mounted) state = const AsyncValue.data(null);
       return;
     }
 
-    state = const AsyncValue.loading();
+    if (mounted) state = const AsyncValue.loading();
     try {
       final repository = _ref.read(mealPlanRepositoryProvider);
       final today = DateTime.now();
       
       final plan = await repository.getMealPlanForDate(authUser.uid, today);
-      state = AsyncValue.data(plan);
+      if (mounted) state = AsyncValue.data(plan);
     } catch (e, stack) {
-      state = AsyncValue.error(e, stack);
+      if (mounted) state = AsyncValue.error(e, stack);
     }
   }
 
   Future<void> generatePlan() async {
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) return;
 
-    state = const AsyncValue.loading();
+    if (mounted) state = const AsyncValue.loading();
     try {
-      final goals = _ref.read(nutritionGoalsStreamProvider).value;
-      final profile = _ref.read(currentProfileStreamProvider).value;
+      final goals = _ref.read(nutritionGoalsStreamProvider).valueOrNull;
+      final profile = _ref.read(currentProfileStreamProvider).valueOrNull;
       
       if (goals == null || profile == null) {
-        state = const AsyncValue.data(null);
+        if (mounted) state = const AsyncValue.data(null);
         return;
       }
 
@@ -159,11 +170,11 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
         throw Exception('No foods available for meal planning.');
       }
 
-      final favoriteFoods = _ref.read(favoriteFoodsProvider).value ?? [];
-      final recentFoods = _ref.read(recentFoodsProvider).value ?? [];
+      final favoriteFoods = _ref.read(favoriteFoodsProvider).valueOrNull ?? [];
+      final recentFoods = _ref.read(recentFoodsProvider).valueOrNull ?? [];
 
       final today = DateTime.now();
-      final todayLogsList = _ref.read(nutritionStreamProvider).value ?? [];
+      final todayLogsList = _ref.read(nutritionStreamProvider).valueOrNull ?? [];
       final dailyLogs = todayLogsList.where((r) {
         return r.consumedAt.year == today.year &&
             r.consumedAt.month == today.month &&
@@ -190,20 +201,20 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
       final repository = _ref.read(mealPlanRepositoryProvider);
       await repository.saveMealPlan(authUser.uid, plan);
 
-      state = AsyncValue.data(plan);
+      if (mounted) state = AsyncValue.data(plan);
     } catch (e, stack) {
-      state = AsyncValue.error(e, stack);
+      if (mounted) state = AsyncValue.error(e, stack);
     }
   }
 
   Future<void> regenerateMeal(PlannedMealEntity meal) async {
-    final currentPlan = state.value;
+    final currentPlan = state.valueOrNull;
     if (currentPlan == null) return;
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) return;
 
-    final goals = _ref.read(nutritionGoalsStreamProvider).value;
-    final profile = _ref.read(currentProfileStreamProvider).value;
+    final goals = _ref.read(nutritionGoalsStreamProvider).valueOrNull;
+    final profile = _ref.read(currentProfileStreamProvider).valueOrNull;
     if (goals == null || profile == null) return;
 
     try {
@@ -236,7 +247,7 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
       var updatedPlan = currentPlan.copyWith(meals: newMeals);
       updatedPlan = MealPlanCalculator.recalculateMealPlan(updatedPlan);
 
-      state = AsyncValue.data(updatedPlan);
+      if (mounted) state = AsyncValue.data(updatedPlan);
       await _ref.read(mealPlanRepositoryProvider).saveMealPlan(authUser.uid, updatedPlan);
     } catch (e) {
       // Revert/ignore on error
@@ -247,10 +258,10 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
     PlannedMealEntity meal,
     PlannedFoodEntity foodToSwap,
   ) async {
-    final currentPlan = state.value;
+    final currentPlan = state.valueOrNull;
     if (currentPlan == null) return [];
     
-    final profile = _ref.read(currentProfileStreamProvider).value;
+    final profile = _ref.read(currentProfileStreamProvider).valueOrNull;
     if (profile == null) return [];
 
     try {
@@ -268,7 +279,12 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
       finalExclusions.add(foodToSwap.food.name);
 
       final recommendations = FoodRecommendationEngine.recommend(
-        foods: filteredFoods.where((f) => !currentlyUsedFoodIds.contains(f.id)).toList(),
+        foods: filteredFoods.where((f) {
+          if (currentlyUsedFoodIds.contains(f.id)) return false;
+          if (f.id == foodToSwap.food.id) return false;
+          if (f.name.toLowerCase().trim() == foodToSwap.food.name.toLowerCase().trim()) return false;
+          return true;
+        }).toList(),
         mealType: meal.mealType,
         remainingCalories: foodToSwap.calories,
         proteinDeficit: foodToSwap.protein,
@@ -295,12 +311,12 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
     PlannedFoodEntity oldFood,
     PlannedFoodEntity newFood,
   ) async {
-    final currentPlan = state.value;
+    final currentPlan = state.valueOrNull;
     if (currentPlan == null) return;
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) return;
 
-    final updatedFoods = meal.foods.map((f) => f == oldFood ? newFood : f).toList();
+    final updatedFoods = meal.foods.map((f) => f.food.id == oldFood.food.id ? newFood : f).toList();
     
     double totalCal = 0, totalPro = 0, totalCarb = 0, totalFat = 0;
     for (var pf in updatedFoods) {
@@ -331,9 +347,9 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
     PlannedFoodEntity foodItem,
     double servingMultiplier,
   ) async {
-    final currentPlan = state.value;
+    final currentPlan = state.valueOrNull;
     if (currentPlan == null) return;
-    final authUser = _ref.read(authStateStreamProvider).value;
+    final authUser = _ref.read(authStateStreamProvider).valueOrNull;
     if (authUser == null) return;
 
     final targetServing = foodItem.food.servingSize * servingMultiplier;
@@ -371,5 +387,9 @@ class MealPlannerController extends StateNotifier<AsyncValue<MealPlanEntity?>> {
     if (alternatives.isNotEmpty) {
       await replaceFoodInMeal(meal, foodToSwap, alternatives.first);
     }
+  }
+
+  void updateMealPlan(MealPlanEntity updatedPlan) {
+    state = AsyncValue.data(updatedPlan);
   }
 }

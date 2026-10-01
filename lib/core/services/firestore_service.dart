@@ -135,6 +135,21 @@ class FirestoreService {
     });
   }
 
+  /// Deletes user profile document at users/{uid}
+  Future<void> deleteUserProfile(String uid) async {
+    try {
+      LoggerService.info('Deleting Firestore user profile for UID: $uid');
+      await _firestore.collection('users').doc(uid).delete();
+      LoggerService.info('Firestore profile deleted successfully for UID: $uid');
+    } on FirebaseException catch (e, stackTrace) {
+      LoggerService.error('FirebaseException deleting profile for UID: $uid [Code: ${e.code}]', e, stackTrace);
+      throw ServerException(message: _mapFirestoreException(e));
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error deleting user profile for UID: $uid', e, stackTrace);
+      throw ServerException(message: 'Failed to delete user profile in Firestore.');
+    }
+  }
+
   /// Maps raw FirebaseException codes to user-friendly messages
   String _mapFirestoreException(FirebaseException e) {
     switch (e.code) {

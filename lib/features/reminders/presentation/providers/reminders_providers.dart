@@ -49,17 +49,23 @@ final remindersSettingsControllerProvider =
 final dailyRoutineProvider = Provider<DailyRoutineEntity>((ref) {
   final settingsAsync = ref.watch(remindersSettingsStreamProvider);
   final todayHealth = ref.watch(todayHealthRecordProvider);
-  final nutritionRecords = ref.watch(nutritionStreamProvider).value ?? [];
-  final weightHistory = ref.watch(weightHistoryStreamProvider).value ?? [];
-  final healthHistory = ref.watch(healthStreamProvider).value ?? [];
-  final profile = ref.watch(currentProfileStreamProvider).value;
-  final mealPlan = ref.watch(mealPlannerControllerProvider).value;
-  final groceryList = ref.watch(currentGroceryListProvider).value;
-  final groceryPreferences = ref.watch(groceryPreferencesProvider).value;
+  final nutritionRecords =
+      ref.watch(nutritionStreamProvider).valueOrNull ?? const [];
+  final weightHistory =
+      ref.watch(weightHistoryStreamProvider).valueOrNull ?? const [];
+  final healthHistory =
+      ref.watch(healthStreamProvider).valueOrNull ?? const [];
+  final profile = ref.watch(currentProfileStreamProvider).valueOrNull;
+  final mealPlan = ref.watch(mealPlannerControllerProvider).valueOrNull;
+  final groceryList = ref.watch(currentGroceryListProvider).valueOrNull;
+  final groceryPreferences =
+      ref.watch(groceryPreferencesProvider).valueOrNull;
 
   final todayStr = DateTime.now().toString().split(' ').first;
-  final todayNutrition = nutritionRecords.where((r) => r.consumedAt.toString().split(' ').first == todayStr).toList();
-  final settings = settingsAsync.value ?? const ReminderSettingsEntity();
+  final todayNutrition = nutritionRecords
+      .where((r) => r.consumedAt.toString().split(' ').first == todayStr)
+      .toList();
+  final settings = settingsAsync.valueOrNull ?? const ReminderSettingsEntity();
 
   return DailyRoutineCalculator.calculateRoutine(
     date: todayStr,

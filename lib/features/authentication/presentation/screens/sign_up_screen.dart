@@ -7,7 +7,8 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
-import '../../../../core/widgets/glassmorphic_container.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
+import '../../../../core/widgets/fitfuel_identity.dart';
 import '../controllers/auth_controller.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -73,155 +74,164 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppConstants.spaceLg),
-            child: GlassmorphicContainer(
-              padding: const EdgeInsets.all(AppConstants.spaceLg),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Join FitFuel',
-                      style: AppTypography.displayMedium(isDark: isDark),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: AppConstants.spaceXs),
-                    Text(
-                      'Start your effortless AI nutrition journey',
-                      style: AppTypography.bodyMedium(isDark: isDark),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: AppConstants.spaceLg),
-
-                    // Error Banner
-                    if (authUiState is AuthUiStateError) ...[
-                      Container(
-                        padding: const EdgeInsets.all(AppConstants.spaceSm),
-                        decoration: BoxDecoration(
-                          color: AppColors.stateError.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
-                          border: Border.all(color: AppColors.stateError.withValues(alpha: 0.5)),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.error_outline, color: AppColors.stateError, size: 20),
-                            const SizedBox(width: AppConstants.spaceSm),
-                            Expanded(
-                              child: Text(
-                                authUiState.message,
-                                style: AppTypography.bodySmall(isDark: isDark).copyWith(
-                                  color: AppColors.stateError,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480),
+              child: FitFuelCard(
+                padding: const EdgeInsets.all(AppConstants.spaceLg),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Align(
+                        alignment: Alignment.center,
+                        child: FitFuelBrandMark(size: 52),
                       ),
                       const SizedBox(height: AppConstants.spaceMd),
-                    ],
-
-                    // Name Field
-                    TextFormField(
-                      controller: _nameController,
-                      enabled: !isLoading,
-                      decoration: const InputDecoration(
-                        labelText: 'Full Name',
-                        prefixIcon: Icon(Icons.person_outline),
+                      Text(
+                        'Join FitFuel',
+                        style: AppTypography.displayMedium(isDark: isDark),
+                        textAlign: TextAlign.center,
                       ),
-                      validator: Validators.validateName,
-                    ),
-                    const SizedBox(height: AppConstants.spaceMd),
-
-                    // Email Field
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      enabled: !isLoading,
-                      decoration: const InputDecoration(
-                        labelText: 'Email Address',
-                        prefixIcon: Icon(Icons.email_outlined),
+                      const SizedBox(height: AppConstants.spaceXs),
+                      Text(
+                        'Start your effortless AI nutrition journey',
+                        style: AppTypography.bodyMedium(isDark: isDark),
+                        textAlign: TextAlign.center,
                       ),
-                      validator: Validators.validateEmail,
-                    ),
-                    const SizedBox(height: AppConstants.spaceMd),
+                      const SizedBox(height: AppConstants.spaceLg),
 
-                    // Password Field
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      enabled: !isLoading,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: const Icon(Icons.lock_outline),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                      // Error Banner
+                      if (authUiState is AuthUiStateError) ...[
+                        Container(
+                          padding: const EdgeInsets.all(AppConstants.spaceSm),
+                          decoration: BoxDecoration(
+                            color: AppColors.stateError.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+                            border: Border.all(color: AppColors.stateError.withValues(alpha: 0.5)),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: Validators.validatePassword,
-                    ),
-                    const SizedBox(height: AppConstants.spaceMd),
-
-                    // Confirm Password Field
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: _obscureConfirmPassword,
-                      enabled: !isLoading,
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        prefixIcon: const Icon(Icons.lock_reset_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.error_outline, color: AppColors.stateError, size: 20),
+                              const SizedBox(width: AppConstants.spaceSm),
+                              Expanded(
+                                child: Text(
+                                  authUiState.message,
+                                  style: AppTypography.bodySmall(isDark: isDark).copyWith(
+                                    color: AppColors.stateError,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
-                            });
-                          },
                         ),
+                        const SizedBox(height: AppConstants.spaceMd),
+                      ],
+
+                      // Name Field
+                      TextFormField(
+                        controller: _nameController,
+                        enabled: !isLoading,
+                        decoration: const InputDecoration(
+                          labelText: 'Full Name',
+                          prefixIcon: Icon(Icons.person_outline),
+                        ),
+                        validator: Validators.validateName,
                       ),
-                      validator: _validateConfirmPassword,
-                    ),
-                    const SizedBox(height: AppConstants.spaceLg),
+                      const SizedBox(height: AppConstants.spaceMd),
 
-                    // Create Account CTA Button
-                    FitFuelButton(
-                      label: 'Create Account',
-                      onPressed: isLoading ? null : _onSignUpSubmitted,
-                      isLoading: isLoading,
-                      icon: Icons.person_add_rounded,
-                    ),
-                    const SizedBox(height: AppConstants.spaceLg),
-
-                    // Switch to Sign In
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have an account?',
-                          style: AppTypography.bodyMedium(isDark: isDark),
+                      // Email Field
+                      TextFormField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        enabled: !isLoading,
+                        decoration: const InputDecoration(
+                          labelText: 'Email Address',
+                          prefixIcon: Icon(Icons.email_outlined),
                         ),
-                        TextButton(
-                          onPressed: isLoading ? null : () => context.go(AppRoutes.login),
-                          child: Text(
-                            'Sign In',
-                            style: AppTypography.bodyMedium(isDark: isDark).copyWith(
-                              color: isDark ? AppColors.primary400 : AppColors.primary500,
-                              fontWeight: FontWeight.bold,
+                        validator: Validators.validateEmail,
+                      ),
+                      const SizedBox(height: AppConstants.spaceMd),
+
+                      // Password Field
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        enabled: !isLoading,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: Validators.validatePassword,
+                      ),
+                      const SizedBox(height: AppConstants.spaceMd),
+
+                      // Confirm Password Field
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscureConfirmPassword,
+                        enabled: !isLoading,
+                        decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          prefixIcon: const Icon(Icons.lock_reset_outlined),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: _validateConfirmPassword,
+                      ),
+                      const SizedBox(height: AppConstants.spaceLg),
+
+                      // Create Account CTA Button
+                      FitFuelButton(
+                        label: 'Create Account',
+                        onPressed: isLoading ? null : _onSignUpSubmitted,
+                        isLoading: isLoading,
+                        icon: Icons.person_add_rounded,
+                      ),
+                      const SizedBox(height: AppConstants.spaceLg),
+
+                      // Switch to Sign In
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            'Already have an account?',
+                            style: AppTypography.bodyMedium(isDark: isDark),
+                          ),
+                          TextButton(
+                            onPressed: isLoading ? null : () => context.go(AppRoutes.login),
+                            child: Text(
+                              'Sign In',
+                              style: AppTypography.bodyMedium(isDark: isDark).copyWith(
+                                color: isDark ? AppColors.primary400 : AppColors.primary500,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

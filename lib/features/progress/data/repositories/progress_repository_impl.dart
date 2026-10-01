@@ -4,6 +4,7 @@ import '../../domain/entities/weight_record_entity.dart';
 import '../../domain/repositories/i_progress_repository.dart';
 import '../datasources/progress_remote_datasource.dart';
 import '../models/weight_record_model.dart';
+import '../../../../core/utils/id_utils.dart';
 
 class ProgressRepositoryImpl implements IProgressRepository {
   final IProgressRemoteDataSource _remoteDataSource;
@@ -13,7 +14,8 @@ class ProgressRepositoryImpl implements IProgressRepository {
   @override
   Future<void> addWeight(String uid, double weight, DateTime recordedAt) async {
     try {
-      final model = WeightRecordModel(id: '', weight: weight, recordedAt: recordedAt);
+      final recordId = IdUtils.generateId();
+      final model = WeightRecordModel(id: recordId, weight: weight, recordedAt: recordedAt);
       await _remoteDataSource.addWeight(uid, model);
     } on ServerException catch (e) {
       throw ServerFailure(e.message);

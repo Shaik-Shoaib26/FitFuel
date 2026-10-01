@@ -24,6 +24,19 @@ class FoodEntity {
   final bool isVegetarian;
   final bool isVegan;
 
+  // New conceptual fields for Phase 31.1
+  final String? dietType;
+  final String? cuisine;
+  final List<String>? ingredients;
+  final String? recipe;
+  final List<String>? instructions;
+  final int? prepTimeMinutes;
+  final int? cookTimeMinutes;
+  final int? totalTimeMinutes;
+  final int? servings;
+  final String? difficulty;
+  final List<String>? tags;
+
   const FoodEntity({
     required this.id,
     required this.name,
@@ -47,7 +60,27 @@ class FoodEntity {
     this.isIndian = false,
     this.isVegetarian = false,
     this.isVegan = false,
+    this.dietType,
+    this.cuisine,
+    this.ingredients,
+    this.recipe,
+    this.instructions,
+    this.prepTimeMinutes,
+    this.cookTimeMinutes,
+    this.totalTimeMinutes,
+    this.servings,
+    this.difficulty,
+    this.tags,
   });
+
+  // Getters/Aliases for Phase 31.1 convenience
+  String get foodId => id;
+  String? get imageUrl => imageAsset;
+  double get carbs => carbohydrates;
+  double get fat => fats;
+  String get dietTypeVal => dietType ?? (isVegan ? 'vegan' : (isVegetarian ? 'vegetarian' : 'nonVegetarian'));
+  String get cuisineVal => cuisine ?? (isIndian ? 'Indian' : 'Western');
+  List<String> get tagsVal => tags ?? dietaryTags;
 
   FoodEntity copyWith({
     String? id,
@@ -72,6 +105,17 @@ class FoodEntity {
     bool? isIndian,
     bool? isVegetarian,
     bool? isVegan,
+    String? dietType,
+    String? cuisine,
+    List<String>? ingredients,
+    String? recipe,
+    List<String>? instructions,
+    int? prepTimeMinutes,
+    int? cookTimeMinutes,
+    int? totalTimeMinutes,
+    int? servings,
+    String? difficulty,
+    List<String>? tags,
   }) {
     return FoodEntity(
       id: id ?? this.id,
@@ -96,6 +140,17 @@ class FoodEntity {
       isIndian: isIndian ?? this.isIndian,
       isVegetarian: isVegetarian ?? this.isVegetarian,
       isVegan: isVegan ?? this.isVegan,
+      dietType: dietType ?? this.dietType,
+      cuisine: cuisine ?? this.cuisine,
+      ingredients: ingredients ?? this.ingredients,
+      recipe: recipe ?? this.recipe,
+      instructions: instructions ?? this.instructions,
+      prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,
+      cookTimeMinutes: cookTimeMinutes ?? this.cookTimeMinutes,
+      totalTimeMinutes: totalTimeMinutes ?? this.totalTimeMinutes,
+      servings: servings ?? this.servings,
+      difficulty: difficulty ?? this.difficulty,
+      tags: tags ?? this.tags,
     );
   }
 
@@ -125,7 +180,18 @@ class FoodEntity {
           mealTypes == other.mealTypes &&
           isIndian == other.isIndian &&
           isVegetarian == other.isVegetarian &&
-          isVegan == other.isVegan;
+          isVegan == other.isVegan &&
+          dietType == other.dietType &&
+          cuisine == other.cuisine &&
+          ingredients == other.ingredients &&
+          recipe == other.recipe &&
+          instructions == other.instructions &&
+          prepTimeMinutes == other.prepTimeMinutes &&
+          cookTimeMinutes == other.cookTimeMinutes &&
+          totalTimeMinutes == other.totalTimeMinutes &&
+          servings == other.servings &&
+          difficulty == other.difficulty &&
+          tags == other.tags;
 
   @override
   int get hashCode =>
@@ -150,5 +216,16 @@ class FoodEntity {
       mealTypes.hashCode ^
       isIndian.hashCode ^
       isVegetarian.hashCode ^
-      isVegan.hashCode;
+      isVegan.hashCode ^
+      dietType.hashCode ^
+      cuisine.hashCode ^
+      ingredients.hashCode ^
+      recipe.hashCode ^
+      instructions.hashCode ^
+      prepTimeMinutes.hashCode ^
+      cookTimeMinutes.hashCode ^
+      totalTimeMinutes.hashCode ^
+      servings.hashCode ^
+      difficulty.hashCode ^
+      tags.hashCode;
 }

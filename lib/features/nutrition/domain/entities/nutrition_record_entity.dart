@@ -1,3 +1,5 @@
+import '../../../../core/sync/sync_status.dart';
+
 class NutritionRecordEntity {
   final String id;
   final String foodName;
@@ -11,6 +13,7 @@ class NutritionRecordEntity {
   final DateTime consumedAt;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final SyncStatus syncStatus;
 
   const NutritionRecordEntity({
     required this.id,
@@ -25,6 +28,7 @@ class NutritionRecordEntity {
     required this.consumedAt,
     required this.createdAt,
     required this.updatedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   NutritionRecordEntity copyWith({
@@ -40,6 +44,7 @@ class NutritionRecordEntity {
     DateTime? consumedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    SyncStatus? syncStatus,
   }) {
     return NutritionRecordEntity(
       id: id ?? this.id,
@@ -54,6 +59,7 @@ class NutritionRecordEntity {
       consumedAt: consumedAt ?? this.consumedAt,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      syncStatus: syncStatus ?? this.syncStatus,
     );
   }
 

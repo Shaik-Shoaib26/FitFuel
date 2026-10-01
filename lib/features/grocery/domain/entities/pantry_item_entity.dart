@@ -1,3 +1,5 @@
+import '../../../../core/sync/sync_status.dart';
+
 class PantryItemEntity {
   final String id;
   final String? foodId;
@@ -7,6 +9,7 @@ class PantryItemEntity {
   final DateTime expiryDate;
   final String? imageUrl;
   final DateTime addedAt;
+  final SyncStatus syncStatus;
 
   const PantryItemEntity({
     required this.id,
@@ -17,6 +20,7 @@ class PantryItemEntity {
     required this.expiryDate,
     this.imageUrl,
     required this.addedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   String getExpiryStatus([DateTime? referenceDate]) {
@@ -43,6 +47,7 @@ class PantryItemEntity {
     DateTime? expiryDate,
     String? imageUrl,
     DateTime? addedAt,
+    SyncStatus? syncStatus,
   }) {
     return PantryItemEntity(
       id: id ?? this.id,
@@ -53,6 +58,7 @@ class PantryItemEntity {
       expiryDate: expiryDate ?? this.expiryDate,
       imageUrl: imageUrl ?? this.imageUrl,
       addedAt: addedAt ?? this.addedAt,
+      syncStatus: syncStatus ?? this.syncStatus,
     );
   }
 }

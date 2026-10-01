@@ -9,7 +9,8 @@ import '../../domain/entities/pantry_item_entity.dart';
 import '../../../authentication/presentation/providers/auth_providers.dart';
 import '../controllers/grocery_controller.dart';
 
-final groceryRemoteDataSourceProvider = Provider<IGroceryRemoteDataSource>((ref) {
+final groceryRemoteDataSourceProvider =
+    Provider<IGroceryRemoteDataSource>((ref) {
   return GroceryRemoteDataSourceImpl();
 });
 
@@ -18,7 +19,8 @@ final groceryRepositoryProvider = Provider<IGroceryRepository>((ref) {
   return GroceryRepositoryImpl(ds);
 });
 
-final groceryPreferencesProvider = StreamProvider<GroceryPreferencesEntity?>((ref) {
+final groceryPreferencesProvider =
+    StreamProvider<GroceryPreferencesEntity?>((ref) {
   final user = ref.watch(authStateStreamProvider).value;
   if (user == null) return Stream.value(null);
   return ref.watch(groceryRepositoryProvider).streamPreferences(user.uid);
@@ -37,17 +39,28 @@ final pantryProvider = StreamProvider<List<PantryItemEntity>>((ref) {
 });
 
 final selectedListIdProvider = StateProvider<String?>((ref) {
-  final lists = ref.watch(groceryListsProvider).value ?? [];
-  return lists.firstOrNull?.id;
+  ref.watch(authStateStreamProvider.select((auth) => auth.value?.uid));
+  ref.listen(groceryListsProvider, (_, next) {
+    if (next.isLoading || next.hasError) return;
+    final lists = next.value ?? [];
+    if (!lists.any((list) => list.id == ref.controller.state)) {
+      ref.controller.state = lists.firstOrNull?.id;
+    }
+  });
+  return ref.read(groceryListsProvider).value?.firstOrNull?.id;
 });
 
-final groceryItemsProvider = StreamProvider.family<List<GroceryItemEntity>, String>((ref, listId) {
+final groceryItemsProvider =
+    StreamProvider.family<List<GroceryItemEntity>, String>((ref, listId) {
   final user = ref.watch(authStateStreamProvider).value;
   if (user == null) return Stream.value([]);
-  return ref.watch(groceryRepositoryProvider).streamGroceryItems(user.uid, listId);
+  return ref
+      .watch(groceryRepositoryProvider)
+      .streamGroceryItems(user.uid, listId);
 });
 
-final currentGroceryListProvider = Provider<AsyncValue<GroceryListEntity?>>((ref) {
+final currentGroceryListProvider =
+    Provider<AsyncValue<GroceryListEntity?>>((ref) {
   final listsAsync = ref.watch(groceryListsProvider);
   final selectedId = ref.watch(selectedListIdProvider);
 
@@ -88,10 +101,11 @@ final groceryCompletionProvider = Provider<double>((ref) {
   return listVal.completionPercentage;
 });
 
-final groceryCategoryProvider = Provider<Map<String, List<GroceryItemEntity>>>((ref) {
+final groceryCategoryProvider =
+    Provider<Map<String, List<GroceryItemEntity>>>((ref) {
   final listVal = ref.watch(currentGroceryListProvider).value;
   if (listVal == null) return {};
-  
+
   final Map<String, List<GroceryItemEntity>> grouped = {};
   for (final item in listVal.items) {
     grouped.putIfAbsent(item.category, () => []).add(item);
@@ -99,7 +113,8 @@ final groceryCategoryProvider = Provider<Map<String, List<GroceryItemEntity>>>((
   return grouped;
 });
 
-final groceryControllerProvider = StateNotifierProvider<GroceryController, AsyncValue<void>>((ref) {
+final groceryControllerProvider =
+    StateNotifierProvider<GroceryController, AsyncValue<void>>((ref) {
   final repo = ref.watch(groceryRepositoryProvider);
   return GroceryController(repo, ref);
 });

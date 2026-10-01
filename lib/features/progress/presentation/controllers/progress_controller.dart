@@ -5,6 +5,7 @@ import '../../data/repositories/progress_repository_impl.dart';
 import '../../domain/entities/weight_record_entity.dart';
 import '../../domain/repositories/i_progress_repository.dart';
 
+
 class ProgressState {
   final int selectedRange;
   final bool isSavingWeight;

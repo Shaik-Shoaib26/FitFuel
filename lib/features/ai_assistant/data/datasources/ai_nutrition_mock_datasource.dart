@@ -4,6 +4,7 @@ import '../../domain/services/ai_nutrition_service.dart';
 import '../../../food/domain/entities/food_entity.dart';
 import '../../../food/domain/utils/food_recommendation_engine.dart';
 import '../../../food/data/datasources/predefined_food_data.dart';
+import '../../../food/data/repositories/food_asset_repository.dart';
 
 class AiNutritionMockDatasource implements AiNutritionService {
   @override
@@ -304,14 +305,63 @@ class AiNutritionMockDatasource implements AiNutritionService {
         pLower.contains('things left')) && !isGeneralConversation && !isMealPlan;
 
     // Routing Priority: Specific queries before general settings
+    final bool isRecipeQuery = pLower.contains('how do i prepare') ||
+        pLower.contains('how to prepare') ||
+        pLower.contains('how to make') ||
+        pLower.contains('recipe for') ||
+        pLower.contains('cooking instruction');
+
     if (isFoodExclusionPrompt) {
       textResponse = "Understood. I will exclude ${excludedFoods.join(', ')} from your food recommendations.";
+      suggestedFoods = null;
+    } else if (isRecipeQuery) {
+      String queryFoodName = pLower
+          .replaceAll('how do i prepare', '')
+          .replaceAll('how to prepare', '')
+          .replaceAll('how to make', '')
+          .replaceAll('recipe for', '')
+          .replaceAll('cooking instructions for', '')
+          .replaceAll('?', '')
+          .trim();
+      RecipeDetails? matchedRecipe;
+      
+      // Try exact or partial match on recipe names
+      for (final rec in FoodAssetRepository.recipes.values) {
+        final name = rec.foodName.toLowerCase();
+        if (name == queryFoodName || queryFoodName.contains(name) || name.contains(queryFoodName)) {
+          matchedRecipe = rec;
+          break;
+        }
+      }
+      
+      if (matchedRecipe != null) {
+        final buffer = StringBuffer();
+        buffer.writeln('Here is the recipe for **${matchedRecipe.foodName}**:\n');
+        buffer.writeln('**Category:** ${matchedRecipe.dietType.toUpperCase()} • **Cuisine:** ${matchedRecipe.cuisine}');
+        buffer.writeln('**Difficulty:** ${matchedRecipe.difficulty} • **Prep Time:** ${matchedRecipe.prepTimeMinutes} mins • **Cook Time:** ${matchedRecipe.cookTimeMinutes} mins\n');
+        
+        buffer.writeln('**Ingredients:**');
+        for (final ing in matchedRecipe.ingredients) {
+          buffer.writeln('- ${ing.name}: ${ing.baseAmount.toStringAsFixed(ing.baseAmount % 1 == 0 ? 0 : 1)} ${ing.unit}');
+        }
+        buffer.writeln('\n**Instructions:**');
+        for (int i = 0; i < matchedRecipe.instructions.length; i++) {
+          buffer.writeln('${i + 1}. ${matchedRecipe.instructions[i]}');
+        }
+        textResponse = buffer.toString();
+      } else {
+        textResponse = 'Recipe details are not available yet.';
+      }
       suggestedFoods = null;
     } else if (isGroceryQuery) {
       // Parse grocery section from context
       final String grocerySection;
       if (systemContext.contains('=== FITFUEL SMART GROCERY CONTEXT ===')) {
         final startIndex = systemContext.indexOf('=== FITFUEL SMART GROCERY CONTEXT ===');
+        final endIndex = systemContext.indexOf('=== END CONTEXT ===', startIndex);
+        grocerySection = systemContext.substring(startIndex, endIndex == -1 ? systemContext.length : endIndex);
+      } else if (systemContext.contains('=== GROCERY & PANTRY ===')) {
+        final startIndex = systemContext.indexOf('=== GROCERY & PANTRY ===');
         final endIndex = systemContext.indexOf('=== END CONTEXT ===', startIndex);
         grocerySection = systemContext.substring(startIndex, endIndex == -1 ? systemContext.length : endIndex);
       } else {
@@ -366,11 +416,35 @@ class AiNutritionMockDatasource implements AiNutritionService {
         } else {
           textResponse = 'Here are the expiring/expired foods in your pantry:\n${expiring.map((i) => '• $i').join('\n')}\n\nTry to utilize these in your upcoming meals!';
         }
-      } else if (pLower.contains('pantry') || pLower.contains('already have') || pLower.contains('what do i have')) {
+      } else if (pLower.contains('pantry') || pLower.contains('already have') || pLower.contains('what do i have') || pLower.contains('do i have')) {
         if (pantry.isEmpty) {
           textResponse = 'Your pantry is currently empty. You can record your kitchen stocks in the Pantry tab of the Grocery screen.';
         } else {
-          textResponse = 'Here is what you currently have in your pantry:\n${pantry.map((i) => '• $i').join('\n')}';
+          final matchingFoods = <String>[];
+          for (final item in pantry) {
+            final itemName = item.split(':').first.toLowerCase().trim();
+            for (final food in PredefinedFoodData.foods) {
+              if (food.name.toLowerCase().contains(itemName)) {
+                matchingFoods.add(food.name);
+              }
+            }
+          }
+          final buffer = StringBuffer();
+          buffer.writeln('Here is what you currently have in your pantry:');
+          for (final i in pantry) {
+            buffer.writeln('• $i');
+          }
+          buffer.writeln('\nHere are some healthy meals you can prepare using these ingredients:');
+          if (matchingFoods.isNotEmpty) {
+            for (final f in matchingFoods.toSet().take(3)) {
+              buffer.writeln('- **$f** (uses pantry ingredients)');
+            }
+          } else {
+            buffer.writeln('- **Idli** (uses rice/lentils batter)');
+            buffer.writeln('- **Plain Dosa** (uses rice/lentils batter)');
+            buffer.writeln('- **Dal Tadka** (uses lentils)');
+          }
+          textResponse = buffer.toString();
         }
       } else {
         if (remainingItems.isEmpty) {
@@ -861,119 +935,248 @@ class AiNutritionMockDatasource implements AiNutritionService {
       }
       suggestedFoods = null;
     } else if (isMealPlan) {
-      final List<FoodEntity> foods = [];
+      // 1. Try to use Smart Eat Context recommendations if available
+      String? currentMeal;
+      String? parsedRemainingCal;
+      String? parsedRemainingPro;
+      String? topRecommendation;
+      String? matchScore;
+      double topCalories = 0.0;
+      double topProtein = 0.0;
+      double topCarbs = 0.0;
+      double topFats = 0.0;
+      final List<String> alternatives = [];
+
       try {
         final lines = systemContext.split('\n');
-        for (final line in lines) {
-          if (line.startsWith('- Food: ')) {
-            final parts = line.substring(8).split(' | ');
-            final name = parts[0];
-            final category = parts[1].split(': ')[1];
-            final servingParts = parts[2].split(': ')[1].split(' ');
-            final servingSize = double.tryParse(servingParts[0]) ?? 100.0;
-            final servingUnit = servingParts[1];
-            final calories = double.tryParse(parts[3].split(': ')[1].replaceAll(' kcal', '')) ?? 0.0;
-            final protein = double.tryParse(parts[4].split(': ')[1].replaceAll('g', '')) ?? 0.0;
-            final carbs = double.tryParse(parts[5].split(': ')[1].replaceAll('g', '')) ?? 0.0;
-            final fats = double.tryParse(parts[6].split(': ')[1].replaceAll('g', '')) ?? 0.0;
-            final fiber = double.tryParse(parts[7].split(': ')[1].replaceAll('g', '')) ?? 0.0;
-            final sugar = double.tryParse(parts[8].split(': ')[1].replaceAll('g', '')) ?? 0.0;
-            final sodium = double.tryParse(parts[9].split(': ')[1].replaceAll('mg', '')) ?? 0.0;
-            final id = parts[10].split(': ')[1];
-            final isFavorite = parts[11].split(': ')[1] == 'true';
-
-            foods.add(FoodEntity(
-              id: id,
-              name: name,
-              category: category,
-              servingSize: servingSize,
-              servingUnit: servingUnit,
-              calories: calories,
-              protein: protein,
-              carbohydrates: carbs,
-              fats: fats,
-              fiber: fiber,
-              sugar: sugar,
-              sodium: sodium,
-              isFavorite: isFavorite,
-            ));
+        bool inSmartEat = false;
+        String? currentLineFoodName;
+        for (int i = 0; i < lines.length; i++) {
+          final line = lines[i].trim();
+          if (line.contains('=== FITFUEL SMART EAT FOOD CONTEXT ===') || line.contains('=== FITFUEL SMART EAT CONTEXT ===')) {
+            inSmartEat = true;
+            continue;
+          }
+          if (inSmartEat) {
+            if (line.contains('=== END')) {
+              inSmartEat = false;
+              break;
+            }
+            if (line.startsWith('Current meal:') || line.startsWith('- Current meal:')) {
+              currentMeal = line.split(':').last.trim();
+            } else if (line.startsWith('Remaining calories:') || line.startsWith('- Remaining calories:')) {
+              parsedRemainingCal = line.split(':').last.trim();
+            } else if (line.startsWith('Remaining protein:') || line.startsWith('- Remaining protein:')) {
+              parsedRemainingPro = line.split(':').last.trim();
+            } else if (line.startsWith('Top recommendation:') || line.startsWith('- Top recommendation:')) {
+              topRecommendation = line.split(':').last.trim();
+              currentLineFoodName = topRecommendation;
+            } else if (line.startsWith('Calories:') || line.startsWith('calories:') || line.startsWith('* Calories:') || line.startsWith('  * Calories:')) {
+              final val = double.tryParse(line.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0.0;
+              if (currentLineFoodName == topRecommendation) topCalories = val;
+            } else if (line.startsWith('Protein:') || line.startsWith('protein:') || line.startsWith('* Protein:') || line.startsWith('  * Protein:')) {
+              final val = double.tryParse(line.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0.0;
+              if (currentLineFoodName == topRecommendation) topProtein = val;
+            } else if (line.startsWith('Carbs:') || line.startsWith('carbs:') || line.startsWith('* Carbs:') || line.startsWith('  * Carbs:')) {
+              final val = double.tryParse(line.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0.0;
+              if (currentLineFoodName == topRecommendation) topCarbs = val;
+            } else if (line.startsWith('Fats:') || line.startsWith('fats:') || line.startsWith('fat:') || line.startsWith('* Fats:') || line.startsWith('  * Fats:')) {
+              final val = double.tryParse(line.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0.0;
+              if (currentLineFoodName == topRecommendation) topFats = val;
+            } else if (line.startsWith('Match Score:') || line.startsWith('* Match Score:') || line.startsWith('  * Match Score:')) {
+              matchScore = line.split(':').last.trim();
+            } else if (RegExp(r'^\d+\.').hasMatch(line)) {
+              final foodName = line.replaceFirst(RegExp(r'^\d+\.\s*'), '').trim();
+              if (topRecommendation == null) {
+                topRecommendation = foodName;
+                currentLineFoodName = foodName;
+              } else {
+                alternatives.add(foodName);
+                currentLineFoodName = foodName;
+              }
+            } else if (line.startsWith('* ') || line.startsWith('  * ')) {
+              final clean = line.replaceFirst(RegExp(r'^\s*\*?\s*'), '').trim();
+              if (!clean.contains('Calories') && !clean.contains('Protein') && !clean.contains('Carbs') && !clean.contains('Fats') && !clean.contains('Match Score')) {
+                alternatives.add(clean);
+              }
+            }
           }
         }
       } catch (_) {}
 
-      if (foods.isEmpty) {
-        foods.addAll(PredefinedFoodData.foods.map((e) => e.toEntity()));
-      }
-
-      String mealType = 'Lunch';
-      if (pLower.contains('breakfast')) {
-        mealType = 'Breakfast';
-      } else if (pLower.contains('lunch')) {
-        mealType = 'Lunch';
-      } else if (pLower.contains('dinner')) {
-        mealType = 'Dinner';
-      } else if (pLower.contains('snack')) {
-        mealType = 'Snacks';
-      }
-
-      double finalRemainingPro = remainingPro;
-      if (pLower.contains('high protein') || pLower.contains('protein')) {
-        finalRemainingPro = finalRemainingPro > 0 ? finalRemainingPro : 50.0;
-      }
-
-      final List<String> excludedList = excludedFoods.toList();
-      var recommendations = FoodRecommendationEngine.recommend(
-        foods: foods,
-        mealType: mealType,
-        remainingCalories: remainingCals,
-        proteinDeficit: finalRemainingPro,
-        dietaryPreference: dietaryPref,
-        excludedFoodNames: excludedList,
-        favoriteFoodIds: const [],
-        recentFoodIds: const [],
-      );
-
-      // Filter out previously recommended foods if it doesn't leave the list empty
-      final filteredRecs = recommendations.where((f) => !previouslyRecommended.contains(f.name.toLowerCase())).toList();
-      if (filteredRecs.isNotEmpty) {
-        recommendations = filteredRecs;
-      }
-
-      if (recommendations.isNotEmpty) {
-        final topFoods = recommendations.take(3).toList();
+      if (topRecommendation != null && topRecommendation != 'None' && topRecommendation.isNotEmpty) {
         final buffer = StringBuffer();
-        buffer.writeln('Here are some smart choices matching your request:\n');
-        
-        for (int i = 0; i < topFoods.length; i++) {
-          final f = topFoods[i];
-          buffer.writeln('**Option ${i + 1}: ${f.name}**');
-          buffer.writeln('Serving: ${f.servingSize.toStringAsFixed(0)} ${f.servingUnit}');
-          buffer.writeln('- Calories: ${f.calories.toStringAsFixed(0)} kcal');
-          buffer.writeln('- Protein: ${f.protein.toStringAsFixed(1)} g');
-          buffer.writeln('- Carbs: ${f.carbohydrates.toStringAsFixed(1)} g');
-          buffer.writeln('- Fats: ${f.fats.toStringAsFixed(1)} g\n');
+        buffer.writeln('Based on your FitFuel Smart Eat analysis, here is what you should eat right now:\n');
+        buffer.writeln('**Top Recommendation: $topRecommendation ($matchScore)**');
+        buffer.writeln('- Meal Slot: $currentMeal');
+        buffer.writeln('- Today\'s Remaining Calories: $parsedRemainingCal kcal');
+        buffer.writeln('- Today\'s Remaining Protein: $parsedRemainingPro g\n');
+        buffer.writeln('Macros for this choice:');
+        buffer.writeln('- Calories: ${topCalories.toStringAsFixed(0)} kcal');
+        buffer.writeln('- Protein: ${topProtein.toStringAsFixed(1)} g');
+        buffer.writeln('- Carbs: ${topCarbs.toStringAsFixed(1)} g');
+        buffer.writeln('- Fats: ${topFats.toStringAsFixed(1)} g\n');
+
+        if (alternatives.isNotEmpty) {
+          buffer.writeln('**Alternative Options:**');
+          for (final alt in alternatives) {
+            buffer.writeln('- $alt');
+          }
+          buffer.writeln('');
         }
 
         buffer.writeln('You can view details or log these recommendations directly below.');
         textResponse = buffer.toString();
 
-        suggestedFoods = topFoods.map((f) => NutritionRecordEntity(
-          id: f.id,
-          foodName: f.name,
-          mealType: mealType,
-          calories: f.calories,
-          protein: f.protein,
-          carbohydrates: f.carbohydrates,
-          fats: f.fats,
-          sugar: f.sugar,
-          servingSize: f.servingSize,
+        final List<NutritionRecordEntity> suggested = [];
+        suggested.add(NutritionRecordEntity(
+          id: 'smart_top',
+          foodName: topRecommendation,
+          mealType: currentMeal ?? 'Lunch',
+          calories: topCalories,
+          protein: topProtein,
+          carbohydrates: topCarbs,
+          fats: topFats,
+          sugar: 0.0,
+          servingSize: 150.0,
           consumedAt: DateTime.now(),
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
-        )).toList();
+        ));
+
+        for (int i = 0; i < alternatives.length; i++) {
+          final altName = alternatives[i].split(' (').first;
+          suggested.add(NutritionRecordEntity(
+            id: 'smart_alt_$i',
+            foodName: altName,
+            mealType: currentMeal ?? 'Lunch',
+            calories: topCalories * 0.9,
+            protein: topProtein * 0.9,
+            carbohydrates: topCarbs * 0.9,
+            fats: topFats * 0.9,
+            sugar: 0.0,
+            servingSize: 150.0,
+            consumedAt: DateTime.now(),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          ));
+        }
+        suggestedFoods = suggested;
       } else {
-        textResponse = 'I could not find any suitable foods in the database matching your constraints.';
-        suggestedFoods = null;
+        final List<FoodEntity> foods = [];
+        try {
+          final lines = systemContext.split('\n');
+          for (final line in lines) {
+            if (line.startsWith('- Food: ')) {
+              final parts = line.substring(8).split(' | ');
+              final name = parts[0];
+              final category = parts[1].split(': ')[1];
+              final servingParts = parts[2].split(': ')[1].split(' ');
+              final servingSize = double.tryParse(servingParts[0]) ?? 100.0;
+              final servingUnit = servingParts[1];
+              final calories = double.tryParse(parts[3].split(': ')[1].replaceAll(' kcal', '')) ?? 0.0;
+              final protein = double.tryParse(parts[4].split(': ')[1].replaceAll('g', '')) ?? 0.0;
+              final carbs = double.tryParse(parts[5].split(': ')[1].replaceAll('g', '')) ?? 0.0;
+              final fats = double.tryParse(parts[6].split(': ')[1].replaceAll('g', '')) ?? 0.0;
+              final fiber = double.tryParse(parts[7].split(': ')[1].replaceAll('g', '')) ?? 0.0;
+              final sugar = double.tryParse(parts[8].split(': ')[1].replaceAll('g', '')) ?? 0.0;
+              final sodium = double.tryParse(parts[9].split(': ')[1].replaceAll('mg', '')) ?? 0.0;
+              final id = parts[10].split(': ')[1];
+              final isFavorite = parts[11].split(': ')[1] == 'true';
+
+              foods.add(FoodEntity(
+                id: id,
+                name: name,
+                category: category,
+                servingSize: servingSize,
+                servingUnit: servingUnit,
+                calories: calories,
+                protein: protein,
+                carbohydrates: carbs,
+                fats: fats,
+                fiber: fiber,
+                sugar: sugar,
+                sodium: sodium,
+                isFavorite: isFavorite,
+              ));
+            }
+          }
+        } catch (_) {}
+
+        if (foods.isEmpty) {
+          foods.addAll(PredefinedFoodData.foods.map((e) => e.toEntity()));
+        }
+
+        String mealType = 'Lunch';
+        if (pLower.contains('breakfast')) {
+          mealType = 'Breakfast';
+        } else if (pLower.contains('lunch')) {
+          mealType = 'Lunch';
+        } else if (pLower.contains('dinner')) {
+          mealType = 'Dinner';
+        } else if (pLower.contains('snack')) {
+          mealType = 'Snacks';
+        }
+
+        double finalRemainingPro = remainingPro;
+        if (pLower.contains('high protein') || pLower.contains('protein')) {
+          finalRemainingPro = finalRemainingPro > 0 ? finalRemainingPro : 50.0;
+        }
+
+        final List<String> excludedList = excludedFoods.toList();
+        var recommendations = FoodRecommendationEngine.recommend(
+          foods: foods,
+          mealType: mealType,
+          remainingCalories: remainingCals,
+          proteinDeficit: finalRemainingPro,
+          dietaryPreference: dietaryPref,
+          excludedFoodNames: excludedList,
+          favoriteFoodIds: const [],
+          recentFoodIds: const [],
+        );
+
+        // Filter out previously recommended foods if it doesn't leave the list empty
+        final filteredRecs = recommendations.where((f) => !previouslyRecommended.contains(f.name.toLowerCase())).toList();
+        if (filteredRecs.isNotEmpty) {
+          recommendations = filteredRecs;
+        }
+
+        if (recommendations.isNotEmpty) {
+          final topFoods = recommendations.take(3).toList();
+          final buffer = StringBuffer();
+          buffer.writeln('Here are some smart choices matching your request:\n');
+
+          for (int i = 0; i < topFoods.length; i++) {
+            final f = topFoods[i];
+            buffer.writeln('**Option ${i + 1}: ${f.name}**');
+            buffer.writeln('Serving: ${f.servingSize.toStringAsFixed(0)} ${f.servingUnit}');
+            buffer.writeln('- Calories: ${f.calories.toStringAsFixed(0)} kcal');
+            buffer.writeln('- Protein: ${f.protein.toStringAsFixed(1)} g');
+            buffer.writeln('- Carbs: ${f.carbohydrates.toStringAsFixed(1)} g');
+            buffer.writeln('- Fats: ${f.fats.toStringAsFixed(1)} g\n');
+          }
+
+          buffer.writeln('You can view details or log these recommendations directly below.');
+          textResponse = buffer.toString();
+
+          suggestedFoods = topFoods.map((f) => NutritionRecordEntity(
+            id: f.id,
+            foodName: f.name,
+            mealType: mealType,
+            calories: f.calories,
+            protein: f.protein,
+            carbohydrates: f.carbohydrates,
+            fats: f.fats,
+            sugar: f.sugar,
+            servingSize: f.servingSize,
+            consumedAt: DateTime.now(),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          )).toList();
+        } else {
+          textResponse = 'I could not find any suitable foods in the database matching your constraints.';
+          suggestedFoods = null;
+        }
       }
     } else if (isHydrationCoaching) {
       final double waterIntake = extractVal('- Water Intake:', '- Water Intake:', ' ml /');

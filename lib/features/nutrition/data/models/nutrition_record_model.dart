@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/sync/sync_status.dart';
 import '../../domain/entities/nutrition_record_entity.dart';
 
 class NutritionRecordModel {
@@ -14,6 +15,7 @@ class NutritionRecordModel {
   final DateTime consumedAt;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final SyncStatus syncStatus;
 
   const NutritionRecordModel({
     required this.id,
@@ -28,6 +30,7 @@ class NutritionRecordModel {
     required this.consumedAt,
     required this.createdAt,
     required this.updatedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   factory NutritionRecordModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -66,6 +69,7 @@ class NutritionRecordModel {
       consumedAt: parseDateTime(data['consumedAt']),
       createdAt: parseDateTime(data['createdAt']),
       updatedAt: parseDateTime(data['updatedAt']),
+      syncStatus: doc.metadata.hasPendingWrites ? SyncStatus.pending : SyncStatus.synced,
     );
   }
 
@@ -97,6 +101,7 @@ class NutritionRecordModel {
       consumedAt: entity.consumedAt,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      syncStatus: entity.syncStatus,
     );
   }
 
@@ -114,6 +119,7 @@ class NutritionRecordModel {
       consumedAt: consumedAt,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      syncStatus: syncStatus,
     );
   }
 }

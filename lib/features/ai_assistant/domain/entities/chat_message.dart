@@ -7,11 +7,13 @@ class ChatMessage {
   final MessageSender sender;
   final DateTime timestamp;
   final List<NutritionRecordEntity>? suggestedFoods;
+  final String? providerUsed;
 
   const ChatMessage({
     required this.text,
     required this.sender,
     required this.timestamp,
     this.suggestedFoods,
+    this.providerUsed,
   });
 }

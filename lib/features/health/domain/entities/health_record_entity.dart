@@ -1,3 +1,4 @@
+import '../../../../core/sync/sync_status.dart';
 import 'exercise_entity.dart';
 
 class HealthRecordEntity {
@@ -9,6 +10,7 @@ class HealthRecordEntity {
   final Map<String, bool> habits;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final SyncStatus syncStatus;
 
   const HealthRecordEntity({
     required this.id,
@@ -19,6 +21,7 @@ class HealthRecordEntity {
     required this.habits,
     required this.createdAt,
     required this.updatedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   HealthRecordEntity copyWith({
@@ -30,6 +33,7 @@ class HealthRecordEntity {
     Map<String, bool>? habits,
     DateTime? createdAt,
     DateTime? updatedAt,
+    SyncStatus? syncStatus,
   }) {
     return HealthRecordEntity(
       id: id ?? this.id,
@@ -40,6 +44,7 @@ class HealthRecordEntity {
       habits: habits ?? this.habits,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      syncStatus: syncStatus ?? this.syncStatus,
     );
   }
 
@@ -57,6 +62,7 @@ class HealthRecordEntity {
       },
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      syncStatus: SyncStatus.synced,
     );
   }
 }

@@ -49,7 +49,8 @@ class HealthController extends StateNotifier<AsyncValue<void>> {
 
   Future<void> addExercise(ExerciseEntity exercise) async {
     final current = _getOrCreateTodayRecord();
-    final updatedList = List<ExerciseEntity>.from(current.exercises)..add(exercise);
+    final updatedList = List<ExerciseEntity>.from(current.exercises)
+      ..add(exercise);
     final updated = current.copyWith(
       exercises: updatedList,
       updatedAt: DateTime.now(),
@@ -59,7 +60,8 @@ class HealthController extends StateNotifier<AsyncValue<void>> {
 
   Future<void> toggleHabit(String habitName, bool completed) async {
     final current = _getOrCreateTodayRecord();
-    final updatedHabits = Map<String, bool>.from(current.habits)..[habitName] = completed;
+    final updatedHabits = Map<String, bool>.from(current.habits)
+      ..[habitName] = completed;
     final updated = current.copyWith(
       habits: updatedHabits,
       updatedAt: DateTime.now(),
@@ -68,6 +70,7 @@ class HealthController extends StateNotifier<AsyncValue<void>> {
   }
 }
 
-final healthControllerProvider = StateNotifierProvider<HealthController, AsyncValue<void>>((ref) {
+final healthControllerProvider =
+    StateNotifierProvider<HealthController, AsyncValue<void>>((ref) {
   return HealthController(ref);
 });

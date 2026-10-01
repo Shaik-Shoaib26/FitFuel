@@ -21,15 +21,18 @@ class DashboardGroceryCard extends ConsumerWidget {
         if (list == null) {
           // Fallback card when no grocery list exists
           return FitFuelCard(
+            border: const BorderSide(color: AppColors.secondary, width: 1.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Smart Grocery',
-                      style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+                    Expanded(
+                      child: Text(
+                        'Smart Grocery',
+                        style: AppTypography.heading2(isDark: isDark).copyWith(fontSize: 16),
+                      ),
                     ),
                     const Icon(Icons.shopping_cart_outlined, color: AppColors.primary500),
                   ],
@@ -56,6 +59,7 @@ class DashboardGroceryCard extends ConsumerWidget {
         final pantryCount = pantryAsync.value?.length ?? 0;
 
         return FitFuelCard(
+          border: const BorderSide(color: AppColors.secondary, width: 1.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

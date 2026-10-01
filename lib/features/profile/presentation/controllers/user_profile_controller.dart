@@ -6,6 +6,7 @@ import '../../domain/entities/nutrition_goals_entity.dart';
 import '../../domain/entities/user_profile_entity.dart';
 import '../../domain/repositories/i_profile_repository.dart';
 import '../providers/profile_providers.dart';
+import '../../../authentication/presentation/providers/auth_providers.dart';
 
 abstract class UserProfileState {
   const UserProfileState();
@@ -118,6 +119,7 @@ class UserProfileController extends StateNotifier<UserProfileState> {
 
 final userProfileControllerProvider =
     StateNotifierProvider<UserProfileController, UserProfileState>((ref) {
+  ref.watch(authStateStreamProvider.select((user) => user.value?.uid));
   final repository = ref.watch(profileRepositoryProvider);
   return UserProfileController(repository);
 });

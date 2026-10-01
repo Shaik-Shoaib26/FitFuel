@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
+import 'fitfuel_card.dart';
 
 class GlassmorphicContainer extends StatelessWidget {
   final Widget child;
@@ -14,8 +15,8 @@ class GlassmorphicContainer extends StatelessWidget {
   const GlassmorphicContainer({
     super.key,
     required this.child,
-    this.blur = 16.0,
-    this.opacity = 0.8,
+    this.blur = 0.0,
+    this.opacity = 1.0,
     this.borderRadius = AppConstants.radiusLg,
     this.padding,
     this.margin,
@@ -23,6 +24,14 @@ class GlassmorphicContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Legacy call sites inherit calm surfaces; explicit glass remains available.
+    if (blur == 0 && opacity == 1) {
+      return FitFuelCard(
+          padding: padding,
+          margin: margin,
+          borderRadius: borderRadius,
+          child: child);
+    }
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(

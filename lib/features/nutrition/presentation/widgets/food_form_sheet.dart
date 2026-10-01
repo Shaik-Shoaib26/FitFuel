@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
+import '../../../../core/network/network_status.dart';
+import '../../../../core/network/network_status_provider.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
 import '../../domain/entities/meal_type.dart';
@@ -67,6 +69,17 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
 
   void _onSaveSubmitted() async {
     if (!_formKey.currentState!.validate()) return;
+
+    final networkStatus = ref.read(networkStatusProvider).value ?? NetworkStatus.online;
+    if (networkStatus == NetworkStatus.offline) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Internet connection is required for this action.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
     final controller = ref.read(nutritionControllerProvider.notifier);
 

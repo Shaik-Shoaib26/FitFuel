@@ -3,6 +3,13 @@ import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
 import '../../domain/entities/chat_message.dart';
 import '../../domain/services/ai_nutrition_service.dart';
 
+import 'package:flutter/foundation.dart';
+
+class GeminiConfig {
+  static const String modelName = 'gemini-1.5-flash';
+  static const Duration timeout = Duration(seconds: 20);
+}
+
 class AiNutritionRemoteDatasource implements AiNutritionService {
   final Dio _dio;
   final String _apiKey;
@@ -13,65 +20,21 @@ class AiNutritionRemoteDatasource implements AiNutritionService {
   })  : _dio = dio ?? Dio(),
         _apiKey = apiKey;
 
+  void _log(String message) {
+    // Secure development logging: ensure no sensitive keys are ever logged
+    final cleanMsg = message.replaceAll(_apiKey, '***');
+    debugPrint('[AI] $cleanMsg');
+  }
+
   @override
   Future<ChatMessage> generateResponse({
     required String userPrompt,
     required String systemContext,
     List<ChatMessage> history = const [],
   }) async {
-    final url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$_apiKey';
+    final url = 'https://generativelanguage.googleapis.com/v1beta/models/${GeminiConfig.modelName}:generateContent?key=$_apiKey';
 
-
-
-    // 1. Build excluded-foods list based on full multi-turn chat history
-    final Set<String> excludedFoods = {};
-    final triggers = ['no', 'avoid', 'cannot eat', 'don\'t want', 'rather than', 'exclude', 'without', 'cannot prefer'];
-    final foodsList = ['chicken', 'eggs', 'yogurt', 'dal', 'paneer', 'oats', 'banana', 'rice', 'milk', 'vegetables'];
-
-    void checkExclusions(String text) {
-      final tLower = text.toLowerCase();
-      for (final trigger in triggers) {
-        if (tLower.contains(trigger)) {
-          for (final food in foodsList) {
-            if (tLower.contains(food)) {
-              excludedFoods.add(food);
-            }
-          }
-        }
-      }
-    }
-
-    for (final msg in history) {
-      if (msg.sender == MessageSender.user) {
-        checkExclusions(msg.text);
-      }
-    }
-    checkExclusions(userPrompt);
-
-    // 2. Track previously recommended foods
-    final Set<String> previouslyRecommended = {};
-    for (final msg in history) {
-      if (msg.sender == MessageSender.ai) {
-        if (msg.suggestedFoods != null) {
-          for (final f in msg.suggestedFoods!) {
-            previouslyRecommended.add(f.foodName.toLowerCase());
-          }
-        }
-        for (final food in foodsList) {
-          if (msg.text.toLowerCase().contains(food)) {
-            previouslyRecommended.add(food);
-          }
-        }
-      }
-    }
-
-    final String exclusionInstruction = excludedFoods.isNotEmpty
-        ? 'CRITICAL: Do NOT recommend or mention any of the following excluded foods: ${excludedFoods.join(', ')}.'
-        : '';
-
-    final String recommendationInstruction = previouslyRecommended.isNotEmpty
-        ? 'CRITICAL: Try to suggest a DIFFERENT food item than the ones already suggested in history: ${previouslyRecommended.join(', ')}.'
-        : '';
+    _log('Gemini request started');
 
     final List<Map<String, dynamic>> contents = [];
 
@@ -85,109 +48,182 @@ class AiNutritionRemoteDatasource implements AiNutritionService {
       });
     }
 
-    // Add current turn with the guidelines, context, exclusions, and recommendations instructions
+    // Add current user prompt and system context
     contents.add({
       'role': 'user',
       'parts': [
         {
           'text': '''
-SYSTEM INSTRUCTION:
-You are FitFuel AI, a helpful nutrition and wellness assistant.
-Answering Safety Guidelines:
-1. Avoid medical diagnoses or claiming to treat/cure diseases.
-2. Avoid extreme dieting, fasts, or dangerous calorie restriction.
-3. State clearly when nutrition figures are approximate.
-4. Encourage consulting certified dietitians or professionals for medical/dietary conditions.
-5. Keep your responses practical, clear, and concise.
-6. If the user asks about water, hydration, exercise, habits, or wellness score, discuss these health metrics specifically, and do NOT append any [SUGGESTION: ...] tag or recommend any food unless the user explicitly requests food recommendations in their prompt.
-7. Answer the user's specific question using the supplied FitFuel health data. Do not answer a different question. Do not repeat a generic summary when the user asks for a specific metric.
-
-$exclusionInstruction
-$recommendationInstruction
-
-USER QUESTION:
-$userPrompt
-
-USER HEALTH CONTEXT:
 $systemContext
 '''
         }
       ]
     });
 
-    try {
-      final response = await _dio.post(
+    final requestPayload = {
+      'contents': contents,
+    };
+
+    Future<Response> executeRequest() {
+      return _dio.post(
         url,
-        data: {
-          'contents': contents,
-        },
+        data: requestPayload,
         options: Options(
           headers: {'Content-Type': 'application/json'},
-          sendTimeout: const Duration(seconds: 15),
-          receiveTimeout: const Duration(seconds: 15),
+          sendTimeout: GeminiConfig.timeout,
+          receiveTimeout: GeminiConfig.timeout,
         ),
       );
+    }
 
-      if (response.statusCode == 200) {
-        final candidates = response.data['candidates'] as List?;
-        if (candidates != null && candidates.isNotEmpty) {
-          final content = candidates[0]['content'] as Map?;
-          final parts = content?['parts'] as List?;
-          if (parts != null && parts.isNotEmpty) {
-            String text = parts[0]['text'] as String? ?? 'No response generated.';
+    Response response;
+    try {
+      response = await executeRequest();
+    } on DioException catch (e) {
+      if (_isTransient(e)) {
+        _log('Transient error encountered: ${e.type}. Retrying request once.');
+        try {
+          response = await executeRequest();
+        } on DioException catch (retryErr) {
+          _handleDioException(retryErr);
+          rethrow;
+        }
+      } else {
+        _handleDioException(e);
+        rethrow;
+      }
+    }
 
-            // Parse suggestion food from response if present
-            final List<NutritionRecordEntity> suggestedFoods = [];
-            final regex = RegExp(r'\[SUGGESTION:\s*([^,]+),\s*([\d.]+),\s*([\d.]+),\s*([\d.]+),\s*([\d.]+)\]');
-            final match = regex.firstMatch(text);
+    _log('Gemini response received');
 
-            if (match != null) {
-              final foodName = match.group(1)?.trim() ?? '';
-              final cals = double.tryParse(match.group(2) ?? '') ?? 0.0;
-              final pro = double.tryParse(match.group(3) ?? '') ?? 0.0;
-              final carbs = double.tryParse(match.group(4) ?? '') ?? 0.0;
-              final fats = double.tryParse(match.group(5) ?? '') ?? 0.0;
+    if (response.statusCode == 200) {
+      final data = response.data as Map?;
+      if (data == null) {
+        throw Exception('invalidResponse');
+      }
 
-              // Clean text by stripping out the raw bracket suggestion tag
-              text = text.replaceAll(match.group(0)!, '').trim();
+      // Check prompt safety block
+      final promptFeedback = data['promptFeedback'] as Map?;
+      if (promptFeedback != null && promptFeedback['blockReason'] != null) {
+        _log('Prompt blocked by safety filters');
+        return ChatMessage(
+          text: "I can't help with that request, but I can provide general nutrition and wellness guidance.",
+          sender: MessageSender.ai,
+          timestamp: DateTime.now(),
+          providerUsed: 'Gemini',
+        );
+      }
 
-              if (foodName.isNotEmpty) {
-                suggestedFoods.add(
-                  NutritionRecordEntity(
-                    id: '',
-                    foodName: foodName,
-                    mealType: 'Snack', // Default meal type fallback
-                    calories: cals,
-                    protein: pro,
-                    carbohydrates: carbs,
-                    fats: fats,
-                    sugar: 0.0,
-                    servingSize: 100.0,
-                    consumedAt: DateTime.now(),
-                    createdAt: DateTime.now(),
-                    updatedAt: DateTime.now(),
-                  ),
-                );
-              }
-            }
+      final candidates = data['candidates'] as List?;
+      if (candidates == null || candidates.isEmpty) {
+        throw Exception('emptyCandidate');
+      }
 
-            return ChatMessage(
-              text: text,
-              sender: MessageSender.ai,
-              timestamp: DateTime.now(),
-              suggestedFoods: suggestedFoods.isNotEmpty ? suggestedFoods : null,
+      final candidate = candidates[0] as Map;
+
+      // Check candidate safety block
+      final finishReason = candidate['finishReason'] as String?;
+      if (finishReason == 'SAFETY') {
+        _log('Response candidate blocked by safety filters');
+        return ChatMessage(
+          text: "I can't help with that request, but I can provide general nutrition and wellness guidance.",
+          sender: MessageSender.ai,
+          timestamp: DateTime.now(),
+          providerUsed: 'Gemini',
+        );
+      }
+
+      final content = candidate['content'] as Map?;
+      final parts = content?['parts'] as List?;
+      if (parts != null && parts.isNotEmpty) {
+        String text = parts[0]['text'] as String? ?? '';
+        if (text.isEmpty) {
+          throw Exception('emptyCandidate');
+        }
+
+        // Parse suggestion food from response if present
+        final List<NutritionRecordEntity> suggestedFoods = [];
+        final regex = RegExp(r'\[SUGGESTION:\s*([^,]+),\s*([\d.]+),\s*([\d.]+),\s*([\d.]+),\s*([\d.]+)\]');
+        final match = regex.firstMatch(text);
+
+        if (match != null) {
+          final foodName = match.group(1)?.trim() ?? '';
+          final cals = double.tryParse(match.group(2) ?? '') ?? 0.0;
+          final pro = double.tryParse(match.group(3) ?? '') ?? 0.0;
+          final carbs = double.tryParse(match.group(4) ?? '') ?? 0.0;
+          final fats = double.tryParse(match.group(5) ?? '') ?? 0.0;
+
+          // Clean text by stripping out the raw bracket suggestion tag
+          text = text.replaceAll(match.group(0)!, '').trim();
+
+          if (foodName.isNotEmpty) {
+            suggestedFoods.add(
+              NutritionRecordEntity(
+                id: '',
+                foodName: foodName,
+                mealType: 'Snack', // Default meal type fallback
+                calories: cals,
+                protein: pro,
+                carbohydrates: carbs,
+                fats: fats,
+                sugar: 0.0,
+                servingSize: 100.0,
+                consumedAt: DateTime.now(),
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+              ),
             );
           }
         }
+
+        return ChatMessage(
+          text: text,
+          sender: MessageSender.ai,
+          timestamp: DateTime.now(),
+          suggestedFoods: suggestedFoods.isNotEmpty ? suggestedFoods : null,
+          providerUsed: 'Gemini',
+        );
       }
-      throw DioException(
-        requestOptions: RequestOptions(path: url),
-        message: 'Invalid Gemini API response status: ${response.statusCode}',
-      );
-    } on DioException catch (e) {
-      throw Exception('API connection error: ${e.message ?? 'Unknown connection issue.'}');
-    } catch (e) {
-      throw Exception('Error parsing AI assistant response: $e');
     }
+
+    throw Exception('invalidResponse');
+  }
+
+  bool _isTransient(DioException e) {
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.connectionError) {
+      return true;
+    }
+    if (e.response != null) {
+      final status = e.response!.statusCode;
+      if (status != null && status >= 500 && status < 600) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void _handleDioException(DioException e) {
+    if (e.response != null) {
+      final status = e.response!.statusCode;
+      _log('DioException response status: $status');
+      if (status == 401 || status == 403) {
+        throw Exception('unauthorized');
+      } else if (status == 429) {
+        throw Exception('rateLimited');
+      } else if (status != null && status >= 500) {
+        throw Exception('serverError');
+      }
+    }
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        e.type == DioExceptionType.receiveTimeout) {
+      _log('Using fallback: timeout');
+      throw Exception('timeout');
+    }
+    _log('Using fallback: networkUnavailable');
+    throw Exception('networkUnavailable');
   }
 }

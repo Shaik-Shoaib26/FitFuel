@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 import '../../domain/entities/health_insight_entity.dart';
 
+/// Premium Insight Card Component
 class InsightCard extends StatelessWidget {
   final HealthInsightEntity insight;
 
@@ -14,97 +18,93 @@ class InsightCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    IconData icon = Icons.lightbulb_outline;
-    Color color = Colors.amber;
+    IconData icon = Icons.lightbulb_outline_rounded;
+    Color color = AppColors.ai;
 
     switch (insight.category) {
       case InsightCategory.hydration:
-        icon = Icons.local_drink;
-        color = Colors.blue;
+        icon = Icons.water_drop_rounded;
+        color = AppColors.hydration;
         break;
       case InsightCategory.nutrition:
-        icon = Icons.restaurant;
-        color = Colors.green;
+        icon = Icons.restaurant_rounded;
+        color = AppColors.protein;
         break;
       case InsightCategory.exercise:
-        icon = Icons.fitness_center;
-        color = Colors.orange;
+        icon = Icons.fitness_center_rounded;
+        color = AppColors.calories;
         break;
       case InsightCategory.habits:
-        icon = Icons.done_all;
-        color = Colors.teal;
+        icon = Icons.check_circle_outline_rounded;
+        color = AppColors.primary500;
         break;
       case InsightCategory.wellness:
-        icon = Icons.favorite;
-        color = Colors.red;
+        icon = Icons.favorite_rounded;
+        color = AppColors.fat;
         break;
       case InsightCategory.weight:
-        icon = Icons.monitor_weight;
-        color = Colors.purple;
+        icon = Icons.monitor_weight_outlined;
+        color = AppColors.achievement;
         break;
       case InsightCategory.positive:
-        icon = Icons.check_circle_outline;
-        color = Colors.green;
+        icon = Icons.check_circle_rounded;
+        color = AppColors.stateSuccess;
         break;
       default:
         break;
     }
 
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: isDark ? Colors.grey[850]! : Colors.grey[200]!,
-        ),
-      ),
-      color: isDark ? Colors.grey[900]?.withValues(alpha: 0.5) : Colors.grey[50]?.withValues(alpha: 0.5),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(icon, color: color, size: 20),
+    return FitFuelCard(
+      margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
+      padding: const EdgeInsets.all(AppConstants.spaceSm),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppConstants.radiusSm),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    insight.title,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Icon(icon, color: color, size: 18),
+          ),
+          const SizedBox(width: AppConstants.spaceMd),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  insight.title,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  insight.description,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
+                  ),
+                ),
+                if (insight.recommendation.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
-                    insight.description,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
-                      height: 1.3,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
                     insight.recommendation,
-                    style: theme.textTheme.bodySmall?.copyWith(
+                    style: TextStyle(
+                      fontSize: 11,
                       fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
                       color: color,
                     ),
                   ),
                 ],
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

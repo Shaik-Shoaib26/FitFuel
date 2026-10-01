@@ -27,3 +27,28 @@ class AIScanFailure extends Failure {
 class PermissionFailure extends Failure {
   const PermissionFailure([super.message = 'Camera or storage permission denied.']);
 }
+
+class FailureMapper {
+  static String map(dynamic error, {bool isOffline = false, bool hasData = false}) {
+    if (isOffline) {
+      return 'No internet connection. Reconnect and try again.';
+    }
+
+    if (error is Failure) {
+      if (error is ServerFailure) {
+        return "FitFuel couldn't connect right now. Please try again.";
+      }
+      if (error is AuthFailure) {
+        return 'Please sign in again.';
+      }
+      return error.message;
+    }
+
+    final errStr = error.toString().toLowerCase();
+    if (errStr.contains('offline') || errStr.contains('network') || errStr.contains('socket') || errStr.contains('unavailable')) {
+      return 'No internet connection. Reconnect and try again.';
+    }
+
+    return "FitFuel couldn't connect right now. Please try again.";
+  }
+}

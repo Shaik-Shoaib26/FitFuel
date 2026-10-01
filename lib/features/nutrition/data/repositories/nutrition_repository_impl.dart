@@ -5,6 +5,8 @@ import '../../domain/repositories/i_nutrition_repository.dart';
 import '../datasources/nutrition_remote_datasource.dart';
 import '../models/nutrition_record_model.dart';
 
+import '../../../../core/utils/id_utils.dart';
+
 class NutritionRepositoryImpl implements INutritionRepository {
   final INutritionRemoteDataSource _remoteDataSource;
 
@@ -13,7 +15,8 @@ class NutritionRepositoryImpl implements INutritionRepository {
   @override
   Future<void> addRecord(String uid, NutritionRecordEntity record) async {
     try {
-      final model = NutritionRecordModel.fromEntity(record);
+      final recordId = record.id.isEmpty ? IdUtils.generateId() : record.id;
+      final model = NutritionRecordModel.fromEntity(record.copyWith(id: recordId));
       await _remoteDataSource.addRecord(uid, model);
     } on ServerException catch (e) {
       throw ServerFailure(e.message);

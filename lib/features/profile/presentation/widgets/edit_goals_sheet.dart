@@ -9,6 +9,8 @@ import '../../../../core/widgets/fitfuel_button.dart';
 import '../../domain/entities/user_profile_entity.dart';
 import '../controllers/user_profile_controller.dart';
 import '../providers/profile_providers.dart';
+import '../../../../core/network/network_status.dart';
+import '../../../../core/network/network_status_provider.dart';
 
 class EditGoalsSheet extends ConsumerStatefulWidget {
   final String uid;
@@ -119,6 +121,17 @@ class _EditGoalsSheetState extends ConsumerState<EditGoalsSheet> {
 
   void _onSaveSubmitted() async {
     if (!_formKey.currentState!.validate()) return;
+
+    final networkStatus = ref.read(networkStatusProvider).value ?? NetworkStatus.online;
+    if (networkStatus == NetworkStatus.offline) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Internet connection is required for this action.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
     final controller = ref.read(userProfileControllerProvider.notifier);
     final currentProfile = ref.read(currentProfileStreamProvider).value;

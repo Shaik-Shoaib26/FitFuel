@@ -1,77 +1,63 @@
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 
-/// Centralized FitFuel White / Light Wellness Card Component
+/// One surface primitive for passive summaries and keyboard-accessible actions.
 class FitFuelCard extends StatelessWidget {
   final Widget child;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
-  final double borderRadius;
+  final EdgeInsetsGeometry? padding, margin;
+  final double borderRadius, elevation;
   final Color? color;
   final BorderSide? border;
   final VoidCallback? onTap;
-  final double elevation;
-
-  const FitFuelCard({
-    super.key,
-    required this.child,
-    this.padding,
-    this.margin,
-    this.borderRadius = AppConstants.radiusLg,
-    this.color,
-    this.border,
-    this.onTap,
-    this.elevation = 2.0,
-  });
-
+  final bool isInteractive, selected;
+  final String? semanticsLabel;
+  const FitFuelCard(
+      {super.key,
+      required this.child,
+      this.padding,
+      this.margin,
+      this.borderRadius = AppConstants.radiusCard,
+      this.color,
+      this.border,
+      this.onTap,
+      this.elevation = AppConstants.elevationCard,
+      this.isInteractive = false,
+      this.selected = false,
+      this.semanticsLabel});
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final cardContent = Container(
-      padding: padding ?? const EdgeInsets.all(AppConstants.spaceMd),
-      decoration: BoxDecoration(
-        color: color ?? (isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface),
-        borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.fromBorderSide(
-          border ??
-              BorderSide(
-                color: isDark ? AppColors.darkBorderSubtle : AppColors.lightBorderSubtle,
-                width: 1,
-              ),
-        ),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withAlpha((elevation * 3).toInt().clamp(0, 255)),
-                  blurRadius: elevation * 4,
-                  offset: Offset(0, elevation),
-                ),
-              ],
-      ),
-      child: child,
-    );
-
-    if (onTap != null) {
-      return Container(
-        margin: margin,
+    final colors = Theme.of(context).colorScheme;
+    final radius = BorderRadius.circular(borderRadius);
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: Semantics(
+        label: semanticsLabel,
+        button: onTap != null,
+        selected: selected ? true : null,
         child: Material(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(borderRadius),
+          color: color ?? (selected ? colors.primaryContainer : colors.surface),
+          elevation: elevation,
+          shadowColor: Colors.black.withValues(alpha: .08),
+          shape: RoundedRectangleBorder(
+              borderRadius: radius,
+              side: border ??
+                  BorderSide(
+                      color:
+                          selected ? colors.primary : colors.outlineVariant)),
+          clipBehavior: Clip.antiAlias,
           child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(borderRadius),
-            child: cardContent,
-          ),
+              onTap: onTap,
+              canRequestFocus: onTap != null,
+              borderRadius: radius,
+              child: ConstrainedBox(
+                  constraints:
+                      BoxConstraints(minHeight: onTap != null ? 48 : 0),
+                  child: Padding(
+                      padding:
+                          padding ?? const EdgeInsets.all(AppConstants.spaceMd),
+                      child: child))),
         ),
-      );
-    }
-
-    return Container(
-      margin: margin,
-      child: cardContent,
+      ),
     );
   }
 }

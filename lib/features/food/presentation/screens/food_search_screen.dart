@@ -1,10 +1,16 @@
+import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
+import '../../data/repositories/food_asset_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/theme/fitfuel_semantic_colors.dart';
+import '../../../../core/widgets/adaptive_page_layout.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
+import '../../../../core/widgets/fitfuel_empty_state.dart';
+import '../../../../core/widgets/fitfuel_error_state.dart';
 import '../../../../core/widgets/fitfuel_food_card.dart';
+import '../../../../core/widgets/fitfuel_section_header.dart';
 import '../../../../core/widgets/food_image_resolver.dart';
 import '../../../nutrition/presentation/widgets/food_form_sheet.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
@@ -13,7 +19,8 @@ import '../../domain/entities/food_entity.dart';
 import '../providers/food_providers.dart';
 
 class FoodSearchScreen extends ConsumerStatefulWidget {
-  const FoodSearchScreen({super.key});
+  final String? view;
+  const FoodSearchScreen({super.key, this.view});
 
   @override
   ConsumerState<FoodSearchScreen> createState() => _FoodSearchScreenState();
@@ -40,6 +47,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
   @override
   void initState() {
     super.initState();
+    _searchController.text = ref.read(foodSearchQueryProvider);
     // Sync state if text changes
     _searchController.addListener(() {
       ref.read(foodSearchQueryProvider.notifier).state = _searchController.text;
@@ -70,7 +78,8 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
       builder: (context) {
         return Consumer(
           builder: (context, ref, child) {
-            final isDark = Theme.of(context).brightness == Brightness.dark;
+            final scheme = Theme.of(context).colorScheme;
+            final text = Theme.of(context).textTheme;
             final activeDiet = ref.watch(foodDietFilterProvider);
             final activeMeal = ref.watch(foodMealFilterProvider);
             final activeCuisine = ref.watch(foodCuisineFilterProvider);
@@ -79,10 +88,10 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
             return Container(
               padding: const EdgeInsets.all(AppConstants.spaceLg),
               decoration: BoxDecoration(
-                color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
+                color: scheme.surface,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(AppConstants.radiusLg),
-                  topRight: Radius.circular(AppConstants.radiusLg),
+                  topLeft: Radius.circular(AppConstants.radiusDialog),
+                  topRight: Radius.circular(AppConstants.radiusDialog),
                 ),
               ),
               child: SingleChildScrollView(
@@ -93,10 +102,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Advanced Filters',
-                          style: AppTypography.heading2(isDark: isDark),
-                        ),
+                        Text('Advanced Filters', style: text.titleLarge),
                         IconButton(
                           icon: const Icon(Icons.close_rounded),
                           onPressed: () => Navigator.of(context).pop(),
@@ -107,17 +113,20 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     const SizedBox(height: AppConstants.spaceSm),
 
                     // Diet Section
-                    Text('Dietary Preference', style: AppTypography.bodyMedium(isDark: isDark).copyWith(fontWeight: FontWeight.bold)),
+                    Text('Dietary Preference',
+                        style: text.titleSmall),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
-                      children: ['Any', 'Vegetarian', 'Vegan', 'Non-Vegetarian'].map((diet) {
+                      children: ['Any', 'Vegetarian', 'Vegan', 'Non-Vegetarian']
+                          .map((diet) {
                         final isSelected = activeDiet == diet;
                         return ChoiceChip(
                           label: Text(diet),
                           selected: isSelected,
                           onSelected: (selected) {
-                            ref.read(foodDietFilterProvider.notifier).state = diet;
+                            ref.read(foodDietFilterProvider.notifier).state =
+                                diet;
                           },
                         );
                       }).toList(),
@@ -125,17 +134,20 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     const SizedBox(height: AppConstants.spaceMd),
 
                     // Meal Suitability Section
-                    Text('Meal Suitability', style: AppTypography.bodyMedium(isDark: isDark).copyWith(fontWeight: FontWeight.bold)),
+                    Text('Meal Suitability',
+                        style: text.titleSmall),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
-                      children: ['Any', 'Breakfast', 'Lunch', 'Dinner', 'Snack'].map((meal) {
+                      children: ['Any', 'Breakfast', 'Lunch', 'Dinner', 'Snack']
+                          .map((meal) {
                         final isSelected = activeMeal == meal;
                         return ChoiceChip(
                           label: Text(meal),
                           selected: isSelected,
                           onSelected: (selected) {
-                            ref.read(foodMealFilterProvider.notifier).state = meal;
+                            ref.read(foodMealFilterProvider.notifier).state =
+                                meal;
                           },
                         );
                       }).toList(),
@@ -143,17 +155,20 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     const SizedBox(height: AppConstants.spaceMd),
 
                     // Cuisine Section
-                    Text('Cuisine', style: AppTypography.bodyMedium(isDark: isDark).copyWith(fontWeight: FontWeight.bold)),
+                    Text('Cuisine',
+                        style: text.titleSmall),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
-                      children: ['Any', 'Indian', 'International'].map((cuisine) {
+                      children:
+                          ['Any', 'Indian', 'International'].map((cuisine) {
                         final isSelected = activeCuisine == cuisine;
                         return ChoiceChip(
                           label: Text(cuisine),
                           selected: isSelected,
                           onSelected: (selected) {
-                            ref.read(foodCuisineFilterProvider.notifier).state = cuisine;
+                            ref.read(foodCuisineFilterProvider.notifier).state =
+                                cuisine;
                           },
                         );
                       }).toList(),
@@ -161,12 +176,19 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     const SizedBox(height: AppConstants.spaceMd),
 
                     // Nutrition Section
-                    Text('Nutrition Targets', style: AppTypography.bodyMedium(isDark: isDark).copyWith(fontWeight: FontWeight.bold)),
+                    Text('Nutrition Targets',
+                        style: text.titleSmall),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
                       runSpacing: 4,
-                      children: ['High Protein', 'Low Calorie', 'Low Fat', 'Low Sugar', 'High Fiber'].map((nut) {
+                      children: [
+                        'High Protein',
+                        'Low Calorie',
+                        'Low Fat',
+                        'Low Sugar',
+                        'High Fiber'
+                      ].map((nut) {
                         final isSelected = activeNutrition.contains(nut);
                         return FilterChip(
                           label: Text(nut),
@@ -178,18 +200,16 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                             } else {
                               current.remove(nut);
                             }
-                            ref.read(foodNutritionFiltersProvider.notifier).state = current;
+                            ref
+                                .read(foodNutritionFiltersProvider.notifier)
+                                .state = current;
                           },
                         );
                       }).toList(),
                     ),
                     const SizedBox(height: AppConstants.spaceLg),
 
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary500,
-                        foregroundColor: Colors.white,
-                      ),
+                    FilledButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: const Text('Apply Filters'),
                     ),
@@ -206,6 +226,8 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final scheme = Theme.of(context).colorScheme;
+    final pageBackground = isDark ? null : scheme.surfaceContainerLow;
 
     final searchQuery = ref.watch(foodSearchQueryProvider);
     final selectedCategory = ref.watch(foodCategoryFilterProvider);
@@ -215,25 +237,46 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
     final cuisineFilter = ref.watch(foodCuisineFilterProvider);
     final nutritionFilters = ref.watch(foodNutritionFiltersProvider);
 
-    final isAnyFilterActive = dietFilter != 'Any' || mealFilter != 'Any' || cuisineFilter != 'Any' || nutritionFilters.isNotEmpty;
-    final isSearching = searchQuery.trim().isNotEmpty || (selectedCategory != null && selectedCategory.toLowerCase() != 'all') || isAnyFilterActive;
+    final isAnyFilterActive = dietFilter != 'Any' ||
+        mealFilter != 'Any' ||
+        cuisineFilter != 'Any' ||
+        nutritionFilters.isNotEmpty;
+    final isSearching = searchQuery.trim().isNotEmpty ||
+        (selectedCategory != null && selectedCategory.toLowerCase() != 'all') ||
+        isAnyFilterActive;
 
     final searchResultsAsync = ref.watch(searchFoodsProvider);
     final recentFoodsAsync = ref.watch(recentFoodsProvider);
     final favoriteFoodsAsync = ref.watch(favoriteFoodsProvider);
     final recommendedFoodsAsync = ref.watch(recommendedFoodsProvider);
+    final selectedView = switch (widget.view) {
+      'favorites' || 'recent' || 'custom' || 'recipes' => widget.view,
+      _ => null,
+    };
+    final viewFoods = switch (selectedView) {
+      'favorites' => favoriteFoodsAsync,
+      'recent' => recentFoodsAsync,
+      'custom' => ref.watch(customFoodsProvider),
+      _ => searchResultsAsync,
+    };
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Food Database'),
+      appBar: FitFuelAppBar(
+        title: Text(switch (selectedView) {
+          'favorites' => 'Favorite Foods',
+          'recent' => 'Recent Foods',
+          'custom' => 'Custom Foods',
+          'recipes' => 'Recipes',
+          _ => 'Food Library'
+        }),
       ),
+      backgroundColor: pageBackground,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.push('/custom-food');
+          context.push('/nutrition/custom/new');
         },
-        backgroundColor: AppColors.primary500,
-        icon: const Icon(Icons.add_rounded, color: Colors.white),
-        label: const Text('Custom Food', style: TextStyle(color: Colors.white)),
+        icon: const Icon(Icons.add_rounded),
+        label: const Text('Custom Food'),
       ),
       body: SafeArea(
         child: Column(
@@ -241,7 +284,9 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
           children: [
             // Search Bar & Filter Buttons Row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppConstants.spaceMd, vertical: AppConstants.spaceSm),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.spaceMd,
+                  vertical: AppConstants.spaceSm),
               child: Row(
                 children: [
                   Expanded(
@@ -264,7 +309,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     onPressed: _showFilterBottomSheet,
                     icon: Icon(
                       Icons.tune_rounded,
-                      color: isAnyFilterActive ? AppColors.primary500 : null,
+                      color: isAnyFilterActive ? scheme.primary : null,
                     ),
                     tooltip: 'Advanced Filters',
                   ),
@@ -276,19 +321,22 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
             SizedBox(
               height: 48,
               child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.spaceSm),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.spaceSm),
                 scrollDirection: Axis.horizontal,
                 itemCount: _categories.length,
                 itemBuilder: (context, index) {
                   final cat = _categories[index];
-                  final isSelected = selectedCategory == cat || (selectedCategory == null && cat == 'All');
+                  final isSelected = selectedCategory == cat ||
+                      (selectedCategory == null && cat == 'All');
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: ChoiceChip(
                       label: Text(cat),
                       selected: isSelected,
                       onSelected: (selected) {
-                        ref.read(foodCategoryFilterProvider.notifier).state = selected ? cat : null;
+                        ref.read(foodCategoryFilterProvider.notifier).state =
+                            selected ? cat : null;
                       },
                     ),
                   );
@@ -299,64 +347,137 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
 
             // Scrollable Content
             Expanded(
-              child: isSearching
-                  ? searchResultsAsync.when(
-                      data: (foods) => _buildSearchResultsList(foods, isDark),
-                      loading: () => const Center(child: CircularProgressIndicator()),
-                      error: (err, _) => Center(child: Text('Error: $err')),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        // Refresh all states
-                        ref.read(foodRefreshTriggerProvider.notifier).state++;
-                        ref.read(recentFoodsProvider.notifier).load();
-                        ref.read(favoriteFoodsProvider.notifier).load();
-                      },
-                      child: SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        padding: const EdgeInsets.all(AppConstants.spaceMd),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            // 1. Recommended
-                            _buildSectionHeader('Smart Recommendations', isDark),
-                            recommendedFoodsAsync.when(
-                              data: (foods) => _buildHorizontalFoodList(foods, isDark),
-                              loading: () => const SizedBox(height: 120, child: Center(child: CircularProgressIndicator())),
-                              error: (err, _) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Failed to load recommendations: $err'),
-                              ),
-                            ),
-                            const SizedBox(height: AppConstants.spaceLg),
-
-                            // 2. Favorites
-                            _buildSectionHeader('Favorite Foods', isDark),
-                            favoriteFoodsAsync.when(
-                              data: (foods) => _buildHorizontalFoodList(foods, isDark, emptyText: 'No favorites added yet.'),
-                              loading: () => const SizedBox(height: 120, child: Center(child: CircularProgressIndicator())),
-                              error: (err, _) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Failed to load favorites: $err'),
-                              ),
-                            ),
-                            const SizedBox(height: AppConstants.spaceLg),
-
-                            // 3. Recents
-                            _buildSectionHeader('Recently Logged', isDark),
-                            recentFoodsAsync.when(
-                              data: (foods) => _buildRecentVerticalList(foods, isDark),
-                              loading: () => const Center(child: CircularProgressIndicator()),
-                              error: (err, _) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Failed to load recents: $err'),
-                              ),
-                            ),
-                            const SizedBox(height: 80), // spacer for FAB
-                          ],
-                        ),
+              child: selectedView != null
+                  ? viewFoods.when(
+                      data: (foods) => _buildResponsiveResults(
+                          foods.where((food) {
+                            final matchesQuery = food.name
+                                .toLowerCase()
+                                .contains(searchQuery.toLowerCase());
+                            final hasRecipe =
+                                (food.instructions?.isNotEmpty ?? false) ||
+                                    (food.recipe?.isNotEmpty ?? false) ||
+                                    FoodAssetRepository.instance
+                                            .getRecipe(food.id) !=
+                                        null;
+                            final matchesFilters = !isSearching ||
+                                (searchResultsAsync.valueOrNull?.any(
+                                        (candidate) =>
+                                            candidate.id == food.id) ??
+                                    false);
+                            return matchesQuery &&
+                                matchesFilters &&
+                                (selectedView != 'recipes' || hasRecipe);
+                          }).toList(),
+                          isDark,
+                          selectedView),
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      error: (error, _) => FitFuelErrorState(
+                        error: error,
+                        onRetry: () {
+                          if (selectedView == 'favorites') {
+                            ref.read(favoriteFoodsProvider.notifier).load();
+                          } else if (selectedView == 'recent') {
+                            ref.read(recentFoodsProvider.notifier).load();
+                          } else if (selectedView == 'custom') {
+                            ref.read(customFoodsProvider.notifier).load();
+                          }
+                        },
                       ),
-                    ),
+                    )
+                  : isSearching
+                      ? searchResultsAsync.when(
+                          data: (foods) =>
+                              _buildResponsiveResults(foods, isDark, null),
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
+                          error: (err, _) => FitFuelErrorState(
+                            error: err,
+                            onRetry: () => ref.invalidate(searchFoodsProvider),
+                          ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            // Refresh all states
+                            ref
+                                .read(foodRefreshTriggerProvider.notifier)
+                                .state++;
+                            ref.read(recentFoodsProvider.notifier).load();
+                            ref.read(favoriteFoodsProvider.notifier).load();
+                          },
+                          child: SingleChildScrollView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            padding: const EdgeInsets.all(AppConstants.spaceMd),
+                            child: AdaptivePageLayout(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  // 1. Recommended
+                                  const FitFuelSectionHeader(
+                                    title: 'Smart Recommendations',
+                                    subtitle: 'Based on your goals',
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceSmd),
+                                  recommendedFoodsAsync.when(
+                                    data: (foods) =>
+                                        _buildHorizontalFoodList(foods, isDark),
+                                    loading: () => const SizedBox(
+                                        height: 140,
+                                        child: Center(
+                                            child: CircularProgressIndicator())),
+                                    error: (err, _) => FitFuelErrorState(
+                                      error: err,
+                                      onRetry: () => ref.invalidate(recommendedFoodsProvider),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceLg),
+
+                                  // 2. Favorites
+                                  FitFuelSectionHeader(
+                                    title: 'Favorite Foods',
+                                    actionLabel: 'See all',
+                                    onActionPressed: () => context.go('/nutrition/search?view=favorites'),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceSmd),
+                                  favoriteFoodsAsync.when(
+                                    data: (foods) => _buildHorizontalFoodList(
+                                        foods, isDark,
+                                        emptyText: 'No favorites added yet. Tap the heart icon on any food to save it.'),
+                                    loading: () => const SizedBox(
+                                        height: 140,
+                                        child: Center(
+                                            child: CircularProgressIndicator())),
+                                    error: (err, _) => FitFuelErrorState(
+                                      error: err,
+                                      onRetry: () => ref.read(favoriteFoodsProvider.notifier).load(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceLg),
+
+                                  // 3. Recents
+                                  FitFuelSectionHeader(
+                                    title: 'Recently Logged',
+                                    actionLabel: 'See all',
+                                    onActionPressed: () => context.go('/nutrition/search?view=recent'),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceSmd),
+                                  recentFoodsAsync.when(
+                                    data: (foods) =>
+                                        _buildRecentVerticalList(foods, isDark),
+                                    loading: () => const Center(
+                                        child: CircularProgressIndicator()),
+                                    error: (err, _) => FitFuelErrorState(
+                                      error: err,
+                                      onRetry: () => ref.read(recentFoodsProvider.notifier).load(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 80), // spacer for FAB
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
             ),
           ],
         ),
@@ -364,89 +485,82 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
     );
   }
 
-  Widget _buildSectionHeader(String title, bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppConstants.spaceSm, left: 4),
-      child: Text(
-        title,
-        style: AppTypography.heading3(isDark: isDark),
-      ),
-    );
-  }
-
-  Widget _buildHorizontalFoodList(List<FoodEntity> foods, bool isDark, {String emptyText = 'No recommendations available.'}) {
+  Widget _buildHorizontalFoodList(List<FoodEntity> foods, bool isDark,
+      {String emptyText = 'No recommendations available.'}) {
     if (foods.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: AppConstants.spaceMd),
         child: Text(
           emptyText,
-          style: TextStyle(color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
       );
     }
 
+    final scheme = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+    final semantic = FitFuelSemanticColors.of(context);
+
     return SizedBox(
-      height: 140,
+      height: 160,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: foods.length > 5 ? 5 : foods.length, // Limit to top 5
         itemBuilder: (context, index) {
           final food = foods[index];
-          return Card(
-            elevation: 1,
-            color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-            margin: const EdgeInsets.only(right: AppConstants.spaceMd),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          return Padding(
+            padding: const EdgeInsets.only(right: AppConstants.spaceSmd),
+            child: FitFuelCard(
               onTap: () {
-                context.push('/food-details', extra: food);
+                context.push(
+                    '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
               },
-              child: Container(
-                width: 160,
-                padding: const EdgeInsets.all(AppConstants.spaceSm),
+              isInteractive: true,
+              padding: EdgeInsets.zero,
+              child: SizedBox(
+                width: 156,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FoodImageCard(food: food, width: 36, height: 36, borderRadius: 4),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    FoodImageCard(
+                      food: food,
+                      width: 156,
+                      height: 80,
+                      borderRadius: AppConstants.radiusCard,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(AppConstants.spaceSm),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            food.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: text.titleSmall,
+                          ),
+                          const SizedBox(height: 2),
+                          Row(
                             children: [
                               Text(
-                                food.name,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTypography.bodySmall(isDark: isDark).copyWith(
-                                  fontWeight: FontWeight.bold,
+                                '${food.calories.toStringAsFixed(0)} kcal',
+                                style: text.bodySmall?.copyWith(
+                                  color: semantic.calories,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text(
-                                '${food.servingSize.toStringAsFixed(0)}${food.servingUnit}',
-                                style: const TextStyle(fontSize: 10, color: Colors.grey),
-                              ),
+                              const Spacer(),
+                              if (food.isFavorite)
+                                Icon(Icons.favorite_rounded,
+                                    size: 14, color: scheme.error),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${food.calories.toStringAsFixed(0)} kcal',
-                          style: AppTypography.bodySmall(isDark: isDark).copyWith(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            '${food.servingSize.toStringAsFixed(0)} ${food.servingUnit}',
+                            style: text.bodySmall,
                           ),
-                        ),
-                        if (food.isFavorite)
-                          const Icon(Icons.favorite_rounded, size: 14, color: AppColors.stateError),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -464,10 +578,14 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
         padding: const EdgeInsets.symmetric(vertical: AppConstants.spaceMd),
         child: Text(
           'Log some foods to see them here.',
-          style: TextStyle(color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
       );
     }
+
+    final text = Theme.of(context).textTheme;
+    final semantic = FitFuelSemanticColors.of(context);
+    final scheme = Theme.of(context).colorScheme;
 
     return ListView.builder(
       shrinkWrap: true,
@@ -475,26 +593,46 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
       itemCount: foods.length > 5 ? 5 : foods.length, // Top 5 recents
       itemBuilder: (context, index) {
         final food = foods[index];
-        return Card(
-          elevation: 1,
-          color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-          margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
-          child: ListTile(
+        return Padding(
+          padding: const EdgeInsets.only(bottom: AppConstants.spaceSm),
+          child: FitFuelCard(
             onTap: () {
-              context.push('/food-details', extra: food);
+              context.push(
+                  '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
             },
-            leading: FoodImageCard(food: food, width: 40, height: 40, borderRadius: 4),
-            title: Text(food.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            subtitle: Text('${food.category} • ${food.servingSize.toStringAsFixed(0)} ${food.servingUnit}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
+            isInteractive: true,
+            padding: const EdgeInsets.all(AppConstants.spaceSmd),
+            child: Row(
               children: [
+                FoodImageCard(
+                    food: food, width: 48, height: 48, borderRadius: AppConstants.radiusSm),
+                const SizedBox(width: AppConstants.spaceSmd),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(food.name,
+                          style: text.titleSmall,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis),
+                      const SizedBox(height: 2),
+                      Text(
+                          '${food.category} · ${food.servingSize.toStringAsFixed(0)} ${food.servingUnit}',
+                          style: text.bodySmall),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppConstants.spaceSm),
                 Text(
                   '${food.calories.toStringAsFixed(0)} kcal',
-                  style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                  style: text.titleSmall?.copyWith(
+                    color: semantic.calories,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                const SizedBox(width: 8),
-                const Icon(Icons.chevron_right_rounded),
+                const SizedBox(width: 4),
+                Icon(Icons.chevron_right_rounded,
+                    size: 18, color: scheme.onSurfaceVariant),
               ],
             ),
           ),
@@ -503,30 +641,118 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
     );
   }
 
-  Widget _buildSearchResultsList(List<FoodEntity> foods, bool isDark) {
+  Widget _buildResponsiveResults(List<FoodEntity> foods, bool isDark, String? selectedView) {
     if (foods.isEmpty) {
-      return const Center(
-        child: Text(
-          'No foods match your search query.',
-          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-        ),
+      final emptyTitle = switch (selectedView) {
+        'favorites' => 'No favorites yet',
+        'recent' => 'No recent foods',
+        'custom' => 'No custom foods',
+        'recipes' => 'No recipes found',
+        _ => 'No results found',
+      };
+      final emptyDesc = switch (selectedView) {
+        'favorites' => 'Tap the heart icon on any food to save it as a favorite.',
+        'recent' => 'Foods you log will appear here for quick access.',
+        'custom' => 'Create your own foods with exact nutrition info.',
+        _ => 'Try adjusting your search or filters to find more foods.',
+      };
+      return FitFuelEmptyState(
+        icon: switch (selectedView) {
+          'favorites' => Icons.favorite_border_rounded,
+          'recent' => Icons.history_rounded,
+          'custom' => Icons.edit_note_rounded,
+          _ => Icons.search_off_rounded,
+        },
+        title: emptyTitle,
+        description: emptyDesc,
+        actionLabel: selectedView == 'custom' ? 'Create Custom Food' : null,
+        onActionPressed: selectedView == 'custom'
+            ? () => context.push('/nutrition/custom/new')
+            : null,
       );
     }
 
     final authUserUid = ref.watch(authStateStreamProvider).value?.uid;
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(AppConstants.spaceMd),
-      itemCount: foods.length,
-      itemBuilder: (context, index) {
-        final food = foods[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: AppConstants.spaceSm),
-          child: FitFuelFoodCard(
+    // Responsive: use grid on wider screens
+    return LayoutBuilder(builder: (context, constraints) {
+      final crossAxisCount = constraints.maxWidth >= 900
+          ? 3
+          : constraints.maxWidth >= 600
+              ? 2
+              : 1;
+
+      if (crossAxisCount == 1) {
+        // Single column list — most compact for mobile
+        return ListView.builder(
+          padding: const EdgeInsets.all(AppConstants.spaceMd),
+          itemCount: foods.length,
+          itemBuilder: (context, index) {
+            final food = foods[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: AppConstants.spaceSmd),
+              child: FitFuelFoodCard(
+                food: food,
+                isFavorite: food.isFavorite,
+                onTap: () {
+                  context.push(
+                      '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
+                },
+                onFavoriteTap: () {
+                  ref.read(favoriteFoodsProvider.notifier).toggleFavorite(food.id);
+                },
+                onAddTap: authUserUid == null
+                    ? null
+                    : () {
+                        final record = NutritionRecordEntity(
+                          id: '',
+                          foodName: food.name,
+                          mealType: 'Snack',
+                          calories: food.calories,
+                          protein: food.protein,
+                          carbohydrates: food.carbohydrates,
+                          fats: food.fats,
+                          sugar: food.sugar,
+                          servingSize: food.servingSize,
+                          consumedAt: DateTime.now(),
+                          createdAt: DateTime.now(),
+                          updatedAt: DateTime.now(),
+                        );
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => FoodFormSheet(
+                              uid: authUserUid, existingRecord: record),
+                        );
+                      },
+              ),
+            );
+          },
+        );
+      }
+
+      final media = MediaQuery.of(context);
+      final double cardExtent = media.textScaler.scale(16) > 19.2 ? 305 : 260;
+
+      // Multi-column grid for tablet/desktop
+      return GridView.builder(
+        padding: const EdgeInsets.all(AppConstants.spaceMd),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 340,
+          crossAxisSpacing: AppConstants.spaceMd,
+          mainAxisSpacing: AppConstants.spaceMd,
+          mainAxisExtent: cardExtent,
+        ),
+        itemCount: foods.length,
+        itemBuilder: (context, index) {
+          final food = foods[index];
+          return FitFuelFoodCard(
             food: food,
             isFavorite: food.isFavorite,
             onTap: () {
-              context.push('/food-details', extra: food);
+              context.push(
+                  '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
             },
             onFavoriteTap: () {
               ref.read(favoriteFoodsProvider.notifier).toggleFavorite(food.id);
@@ -552,12 +778,13 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
-                      builder: (context) => FoodFormSheet(uid: authUserUid, existingRecord: record),
+                      builder: (context) => FoodFormSheet(
+                          uid: authUserUid, existingRecord: record),
                     );
                   },
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 }

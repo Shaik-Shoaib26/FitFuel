@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/sync/sync_status.dart';
 import '../../domain/entities/grocery_item_entity.dart';
 
 class GroceryItemModel {
@@ -19,6 +20,7 @@ class GroceryItemModel {
   final DateTime addedAt;
   final DateTime? purchasedAt;
   final String? notes;
+  final SyncStatus syncStatus;
 
   const GroceryItemModel({
     required this.id,
@@ -38,13 +40,15 @@ class GroceryItemModel {
     required this.addedAt,
     this.purchasedAt,
     this.notes,
+    this.syncStatus = SyncStatus.synced,
   });
 
   factory GroceryItemModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return GroceryItemModel.fromMap(doc.data() ?? {}, doc.id);
+    final status = doc.metadata.hasPendingWrites ? SyncStatus.pending : SyncStatus.synced;
+    return GroceryItemModel.fromMap(doc.data() ?? {}, doc.id, status);
   }
 
-  factory GroceryItemModel.fromMap(Map<String, dynamic> data, String id) {
+  factory GroceryItemModel.fromMap(Map<String, dynamic> data, String id, [SyncStatus syncStatus = SyncStatus.synced]) {
     double parseDouble(dynamic value) {
       if (value is num) return value.toDouble();
       if (value is String) return double.tryParse(value) ?? 0.0;
@@ -76,6 +80,7 @@ class GroceryItemModel {
       addedAt: parseDateTime(data['addedAt']) ?? DateTime.now(),
       purchasedAt: parseDateTime(data['purchasedAt']),
       notes: data['notes'] as String?,
+      syncStatus: syncStatus,
     );
   }
 
@@ -119,6 +124,7 @@ class GroceryItemModel {
       addedAt: entity.addedAt,
       purchasedAt: entity.purchasedAt,
       notes: entity.notes,
+      syncStatus: entity.syncStatus,
     );
   }
 
@@ -141,6 +147,7 @@ class GroceryItemModel {
       addedAt: addedAt,
       purchasedAt: purchasedAt,
       notes: notes,
+      syncStatus: syncStatus,
     );
   }
 }

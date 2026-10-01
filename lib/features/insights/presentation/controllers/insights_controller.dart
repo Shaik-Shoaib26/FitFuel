@@ -30,30 +30,38 @@ class InsightsState {
 class InsightsController extends StateNotifier<InsightsState> {
   final IInsightsRepository _repository;
   final String? _uid;
+  int _request = 0;
 
-  InsightsController(this._repository, this._uid) : super(const InsightsState()) {
+  InsightsController(this._repository, this._uid)
+      : super(const InsightsState()) {
     loadInsights();
   }
 
   Future<void> loadInsights() async {
+    final request = ++_request;
     final uid = _uid;
     if (uid == null) {
       state = state.copyWith(
-        insights: AsyncValue.error('User not authenticated', StackTrace.current),
-        dailyFocus: AsyncValue.error('User not authenticated', StackTrace.current),
+        insights:
+            AsyncValue.error('User not authenticated', StackTrace.current),
+        dailyFocus:
+            AsyncValue.error('User not authenticated', StackTrace.current),
       );
       return;
     }
     try {
       final today = DateTime.now();
-      final insightsList = await _repository.getInsights(uid: uid, today: today);
+      final insightsList =
+          await _repository.getInsights(uid: uid, today: today);
       final focus = await _repository.getDailyFocus(uid: uid, today: today);
 
+      if (!mounted || request != _request) return;
       state = state.copyWith(
         insights: AsyncValue.data(insightsList),
         dailyFocus: AsyncValue.data(focus),
       );
     } catch (e, st) {
+      if (!mounted || request != _request) return;
       state = state.copyWith(
         insights: AsyncValue.error(e, st),
         dailyFocus: AsyncValue.error(e, st),

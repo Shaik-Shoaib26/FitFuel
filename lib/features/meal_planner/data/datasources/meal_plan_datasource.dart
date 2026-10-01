@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fitfuel/features/meal_planner/data/models/meal_plan_model.dart';
 import 'package:intl/intl.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class MealPlanDataSource {
   Future<MealPlanModel?> getMealPlanForDate(String userId, DateTime date);
@@ -21,16 +23,57 @@ class MealPlanRemoteDataSource implements MealPlanDataSource {
   Future<MealPlanModel?> getMealPlanForDate(String userId, DateTime date) async {
     final dateStr = _getDateString(date);
     
-    // We store meal plans with date as document ID: users/{uid}/mealPlans/{dateStr}
-    final doc = await _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('mealPlans')
-        .doc(dateStr)
-        .get();
+    bool isOffline = false;
+    try {
+      WidgetsBinding.instance;
+      final connectivityResult = await Connectivity().checkConnectivity();
+      isOffline = connectivityResult.isEmpty || connectivityResult.contains(ConnectivityResult.none);
+    } catch (_) {
+      // In non-initialized binding environments (like unit tests), assume online/non-offline
+    }
 
-    if (doc.exists) {
-      return MealPlanModel.fromFirestore(doc);
+    if (isOffline) {
+      try {
+        final doc = await _firestore
+            .collection('users')
+            .doc(userId)
+            .collection('mealPlans')
+            .doc(dateStr)
+            .get(const GetOptions(source: Source.cache));
+        if (doc.exists) {
+          return MealPlanModel.fromFirestore(doc);
+        }
+      } catch (_) {
+        return null;
+      }
+      return null;
+    }
+
+    try {
+      final doc = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('mealPlans')
+          .doc(dateStr)
+          .get()
+          .timeout(const Duration(seconds: 3));
+
+      if (doc.exists) {
+        return MealPlanModel.fromFirestore(doc);
+      }
+    } catch (e) {
+      // Fallback to cache if online call fails/times out
+      try {
+        final doc = await _firestore
+            .collection('users')
+            .doc(userId)
+            .collection('mealPlans')
+            .doc(dateStr)
+            .get(const GetOptions(source: Source.cache));
+        if (doc.exists) {
+          return MealPlanModel.fromFirestore(doc);
+        }
+      } catch (_) {}
     }
     return null;
   }

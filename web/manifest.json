@@ -1,11 +1,11 @@
 {
-    "name": "fitfuel",
-    "short_name": "fitfuel",
+    "name": "FitFuel",
+    "short_name": "FitFuel",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#047857",
+    "theme_color": "#047857",
+    "description": "FitFuel — nutrition, meal planning and everyday health.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
@@ -33,3 +33,4 @@
         }
     ]
 }
+

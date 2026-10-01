@@ -25,16 +25,20 @@ class AnalyticsState {
 class AnalyticsController extends StateNotifier<AnalyticsState> {
   final IAnalyticsRepository _repository;
   final String? _uid;
+  int _request = 0;
 
-  AnalyticsController(this._repository, this._uid) : super(const AnalyticsState()) {
+  AnalyticsController(this._repository, this._uid)
+      : super(const AnalyticsState()) {
     loadAnalytics();
   }
 
   Future<void> loadAnalytics() async {
+    final request = ++_request;
     final uid = _uid;
     if (uid == null) {
       state = state.copyWith(
-        analytics: AsyncValue.error('User not authenticated', StackTrace.current),
+        analytics:
+            AsyncValue.error('User not authenticated', StackTrace.current),
       );
       return;
     }
@@ -44,8 +48,10 @@ class AnalyticsController extends StateNotifier<AnalyticsState> {
         range: state.range,
         today: DateTime.now(),
       );
+      if (!mounted || request != _request) return;
       state = state.copyWith(analytics: AsyncValue.data(data));
     } catch (e, st) {
+      if (!mounted || request != _request) return;
       state = state.copyWith(analytics: AsyncValue.error(e, st));
     }
   }

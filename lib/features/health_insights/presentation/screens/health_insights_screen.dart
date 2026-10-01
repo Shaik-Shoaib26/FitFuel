@@ -1,44 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../app/navigation/fitfuel_app_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_typography.dart';
-import '../../../../core/widgets/glassmorphic_container.dart';
+import '../../../../core/widgets/adaptive_page_layout.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
+import '../../../../core/widgets/fitfuel_error_state.dart';
+import '../../../../core/widgets/fitfuel_loading_state.dart';
+import '../../../../core/widgets/fitfuel_section_header.dart';
 import '../../../health/presentation/providers/health_providers.dart';
 import '../../../nutrition/presentation/providers/nutrition_providers.dart';
 import '../../../profile/presentation/providers/profile_providers.dart';
 import '../../domain/utils/health_insights_engine.dart';
 
+/// Premium Personalized Health Insights Screen — Wellness ranking, today's
+/// telemetry summary, 7-day trend analysis, and actionable health suggestions.
 class HealthInsightsScreen extends ConsumerWidget {
   const HealthInsightsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final healthAsync = ref.watch(healthStreamProvider);
     final nutritionAsync = ref.watch(nutritionStreamProvider);
     final goalsAsync = ref.watch(nutritionGoalsStreamProvider);
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: FitFuelAppBar(
         title: const Text('Personalized Health Insights'),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => context.pop(),
         ),
       ),
-      body: SafeArea(
+      body: AdaptivePageLayout(
         child: healthAsync.when(
           data: (healthRecords) {
             return nutritionAsync.when(
               data: (nutritionRecords) {
-                final goals = goalsAsync.value;
+                final goals = goalsAsync.valueOrNull;
 
                 final todayStr = DateTime.now().toString().split(' ').first;
-                final todayHealth = healthRecords.where((r) => r.date == todayStr).firstOrNull;
+                final todayHealth =
+                    healthRecords.where((r) => r.date == todayStr).firstOrNull;
                 final todayNutrition = nutritionRecords.where((r) {
                   return r.consumedAt.toString().split(' ').first == todayStr;
                 }).toList();
@@ -55,77 +63,168 @@ class HealthInsightsScreen extends ConsumerWidget {
                   healthHistory: healthRecords,
                 );
 
-                final insights = HealthInsightsEngine.generateInsights(trendPoints);
-                final suggestions = HealthInsightsEngine.generateActionSuggestions(summary);
+                final insights =
+                    HealthInsightsEngine.generateInsights(trendPoints);
+                final suggestions =
+                    HealthInsightsEngine.generateActionSuggestions(summary);
 
                 return SingleChildScrollView(
-                  padding: const EdgeInsets.all(AppConstants.spaceLg),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // 1. Wellness Score Header card
-                      _buildWellnessHeader(summary, isDark),
-                      const SizedBox(height: AppConstants.spaceMd),
+                  padding: const EdgeInsets.all(AppConstants.spaceMd),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isDesktop = constraints.maxWidth >= 950;
 
-                      // 2. Today's summary details card
-                      _buildTodaySummaryCard(summary, isDark),
-                      const SizedBox(height: AppConstants.spaceMd),
+                      final leftColumn = Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // 1. Wellness Score Header card
+                          _buildWellnessHeader(summary, isDark),
+                          const SizedBox(height: AppConstants.spaceMd),
 
-                      // 3. 7-Day Trend Analysis
-                      _build7DayTrendCard(trendPoints, isDark),
-                      const SizedBox(height: AppConstants.spaceMd),
+                          // 2. Today's summary details card
+                          const FitFuelSectionHeader(
+                            title: "Today's Telemetry",
+                            subtitle:
+                                'Current metrics for nutrition, water, workouts, and habits.',
+                          ),
+                          const SizedBox(height: AppConstants.spaceSm),
+                          _buildTodaySummaryCard(summary, isDark),
+                          const SizedBox(height: AppConstants.spaceMd),
 
-                      // 4. Personalized Insights
-                      _buildInsightsSection(insights, isDark),
-                      const SizedBox(height: AppConstants.spaceMd),
+                          // 3. 7-Day Trend Analysis
+                          const FitFuelSectionHeader(
+                            title: '7-Day Trend Analysis',
+                            subtitle:
+                                'Wellness scores calculated over the last 7 days.',
+                          ),
+                          const SizedBox(height: AppConstants.spaceSm),
+                          _build7DayTrendCard(trendPoints, isDark),
+                        ],
+                      );
 
-                      // 5. Daily Suggestions
-                      _buildSuggestionsSection(suggestions, isDark),
-                      const SizedBox(height: AppConstants.spaceLg),
+                      final rightColumn = Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // 4. Personalized Insights
+                          if (insights.isNotEmpty) ...[
+                            const FitFuelSectionHeader(
+                              title: 'Personalized Observations',
+                              subtitle:
+                                  'Automated observations derived from your 7-day trend.',
+                            ),
+                            const SizedBox(height: AppConstants.spaceSm),
+                            _buildInsightsSection(insights, isDark),
+                            const SizedBox(height: AppConstants.spaceMd),
+                          ],
 
-                      // Disclaimer
-                      Center(
-                        child: Text(
-                          '*Disclaimer: Rule-based health suggestions are approximate. Seek professional certified advice.*',
-                          style: AppTypography.caption(isDark: isDark),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                          // 5. Daily Suggestions
+                          if (suggestions.isNotEmpty) ...[
+                            const FitFuelSectionHeader(
+                              title: 'Daily Suggested Actions',
+                              subtitle:
+                                  'Healthy actions to raise your wellness index today.',
+                            ),
+                            const SizedBox(height: AppConstants.spaceSm),
+                            _buildSuggestionsSection(suggestions, isDark),
+                            const SizedBox(height: AppConstants.spaceMd),
+                          ],
+
+                          // Disclaimer
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(AppConstants.spaceSm),
+                              child: Text(
+                                '*Disclaimer: Rule-based health suggestions are approximate. Seek professional certified medical advice for medical decisions.*',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: isDark
+                                      ? AppColors.darkTextMuted
+                                      : AppColors.lightTextMuted,
+                                  fontSize: 10,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+
+                      if (isDesktop) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(flex: 10, child: leftColumn),
+                            const SizedBox(width: AppConstants.spaceLg),
+                            Expanded(flex: 11, child: rightColumn),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            leftColumn,
+                            const SizedBox(height: AppConstants.spaceMd),
+                            rightColumn,
+                          ],
+                        );
+                      }
+                    },
                   ),
                 );
               },
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, _) => _buildErrorState('Error loading nutrition logs: $err'),
+              loading: () => const Center(
+                child: FitFuelLoadingState(label: 'Loading nutrition logs...'),
+              ),
+              error: (err, _) => FitFuelErrorState(
+                error: err,
+                messageOverride: 'Error loading nutrition logs.',
+                onRetry: () => ref.refresh(nutritionStreamProvider),
+              ),
             );
           },
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => _buildErrorState('Error loading health logs: $err'),
+          loading: () => const Center(
+            child: FitFuelLoadingState(label: 'Loading health telemetry...'),
+          ),
+          error: (err, _) => FitFuelErrorState(
+            error: err,
+            messageOverride: 'Error loading health logs.',
+            onRetry: () => ref.refresh(healthStreamProvider),
+          ),
         ),
       ),
     );
   }
 
   Widget _buildWellnessHeader(DailyHealthSummary summary, bool isDark) {
-    return GlassmorphicContainer(
+    return FitFuelCard(
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
+      border: BorderSide(
+        color: isDark ? AppColors.darkBorderSubtle : AppColors.primary100,
+      ),
       child: Row(
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
               SizedBox(
-                width: 65,
-                height: 65,
+                width: 68,
+                height: 68,
                 child: CircularProgressIndicator(
-                  value: summary.wellnessScore / 100.0,
-                  strokeWidth: 7,
-                  backgroundColor: AppColors.darkTextMuted.withValues(alpha: 0.2),
-                  valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary500),
+                  value: (summary.wellnessScore / 100.0).clamp(0.0, 1.0),
+                  strokeWidth: 6,
+                  backgroundColor: isDark
+                      ? AppColors.darkBorderSubtle
+                      : AppColors.primary500.withValues(alpha: 0.12),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(AppColors.primary500),
                 ),
               ),
               Text(
                 summary.wellnessScore.toStringAsFixed(0),
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: AppColors.primary500,
+                ),
               ),
             ],
           ),
@@ -134,14 +233,19 @@ class HealthInsightsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Today\'s Wellness Rank',
-                  style: AppTypography.heading3(isDark: isDark),
+                const Text(
+                  "Today's Wellness Index",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 const SizedBox(height: 2),
-                const Text(
-                  'Calculates metrics across hydration, exercises, habits completion, and daily logged meals.',
-                  style: TextStyle(fontSize: 10, color: AppColors.darkTextMuted),
+                Text(
+                  'Calculates multi-dimensional consistency across hydration, workout duration, habits, and caloric balance.',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
+                  ),
                 ),
               ],
             ),
@@ -152,69 +256,138 @@ class HealthInsightsScreen extends ConsumerWidget {
   }
 
   Widget _buildTodaySummaryCard(DailyHealthSummary summary, bool isDark) {
-    return GlassmorphicContainer(
+    return FitFuelCard(
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Today\'s Summary', style: AppTypography.heading3(isDark: isDark)),
-          const SizedBox(height: AppConstants.spaceSm),
-          _buildSummaryRow(Icons.local_fire_department_rounded, Colors.redAccent, 'Nutrition', '${summary.calories.toStringAsFixed(0)} kcal consumed'),
-          _buildSummaryRow(Icons.water_drop_rounded, Colors.blueAccent, 'Hydration', '${summary.waterIntakeMl.toStringAsFixed(0)} / ${summary.waterTargetMl.toStringAsFixed(0)} ml'),
-          _buildSummaryRow(Icons.directions_run_rounded, Colors.orangeAccent, 'Workout', '${summary.exerciseDurationMinutes} minutes logged'),
-          _buildSummaryRow(Icons.check_box_rounded, AppColors.accentProtein, 'Habits', '${summary.completedHabitsCount} / ${summary.totalHabitsCount} completed'),
+          _buildSummaryRow(
+            Icons.restaurant_rounded,
+            AppColors.protein,
+            'Nutrition',
+            '${summary.calories.toStringAsFixed(0)} kcal consumed',
+            isDark,
+          ),
+          const Divider(height: 12),
+          _buildSummaryRow(
+            Icons.water_drop_rounded,
+            AppColors.hydration,
+            'Hydration',
+            '${summary.waterIntakeMl.toStringAsFixed(0)} / ${summary.waterTargetMl.toStringAsFixed(0)} ml',
+            isDark,
+          ),
+          const Divider(height: 12),
+          _buildSummaryRow(
+            Icons.fitness_center_rounded,
+            AppColors.calories,
+            'Workout',
+            '${summary.exerciseDurationMinutes} minutes logged',
+            isDark,
+          ),
+          const Divider(height: 12),
+          _buildSummaryRow(
+            Icons.check_circle_outline_rounded,
+            AppColors.primary500,
+            'Habits',
+            '${summary.completedHabitsCount} / ${summary.totalHabitsCount} completed',
+            isDark,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSummaryRow(IconData icon, Color color, String title, String value) {
+  Widget _buildSummaryRow(
+    IconData icon,
+    Color color,
+    String title,
+    String value,
+    bool isDark,
+  ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         children: [
-          Icon(icon, color: color, size: 18),
-          const SizedBox(width: 8),
-          Text('$title: ', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          Text(value, style: const TextStyle(fontSize: 12)),
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+            ),
+            child: Icon(icon, color: color, size: 16),
+          ),
+          const SizedBox(width: AppConstants.spaceSm),
+          Text(
+            '$title: ',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.lightTextSecondary,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _build7DayTrendCard(List<WellnessTrendPoint> trendPoints, bool isDark) {
-    return GlassmorphicContainer(
+    return FitFuelCard(
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('7-Day Trend Analysis', style: AppTypography.heading3(isDark: isDark)),
-          const SizedBox(height: AppConstants.spaceSm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: trendPoints.map((point) {
-              final dateLabel = point.date.substring(point.date.length - 2);
+              final dateLabel = point.date.length >= 2
+                  ? point.date.substring(point.date.length - 2)
+                  : point.date;
+              final barHeight =
+                  (point.wellnessScore / 100.0 * 60.0).clamp(6.0, 60.0);
+
               return Column(
                 children: [
-                  Container(
-                    height: (point.wellnessScore / 100.0 * 60.0).clamp(5.0, 60.0),
-                    width: 14,
-                    decoration: BoxDecoration(
+                  Text(
+                    point.wellnessScore.toStringAsFixed(0),
+                    style: const TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
                       color: AppColors.primary500,
-                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(dateLabel, style: const TextStyle(fontSize: 9, color: AppColors.darkTextMuted)),
+                  Container(
+                    height: barHeight,
+                    width: 16,
+                    decoration: const BoxDecoration(
+                      color: AppColors.primary500,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(4)),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    dateLabel,
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: isDark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.lightTextSecondary,
+                    ),
+                  ),
                 ],
               );
             }).toList(),
-          ),
-          const SizedBox(height: AppConstants.spaceSm),
-          const Center(
-            child: Text(
-              'Wellness scores over last 7 days',
-              style: TextStyle(fontSize: 9, color: AppColors.darkTextMuted),
-            ),
           ),
         ],
       ),
@@ -224,83 +397,100 @@ class HealthInsightsScreen extends ConsumerWidget {
   Widget _buildInsightsSection(List<HealthInsight> insights, bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Personalized Insights', style: AppTypography.heading3(isDark: isDark)),
-        const SizedBox(height: AppConstants.spaceSm),
-        if (insights.isEmpty)
-          const GlassmorphicContainer(
-            child: Text('No insights generated for your current trend data.', style: TextStyle(fontSize: 12, color: AppColors.darkTextMuted)),
-          )
-        else
-          ...insights.map((insight) {
-            final cardColor = insight.priority == 'High'
-                ? Colors.redAccent.withValues(alpha: 0.1)
-                : insight.priority == 'Medium'
-                    ? Colors.orangeAccent.withValues(alpha: 0.1)
-                    : Colors.blueAccent.withValues(alpha: 0.1);
+      children: insights.map((insight) {
+        final cardColor = insight.priority == 'High'
+            ? AppColors.stateError
+            : insight.priority == 'Medium'
+                ? AppColors.calories
+                : AppColors.primary500;
 
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: GlassmorphicContainer(
-                child: Container(
-                  color: cardColor,
-                  padding: const EdgeInsets.all(AppConstants.spaceSm),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        insight.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+        return FitFuelCard(
+          margin: const EdgeInsets.only(bottom: AppConstants.spaceSm),
+          padding: const EdgeInsets.all(AppConstants.spaceSm),
+          border: BorderSide(color: cardColor.withValues(alpha: 0.3)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: cardColor.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      insight.priority.toUpperCase(),
+                      style: TextStyle(
+                        color: cardColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 9,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        insight.message,
-                        style: const TextStyle(fontSize: 11, color: AppColors.darkTextMuted),
-                      ),
-                    ],
+                    ),
                   ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      insight.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                insight.message,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: isDark
+                      ? AppColors.darkTextSecondary
+                      : AppColors.lightTextSecondary,
                 ),
               ),
-            );
-          }),
-      ],
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 
   Widget _buildSuggestionsSection(List<String> suggestions, bool isDark) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Daily Actions', style: AppTypography.heading3(isDark: isDark)),
-        const SizedBox(height: AppConstants.spaceSm),
-        GlassmorphicContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: suggestions.map((s) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.arrow_right_rounded, color: AppColors.primary500),
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: Text(
-                          s,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ],
+    return FitFuelCard(
+      padding: const EdgeInsets.all(AppConstants.spaceMd),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: suggestions.map((s) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline_rounded,
+                  color: AppColors.primary500,
+                  size: 16,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    s,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.lightTextSecondary,
+                    ),
                   ),
-                )).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildErrorState(String msg) {
-    return GlassmorphicContainer(
-      child: Text(msg, style: const TextStyle(color: AppColors.stateError)),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

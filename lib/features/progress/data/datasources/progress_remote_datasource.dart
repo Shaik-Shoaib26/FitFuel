@@ -23,7 +23,7 @@ class ProgressRemoteDataSourceImpl implements IProgressRemoteDataSource {
   Future<void> addWeight(String uid, WeightRecordModel record) async {
     try {
       LoggerService.info('Adding weight record to users/$uid/weightHistory');
-      final docRef = _weightRef(uid).doc();
+      final docRef = record.id.isNotEmpty ? _weightRef(uid).doc(record.id) : _weightRef(uid).doc();
       await docRef.set({
         ...record.toFirestore(),
         'id': docRef.id,

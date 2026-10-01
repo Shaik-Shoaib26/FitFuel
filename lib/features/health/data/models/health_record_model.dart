@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/sync/sync_status.dart';
 import '../../domain/entities/health_record_entity.dart';
 import 'exercise_model.dart';
 
@@ -11,6 +12,7 @@ class HealthRecordModel {
   final Map<String, bool> habits;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final SyncStatus syncStatus;
 
   const HealthRecordModel({
     required this.id,
@@ -21,6 +23,7 @@ class HealthRecordModel {
     required this.habits,
     required this.createdAt,
     required this.updatedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   factory HealthRecordModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -55,6 +58,7 @@ class HealthRecordModel {
       habits: habitsMap,
       createdAt: parseDateTime(data['createdAt']),
       updatedAt: parseDateTime(data['updatedAt']),
+      syncStatus: doc.metadata.hasPendingWrites ? SyncStatus.pending : SyncStatus.synced,
     );
   }
 
@@ -78,6 +82,7 @@ class HealthRecordModel {
       habits: entity.habits,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      syncStatus: entity.syncStatus,
     );
   }
 
@@ -91,6 +96,7 @@ class HealthRecordModel {
       habits: habits,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      syncStatus: syncStatus,
     );
   }
 }

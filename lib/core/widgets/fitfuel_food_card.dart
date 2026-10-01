@@ -32,11 +32,11 @@ class FitFuelFoodCard extends StatelessWidget {
       badges.add(_buildBadge('Indian', AppColors.calories));
     }
     if (food.isVegan) {
-      badges.add(_buildBadge('Vegan', AppColors.success));
+      badges.add(_buildBadge('Vegan', AppColors.stateSuccess));
     } else if (food.isVegetarian) {
-      badges.add(_buildBadge('Veg', AppColors.success));
+      badges.add(_buildBadge('Veg', AppColors.stateSuccess));
     } else {
-      badges.add(_buildBadge('Non-Veg', AppColors.error));
+      badges.add(_buildBadge('Non-Veg', AppColors.stateError));
     }
 
     for (final tag in food.dietaryTags.take(1)) {
@@ -64,11 +64,17 @@ class FitFuelFoodCard extends StatelessWidget {
             // Top Image with Favorite overlay button
             Stack(
               children: [
-                FoodImageCard(
-                  food: food,
-                  width: double.infinity,
-                  height: 120,
-                  borderRadius: AppConstants.radiusLg,
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(AppConstants.radiusLg),
+                  ),
+                  child: FoodImageCard(
+                    food: food,
+                    width: double.infinity,
+                    height: 125,
+                    borderRadius: 0,
+                    semanticDescription: 'Photo of ${food.name}',
+                  ),
                 ),
                 Positioned(
                   top: 8,
@@ -81,7 +87,7 @@ class FitFuelFoodCard extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       icon: Icon(
                         isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                        color: isFavorite ? AppColors.error : AppColors.lightTextSecondary,
+                        color: isFavorite ? AppColors.stateError : AppColors.lightTextSecondary,
                         size: 18,
                       ),
                       onPressed: onFavoriteTap,
@@ -96,6 +102,7 @@ class FitFuelFoodCard extends StatelessWidget {
               padding: const EdgeInsets.all(AppConstants.spaceSm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     food.name,

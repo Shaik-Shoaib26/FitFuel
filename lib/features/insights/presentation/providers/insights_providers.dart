@@ -11,7 +11,8 @@ import '../../domain/entities/action_recommendation_entity.dart';
 import '../../domain/utils/action_recommendation_engine.dart';
 import '../controllers/insights_controller.dart';
 
-final insightsRemoteDataSourceProvider = Provider<IInsightsRemoteDataSource>((ref) {
+final insightsRemoteDataSourceProvider =
+    Provider<IInsightsRemoteDataSource>((ref) {
   return InsightsRemoteDataSourceImpl();
 });
 
@@ -20,15 +21,22 @@ final insightsRepositoryProvider = Provider<IInsightsRepository>((ref) {
   return InsightsRepositoryImpl(dataSource);
 });
 
-final insightsControllerProvider = StateNotifierProvider<InsightsController, InsightsState>((ref) {
-  // Watch streams to trigger updates automatically
-  ref.watch(nutritionStreamProvider);
-  ref.watch(healthStreamProvider);
-  ref.watch(weightHistoryStreamProvider);
-
-  final authUser = ref.watch(authStateStreamProvider).value;
+final insightsControllerProvider =
+    StateNotifierProvider<InsightsController, InsightsState>((ref) {
+  final uid =
+      ref.watch(authStateStreamProvider.select((auth) => auth.value?.uid));
   final repository = ref.watch(insightsRepositoryProvider);
-  return InsightsController(repository, authUser?.uid);
+  final controller = InsightsController(repository, uid);
+  ref.listen(nutritionStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadInsights();
+  });
+  ref.listen(healthStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadInsights();
+  });
+  ref.listen(weightHistoryStreamProvider, (_, next) {
+    if (next.hasValue) controller.loadInsights();
+  });
+  return controller;
 });
 
 final dailyFocusProvider = Provider<AsyncValue<dynamic>>((ref) {
@@ -38,19 +46,26 @@ final dailyFocusProvider = Provider<AsyncValue<dynamic>>((ref) {
 
 int _priorityWeight(InsightPriority p) {
   switch (p) {
-    case InsightPriority.critical: return 0;
-    case InsightPriority.high: return 1;
-    case InsightPriority.medium: return 2;
-    case InsightPriority.low: return 3;
-    case InsightPriority.positive: return 4;
+    case InsightPriority.critical:
+      return 0;
+    case InsightPriority.high:
+      return 1;
+    case InsightPriority.medium:
+      return 2;
+    case InsightPriority.low:
+      return 3;
+    case InsightPriority.positive:
+      return 4;
   }
 }
 
-final priorityInsightsProvider = Provider<AsyncValue<List<HealthInsightEntity>>>((ref) {
+final priorityInsightsProvider =
+    Provider<AsyncValue<List<HealthInsightEntity>>>((ref) {
   final state = ref.watch(insightsControllerProvider);
   return state.insights.whenData((list) {
     // Filter out positive ones from active priority insights
-    final activeInsights = list.where((i) => i.category != InsightCategory.positive).toList();
+    final activeInsights =
+        list.where((i) => i.category != InsightCategory.positive).toList();
 
     // Sort by priority ascending (0 = critical, etc.)
     activeInsights.sort((a, b) {
@@ -68,22 +83,26 @@ final priorityInsightsProvider = Provider<AsyncValue<List<HealthInsightEntity>>>
   });
 });
 
-final recommendedActionsProvider = Provider<AsyncValue<List<ActionRecommendationEntity>>>((ref) {
+final recommendedActionsProvider =
+    Provider<AsyncValue<List<ActionRecommendationEntity>>>((ref) {
   final priorityAsync = ref.watch(priorityInsightsProvider);
   return priorityAsync.whenData((insights) {
     final List<ActionRecommendationEntity> actions = [];
     final Set<InsightActionType> seen = {};
 
     for (final insight in insights) {
-      if (insight.actionType != InsightActionType.none && !seen.contains(insight.actionType)) {
+      if (insight.actionType != InsightActionType.none &&
+          !seen.contains(insight.actionType)) {
         seen.add(insight.actionType);
-        actions.add(ActionRecommendationEngine.generate(insight.actionType, insight.priority));
+        actions.add(ActionRecommendationEngine.generate(
+            insight.actionType, insight.priority));
       }
     }
 
     // Default action if empty
     if (actions.isEmpty) {
-      actions.add(ActionRecommendationEngine.generate(InsightActionType.none, InsightPriority.positive));
+      actions.add(ActionRecommendationEngine.generate(
+          InsightActionType.none, InsightPriority.positive));
     }
     return actions;
   });

@@ -121,11 +121,47 @@ class AuthService {
       await _firebaseAuth.sendPasswordResetEmail(email: trimmedEmail);
       LoggerService.info('Password reset email sent successfully to: $trimmedEmail');
     } on FirebaseAuthException catch (e, stackTrace) {
+      if (e.code == 'user-not-found') {
+        LoggerService.info('User not found during password reset (email enumeration protection)');
+        return;
+      }
       LoggerService.error('Password reset failed: ${e.code} - ${e.message}', e, stackTrace);
       throw ServerException(message: _mapFirebaseAuthException(e));
     } catch (e, stackTrace) {
       LoggerService.error('Unexpected error during Password Reset', e, stackTrace);
       throw ServerException(message: 'Unable to send password reset email. Please try again later.');
+    }
+  }
+
+  /// Deletes current authenticated user's account and profile document.
+  /// Reauthenticates if required by Firebase Auth.
+  Future<void> deleteAccount({required String password}) async {
+    final user = currentUser;
+    if (user == null) {
+      throw ServerException(message: 'No user is currently authenticated.');
+    }
+
+    try {
+      final email = user.email;
+      if (email != null) {
+        LoggerService.info('Reauthenticating user UID: ${user.uid} before account deletion');
+        final credential = EmailAuthProvider.credential(email: email, password: password);
+        await user.reauthenticateWithCredential(credential);
+      }
+
+      final uid = user.uid;
+      LoggerService.info('Deleting user profile from Firestore for UID: $uid');
+      await _firestoreService.deleteUserProfile(uid);
+
+      LoggerService.info('Deleting Firebase Auth user for UID: $uid');
+      await user.delete();
+      LoggerService.info('Account deleted successfully');
+    } on FirebaseAuthException catch (e, stackTrace) {
+      LoggerService.error('FirebaseAuthException during account deletion [Code: ${e.code}]', e, stackTrace);
+      throw ServerException(message: _mapFirebaseAuthException(e));
+    } catch (e, stackTrace) {
+      LoggerService.error('Unexpected error during account deletion', e, stackTrace);
+      throw ServerException(message: 'Failed to delete account. Please try again.');
     }
   }
 

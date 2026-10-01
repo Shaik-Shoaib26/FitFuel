@@ -1,10 +1,11 @@
+import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/widgets/adaptive_page_layout.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
+import '../../../../core/widgets/fitfuel_card.dart';
 import '../../domain/entities/food_entity.dart';
 import '../providers/food_providers.dart';
 
@@ -132,7 +133,7 @@ class _CustomFoodFormState extends ConsumerState<CustomFoodForm> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save food: $e')),
+          const SnackBar(content: Text('Failed to save food')),
         );
       }
     } finally {
@@ -159,7 +160,7 @@ class _CustomFoodFormState extends ConsumerState<CustomFoodForm> {
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(foregroundColor: AppColors.stateError),
+            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
             child: const Text('Delete'),
           ),
         ],
@@ -180,7 +181,7 @@ class _CustomFoodFormState extends ConsumerState<CustomFoodForm> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to delete food: $e')),
+          const SnackBar(content: Text('Failed to delete food')),
         );
       }
     } finally {
@@ -230,195 +231,255 @@ class _CustomFoodFormState extends ConsumerState<CustomFoodForm> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final scheme = Theme.of(context).colorScheme;
     final title = widget.existingFood != null ? 'Edit Custom Food' : 'Create Custom Food';
+    final pageBackground = isDark ? null : scheme.surfaceContainerLow;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: FitFuelAppBar(
         title: Text(title),
         actions: [
           if (widget.existingFood != null)
             IconButton(
-              icon: const Icon(Icons.delete_outline_rounded, color: AppColors.stateError),
+              icon: Icon(Icons.delete_outline_rounded, color: scheme.error),
               tooltip: 'Delete custom food',
               onPressed: _isSaving ? null : _deleteFood,
             ),
         ],
       ),
+      backgroundColor: pageBackground,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppConstants.spaceMd),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextFormField(
-                  controller: _nameController,
-                  enabled: !_isSaving,
-                  textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    labelText: 'Food Name *',
-                    hintText: 'e.g. Avocado Toast',
+        child: AdaptivePageLayout(
+          maxWidth: 720,
+          child: SingleChildScrollView(
+            padding: AdaptivePageLayout.pagePadding(context),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Section 1: Basic Information
+                  const _SectionLabel(label: 'Basic Information', icon: Icons.restaurant_rounded),
+                  const SizedBox(height: AppConstants.spaceSmd),
+                  FitFuelCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormField(
+                          controller: _nameController,
+                          enabled: !_isSaving,
+                          textCapitalization: TextCapitalization.words,
+                          decoration: const InputDecoration(
+                            labelText: 'Food Name *',
+                            hintText: 'e.g. Avocado Toast',
+                          ),
+                          validator: _validateName,
+                        ),
+                        const SizedBox(height: AppConstants.spaceMd),
+                        DropdownButtonFormField<String>(
+                          initialValue: _selectedCategory,
+                          decoration: const InputDecoration(
+                            labelText: 'Category *',
+                          ),
+                          items: _categories.map((cat) {
+                            return DropdownMenuItem<String>(
+                              value: cat,
+                              child: Text(cat),
+                            );
+                          }).toList(),
+                          onChanged: _isSaving
+                              ? null
+                              : (val) {
+                                  if (val != null) {
+                                    setState(() {
+                                      _selectedCategory = val;
+                                    });
+                                  }
+                                },
+                        ),
+                      ],
+                    ),
                   ),
-                  validator: _validateName,
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-                DropdownButtonFormField<String>(
-                  initialValue: _selectedCategory,
-                  decoration: const InputDecoration(
-                    labelText: 'Category *',
+                  const SizedBox(height: AppConstants.spaceLg),
+
+                  // Section 2: Serving
+                  const _SectionLabel(label: 'Serving', icon: Icons.scale_rounded),
+                  const SizedBox(height: AppConstants.spaceSmd),
+                  FitFuelCard(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            controller: _servingSizeController,
+                            enabled: !_isSaving,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            decoration: const InputDecoration(
+                              labelText: 'Serving Size *',
+                              hintText: '100',
+                            ),
+                            validator: _validatePositive,
+                          ),
+                        ),
+                        const SizedBox(width: AppConstants.spaceMd),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _servingUnitController,
+                            enabled: !_isSaving,
+                            decoration: const InputDecoration(
+                              labelText: 'Unit *',
+                              hintText: 'g',
+                            ),
+                            validator: (value) => value == null || value.trim().isEmpty ? 'Required' : null,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  items: _categories.map((cat) {
-                    return DropdownMenuItem<String>(
-                      value: cat,
-                      child: Text(cat),
-                    );
-                  }).toList(),
-                  onChanged: _isSaving
-                      ? null
-                      : (val) {
-                          if (val != null) {
-                            setState(() {
-                              _selectedCategory = val;
-                            });
-                          }
-                        },
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: TextFormField(
-                        controller: _servingSizeController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Serving Size *',
-                          hintText: '100',
-                        ),
-                        validator: _validatePositive,
+                  const SizedBox(height: AppConstants.spaceLg),
+
+                  // Section 3: Calories
+                  const _SectionLabel(label: 'Calories', icon: Icons.local_fire_department_rounded),
+                  const SizedBox(height: AppConstants.spaceSmd),
+                  FitFuelCard(
+                    child: TextFormField(
+                      controller: _caloriesController,
+                      enabled: !_isSaving,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        labelText: 'Calories (kcal) *',
                       ),
+                      validator: _validateNonNegative,
                     ),
-                    const SizedBox(width: AppConstants.spaceMd),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _servingUnitController,
-                        enabled: !_isSaving,
-                        decoration: const InputDecoration(
-                          labelText: 'Unit *',
-                          hintText: 'g',
-                        ),
-                        validator: (value) => value == null || value.trim().isEmpty ? 'Required' : null,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppConstants.spaceLg),
-                Text(
-                  'Nutrition Information (per serving)',
-                  style: AppTypography.heading3(isDark: isDark),
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-                TextFormField(
-                  controller: _caloriesController,
-                  enabled: !_isSaving,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    labelText: 'Calories (kcal) *',
                   ),
-                  validator: _validateNonNegative,
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _proteinController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Protein (g) *',
+                  const SizedBox(height: AppConstants.spaceLg),
+
+                  // Section 4: Macronutrients
+                  const _SectionLabel(label: 'Macronutrients', icon: Icons.pie_chart_outline_rounded),
+                  const SizedBox(height: AppConstants.spaceSmd),
+                  FitFuelCard(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _proteinController,
+                                enabled: !_isSaving,
+                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                decoration: const InputDecoration(
+                                  labelText: 'Protein (g) *',
+                                ),
+                                validator: _validateNonNegative,
+                              ),
+                            ),
+                            const SizedBox(width: AppConstants.spaceMd),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _carbsController,
+                                enabled: !_isSaving,
+                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                decoration: const InputDecoration(
+                                  labelText: 'Carbs (g) *',
+                                ),
+                                validator: _validateNonNegative,
+                              ),
+                            ),
+                            const SizedBox(width: AppConstants.spaceMd),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _fatsController,
+                                enabled: !_isSaving,
+                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                decoration: const InputDecoration(
+                                  labelText: 'Fats (g) *',
+                                ),
+                                validator: _validateNonNegative,
+                              ),
+                            ),
+                          ],
                         ),
-                        validator: _validateNonNegative,
-                      ),
+                      ],
                     ),
-                    const SizedBox(width: AppConstants.spaceMd),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _carbsController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Carbohydrates (g) *',
+                  ),
+                  const SizedBox(height: AppConstants.spaceLg),
+
+                  // Section 5: Additional Nutrition
+                  const _SectionLabel(label: 'Additional Nutrition', icon: Icons.science_outlined),
+                  const SizedBox(height: AppConstants.spaceSmd),
+                  FitFuelCard(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _fiberController,
+                            enabled: !_isSaving,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            decoration: const InputDecoration(
+                              labelText: 'Fiber (g)',
+                            ),
+                            validator: _validateNonNegative,
+                          ),
                         ),
-                        validator: _validateNonNegative,
-                      ),
-                    ),
-                    const SizedBox(width: AppConstants.spaceMd),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _fatsController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Fats (g) *',
+                        const SizedBox(width: AppConstants.spaceMd),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _sugarController,
+                            enabled: !_isSaving,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            decoration: const InputDecoration(
+                              labelText: 'Sugar (g)',
+                            ),
+                            validator: _validateNonNegative,
+                          ),
                         ),
-                        validator: _validateNonNegative,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppConstants.spaceMd),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _fiberController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Fiber (g)',
+                        const SizedBox(width: AppConstants.spaceMd),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _sodiumController,
+                            enabled: !_isSaving,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            decoration: const InputDecoration(
+                              labelText: 'Sodium (mg)',
+                            ),
+                            validator: _validateNonNegative,
+                          ),
                         ),
-                        validator: _validateNonNegative,
-                      ),
+                      ],
                     ),
-                    const SizedBox(width: AppConstants.spaceMd),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _sugarController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Sugar (g)',
-                        ),
-                        validator: _validateNonNegative,
-                      ),
-                    ),
-                    const SizedBox(width: AppConstants.spaceMd),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _sodiumController,
-                        enabled: !_isSaving,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: 'Sodium (mg)',
-                        ),
-                        validator: _validateNonNegative,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppConstants.spaceXl),
-                FitFuelButton(
-                  label: _isSaving ? 'Saving...' : 'Save Custom Food',
-                  onPressed: _isSaving ? null : _submitForm,
-                ),
-              ],
+                  ),
+                  const SizedBox(height: AppConstants.spaceXl),
+
+                  FitFuelButton(
+                    label: _isSaving ? 'Saving...' : 'Save Custom Food',
+                    onPressed: _isSaving ? null : _submitForm,
+                    icon: Icons.check_circle_rounded,
+                  ),
+                  const SizedBox(height: AppConstants.spaceLg),
+                ],
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SectionLabel extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  const _SectionLabel({required this.label, required this.icon});
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final text = Theme.of(context).textTheme;
+    return Row(
+      children: [
+        Icon(icon, size: 18, color: scheme.primary),
+        const SizedBox(width: AppConstants.spaceSm),
+        Text(label, style: text.titleSmall?.copyWith(color: scheme.primary)),
+      ],
     );
   }
 }

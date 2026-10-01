@@ -14,24 +14,25 @@ import '../../../grocery/domain/entities/pantry_item_entity.dart';
 
 abstract class AiAssistantState {
   final List<ChatMessage> messages;
-  const AiAssistantState(this.messages);
+  final String providerUsed;
+  const AiAssistantState(this.messages, {this.providerUsed = 'Gemini'});
 }
 
 class AiAssistantInitial extends AiAssistantState {
-  const AiAssistantInitial() : super(const []);
+  const AiAssistantInitial() : super(const [], providerUsed: 'Gemini');
 }
 
 class AiAssistantLoading extends AiAssistantState {
-  const AiAssistantLoading(super.messages);
+  const AiAssistantLoading(super.messages, {super.providerUsed});
 }
 
 class AiAssistantSuccess extends AiAssistantState {
-  const AiAssistantSuccess(super.messages);
+  const AiAssistantSuccess(super.messages, {required super.providerUsed});
 }
 
 class AiAssistantError extends AiAssistantState {
   final String message;
-  const AiAssistantError(super.messages, this.message);
+  const AiAssistantError(super.messages, this.message, {super.providerUsed});
 }
 
 class AiAssistantController extends StateNotifier<AiAssistantState> {
@@ -54,6 +55,9 @@ class AiAssistantController extends StateNotifier<AiAssistantState> {
     List<PantryItemEntity> pantryItems = const [],
   }) async {
     if (prompt.trim().isEmpty) return;
+    
+    // Prevent double-sending while loading
+    if (state is AiAssistantLoading) return;
 
     final history = List<ChatMessage>.from(state.messages);
 
@@ -64,7 +68,7 @@ class AiAssistantController extends StateNotifier<AiAssistantState> {
     );
 
     final currentMessages = List<ChatMessage>.from(state.messages)..add(userMessage);
-    state = AiAssistantLoading(currentMessages);
+    state = AiAssistantLoading(currentMessages, providerUsed: state.providerUsed);
 
     try {
       final aiMessage = await _repository.askAssistant(
@@ -84,11 +88,15 @@ class AiAssistantController extends StateNotifier<AiAssistantState> {
       );
 
       final updatedMessages = List<ChatMessage>.from(state.messages)..add(aiMessage);
-      state = AiAssistantSuccess(updatedMessages);
+      state = AiAssistantSuccess(
+        updatedMessages,
+        providerUsed: aiMessage.providerUsed ?? 'Gemini',
+      );
     } catch (e) {
       state = AiAssistantError(
         state.messages,
         'Assistant failed to reply: ${e.toString().replaceAll('Exception:', '')}',
+        providerUsed: 'Offline guidance', // Fallback display on complete failure
       );
     }
   }

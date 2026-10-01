@@ -9,6 +9,8 @@ import '../models/grocery_list_model.dart';
 import '../models/grocery_preferences_model.dart';
 import '../models/pantry_item_model.dart';
 
+import '../../../../core/utils/id_utils.dart';
+
 class GroceryRepositoryImpl implements IGroceryRepository {
   final IGroceryRemoteDataSource _remoteDataSource;
 
@@ -40,7 +42,8 @@ class GroceryRepositoryImpl implements IGroceryRepository {
 
   @override
   Future<void> saveGroceryList(String uid, GroceryListEntity groceryList) async {
-    final model = GroceryListModel.fromEntity(groceryList);
+    final listId = groceryList.id.isEmpty ? IdUtils.generateId() : groceryList.id;
+    final model = GroceryListModel.fromEntity(groceryList.copyWith(id: listId));
     await _remoteDataSource.saveGroceryList(uid, model);
   }
 
@@ -58,13 +61,17 @@ class GroceryRepositoryImpl implements IGroceryRepository {
 
   @override
   Future<void> saveGroceryItem(String uid, String listId, GroceryItemEntity item) async {
-    final model = GroceryItemModel.fromEntity(item);
+    final itemId = item.id.isEmpty ? IdUtils.generateId() : item.id;
+    final model = GroceryItemModel.fromEntity(item.copyWith(id: itemId));
     await _remoteDataSource.saveGroceryItem(uid, listId, model);
   }
 
   @override
   Future<void> saveGroceryItems(String uid, String listId, List<GroceryItemEntity> items) async {
-    final models = items.map((i) => GroceryItemModel.fromEntity(i)).toList();
+    final models = items.map((i) {
+      final itemId = i.id.isEmpty ? IdUtils.generateId() : i.id;
+      return GroceryItemModel.fromEntity(i.copyWith(id: itemId));
+    }).toList();
     await _remoteDataSource.saveGroceryItems(uid, listId, models);
   }
 
@@ -82,7 +89,8 @@ class GroceryRepositoryImpl implements IGroceryRepository {
 
   @override
   Future<void> savePantryItem(String uid, PantryItemEntity item) async {
-    final model = PantryItemModel.fromEntity(item);
+    final itemId = item.id.isEmpty ? IdUtils.generateId() : item.id;
+    final model = PantryItemModel.fromEntity(item.copyWith(id: itemId));
     await _remoteDataSource.savePantryItem(uid, model);
   }
 

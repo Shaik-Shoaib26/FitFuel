@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/sync/sync_status.dart';
 import '../../domain/entities/weight_record_entity.dart';
 
 class WeightRecordModel {
   final String id;
   final double weight;
   final DateTime recordedAt;
+  final SyncStatus syncStatus;
 
   const WeightRecordModel({
     required this.id,
     required this.weight,
     required this.recordedAt,
+    this.syncStatus = SyncStatus.synced,
   });
 
   factory WeightRecordModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -26,6 +29,7 @@ class WeightRecordModel {
       id: doc.id,
       weight: (data['weight'] as num? ?? 0.0).toDouble(),
       recordedAt: parsedRecordedAt,
+      syncStatus: doc.metadata.hasPendingWrites ? SyncStatus.pending : SyncStatus.synced,
     );
   }
 
@@ -41,6 +45,7 @@ class WeightRecordModel {
       id: entity.id,
       weight: entity.weight,
       recordedAt: entity.recordedAt,
+      syncStatus: entity.syncStatus,
     );
   }
 
@@ -49,6 +54,7 @@ class WeightRecordModel {
       id: id,
       weight: weight,
       recordedAt: recordedAt,
+      syncStatus: syncStatus,
     );
   }
 }
