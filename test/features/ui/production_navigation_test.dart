@@ -16,6 +16,7 @@ import 'package:fitfuel/features/health/presentation/providers/health_providers.
 import 'package:fitfuel/features/progress/presentation/controllers/progress_controller.dart';
 import 'package:fitfuel/features/grocery/presentation/providers/grocery_providers.dart';
 import 'package:fitfuel/features/grocery/presentation/screens/grocery_screen.dart';
+import 'package:fitfuel/features/plan/presentation/screens/plan_screen.dart';
 
 class SignedInUser extends Fake implements User {
   @override
@@ -57,11 +58,11 @@ void main() {
             .uri
             .toString(),
         '/plan?source=link');
-    expect(find.text('Meal Planner'), findsOneWidget);
+    expect(find.byType(PlanScreen), findsOneWidget);
     auth.add(null);
     await tester.pumpAndSettle();
     expect(find.byType(LoginScreen), findsOneWidget);
-    expect(find.text('Meal Planner'), findsNothing);
+    expect(find.byType(PlanScreen), findsNothing);
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox.shrink());
   });
@@ -117,7 +118,7 @@ void main() {
                       .copyWith(textScaler: const TextScaler.linear(1.4)),
                   child: child!))));
       await tester.pumpAndSettle();
-      expect(find.text('Meal Planner'), findsOneWidget);
+      expect(find.byType(PlanScreen), findsOneWidget);
       for (final route in [
         '/health',
         '/nutrition',

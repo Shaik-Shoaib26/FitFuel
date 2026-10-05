@@ -1,34 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/theme/fitfuel_semantic_colors.dart';
 import '../../../../core/widgets/fitfuel_card.dart';
 import '../../../../core/widgets/fitfuel_error_state.dart';
 import '../../../../core/widgets/fitfuel_loading_state.dart';
 import '../../../../core/widgets/fitfuel_section_header.dart';
-import '../../../../app/navigation/feature_action_navigation.dart';
+import '../../../health/presentation/providers/health_providers.dart';
 import '../../../insights/domain/entities/daily_focus_entity.dart';
 import '../../../insights/domain/entities/health_insight_entity.dart';
 import '../../../insights/presentation/providers/insights_providers.dart';
 
-/// One primary focus from the existing insights system. The full insights
-/// workspace stays on its canonical page.
+/// Reference-accurate Today's Focus Card for FitFuel Phase 35.6.2.
+/// Background: Warm cream/peach (#FFF8F0), 24px radius, subtle orange border.
+/// Left: Large circular pale-orange hydration icon
+/// Center: "Improve hydration", dynamic live ml deficit, supporting line
+/// Actions: Green primary button "+ Log Water", secondary "View insights >"
+/// Right: Bundled realistic clear glass of water with subtle mint leaves.
 class HomeFocusCard extends ConsumerWidget {
   const HomeFocusCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final focus = ref.watch(dailyFocusProvider);
+    final health = ref.watch(todayHealthRecordProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         FitFuelSectionHeader(
           title: "Today's Focus",
-          actionLabel: 'View insights',
+          actionLabel: 'View insights >',
           onActionPressed: () => context.go('/progress/insights'),
         ),
-        const SizedBox(height: AppConstants.spaceSmd),
+        const SizedBox(height: AppConstants.spaceSm),
         focus.when(
           loading: () => const FitFuelCard(
             child: FitFuelLoadingState(
@@ -41,10 +47,12 @@ class HomeFocusCard extends ConsumerWidget {
                 .loadInsights(),
           ),
           data: (value) {
-            if (value is! DailyFocusEntity) {
-              return const _FocusEmpty();
-            }
-            return _FocusBody(focus: value);
+            final dailyFocus = value is DailyFocusEntity ? value : null;
+            return _FocusCardBody(
+              focus: dailyFocus,
+              waterIntake: health?.waterIntakeMl ?? 0.0,
+              waterTarget: health?.waterTargetMl ?? 2500.0,
+            );
           },
         ),
       ],
@@ -52,145 +60,202 @@ class HomeFocusCard extends ConsumerWidget {
   }
 }
 
-class _FocusBody extends StatelessWidget {
-  final DailyFocusEntity focus;
-  const _FocusBody({required this.focus});
+class _FocusCardBody extends StatelessWidget {
+  final DailyFocusEntity? focus;
+  final double waterIntake;
+  final double waterTarget;
 
-  Color _accent(BuildContext context) => switch (focus.priority) {
-        InsightPriority.critical => Theme.of(context).colorScheme.error,
-        InsightPriority.high => FitFuelSemanticColors.of(context).warning,
-        _ => Theme.of(context).colorScheme.primary,
-      };
-
-  IconData get _icon => switch (focus.category) {
-        InsightCategory.hydration => Icons.water_drop_outlined,
-        InsightCategory.exercise => Icons.directions_run_outlined,
-        InsightCategory.habits => Icons.check_circle_outline,
-        InsightCategory.weight => Icons.monitor_weight_outlined,
-        InsightCategory.progress => Icons.trending_up,
-        InsightCategory.wellness => Icons.favorite_outline,
-        _ => Icons.lightbulb_outline,
-      };
-
-  String get _purposeLine => switch (focus.category) {
-        InsightCategory.hydration =>
-          'Small sips add up. One log now keeps your day on target.',
-        InsightCategory.exercise =>
-          'A short session now protects your momentum for the week.',
-        InsightCategory.habits =>
-          'Consistency beats intensity. Check off one more habit today.',
-        InsightCategory.weight =>
-          'A quick check-in keeps your weekly trend honest.',
-        InsightCategory.progress =>
-          'See how far you have come since last week.',
-        InsightCategory.wellness => 'A minute for yourself is worth it.',
-        _ => 'A small step now makes the rest of the day easier.',
-      };
+  const _FocusCardBody({
+    required this.focus,
+    required this.waterIntake,
+    required this.waterTarget,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    final accent = _accent(context);
-    final action = focus.recommendedActions.isEmpty
-        ? null
-        : focus.recommendedActions.first;
-    return FitFuelCard(
-      color: Color.alphaBlend(accent.withValues(alpha: .07), scheme.surface),
-      border: BorderSide(color: accent.withValues(alpha: .30)),
-      padding: const EdgeInsets.all(AppConstants.spaceMlg),
-      semanticsLabel: "Today's focus: ${focus.title}",
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                    color: accent.withValues(alpha: .14),
-                    shape: BoxShape.circle),
-                child: Icon(_icon, color: accent),
-              ),
-              const SizedBox(width: AppConstants.spaceSmd),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      focus.title,
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: AppConstants.space2Xs),
-                    Text(
-                      focus.description,
-                      style: theme.textTheme.bodyMedium,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.spaceMd),
-          Text(
-            _purposeLine,
-            style: theme.textTheme.bodySmall
-                ?.copyWith(color: scheme.onSurfaceVariant),
-          ),
-          if (action != null) ...[
-            const SizedBox(height: AppConstants.spaceMd),
-            Wrap(
-              spacing: AppConstants.spaceSm,
-              runSpacing: AppConstants.spaceSm,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                FilledButton.icon(
-                  onPressed: () => context.go(insightLocation(action)),
-                  icon: const Icon(Icons.add_circle_outline, size: 18),
-                  label: Text(action.title),
-                ),
-                TextButton(
-                  onPressed: () => context.go('/progress/insights'),
-                  child: const Text('View insights'),
+    final isDark = theme.brightness == Brightness.dark;
+
+    final isHydration =
+        focus == null || focus!.category == InsightCategory.hydration;
+
+    final remainingWater = (waterTarget - waterIntake).clamp(0.0, waterTarget);
+    final remainingMl = remainingWater.round();
+
+    final String title = focus?.title ??
+        (isHydration ? 'Improve hydration' : 'Daily wellness focus');
+
+    final String subtitle = isHydration
+        ? (remainingMl > 0
+            ? "You're $remainingMl ml below today's target."
+            : "You've met today's hydration target (${waterTarget.round()} ml)!")
+        : (focus?.description ??
+            'Stay on track with your healthy daily goals.');
+
+    const String purposeLine =
+        'Small sips add up. One log now keeps your day on target.';
+
+    final cardBg = isDark
+        ? AppColors.darkBgSurface
+        : const Color(0xFFFFF8F0); // Warm cream / peach
+    final borderColor = isDark
+        ? AppColors.darkBorderSubtle
+        : const Color(0xFFF5A623).withValues(alpha: 0.28);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor, width: 1),
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.03),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
                 ),
               ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Stack(
+          children: [
+            // Realistic Clear Glass with Leaves (Aligned to bottom-right, non-interactive)
+            if (isHydration)
+              Positioned(
+                bottom: -8,
+                right: -8,
+                child: IgnorePointer(
+                  child: SizedBox(
+                    width: 140,
+                    height: 140,
+                    child: Image.asset(
+                      'assets/decorations/hydration_glass.webp',
+                      fit: BoxFit.contain,
+                      alignment: Alignment.bottomRight,
+                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+              ),
+
+            // Main Content Area
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.spaceLg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Large circular pale-orange hydration icon
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFFFECD6), // Soft warm peach circle
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.water_drop_rounded,
+                            size: 24,
+                            color: AppColors.hydrationOrange,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: AppConstants.spaceMd),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                color: isDark
+                                    ? AppColors.darkTextPrimary
+                                    : AppColors.primaryText,
+                                letterSpacing: -0.2,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              subtitle,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: isDark
+                                    ? AppColors.darkTextSecondary
+                                    : AppColors.secondaryText,
+                                fontSize: 14,
+                                height: 1.35,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    purposeLine,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: isDark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.secondaryText,
+                      fontSize: 12.5,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Bottom Actions: Primary green button + Secondary View insights
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      FilledButton.icon(
+                        onPressed: () =>
+                            context.go('/health?section=hydration&action=log'),
+                        icon: const Icon(Icons.add, size: 18),
+                        label: const Text(
+                          'Log Water',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.primaryLeafGreen,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 0,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => context.go('/progress/insights'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColors.primaryLeafGreen,
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        child: const Text('View insights >'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
-        ],
-      ),
-    );
-  }
-}
-
-class _FocusEmpty extends StatelessWidget {
-  const _FocusEmpty();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return FitFuelCard(
-      padding: const EdgeInsets.all(AppConstants.spaceMlg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Log your day to build your focus.',
-            style: theme.textTheme.bodyMedium,
-          ),
-          const SizedBox(height: AppConstants.spaceSmd),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              onPressed: () => context.go('/progress/insights'),
-              child: const Text('Open insights'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

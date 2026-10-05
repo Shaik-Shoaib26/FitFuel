@@ -73,12 +73,12 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         CircleAvatar(
                           radius: 40,
-                          backgroundColor: AppColors.primary100,
+                          backgroundColor: AppColors.softSage,
                           child: Text(
                             initial,
                             style: AppTypography.displayMedium(isDark: false)
                                 .copyWith(
-                              color: AppColors.primary500,
+                              color: AppColors.primaryLeafGreen,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -97,18 +97,67 @@ class ProfileScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
-                            color: AppColors.primary500.withAlpha(20),
+                            color: isDark ? AppColors.darkPrimaryContainer : AppColors.softSage,
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                                color: AppColors.primary500.withAlpha(50)),
+                                color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFDDE7DF)),
                           ),
                           child: Text(
                             'Goal: $fitnessGoal',
-                            style: const TextStyle(
-                              color: AppColors.primary500,
+                            style: TextStyle(
+                              color: isDark ? AppColors.mintGreen : AppColors.primaryLeafGreen,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.spaceMd),
+
+                  // Wellness Quote Card (Light Sage Background #E6F4EA)
+                  Container(
+                    padding: const EdgeInsets.all(AppConstants.spaceMd),
+                    decoration: BoxDecoration(
+                      color: isDark ? AppColors.darkPrimaryContainer : AppColors.softSage,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusCard),
+                      border: Border.all(
+                        color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFDDE7DF),
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.eco_rounded,
+                          color: AppColors.primaryLeafGreen,
+                          size: 24,
+                        ),
+                        const SizedBox(width: AppConstants.spaceSm),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '“Small daily choices compound into lifelong vibrant health.”',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontStyle: FontStyle.italic,
+                                  color: isDark ? AppColors.darkTextPrimary : AppColors.primaryText,
+                                  height: 1.4,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'FitFuel Wellness Mindset 🌿',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: isDark ? AppColors.mintGreen : AppColors.primaryLeafGreen,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -168,22 +217,29 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: AppConstants.spaceMd),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildMacroTargetCol('Calories',
-                                '$calorieTarget kcal', AppColors.calories),
-                            _buildMacroTargetCol(
-                                'Protein',
-                                '${proteinTarget.toStringAsFixed(0)}g',
-                                AppColors.protein),
-                            _buildMacroTargetCol(
-                                'Carbs',
-                                '${carbsTarget.toStringAsFixed(0)}g',
-                                AppColors.carbs),
-                            _buildMacroTargetCol(
-                                'Fats',
-                                '${fatTarget.toStringAsFixed(0)}g',
-                                AppColors.fat),
+                            Expanded(
+                              child: _buildMacroTargetCol('Calories',
+                                  '$calorieTarget kcal', AppColors.calories),
+                            ),
+                            Expanded(
+                              child: _buildMacroTargetCol(
+                                  'Protein',
+                                  '${proteinTarget.toStringAsFixed(0)}g',
+                                  AppColors.protein),
+                            ),
+                            Expanded(
+                              child: _buildMacroTargetCol(
+                                  'Carbs',
+                                  '${carbsTarget.toStringAsFixed(0)}g',
+                                  AppColors.carbs),
+                            ),
+                            Expanded(
+                              child: _buildMacroTargetCol(
+                                  'Fats',
+                                  '${fatTarget.toStringAsFixed(0)}g',
+                                  AppColors.fat),
+                            ),
                           ],
                         ),
                       ],
@@ -270,16 +326,23 @@ class ProfileScreen extends ConsumerWidget {
 
   Widget _buildMacroTargetCol(String label, String value, Color color) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value,
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 13, fontWeight: FontWeight.bold, color: color),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 2),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 10, color: Colors.grey),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -295,28 +358,35 @@ class ProfileScreen extends ConsumerWidget {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+      borderRadius: BorderRadius.circular(AppConstants.radiusControl),
       child: Container(
-        padding: const EdgeInsets.all(AppConstants.spaceSm),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.spaceMd, vertical: AppConstants.spaceSm),
         decoration: BoxDecoration(
-          color: isDark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          color: isDark ? AppColors.darkBgSurface : AppColors.pureWhite,
+          borderRadius: BorderRadius.circular(AppConstants.radiusControl),
           border: Border.all(
             color: isDark
                 ? AppColors.darkBorderSubtle
-                : AppColors.lightBorderSubtle,
+                : const Color(0xFFE5ECE7),
           ),
         ),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 20,
-              color: isDark
-                  ? AppColors.darkTextPrimary
-                  : AppColors.lightTextPrimary,
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: isDark ? AppColors.darkPrimaryContainer : AppColors.softSage,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                size: 20,
+                color: AppColors.primaryLeafGreen,
+              ),
             ),
-            const SizedBox(width: AppConstants.spaceSm),
+            const SizedBox(width: AppConstants.spaceMd),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,17 +394,18 @@ class ProfileScreen extends ConsumerWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
                     ),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 12,
                       color: isDark
                           ? AppColors.darkTextSecondary
-                          : AppColors.lightTextSecondary,
+                          : AppColors.secondaryText,
                     ),
                   ),
                 ],
@@ -342,10 +413,10 @@ class ProfileScreen extends ConsumerWidget {
             ),
             Icon(
               Icons.chevron_right_rounded,
-              size: 16,
+              size: 20,
               color: isDark
                   ? AppColors.darkTextSecondary
-                  : AppColors.lightTextSecondary,
+                  : const Color(0xFF8A958D),
             ),
           ],
         ),

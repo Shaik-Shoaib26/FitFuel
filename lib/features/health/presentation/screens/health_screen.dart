@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/navigation/fitfuel_app_bar.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/network/network_status.dart';
 import '../../../../core/network/network_status_provider.dart';
@@ -104,8 +105,20 @@ class _HealthScreenState extends ConsumerState<HealthScreen> {
     final nutritionAsync = ref.watch(nutritionStreamProvider);
 
     return Scaffold(
-      // FitFuelAppBar owns the leading control, exactly as it does on Home.
-      appBar: const FitFuelAppBar(title: Text('Health')),
+      appBar: const FitFuelAppBar(
+        backgroundColor: AppColors.appCanvas,
+        elevation: 0,
+        title: Text(
+          'Health',
+          style: TextStyle(
+            fontFamily: 'PlusJakartaSans',
+            fontSize: 27,
+            fontWeight: FontWeight.w700,
+            color: AppColors.primaryText,
+            letterSpacing: -0.4,
+          ),
+        ),
+      ),
       body: AdaptivePageLayout(
         child: SafeArea(
           child: healthAsync.when(
@@ -369,7 +382,7 @@ class _HealthBody extends ConsumerWidget {
     final hydration = _labelled(
       key: sectionKeys['hydration'],
       title: 'Hydration',
-      actionLabel: 'Daily target',
+      actionLabel: 'Daily target >',
       onActionPressed: () => showWaterTarget(
           context, ref, record.waterTargetMl),
       child: HydrationSection(
@@ -447,10 +460,15 @@ class _HealthBody extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          HealthHeader(contextMessage: contextMessage(record, hasLoggedFood)),
+          HealthHeader(
+            contextMessage: contextMessage(record, hasLoggedFood),
+            onTipTap: () => focusSection('hydration'),
+          ),
           const SizedBox(height: AppConstants.spaceLg),
           _labelled(
             title: "Today's Health",
+            actionLabel: 'View details >',
+            onActionPressed: () => context.go('/progress/insights/health'),
             child: HealthOverviewSection(
               waterValue: waterValue,
               waterProgress: waterProgress,
@@ -546,7 +564,7 @@ class _HealthBody extends ConsumerWidget {
               actionLabel: actionLabel,
               onActionPressed: onActionPressed,
             ),
-            const SizedBox(height: AppConstants.spaceSmd),
+            const SizedBox(height: AppConstants.spaceSm),
             child,
           ],
         ),

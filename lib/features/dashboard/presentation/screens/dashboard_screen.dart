@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../app/navigation/fitfuel_app_bar.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/network/network_status.dart';
 import '../../../../core/network/network_status_provider.dart';
@@ -15,44 +15,65 @@ import '../widgets/home_next_meal_card.dart';
 import '../widgets/home_nutrition_hero.dart';
 import '../widgets/home_quick_actions.dart';
 
+import 'package:flutter/services.dart';
+
 /// Home is a bounded overview that links into canonical feature pages.
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return const _DashboardView();
+  }
+}
+
+class _DashboardView extends ConsumerWidget {
+  const _DashboardView();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final offline =
         ref.watch(networkStatusProvider).value == NetworkStatus.offline;
-    // Premium tinted canvas in light mode via theme tokens; dark mode keeps
-    // the existing dark scaffold background from the theme untouched.
-    final pageBackground = Theme.of(context).brightness == Brightness.dark
-        ? null
-        : Theme.of(context).colorScheme.surfaceContainerLow;
-    return Scaffold(
-      appBar: const FitFuelAppBar(title: Text('Home')),
-      backgroundColor: pageBackground,
-      body: AdaptivePageLayout(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            if (offline) return;
-            ref.invalidate(currentProfileStreamProvider);
-            ref.invalidate(nutritionStreamProvider);
-            ref.invalidate(nutritionGoalsStreamProvider);
-            ref.invalidate(healthStreamProvider);
-          },
-          child: SingleChildScrollView(
-            key: const PageStorageKey('home-scroll'),
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: AdaptivePageLayout.pagePadding(context),
-            child: Column(
-              key: const ValueKey('home-content'),
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (offline) const _OfflineNotice(),
-                const HomeHeader(),
-                const SizedBox(height: AppConstants.spaceLg),
-                const _HomeBody(),
-              ],
+    final width = MediaQuery.sizeOf(context).width;
+    final isMobile = width < AppConstants.breakpointMobile;
+    final contentPadding = isMobile
+        ? const EdgeInsets.fromLTRB(20, 12, 20, 24)
+        : AdaptivePageLayout.pagePadding(context);
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        backgroundColor: AppColors.appCanvas,
+        body: SafeArea(
+          bottom: false,
+          child: AdaptivePageLayout(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                if (offline) return;
+                ref.invalidate(currentProfileStreamProvider);
+                ref.invalidate(nutritionStreamProvider);
+                ref.invalidate(nutritionGoalsStreamProvider);
+                ref.invalidate(healthStreamProvider);
+              },
+              child: SingleChildScrollView(
+                key: const PageStorageKey('home-scroll'),
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: contentPadding,
+                child: Column(
+                  key: const ValueKey('home-content'),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (offline) const _OfflineNotice(),
+                    const HomeHeader(),
+                    const SizedBox(height: AppConstants.spaceLg),
+                    const _HomeBody(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

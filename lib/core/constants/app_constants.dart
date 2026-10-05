@@ -2,16 +2,16 @@ abstract class AppConstants {
   static const String appName = 'FitFuel';
   static const String appTagline = 'AI-Powered Nutrition Assistant';
 
-  // ─── Spacing Scale (4/8/12/16/20/24/32/40/48) ────────────────────────────
+  // ─── Spacing Scale (4/8/12/16/20/24/32/40) ──────────────────────────────
   static const double space2Xs = 4.0; // Micro gap
   static const double spaceXs = 4.0; // Micro gap (alias)
   static const double spaceSm = 8.0; // Compact gap
   static const double spaceSmd = 12.0; // Component stack gap
   static const double spaceMd = 16.0; // Standard padding
-  static const double spaceMlg = 20.0; // Comfortable gap
+  static const double spaceMlg = 20.0; // Main horizontal phone padding
   static const double spaceLg = 24.0; // Section gap
-  static const double spaceXl = 32.0; // Divider offset
-  static const double space40 = 40.0;
+  static const double spaceXl = 32.0; // Section large gap / desktop padding
+  static const double space40 = 40.0; // Maximum section spacing
   static const double space2Xl = 48.0; // Screen edge offset
 
   // ─── Semantic Spacing Aliases ────────────────────────────────────────────
@@ -22,19 +22,19 @@ abstract class AppConstants {
   static const double xl = spaceXl;
   static const double xxl = space2Xl;
 
-  // ─── Corner Radius Tokens ────────────────────────────────────────────────
+  // ─── Corner Radius Tokens (Fresh Green System) ───────────────────────────
   static const double radiusXs = 4.0; // Tooltips, micro indicators
-  static const double radiusSm = 8.0; // Chips, inputs, small buttons
-  static const double radiusMd = 12.0; // Food cards, meal containers
-  static const double radiusLg = 16.0; // Dashboard metric cards
-  static const double radiusXl = 24.0; // Bottom sheets, dialogs
+  static const double radiusSm = 8.0; // Micro controls
+  static const double radiusMd = 14.0; // Chips (12-16px)
+  static const double radiusLg = 16.0; // Buttons (14-16px)
+  static const double radiusCard = 24.0; // Cards (22-24px)
+  static const double radiusXl = 24.0; // Dialogs, sheets (20-24px)
   static const double radiusFull = 999.0; // Pill buttons, FAB, avatars
 
   // ─── Semantic Radius Aliases ─────────────────────────────────────────────
-  static const double radiusControl = radiusSm; // Small controls
-  static const double radiusButton = radiusMd;
-  static const double radiusCard = radiusLg; // Cards
-  static const double radiusImage = radiusMd; // Food photographs
+  static const double radiusControl = radiusMd; // Controls / chips (14px)
+  static const double radiusButton = radiusLg; // Buttons (16px)
+  static const double radiusImage = 16.0; // Food photographs
   static const double radiusDialog = radiusXl; // Dialogs / sheets
 
   // ─── Touch Target & Animation Timings ────────────────────────────────────

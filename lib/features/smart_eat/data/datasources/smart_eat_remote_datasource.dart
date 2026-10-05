@@ -186,3 +186,34 @@ class SmartEatRemoteDataSourceImpl implements SmartEatRemoteDataSource {
     }
   }
 }
+
+class FallbackSmartEatRemoteDataSource implements SmartEatRemoteDataSource {
+  const FallbackSmartEatRemoteDataSource();
+
+  @override
+  Future<UserProfileEntity?> getUserProfile(String uid) async => null;
+
+  @override
+  Future<NutritionGoalsEntity?> getNutritionGoals(String uid) async => null;
+
+  @override
+  Future<List<NutritionRecordEntity>> getNutritionHistory(String uid) async => const [];
+
+  @override
+  Future<HealthRecordEntity?> getTodayHealthRecord(String uid, DateTime today) async => null;
+
+  @override
+  Future<List<PantryItemEntity>> getPantryItems(String uid) async => const [];
+
+  @override
+  Future<List<GroceryListEntity>> getGroceryLists(String uid) async => const [];
+
+  @override
+  Future<List<FoodEntity>> getAllFoods(String uid) async => const [];
+
+  @override
+  Future<List<FoodEntity>> getFavoriteFoods(String uid) async => const [];
+
+  @override
+  Future<List<FoodEntity>> getRecentFoods(String uid) async => const [];
+}

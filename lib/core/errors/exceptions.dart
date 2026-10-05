@@ -32,3 +32,16 @@ class AIScanException implements Exception {
   @override
   String toString() => 'AIScanException: $message (confidence: $confidenceScore)';
 }
+
+class ModelUnavailableException implements Exception {
+  final String message;
+  final int? statusCode;
+  const ModelUnavailableException({
+    this.message = 'The AI vision model is temporarily unavailable. Please try again later.',
+    this.statusCode = 404,
+  });
+
+  @override
+  String toString() => 'ModelUnavailableException: $message (code: $statusCode)';
+}
+

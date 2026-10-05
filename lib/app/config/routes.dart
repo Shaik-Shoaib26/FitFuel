@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/constants/app_colors.dart';
 import '../../core/widgets/fitfuel_identity.dart';
 import '../../features/authentication/presentation/providers/auth_providers.dart';
 import '../../features/authentication/presentation/screens/forgot_password_screen.dart';
@@ -29,6 +30,7 @@ import '../navigation/fitfuel_app_bar.dart';
 import '../session/session_refresh_coordinator.dart';
 import '../../features/food/presentation/widgets/custom_food_form.dart';
 import '../../features/food/domain/entities/food_entity.dart';
+import '../../features/food_scan/presentation/screens/food_scan_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/reminders/presentation/screens/daily_routine_screen.dart';
 import '../../features/reminders/presentation/screens/reminder_settings_screen.dart';
@@ -45,6 +47,7 @@ abstract class AppRoutes {
   static const String forgotPassword = '/forgot-password';
   static const String onboarding = '/onboarding';
   static const String dashboard = '/dashboard';
+  static const String foodScan = '/nutrition/scan';
   static const String scanner = '/scanner';
   static const String scanResult = '/scan-result';
   static const String history = '/history';
@@ -174,8 +177,10 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
           path: '/',
-          builder: (context, state) =>
-              const Scaffold(body: FitFuelSplashIdentity())),
+          builder: (context, state) => const Scaffold(
+                backgroundColor: AppColors.appCanvas,
+                body: FitFuelSplashIdentity(),
+              )),
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
           path: '/register', builder: (context, state) => const SignUpScreen()),
@@ -208,6 +213,9 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/nutrition',
                 builder: (context, state) => const NutritionScreen(),
                 routes: [
+                  GoRoute(
+                      path: 'scan',
+                      builder: (context, state) => const FoodScanScreen()),
                   GoRoute(
                       path: 'log',
                       builder: (context, state) => const FoodLogScreen()),

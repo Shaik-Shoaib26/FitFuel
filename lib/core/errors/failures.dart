@@ -28,6 +28,12 @@ class PermissionFailure extends Failure {
   const PermissionFailure([super.message = 'Camera or storage permission denied.']);
 }
 
+class ModelUnavailableFailure extends Failure {
+  const ModelUnavailableFailure([
+    super.message = 'The AI vision model is temporarily unavailable. Please try again later.',
+  ]);
+}
+
 class FailureMapper {
   static String map(dynamic error, {bool isOffline = false, bool hasData = false}) {
     if (isOffline) {
@@ -45,6 +51,9 @@ class FailureMapper {
     }
 
     final errStr = error.toString().toLowerCase();
+    if (errStr.contains('model') || errStr.contains('modelunavailable')) {
+      return 'The AI vision model is temporarily unavailable. Please try again later.';
+    }
     if (errStr.contains('offline') || errStr.contains('network') || errStr.contains('socket') || errStr.contains('unavailable')) {
       return 'No internet connection. Reconnect and try again.';
     }

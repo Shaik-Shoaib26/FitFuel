@@ -28,7 +28,7 @@ An AI Nutrition Assistant has been successfully integrated into FitFuel. Powered
 ---
 
 ## 4. AI Provider Used
-* **Primary:** Google Gemini API (`gemini-1.5-flash` model endpoint) via REST requests.
+* **Primary:** Google Gemini API (`gemini-3.8-flash` model endpoint) via REST requests.
 * **Secondary:** Mock offline provider for safe development runtimes when keys are absent.
 
 ---

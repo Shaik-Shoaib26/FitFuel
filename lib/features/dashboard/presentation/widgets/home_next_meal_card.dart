@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/widgets/fitfuel_card.dart';
 import '../../../../core/widgets/fitfuel_error_state.dart';
@@ -16,6 +17,8 @@ import '../../../nutrition/domain/utils/nutrition_calculator.dart';
 import '../../../nutrition/presentation/providers/nutrition_providers.dart';
 import '../../../reminders/domain/entities/daily_routine_entity.dart';
 import '../../../reminders/domain/entities/reminder_entity.dart';
+import '../../../reminders/domain/entities/reminder_settings_entity.dart';
+import '../../../plan/domain/utils/next_meal_selector.dart';
 import '../../../reminders/presentation/providers/reminders_providers.dart';
 
 /// The most useful next item: the first planned meal that has not been logged.
@@ -26,13 +29,16 @@ class HomeNextMealCard extends ConsumerWidget {
   PlannedMealEntity? _nextMeal(
     MealPlanEntity? plan,
     List<NutritionRecordEntity> loggedToday,
+    ReminderSettingsEntity? reminderSettings,
   ) {
     if (plan == null) return null;
-    final completed =
-        loggedToday.map((record) => record.mealType.toLowerCase()).toSet();
-    return plan.meals
-        .where((meal) => !completed.contains(meal.mealType.toLowerCase()))
-        .firstOrNull;
+    final selection = NextMealSelector.determineNextMeal(
+      plan: plan,
+      loggedToday: loggedToday,
+      now: DateTime.now(),
+      reminderSettings: reminderSettings,
+    );
+    return selection.meal;
   }
 
   @override
@@ -40,6 +46,8 @@ class HomeNextMealCard extends ConsumerWidget {
     final planAsync = ref.watch(mealPlannerControllerProvider);
     final logs = ref.watch(nutritionStreamProvider);
     final routine = ref.watch(dailyRoutineProvider);
+    final reminderSettings =
+        ref.watch(remindersSettingsStreamProvider).valueOrNull;
     final task = routine.nextReminder;
     final loggedToday =
         NutritionCalculator.filterByDay(logs.value ?? [], DateTime.now());
@@ -49,10 +57,10 @@ class HomeNextMealCard extends ConsumerWidget {
       children: [
         FitFuelSectionHeader(
           title: 'Up Next',
-          actionLabel: 'View Meal Plan',
+          actionLabel: 'View Meal Plan >',
           onActionPressed: () => context.go('/plan/meals'),
         ),
-        const SizedBox(height: AppConstants.spaceSmd),
+        const SizedBox(height: AppConstants.spaceSm),
         if (planAsync.isLoading)
           const FitFuelCard(
             child: FitFuelLoadingState(
@@ -65,7 +73,7 @@ class HomeNextMealCard extends ConsumerWidget {
                 ref.read(mealPlannerControllerProvider.notifier).loadTodayPlan(),
           )
         else
-          _buildPlan(_nextMeal(planAsync.value, loggedToday)),
+          _buildPlan(_nextMeal(planAsync.value, loggedToday, reminderSettings)),
         if (task != null) ...[
           const SizedBox(height: AppConstants.spaceSmd),
           _NextRoutineRow(task: task, routine: routine),
@@ -257,49 +265,131 @@ class _NoMealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    return FitFuelCard(
-      padding: const EdgeInsets.all(AppConstants.spaceMlg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                    color: scheme.primaryContainer, shape: BoxShape.circle),
-                child: Icon(Icons.restaurant_menu_outlined,
-                    color: scheme.onPrimaryContainer),
-              ),
-              const SizedBox(width: AppConstants.spaceSmd),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('No meals planned yet',
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w700)),
-                    const SizedBox(height: AppConstants.space2Xs),
-                    Text('Create a plan to see your next meal here.',
-                        style: theme.textTheme.bodyMedium),
-                  ],
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkBgSurface : AppColors.pureWhite,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: isDark ? AppColors.darkBorderSubtle : AppColors.lightBorder,
+          width: 1,
+        ),
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.03),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Stack(
+          children: [
+            // Realistic Healthy Food Bowl Photo (Right side, partly cropped)
+            Positioned(
+              bottom: -15,
+              right: -15,
+              child: IgnorePointer(
+                child: SizedBox(
+                  width: 145,
+                  height: 145,
+                  child: Image.asset(
+                    'assets/decorations/food_bowl_healthy.webp',
+                    fit: BoxFit.contain,
+                    alignment: Alignment.bottomRight,
+                    errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                  ),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.spaceMd),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: FilledButton.icon(
-              onPressed: () => context.go('/plan/meals'),
-              icon: const Icon(Icons.restaurant_menu, size: 18),
-              label: const Text('Create Meal Plan'),
             ),
-          ),
-        ],
+
+            // Content Area
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.spaceLg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? AppColors.darkPrimaryContainer
+                              : AppColors.softSage,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.restaurant_menu_rounded,
+                            size: 22,
+                            color: AppColors.primaryLeafGreen,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: AppConstants.spaceMd),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'No meals planned yet',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                color: isDark
+                                    ? AppColors.darkTextPrimary
+                                    : AppColors.primaryText,
+                                letterSpacing: -0.2,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              'Create a plan to see your next meal here.',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: isDark
+                                    ? AppColors.darkTextSecondary
+                                    : AppColors.secondaryText,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: () => context.go('/plan/meals'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primaryLeafGreen,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Create Meal Plan',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

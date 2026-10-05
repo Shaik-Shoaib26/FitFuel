@@ -594,7 +594,7 @@ class FoodImageManifest {
       imagePathOrUrl: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80',
     ),
     'predefined_steamed_shrimp': FoodImageRecord(
-      imagePathOrUrl: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
+      imagePathOrUrl: '', // Will use FitFuel branded fallback
     ),
     'predefined_beef_steak': FoodImageRecord(
       imagePathOrUrl: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',

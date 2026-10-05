@@ -9,29 +9,50 @@ abstract class AppTheme {
   static ThemeData get darkTheme => _build(true);
 
   static ThemeData _build(bool dark) {
+    const lightCanvas = AppColors.appCanvas;
+    const lightSurface = AppColors.primarySurface;
+    const lightPrimary = AppColors.primary;
+    const lightPrimaryText = AppColors.primaryText;
+    const lightSecondaryText = AppColors.secondaryText;
+    const lightBorder = AppColors.border;
+
+    // Dark mode colors (preserved for dark theme)
+    const darkCanvas = AppColors.darkBgBase;
+    const darkSurface = AppColors.darkBgSurface;
+    const darkPrimary = AppColors.primary300;
+    const darkPrimaryText = AppColors.darkTextPrimary;
+    const darkSecondaryText = AppColors.darkTextSecondary;
+    const darkBorder = AppColors.darkBorderSubtle;
+
+    final Color scaffoldBackgroundColor = dark ? darkCanvas : lightCanvas;
+    final Color surfaceColor = dark ? darkSurface : lightSurface;
+    final Color primaryColor = dark ? darkPrimary : lightPrimary;
+    final Color onPrimaryColor = dark ? AppColors.primary900 : Colors.white;
+    final Color onSurfaceColor = dark ? darkPrimaryText : lightPrimaryText;
+    final Color onSurfaceVariantColor = dark ? darkSecondaryText : lightSecondaryText;
+    final Color outlineColor = dark ? darkBorder : lightBorder;
+    final Color outlineVariantColor = dark ? darkBorder : lightBorder;
+
     final scheme = ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       brightness: dark ? Brightness.dark : Brightness.light,
     ).copyWith(
-      primary: dark ? AppColors.primary300 : AppColors.primary500,
-      onPrimary: dark ? AppColors.primary900 : Colors.white,
-      primaryContainer:
-          dark ? AppColors.darkPrimaryContainer : AppColors.primaryContainer,
+      primary: primaryColor,
+      onPrimary: onPrimaryColor,
+      primaryContainer: dark ? AppColors.darkPrimaryContainer : AppColors.primaryContainer,
       onPrimaryContainer: dark
           ? AppColors.darkOnPrimaryContainer
           : AppColors.onPrimaryContainer,
       secondary: dark ? AppColors.secondary400 : AppColors.secondary500,
       onSecondary: dark ? AppColors.darkBgBase : Colors.white,
-      surface: dark ? AppColors.darkBgSurface : AppColors.lightBgSurface,
-      onSurface: dark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
-      onSurfaceVariant:
-          dark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-      surfaceContainerLow: dark ? AppColors.darkBgBase : AppColors.lightBgBase,
+      surface: surfaceColor,
+      onSurface: onSurfaceColor,
+      onSurfaceVariant: onSurfaceVariantColor,
+      surfaceContainerLow: dark ? darkCanvas : lightCanvas,
       surfaceContainerHighest:
           dark ? AppColors.darkBgTinted : AppColors.lightBgTinted,
-      outline: dark ? const Color(0xFF8898AC) : AppColors.lightTextMuted,
-      outlineVariant:
-          dark ? AppColors.darkBorderSubtle : AppColors.lightBorderSubtle,
+      outline: outlineColor,
+      outlineVariant: outlineVariantColor,
       error: dark ? const Color(0xFFFFB4AB) : const Color(0xFFB3261E),
       onError: dark ? const Color(0xFF690005) : Colors.white,
     );
@@ -68,14 +89,13 @@ abstract class AppTheme {
     );
     OutlineInputBorder border(Color color, [double width = 1]) =>
         OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppConstants.radiusControl),
+            borderRadius: BorderRadius.circular(AppConstants.radiusButton),
             borderSide: BorderSide(color: color, width: width));
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
       textTheme: text,
-      scaffoldBackgroundColor:
-          dark ? AppColors.darkBgBase : AppColors.lightBgBase,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
       materialTapTargetSize: MaterialTapTargetSize.padded,
       extensions: [
         dark ? FitFuelSemanticColors.dark : FitFuelSemanticColors.light

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
 import '../../domain/entities/chat_message.dart';
 import '../../domain/services/ai_nutrition_service.dart';
@@ -6,7 +7,39 @@ import '../../domain/services/ai_nutrition_service.dart';
 import 'package:flutter/foundation.dart';
 
 class GeminiConfig {
-  static const String modelName = 'gemini-1.5-flash';
+  static const String defaultModelName = 'gemini-3.8-flash';
+  static const String defaultFallbackModelName = 'gemini-3.5-flash';
+
+  /// Primary Gemini multimodal model for Food Scan and AI nutrition.
+  static String get primaryModel => modelName;
+
+  /// Fallback Gemini multimodal model used when primary encounters service issues.
+  static String get fallbackModel => fallbackModelName;
+
+  static String get modelName {
+    try {
+      if (dotenv.isInitialized) {
+        final override = dotenv.env['GEMINI_MODEL']?.trim();
+        if (override != null && override.isNotEmpty) {
+          return override;
+        }
+      }
+    } catch (_) {}
+    return defaultModelName;
+  }
+
+  static String get fallbackModelName {
+    try {
+      if (dotenv.isInitialized) {
+        final override = dotenv.env['GEMINI_FALLBACK_MODEL']?.trim();
+        if (override != null && override.isNotEmpty) {
+          return override;
+        }
+      }
+    } catch (_) {}
+    return defaultFallbackModelName;
+  }
+
   static const Duration timeout = Duration(seconds: 20);
 }
 

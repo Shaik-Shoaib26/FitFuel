@@ -301,7 +301,7 @@ void main() {
       print('==================================================\n');
 
       expect(invalidPaths, 0);
-      expect(fallbackCount, 9);
+      expect(fallbackCount, 10);
       expect(validImagesCount, totalFoods - fallbackCount);
     });
   });

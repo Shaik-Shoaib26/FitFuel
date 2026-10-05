@@ -89,13 +89,13 @@ class RecommendationCard extends StatelessWidget {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.primary500.withValues(alpha: 0.12),
+                        color: isDark ? AppColors.darkPrimaryContainer : AppColors.softSage,
                         borderRadius: BorderRadius.circular(AppConstants.radiusSm),
                       ),
                       child: Text(
                         '${recommendation.matchScore}%',
                         style: const TextStyle(
-                          color: AppColors.primary500,
+                          color: AppColors.primaryLeafGreen,
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
                         ),

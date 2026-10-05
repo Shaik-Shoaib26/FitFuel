@@ -26,7 +26,28 @@ const _actions = <_HomeQuickAction>[
     semantics: 'Log food',
     icon: Icons.restaurant_outlined,
     route: '/nutrition/log',
-    color: _primaryColor,
+    color: _leafColor,
+  ),
+  _HomeQuickAction(
+    label: 'Scan Meal',
+    semantics: 'Scan meal with AI',
+    icon: Icons.camera_alt_outlined,
+    route: '/nutrition/scan',
+    color: _leafColor,
+  ),
+  _HomeQuickAction(
+    label: 'Recipes',
+    semantics: 'Explore healthy recipes',
+    icon: Icons.menu_book_outlined,
+    route: '/plan',
+    color: _leafColor,
+  ),
+  _HomeQuickAction(
+    label: 'Goals',
+    semantics: 'Manage health goals',
+    icon: Icons.flag_outlined,
+    route: '/settings/goals',
+    color: _leafColor,
   ),
   _HomeQuickAction(
     label: 'Add Water',
@@ -51,13 +72,14 @@ const _actions = <_HomeQuickAction>[
   ),
 ];
 
-Color _primaryColor(BuildContext context) => Theme.of(context).colorScheme.primary;
+Color _leafColor(BuildContext context) => AppColors.primaryLeafGreen;
 Color _hydrationColor(BuildContext context) =>
     FitFuelSemanticColors.of(context).hydration;
 Color _exerciseColor(BuildContext context) => AppColors.exercise;
-Color _aiColor(BuildContext context) => AppColors.ai;
+Color _aiColor(BuildContext context) => AppColors.primaryLeafGreen;
 
-/// Four primary quick actions. Each reuses an existing route and action.
+/// Compact Quick Actions designed for Fresh Green:
+/// Soft rounded tiles, no giant cards, clean semantic / green icons.
 class HomeQuickActions extends StatelessWidget {
   const HomeQuickActions({super.key});
 
@@ -69,10 +91,10 @@ class HomeQuickActions extends StatelessWidget {
         const FitFuelSectionHeader(title: 'Quick Actions'),
         const SizedBox(height: AppConstants.spaceSmd),
         LayoutBuilder(builder: (context, constraints) {
-          // Desktop support column (~35-40% width) reads best as a 2x2 grid;
-          // wide unconstrained canvases may use a single row of four.
-          final columns = constraints.maxWidth >= 720 ? 4 : 2;
-          const spacing = AppConstants.spaceSmd;
+          final columns = constraints.maxWidth >= 720
+              ? 4
+              : (constraints.maxWidth >= 380 ? 4 : 2);
+          const spacing = 10.0;
           final tileWidth =
               (constraints.maxWidth - spacing * (columns - 1)) / columns;
           return Wrap(
@@ -81,7 +103,9 @@ class HomeQuickActions extends StatelessWidget {
             children: [
               for (final action in _actions)
                 SizedBox(
-                    width: tileWidth, child: _QuickActionTile(action: action)),
+                  width: tileWidth,
+                  child: _QuickActionTile(action: action),
+                ),
             ],
           );
         }),
@@ -97,59 +121,52 @@ class _QuickActionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
     final accent = action.color(context);
     final isDark = theme.brightness == Brightness.dark;
+
     return Semantics(
       button: true,
       label: action.semantics,
       excludeSemantics: true,
       child: Material(
-        color: scheme.surface,
+        color: isDark ? AppColors.darkBgSurface : AppColors.pureWhite,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusCard),
-          side: BorderSide(color: scheme.outlineVariant),
+          borderRadius: BorderRadius.circular(AppConstants.radiusControl),
+          side: BorderSide(
+            color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFE5ECE7),
+          ),
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () => context.go(action.route),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 96),
+            constraints: const BoxConstraints(minHeight: 76),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.spaceSmd,
-                  vertical: AppConstants.spaceMd),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 44,
-                    height: 44,
+                    width: 36,
+                    height: 36,
                     decoration: BoxDecoration(
-                        color: Color.alphaBlend(
-                            accent.withValues(alpha: .14), scheme.surface),
-                        shape: BoxShape.circle,
-                        border:
-                            Border.all(color: accent.withValues(alpha: .25))),
-                    child: Icon(action.icon, size: 22, color: accent),
+                      color: accent.withValues(alpha: .12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(action.icon, size: 18, color: accent),
                   ),
-                  const SizedBox(height: AppConstants.spaceSmd),
+                  const SizedBox(height: 6),
                   Text(
                     action.label,
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.labelLarge
-                        ?.copyWith(fontWeight: FontWeight.w600),
-                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? AppColors.darkTextPrimary : AppColors.primaryText,
+                    ),
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                  ),
-                  // Non-color affordance: chevron reinforces interactivity.
-                  Icon(
-                    Icons.chevron_right,
-                    size: 16,
-                    color: isDark
-                        ? scheme.onSurfaceVariant.withValues(alpha: .6)
-                        : scheme.onSurfaceVariant,
                   ),
                 ],
               ),

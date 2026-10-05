@@ -45,5 +45,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>FitFuel uses the camera to scan food items and estimate nutrition.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FitFuel accesses selected photos to analyze meal images for nutrition estimation.</string>
 </dict>
 </plist>

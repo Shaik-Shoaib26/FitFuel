@@ -12,19 +12,23 @@ import '../../domain/entities/nutrition_gap_entity.dart';
 import '../controllers/smart_eat_controller.dart';
 
 final smartEatDataSourceProvider = Provider<SmartEatRemoteDataSource>((ref) {
-  final foodRepo = ref.watch(foodRepositoryProvider);
-  final profileRepo = ref.watch(profileRepositoryProvider);
-  final nutritionRepo = ref.watch(nutritionRepositoryProvider);
-  final healthRepo = ref.watch(healthRepositoryProvider);
-  final groceryRepo = ref.watch(groceryRepositoryProvider);
+  try {
+    final foodRepo = ref.watch(foodRepositoryProvider);
+    final profileRepo = ref.watch(profileRepositoryProvider);
+    final nutritionRepo = ref.watch(nutritionRepositoryProvider);
+    final healthRepo = ref.watch(healthRepositoryProvider);
+    final groceryRepo = ref.watch(groceryRepositoryProvider);
 
-  return SmartEatRemoteDataSourceImpl(
-    foodRepository: foodRepo,
-    profileRepository: profileRepo,
-    nutritionRepository: nutritionRepo,
-    healthRepository: healthRepo,
-    groceryRepository: groceryRepo,
-  );
+    return SmartEatRemoteDataSourceImpl(
+      foodRepository: foodRepo,
+      profileRepository: profileRepo,
+      nutritionRepository: nutritionRepo,
+      healthRepository: healthRepo,
+      groceryRepository: groceryRepo,
+    );
+  } catch (_) {
+    return const FallbackSmartEatRemoteDataSource();
+  }
 });
 
 final smartEatRepositoryProvider = Provider<ISmartEatRepository>((ref) {

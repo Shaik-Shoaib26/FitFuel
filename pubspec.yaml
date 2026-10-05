@@ -70,3 +70,5 @@ flutter:
     - .env.example
     - assets/images/foods/
     - assets/data/
+    - assets/branding/
+    - assets/decorations/

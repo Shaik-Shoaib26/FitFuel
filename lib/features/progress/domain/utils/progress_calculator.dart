@@ -299,7 +299,7 @@ class ProgressCalculator {
       weightChangePercent = startingWeight > 0 ? (weightChange / startingWeight * 100.0) : 0.0;
     }
 
-    final String weightGoalDirection = profile?.fitnessGoal ?? 'Maintain';
+    final String weightGoalDirection = formatFitnessGoal(profile?.fitnessGoal);
 
     // 7. Streaks Calculations
     // Streak calculations must scan sequentially backwards from today
@@ -532,5 +532,34 @@ class ProgressCalculator {
       longestStreak: longestStreak,
       milestones: milestones,
     );
+  }
+
+  /// Formats raw database fitness goal values (e.g. 'gain_muscle') into
+  /// clean human-readable presentation labels (e.g. 'Gain Muscle').
+  static String formatFitnessGoal(String? goal) {
+    if (goal == null || goal.trim().isEmpty) return 'Maintain Weight';
+    final trimmed = goal.trim();
+    final lower = trimmed.toLowerCase();
+    switch (lower) {
+      case 'gain_muscle':
+      case 'gain muscle':
+        return 'Gain Muscle';
+      case 'lose_weight':
+      case 'lose weight':
+        return 'Lose Weight';
+      case 'maintain_weight':
+      case 'maintain weight':
+      case 'maintain':
+        return 'Maintain Weight';
+      case 'improve_fitness':
+      case 'improve fitness':
+        return 'Improve Fitness';
+      default:
+        return trimmed
+            .split(RegExp(r'[_\s]+'))
+            .where((s) => s.isNotEmpty)
+            .map((w) => w[0].toUpperCase() + (w.length > 1 ? w.substring(1).toLowerCase() : ''))
+            .join(' ');
+    }
   }
 }

@@ -98,7 +98,7 @@ void main() {
       } else if (width < 1024) {
         expect(find.byType(NavigationRail), findsOneWidget);
       } else {
-        expect(find.byKey(const ValueKey('nav-AI Coach')), findsOneWidget);
+        expect(find.text('AI Coach'), findsOneWidget);
       }
     });
   }

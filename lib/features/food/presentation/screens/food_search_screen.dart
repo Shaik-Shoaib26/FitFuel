@@ -306,6 +306,12 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                   ),
                   const SizedBox(width: 8),
                   IconButton.filledTonal(
+                    onPressed: () => context.push('/nutrition/scan'),
+                    icon: const Icon(Icons.camera_alt_outlined),
+                    tooltip: 'Scan Food with AI',
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton.filledTonal(
                     onPressed: _showFilterBottomSheet,
                     icon: Icon(
                       Icons.tune_rounded,

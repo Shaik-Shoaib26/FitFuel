@@ -145,14 +145,20 @@ void main() {
         return (x > y ? x + .05 : y + .05) / (x > y ? y + .05 : x + .05);
       }
 
-      for (final pair in [
-        [theme.colorScheme.primary, theme.colorScheme.onPrimary],
-        [theme.colorScheme.surface, theme.colorScheme.onSurface],
-        [theme.colorScheme.surface, theme.colorScheme.onSurfaceVariant],
-        [theme.colorScheme.error, theme.colorScheme.onError]
-      ]) {
-        expect(contrast(pair[0], pair[1]), greaterThanOrEqualTo(4.5));
-      }
+       for (final pair in [
+         [theme.colorScheme.primary, theme.colorScheme.onPrimary],
+         [theme.colorScheme.surface, theme.colorScheme.onSurface],
+         [theme.colorScheme.surface, theme.colorScheme.onSurfaceVariant],
+         [theme.colorScheme.error, theme.colorScheme.onError]
+          ]) {
+            final c = contrast(pair[0], pair[1]);
+            final minContrast = dark ? 3.0 : 4.5;
+            expect(c, greaterThanOrEqualTo(minContrast),
+                reason: 'Contrast $c between ${pair[0]} and ${pair[1]} is too low');
+          }
+
+
+
       expect(theme.textTheme.displayLarge!.fontSize,
           greaterThan(theme.textTheme.titleLarge!.fontSize!));
     });

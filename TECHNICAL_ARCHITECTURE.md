@@ -96,7 +96,7 @@ FitFuel is engineered using **Feature-First Clean Architecture** combined with *
 | **Code Generation** | **freezed**, **json_serializable** | Immutable domain entities and JSON DTOs |
 | **Navigation** | **go_router** | Declarative router with deep linking & auth guards |
 | **Backend & Cloud** | **Firebase Ecosystem** | Authentication, Cloud Firestore, Cloud Storage |
-| **AI Vision Engine** | **Google Gemini Multimodal API** | `gemini-1.5-flash` / `gemini-2.0-flash` |
+| **AI Vision Engine** | **Google Gemini Multimodal API** | `gemini-3.8-flash` / `gemini-3.5-flash` |
 | **In-App Purchases** | **Purchases_flutter (RevenueCat)** | Apple IAP & Google Play Billing abstraction |
 | **Camera & Image** | **camera**, **image_picker**, **image** | Viewfinder capture & client JPEG compression |
 | **Charts & Graphics** | **fl_chart** | Custom weight trend spline & calorie bar charts |

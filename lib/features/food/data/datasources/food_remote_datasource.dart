@@ -16,10 +16,13 @@ abstract class FoodRemoteDataSource {
 }
 
 class FoodRemoteDataSourceImpl implements FoodRemoteDataSource {
-  final FirebaseFirestore _firestore;
+  final FirebaseFirestore? _injectedFirestore;
 
   FoodRemoteDataSourceImpl({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+      : _injectedFirestore = firestore;
+
+  FirebaseFirestore get _firestore =>
+      _injectedFirestore ?? FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _customFoodsRef(String uid) {
     return _firestore.collection('users').doc(uid).collection('customFoods');

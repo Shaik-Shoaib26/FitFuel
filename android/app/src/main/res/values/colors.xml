@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fitfuel_primary">#047857</color>
-    <color name="fitfuel_primary_dark">#064E3B</color>
+    <color name="fitfuel_primary">#0F7D38</color>
+    <color name="fitfuel_primary_dark">#0F7D38</color>
+    <color name="splash_background">#FAFBF7</color>
 </resources>

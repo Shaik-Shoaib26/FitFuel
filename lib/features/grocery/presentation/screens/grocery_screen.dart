@@ -361,10 +361,10 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: AppColors.primary500,
+          labelColor: AppColors.primaryLeafGreen,
           unselectedLabelColor:
-              isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-          indicatorColor: AppColors.primary500,
+              isDark ? AppColors.darkTextSecondary : AppColors.secondaryText,
+          indicatorColor: AppColors.primaryLeafGreen,
           indicatorWeight: 3,
           tabs: const [
             Tab(
@@ -723,7 +723,10 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
                             ),
                           ),
                           children: catItems.map((item) {
-                            return ListTile(
+                            return AnimatedOpacity(
+                              duration: const Duration(milliseconds: 200),
+                              opacity: item.isPurchased ? 0.45 : 1.0,
+                              child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: AppConstants.spaceMd,
                                 vertical: 2,
@@ -754,7 +757,7 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
                                   color: item.isPurchased
                                       ? (isDark
                                           ? AppColors.darkTextSecondary
-                                          : AppColors.lightTextSecondary)
+                                          : AppColors.secondaryText)
                                       : null,
                                 ),
                               ),
@@ -766,7 +769,7 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: isDark
                                           ? AppColors.darkTextSecondary
-                                          : AppColors.lightTextSecondary,
+                                          : AppColors.secondaryText,
                                     ),
                                   ),
                                   if (item.notes != null &&
@@ -788,7 +791,7 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
                                 children: [
                                   Checkbox(
                                     value: item.isPurchased,
-                                    activeColor: AppColors.primary500,
+                                    activeColor: AppColors.primaryLeafGreen,
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
                                     visualDensity: VisualDensity.compact,
@@ -822,8 +825,9 @@ class _GroceryScreenState extends ConsumerState<GroceryScreen>
                                   ),
                                 ],
                               ),
-                            );
-                          }).toList(),
+                            ),
+                          );
+                        }).toList(),
                         ),
                       ),
                     );

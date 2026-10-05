@@ -53,7 +53,7 @@ class SmartEatHeroCard extends StatelessWidget {
     return FitFuelCard(
       padding: EdgeInsets.zero,
       border: BorderSide(
-        color: isDark ? AppColors.darkBorderSubtle : AppColors.primary100,
+        color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFE5ECE7),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -92,7 +92,7 @@ class SmartEatHeroCard extends StatelessWidget {
                     vertical: 3,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary500,
+                    color: AppColors.primaryLeafGreen,
                     borderRadius: BorderRadius.circular(AppConstants.radiusSm),
                   ),
                   child: Text(
@@ -185,12 +185,12 @@ class SmartEatHeroCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.darkBgSurface
-                        : AppColors.primary500.withValues(alpha: 0.06),
+                        : AppColors.softSage,
                     borderRadius: BorderRadius.circular(AppConstants.radiusSm),
                     border: Border.all(
                       color: isDark
                           ? AppColors.darkBorderSubtle
-                          : AppColors.primary500.withValues(alpha: 0.15),
+                          : const Color(0xFFDDE7DF),
                       width: 0.5,
                     ),
                   ),
@@ -199,7 +199,7 @@ class SmartEatHeroCard extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.auto_awesome_rounded,
-                        color: AppColors.primary500,
+                        color: AppColors.primaryLeafGreen,
                         size: 16,
                       ),
                       const SizedBox(width: AppConstants.spaceSm),
@@ -259,7 +259,7 @@ class SmartEatHeroCard extends StatelessWidget {
                       icon: const Icon(Icons.menu_book_rounded, size: 16),
                       label: const Text('Recipe'),
                       style: TextButton.styleFrom(
-                        foregroundColor: AppColors.primary500,
+                        foregroundColor: AppColors.primaryLeafGreen,
                         visualDensity: VisualDensity.compact,
                       ),
                     ),

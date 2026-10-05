@@ -7,7 +7,6 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/network/network_status.dart';
 import '../../../../core/network/network_status_provider.dart';
-import '../../../../core/widgets/glassmorphic_container.dart';
 import '../../../../core/widgets/fitfuel_card.dart';
 import '../../../authentication/presentation/providers/auth_providers.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
@@ -264,15 +263,21 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
               if (chatState is AiAssistantError)
                 Padding(
                   padding: const EdgeInsets.all(AppConstants.spaceSm),
-                  child: GlassmorphicContainer(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        chatState.message,
-                        style: const TextStyle(
-                            color: AppColors.stateError, fontSize: 12),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8.0),
+                    decoration: BoxDecoration(
+                      color: AppColors.stateError.withValues(alpha: 0.1),
+                      borderRadius:
+                          BorderRadius.circular(AppConstants.radiusControl),
+                      border: Border.all(
+                        color: AppColors.stateError.withValues(alpha: 0.3),
                       ),
+                    ),
+                    child: Text(
+                      chatState.message,
+                      style: const TextStyle(
+                          color: AppColors.stateError, fontSize: 12),
                     ),
                   ),
                 ),
@@ -300,16 +305,22 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 76,
+                  height: 76,
                   decoration: BoxDecoration(
-                    color: AppColors.primary500.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusMd),
+                    color: isDark ? AppColors.darkPrimaryContainer : AppColors.softSage,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: isDark ? AppColors.emeraldGreen.withValues(alpha: 0.4) : AppColors.mintGreen,
+                      width: 1.5,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.smart_toy_rounded,
-                    size: 48,
-                    color: AppColors.primary500,
+                  child: const Center(
+                    child: Icon(
+                      Icons.eco_rounded,
+                      size: 40,
+                      color: AppColors.primaryLeafGreen,
+                    ),
                   ),
                 ),
                 const SizedBox(height: AppConstants.spaceLg),
@@ -343,26 +354,25 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   }
 
   Widget _buildPromptChip(String prompt) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: () => _messageController.text = prompt,
-      borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+      borderRadius: BorderRadius.circular(AppConstants.radiusControl),
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 8,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.primary500.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+          color: isDark ? AppColors.darkPrimaryContainer : const Color(0xFFDCF5E5),
+          borderRadius: BorderRadius.circular(AppConstants.radiusControl),
           border: Border.all(
-            color: AppColors.primary500.withValues(alpha: 0.2),
+            color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFB8EAD1),
           ),
         ),
         child: Text(
           prompt,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w500,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: isDark ? AppColors.mintGreen : AppColors.primaryLeafGreen,
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -377,14 +387,12 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
     final alignment =
         isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     final bubbleColor = isUser
-        ? (isDark ? AppColors.darkBgSurface : Colors.grey[200])
-        : (isDark
-            ? AppColors.primary500.withValues(alpha: 0.15)
-            : AppColors.primary500.withValues(alpha: 0.08));
+        ? (isDark ? const Color(0xFF163A24) : AppColors.softSage)
+        : (isDark ? AppColors.darkBgSurface : AppColors.pureWhite);
 
     final textColor = isUser
-        ? (isDark ? Colors.white : Colors.black87)
-        : (isDark ? Colors.white : Colors.black87);
+        ? (isDark ? Colors.white : AppColors.primaryText)
+        : (isDark ? Colors.white : AppColors.primaryText);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -404,12 +412,12 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
                 bottomLeft: isUser ? const Radius.circular(16) : Radius.zero,
                 bottomRight: isUser ? Radius.zero : const Radius.circular(16),
               ),
-              border: !isUser
-                  ? Border.all(
-                      color: AppColors.primary500.withValues(alpha: 0.2),
-                      width: 0.5,
-                    )
-                  : null,
+              border: Border.all(
+                color: isDark
+                    ? AppColors.darkBorderSubtle
+                    : (isUser ? const Color(0xFFCBE5D2) : const Color(0xFFDDE7DF)),
+                width: 1.0,
+              ),
             ),
             child: Text(
               message.text,
@@ -681,7 +689,7 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
 
   Widget _buildSuggestedChipsRow(bool isDark) {
     return SizedBox(
-      height: 38,
+      height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: AppConstants.spaceMd),
@@ -689,9 +697,23 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
         itemBuilder: (context, index) {
           final prompt = _suggestedChips[index];
           return Padding(
-            padding: const EdgeInsets.only(right: 6.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: ActionChip(
-              label: Text(prompt, style: const TextStyle(fontSize: 11)),
+              label: Text(
+                prompt,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? AppColors.mintGreen : AppColors.primaryLeafGreen,
+                ),
+              ),
+              backgroundColor: isDark ? AppColors.darkPrimaryContainer : const Color(0xFFDCF5E5),
+              side: BorderSide(
+                color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFB8EAD1),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppConstants.radiusControl),
+              ),
               onPressed: () => _sendMessage(prompt),
             ),
           );
@@ -703,26 +725,54 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   Widget _buildInputPanel(bool isDark, bool isLoading) {
     return Container(
       padding: const EdgeInsets.all(AppConstants.spaceSm),
+      color: isDark ? AppColors.darkBgSurface : AppColors.appCanvas,
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _messageController,
-              enabled: !isLoading,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: const InputDecoration(
-                hintText: 'Ask FitFuel AI about your targets...',
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: isDark ? AppColors.darkBgSurface : Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: isDark ? AppColors.darkBorderSubtle : const Color(0xFFDDE7DF),
+                ),
               ),
-              onSubmitted: _sendMessage,
+              child: TextField(
+                controller: _messageController,
+                enabled: !isLoading,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  hintText: 'Ask FitFuel AI about your targets...',
+                  hintStyle: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.secondaryText,
+                  ),
+                  filled: false,
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                ),
+                onSubmitted: _sendMessage,
+              ),
             ),
           ),
           const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.send_rounded, color: AppColors.primary500),
-            onPressed:
-                isLoading ? null : () => _sendMessage(_messageController.text),
+          Container(
+            width: 44,
+            height: 44,
+            decoration: const BoxDecoration(
+              color: AppColors.primaryLeafGreen,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+              tooltip: 'Send message',
+              onPressed:
+                  isLoading ? null : () => _sendMessage(_messageController.text),
+            ),
           ),
         ],
       ),
