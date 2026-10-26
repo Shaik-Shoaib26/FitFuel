@@ -1,0 +1,602 @@
+{
+  "model_artifact": "checkpoints/mobilenet_v3.tflite",
+  "model_size_mb": 6.27,
+  "test_samples": 100,
+  "overall_top1_accuracy_pct": 48.0,
+  "overall_top3_accuracy_pct": 55.0,
+  "mean_latency_ms": 10.42,
+  "p95_latency_ms": 12.19,
+  "expected_calibration_error": 0.1007,
+  "threshold_analysis": {
+    "0.70": {
+      "accepted_scans": 20,
+      "rejected_scans": 80,
+      "coverage_pct": 20.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.75": {
+      "accepted_scans": 16,
+      "rejected_scans": 84,
+      "coverage_pct": 16.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.80": {
+      "accepted_scans": 12,
+      "rejected_scans": 88,
+      "coverage_pct": 12.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.85": {
+      "accepted_scans": 9,
+      "rejected_scans": 91,
+      "coverage_pct": 9.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.90": {
+      "accepted_scans": 6,
+      "rejected_scans": 94,
+      "coverage_pct": 6.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.95": {
+      "accepted_scans": 3,
+      "rejected_scans": 97,
+      "coverage_pct": 3.0,
+      "accepted_precision_pct": 100.0,
+      "false_positives": 0
+    }
+  },
+  "margin_analysis": {
+    "0.05": {
+      "accepted": 12,
+      "precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.10": {
+      "accepted": 12,
+      "precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.15": {
+      "accepted": 12,
+      "precision_pct": 100.0,
+      "false_positives": 0
+    },
+    "0.20": {
+      "accepted": 12,
+      "precision_pct": 100.0,
+      "false_positives": 0
+    }
+  },
+  "rejection_metrics": {
+    "non_food_images_tested": 25,
+    "non_food_false_accepted_at_080": 1,
+    "non_food_false_accepted_at_085": 1,
+    "non_food_rejection_rate_at_085_pct": 96.0,
+    "unsupported_foods_tested": 30,
+    "unsupported_false_accepted_at_080": 0,
+    "unsupported_false_accepted_at_085": 0,
+    "unsupported_rejection_rate_at_085_pct": 100.0
+  },
+  "most_confused_pairs": [
+    {
+      "true_food": "predefined_paneer_tikka",
+      "predicted_food": "predefined_uttapam",
+      "count": 2
+    },
+    {
+      "true_food": "predefined_chole_masala",
+      "predicted_food": "predefined_idli",
+      "count": 2
+    },
+    {
+      "true_food": "predefined_broccoli",
+      "predicted_food": "predefined_cauliflower",
+      "count": 2
+    },
+    {
+      "true_food": "predefined_onion",
+      "predicted_food": "predefined_carrot",
+      "count": 2
+    },
+    {
+      "true_food": "predefined_almonds",
+      "predicted_food": "predefined_poha",
+      "count": 2
+    },
+    {
+      "true_food": "predefined_apple",
+      "predicted_food": "predefined_mango",
+      "count": 1
+    }
+  ],
+  "top_performing_classes": [
+    {
+      "food_id": "predefined_watermelon",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_strawberry",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_medu_vada",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_steamed_rice",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_oats",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_scrambled_eggs",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_rajma_curry",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    {
+      "food_id": "predefined_tomato",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    }
+  ],
+  "weakest_classes": [
+    {
+      "food_id": "predefined_moong_dal",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_sambar",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_potato",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_carrot",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_broccoli",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_cauliflower",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_onion",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    {
+      "food_id": "predefined_almonds",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    }
+  ],
+  "per_class_metrics": {
+    "predefined_apple": {
+      "precision": 0.3333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_banana": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_orange": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_mango": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_papaya": {
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_watermelon": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_pineapple": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_grapes": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_guava": {
+      "precision": 0.6667,
+      "recall": 1.0,
+      "f1": 0.8,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_strawberry": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_idli": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_dosa": {
+      "precision": 0.4,
+      "recall": 1.0,
+      "f1": 0.5714,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_uttapam": {
+      "precision": 0.2857,
+      "recall": 1.0,
+      "f1": 0.4444,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_poha": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_upma": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_medu_vada": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_steamed_rice": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_brown_rice_ind": {
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_chapati": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_roti": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_oats": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_whole_wheat_bread": {
+      "precision": 0.6667,
+      "recall": 1.0,
+      "f1": 0.8,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_hard_boiled_eggs": {
+      "precision": 0.3333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_egg_omelette": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_scrambled_eggs": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_grilled_chicken_breast": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_tandoori_chicken": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_ind_paneer": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_firm_tofu": {
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_paneer_tikka": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_low_fat_milk": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_curd": {
+      "precision": 0.3333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_greek_yogurt_plain": {
+      "precision": 0.3333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_coconut_water": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_dal_tadka": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_chole_masala": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_rajma_curry": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_moong_dal": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_sambar": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_potato": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_tomato": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_carrot": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_broccoli": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_cauliflower": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_cucumber": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_spinach": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_capsicum": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "test_samples": 2,
+      "correct": 2
+    },
+    "predefined_onion": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    },
+    "predefined_samosa": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "test_samples": 2,
+      "correct": 1
+    },
+    "predefined_almonds": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "test_samples": 2,
+      "correct": 0
+    }
+  }
+}

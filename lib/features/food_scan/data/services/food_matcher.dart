@@ -17,10 +17,10 @@ class FoodMatcher {
   static const Map<String, List<String>> _aliases = {
     'rice': ['basmati rice', 'cooked rice', 'white rice', 'brown rice', 'steamed rice', 'chawal'],
     'chapati': ['roti', 'phulka', 'flatbread', 'wheat roti'],
-    'dal': ['dal tadka', 'yellow dal', 'dal fry', 'moong dal', 'lentil soup'],
-    'chicken': ['chicken breast', 'grilled chicken', 'roast chicken', 'chicken curry', 'chicken masala'],
+    'dal': ['dal tadka', 'yellow dal', 'dal fry', 'moong dal', 'lentil soup', 'lentils'],
+    'chicken': ['chicken breast', 'grilled chicken', 'roast chicken', 'chicken curry', 'chicken masala', 'murgh'],
     'chicken curry': ['chicken masala', 'murgh curry', 'chicken gravy'],
-    'egg': ['boiled egg', 'fried egg', 'egg omelette', 'poached egg'],
+    'egg': ['boiled egg', 'fried egg', 'egg omelette', 'poached egg', 'eggs', 'scrambled eggs'],
     'salad': ['cucumber salad', 'green salad', 'mixed vegetable salad', 'onion salad'],
     'yogurt': ['curd', 'dahi', 'greek yogurt', 'plain yogurt'],
     'paneer': ['cottage cheese', 'paneer cubes', 'paneer tikka'],
@@ -28,10 +28,15 @@ class FoodMatcher {
     'banana': ['ripe banana', 'fresh banana'],
     'apple': ['fresh apple', 'red apple', 'green apple'],
     'milk': ['whole milk', 'cow milk', 'low fat milk'],
-    'dosa': ['plain dosa', 'masala dosa', 'crispy dosa'],
+    'dosa': ['plain dosa', 'masala dosa', 'crispy dosa', 'rava dosa', 'neer dosa', 'dosas'],
     'idli': ['steamed idli', 'rice idli', 'idly'],
     'curry': ['vegetable curry', 'mix veg curry', 'sabzi', 'mixed vegetable curry'],
     'pickle': ['mixed pickle', 'mango pickle', 'achar', 'lemon pickle'],
+    'samosa': ['samosas', 'sambusa', 'singara', 'vegetable samosa', 'punjabi samosa'],
+    'rajma': ['rajma chawal', 'rajma curry', 'kidney beans', 'rajma masala'],
+    'pasta': ['standard pasta', 'whole grain pasta', 'penne', 'spaghetti', 'macaroni', 'noodles', 'creamy pasta'],
+    'pizza': ['cheese pizza', 'margherita', 'neapolitan pizza'],
+    'burger': ['burgers', 'cheeseburger', 'hamburger', 'veggie burger'],
   };
 
   /// Matches a [detectedName] against a list of [catalog] foods.
@@ -42,10 +47,29 @@ class FoodMatcher {
 
     final query = _normalize(detectedName);
 
+    // 0. Match by food.id directly (exact or normalized ID)
+    for (final item in catalog) {
+      if (item.id.toLowerCase() == detectedName.toLowerCase().trim() ||
+          _normalize(item.id) == query) {
+        return FoodMatchResult(food: item, matchScore: 1.0);
+      }
+      final strippedId = item.id.toLowerCase().replaceFirst('predefined_', '').replaceAll('_', ' ');
+      if (strippedId == query.replaceAll('_', ' ') || _normalize(strippedId) == query) {
+        return FoodMatchResult(food: item, matchScore: 0.95);
+      }
+    }
+
     // 1. Exact match (case-insensitive)
     for (final item in catalog) {
       if (_normalize(item.name) == query) {
         return FoodMatchResult(food: item, matchScore: 1.0);
+      }
+    }
+
+    // 1b. Category exact match
+    for (final item in catalog) {
+      if (_normalize(item.category) == query) {
+        return FoodMatchResult(food: item, matchScore: 0.70);
       }
     }
 

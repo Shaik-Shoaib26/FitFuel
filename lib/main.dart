@@ -6,6 +6,7 @@ import 'app/app.dart';
 import 'app/config/env_config.dart';
 import 'core/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'features/food_scan/data/services/phase_35_11b_device_validator.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -42,6 +43,7 @@ void main() async {
         child: FitFuelApp(),
       ),
     );
+    Phase3511BDeviceValidator.attachIfDebug();
   }, (error, stackTrace) {
     LoggerService.error('Global Unhandled Exception', error, stackTrace);
   });

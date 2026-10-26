@@ -1,0 +1,213 @@
+{
+  "phase": "35.11A.1",
+  "candidates": [
+    {
+      "candidateId": "fitfuel_food_v5",
+      "name": "fitfuel_food_v5 (Production Baseline)",
+      "architecture": "MobileNetV3-Large 50-Class Closed-Set Classifier",
+      "visionParamsM": 4.21,
+      "textParamsM": 0.0,
+      "totalParamsM": 4.21,
+      "originalPrecision": "FP32 -> TFLite FP32/INT8",
+      "inputResolution": "224x224",
+      "embeddingDim": 50,
+      "modelFileSizeMB": 5.85,
+      "runtimeFormat": "TFLite",
+      "quantizationOptions": [
+        "FP32",
+        "INT8"
+      ],
+      "expectedRamMB": 28.0,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": false,
+      "license": "Proprietary FitFuel / Apache-2.0 backbone",
+      "commercialUseAllowed": true,
+      "conversionFeasibility": "Already deployed in production",
+      "androidFeasibility": "Verified on Samsung RZCW8201QBV",
+      "status": "ACTIVE PRODUCTION BASELINE (50 classes only; 0% unseen-to-V5 capability)"
+    },
+    {
+      "candidateId": "phase_35_11a_semantic_bridge",
+      "name": "Phase 35.11A Classifier -> Semantic Bridge -> MiniLM (Prior Rejected Architecture)",
+      "architecture": "EfficientNet-B0 / MobileNetV3-Large features -> Ridge Regression -> MiniLM-L6-v2 384D",
+      "visionParamsM": 5.29,
+      "textParamsM": 22.7,
+      "totalParamsM": 28.0,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 384,
+      "modelFileSizeMB": 15.8,
+      "runtimeFormat": "TFLite + Linear Matrix",
+      "quantizationOptions": [
+        "FP32",
+        "FP16"
+      ],
+      "expectedRamMB": 45.0,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": true,
+      "license": "Apache-2.0",
+      "commercialUseAllowed": true,
+      "conversionFeasibility": "High",
+      "androidFeasibility": "High",
+      "status": "REJECTED \u2014 POOR OOV GENERALIZATION (5.8% Unseen Top-1 / 14.5% Unseen Top-5 in Phase 35.11A)"
+    },
+    {
+      "candidateId": "tinyclip_8m",
+      "name": "Candidate A1: TinyCLIP-ViT-8M/16",
+      "hfRepo": "wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M",
+      "architecture": "CLIP Dual-Encoder (Vision Only at Runtime + Precomputed Text Index)",
+      "tier": "Ultra-Small Mobile ViT (Distilled)",
+      "visionParamsM": 8.28,
+      "textParamsM": 15.17,
+      "totalParamsM": 23.45,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 512,
+      "visionModelSizeMB": {
+        "fp32": 31.74,
+        "fp16": 15.93,
+        "int8": 8.3
+      },
+      "precomputedTextIndex2050FP16MB": 2.0,
+      "runtimeFormat": "ONNX Runtime Mobile / LiteRT",
+      "quantizationOptions": [
+        "FP32",
+        "FP16",
+        "Dynamic INT8"
+      ],
+      "expectedRamMB": 50.5,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": true,
+      "license": "MIT (code/card); trained on YFCC15M (contains CC BY-NC subset \u2014 benchmarked for size scaling, not recommended over LAION-400M sibling)",
+      "commercialStatus": "CAUTION \u2014 YFCC15M DATASET PROVENANCE",
+      "conversionFeasibility": "Verified via ONNX opset 17 export + dynamic INT8 quantization",
+      "androidFeasibility": "High (ONNX Runtime Mobile / TFLite GPU/XNNPACK)"
+    },
+    {
+      "candidateId": "tinyclip_40m",
+      "name": "Candidate A2: TinyCLIP-ViT-40M/32",
+      "hfRepo": "wkcn/TinyCLIP-ViT-40M-32-Text-19M-LAION400M",
+      "architecture": "CLIP Dual-Encoder (Vision Only at Runtime + Precomputed Text Index)",
+      "tier": "Mobile/Small Patch-32 ViT",
+      "visionParamsM": 39.69,
+      "textParamsM": 44.51,
+      "totalParamsM": 84.21,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 512,
+      "visionModelSizeMB": {
+        "fp32": 151.61,
+        "fp16": 76.11,
+        "int8": 38.45
+      },
+      "precomputedTextIndex2050FP16MB": 2.0,
+      "runtimeFormat": "ONNX Runtime Mobile / LiteRT",
+      "quantizationOptions": [
+        "FP32",
+        "FP16",
+        "Dynamic INT8"
+      ],
+      "expectedRamMB": 146.8,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": true,
+      "license": "MIT License",
+      "commercialStatus": "PASS \u2014 MIT LICENSE",
+      "conversionFeasibility": "Verified via ONNX opset 17 export + dynamic INT8 quantization",
+      "androidFeasibility": "High (ONNX Runtime Mobile / TFLite GPU/XNNPACK)"
+    },
+    {
+      "candidateId": "openclip_vit_b32",
+      "name": "Candidate B: OpenCLIP-ViT-B/32",
+      "hfRepo": "laion/CLIP-ViT-B-32-laion2B-s34B-b79K",
+      "architecture": "CLIP Dual-Encoder (Vision Only at Runtime + Precomputed Text Index)",
+      "tier": "Medium Accuracy/Size Balance",
+      "visionParamsM": 87.85,
+      "textParamsM": 63.43,
+      "totalParamsM": 151.28,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 512,
+      "visionModelSizeMB": {
+        "fp32": 335.31,
+        "fp16": 168.33,
+        "int8": 84.5
+      },
+      "precomputedTextIndex2050FP16MB": 2.0,
+      "runtimeFormat": "ONNX Runtime Mobile / LiteRT",
+      "quantizationOptions": [
+        "FP32",
+        "FP16",
+        "Dynamic INT8"
+      ],
+      "expectedRamMB": 294.3,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": true,
+      "license": "MIT License",
+      "commercialStatus": "PASS \u2014 MIT LICENSE",
+      "conversionFeasibility": "Verified via ONNX opset 17 export + dynamic INT8 quantization",
+      "androidFeasibility": "High (ONNX Runtime Mobile / TFLite GPU/XNNPACK)"
+    },
+    {
+      "candidateId": "siglip_b16",
+      "name": "Candidate C: SigLIP-B/16",
+      "hfRepo": "google/siglip-base-patch16-224",
+      "architecture": "SIGLIP Dual-Encoder (Vision Only at Runtime + Precomputed Text Index)",
+      "tier": "Stronger Sigmoid-Aligned ViT-B/16",
+      "visionParamsM": 92.88,
+      "textParamsM": 110.27,
+      "totalParamsM": 203.16,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 768,
+      "visionModelSizeMB": {
+        "fp32": 354.56,
+        "fp16": 177.99,
+        "int8": 94.44
+      },
+      "precomputedTextIndex2050FP16MB": 3.0,
+      "runtimeFormat": "ONNX Runtime Mobile / LiteRT",
+      "quantizationOptions": [
+        "FP32",
+        "FP16",
+        "Dynamic INT8"
+      ],
+      "expectedRamMB": 309.8,
+      "textEncoderAtRuntime": false,
+      "precomputedTextIndexSupported": true,
+      "license": "Apache-2.0 License",
+      "commercialStatus": "PASS \u2014 APACHE-2.0 LICENSE",
+      "conversionFeasibility": "Verified via ONNX opset 17 export + dynamic INT8 quantization",
+      "androidFeasibility": "High (ONNX Runtime Mobile / TFLite GPU/XNNPACK)"
+    },
+    {
+      "candidateId": "mobileclip_s0",
+      "name": "Candidate D: Apple MobileCLIP-S0 / MobileCLIP2-S0",
+      "hfRepo": "apple/MobileCLIP-S0",
+      "architecture": "FastViT-MCi0 + Text Transformer",
+      "visionParamsM": 11.4,
+      "textParamsM": 42.4,
+      "totalParamsM": 53.8,
+      "originalPrecision": "FP32",
+      "inputResolution": "256x256",
+      "embeddingDim": 512,
+      "runtimeFormat": "N/A (Rejected at License Gate)",
+      "license": "Apple Machine Learning Research Model License (apple-amlr)",
+      "commercialStatus": "REJECTED \u2014 LICENSE (Non-commercial research only)"
+    },
+    {
+      "candidateId": "metaclip_b32",
+      "name": "Candidate E: MetaCLIP-B/32-400M",
+      "hfRepo": "facebook/metaclip-b32-400m",
+      "architecture": "CLIP-ViT-B/32",
+      "visionParamsM": 87.85,
+      "textParamsM": 63.43,
+      "totalParamsM": 151.28,
+      "originalPrecision": "FP32",
+      "inputResolution": "224x224",
+      "embeddingDim": 512,
+      "runtimeFormat": "N/A (Rejected at License Gate)",
+      "license": "CC-BY-NC-4.0",
+      "commercialStatus": "REJECTED \u2014 LICENSE (Non-commercial only)"
+    }
+  ]
+}

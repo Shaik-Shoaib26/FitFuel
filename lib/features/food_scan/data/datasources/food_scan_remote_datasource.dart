@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:fitfuel/core/errors/exceptions.dart';
 import 'package:fitfuel/features/ai_assistant/data/datasources/ai_nutrition_remote_datasource.dart';
 import 'package:fitfuel/features/food_scan/domain/entities/estimated_nutrition.dart';
+import 'package:fitfuel/features/food_scan/domain/entities/food_scan_telemetry.dart';
 import 'package:fitfuel/features/food_scan/domain/errors/food_scan_failure.dart';
 
 class RawDetectedFood {
@@ -71,6 +72,7 @@ abstract class IFoodScanRemoteDataSource {
   Future<List<RawDetectedFood>> analyzeMealImage(
     Uint8List imageBytes, {
     String? preferredModel,
+    String? requestId,
   });
 
   Future<EstimatedNutrition?> repairNutrition({
@@ -84,17 +86,23 @@ class FoodScanRemoteDataSource implements IFoodScanRemoteDataSource {
   final Dio _dio;
   final String _apiKey;
   final Duration Function(int retryIndex, int? retryAfterSeconds)? _delayProvider;
+  final FoodScanTelemetrySink? _telemetrySink;
 
   /// Global delay provider hook, particularly useful for accelerated test runs.
   static Duration Function(int retryIndex, int? retryAfterSeconds)? defaultDelayProvider;
+
+  /// Global telemetry sink hook for capturing food scan operations.
+  static FoodScanTelemetrySink? defaultTelemetrySink;
 
   FoodScanRemoteDataSource({
     Dio? dio,
     required String apiKey,
     Duration Function(int retryIndex, int? retryAfterSeconds)? delayProvider,
+    FoodScanTelemetrySink? telemetrySink,
   })  : _dio = dio ?? Dio(),
         _apiKey = apiKey,
-        _delayProvider = delayProvider;
+        _delayProvider = delayProvider,
+        _telemetrySink = telemetrySink;
 
   static const String _visionPrompt = '''
 You are an expert culinary vision analyst for the FitFuel nutrition app.
@@ -165,10 +173,20 @@ Schema:
       // Respect Retry-After header bounded to 5s
       return Duration(seconds: retryAfterSeconds.clamp(1, 5));
     }
-    // Exponential backoff: ~1s, ~2s, ~4s + random jitter up to 250ms
-    final baseMs = 1000 * (1 << (attempt - 1));
-    final jitterMs = Random().nextInt(250);
-    return Duration(milliseconds: (baseMs + jitterMs).clamp(500, 5000));
+    final random = Random();
+    switch (attempt) {
+      case 1:
+        // ~800-1000ms
+        return Duration(milliseconds: 800 + random.nextInt(201));
+      case 2:
+        // ~1800-2200ms
+        return Duration(milliseconds: 1800 + random.nextInt(401));
+      case 3:
+        // ~3500-4500ms
+        return Duration(milliseconds: 3500 + random.nextInt(1001));
+      default:
+        return Duration(milliseconds: (3500 + random.nextInt(1001)).clamp(500, 5000));
+    }
   }
 
   bool _isDailyQuotaExceeded(DioException e) {
@@ -195,13 +213,18 @@ Schema:
   Future<List<RawDetectedFood>> analyzeMealImage(
     Uint8List imageBytes, {
     String? preferredModel,
+    String? requestId,
   }) async {
     if (imageBytes.isEmpty) {
       throw ServerException(message: 'Image data is empty');
     }
 
+    final reqId = requestId ??
+        (DateTime.now().microsecondsSinceEpoch % 0xFFFFFF).toRadixString(16).padLeft(6, '0');
+
     if (_apiKey.isEmpty || _apiKey == 'YOUR_GEMINI_API_KEY') {
       if (kDebugMode) {
+        debugPrint('[FoodScan][$reqId] HTTP status code: 401, Gemini error category: unauthorized');
         debugPrint('[FoodScan] HTTP status code: 401, Gemini error category: unauthorized');
       }
       throw FoodScanException(
@@ -212,9 +235,15 @@ Schema:
     }
 
     final primaryModel = preferredModel ?? GeminiConfig.primaryModel;
+    final base64Image = base64Encode(imageBytes);
 
     try {
-      return await _executeMultimodalRequest(imageBytes, primaryModel);
+      return await _executeMultimodalRequest(
+        imageBytes,
+        primaryModel,
+        requestId: reqId,
+        preEncodedBase64: base64Image,
+      );
     } catch (e) {
       // Check if fallback model should be attempted after transient retry exhaustion
       final fallbackModel = GeminiConfig.fallbackModel;
@@ -224,16 +253,26 @@ Schema:
 
       if (isTransient && fallbackModel.isNotEmpty && fallbackModel != primaryModel) {
         if (kDebugMode) {
+          debugPrint('[FoodScan][$reqId] fallback model started: $fallbackModel');
           debugPrint('[FoodScan] fallback model started');
         }
         try {
-          final result = await _executeMultimodalRequest(imageBytes, fallbackModel, maxRetries: 0);
+          final result = await _executeMultimodalRequest(
+            imageBytes,
+            fallbackModel,
+            maxRetries: 1, // Fallback gets 1 retry for transient demand spikes
+            requestId: reqId,
+            isFallback: true,
+            preEncodedBase64: base64Image,
+          );
           if (kDebugMode) {
+            debugPrint('[FoodScan][$reqId] fallback succeeded');
             debugPrint('[FoodScan] fallback succeeded');
           }
           return result;
         } catch (fallbackError) {
           if (kDebugMode) {
+            debugPrint('[FoodScan][$reqId] fallback error: $fallbackError');
             debugPrint('[FoodScan] fallback error: $fallbackError');
           }
           rethrow;
@@ -247,11 +286,15 @@ Schema:
     Uint8List imageBytes,
     String model, {
     int maxRetries = 3,
+    String? requestId,
+    bool isFallback = false,
+    String? preEncodedBase64,
   }) async {
+    final reqId = requestId ?? 'scan';
     final url =
         'https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$_apiKey';
 
-    final base64Image = base64Encode(imageBytes);
+    final base64Image = preEncodedBase64 ?? base64Encode(imageBytes);
 
     final requestPayload = {
       'contents': [
@@ -279,7 +322,9 @@ Schema:
     int attempt = 0;
     while (true) {
       attempt++;
+      final stopwatch = Stopwatch()..start();
       if (kDebugMode) {
+        debugPrint('[FoodScan][$reqId] attempt=$attempt operation=generateContent model=$model size=${imageBytes.lengthInBytes}B');
         debugPrint('[FoodScan] request started');
       }
 
@@ -289,14 +334,29 @@ Schema:
           data: requestPayload,
           options: Options(
             headers: {'Content-Type': 'application/json'},
-            sendTimeout: GeminiConfig.timeout,
-            receiveTimeout: GeminiConfig.timeout,
+            sendTimeout: GeminiConfig.sendTimeout,
+            receiveTimeout: GeminiConfig.receiveTimeout,
           ),
         );
 
         final statusCode = response.statusCode;
+        stopwatch.stop();
 
         if (statusCode == 200) {
+          if (kDebugMode) {
+            debugPrint('[FoodScan][$reqId] success attempt=$attempt duration=${stopwatch.elapsedMilliseconds}ms');
+          }
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 200,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: true,
+          );
+
           final data = response.data as Map?;
           if (data == null) {
             return [];
@@ -321,6 +381,18 @@ Schema:
 
           return parseVisionResponse(text);
         } else {
+          stopwatch.stop();
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: statusCode,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.invalidResponse,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.invalidResponse,
             message: FoodScanErrorCopy.unknownMessage,
@@ -328,20 +400,46 @@ Schema:
           );
         }
       } on DioException catch (e) {
+        stopwatch.stop();
         final statusCode = e.response?.statusCode;
         final retryAfterSeconds = _parseRetryAfter(e);
-        if (retryAfterSeconds != null && kDebugMode) {
-          debugPrint('[FoodScan] Retry-After detected');
+        if (kDebugMode) {
+          debugPrint('[FoodScan][$reqId] attempt=$attempt status=$statusCode duration=${stopwatch.elapsedMilliseconds}ms');
+          if (retryAfterSeconds != null) {
+            debugPrint('[FoodScan] Retry-After detected: ${retryAfterSeconds}s');
+          }
         }
 
         // 1. Non-retryable HTTP failures
         if (statusCode == 404) {
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 404,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.modelUnavailable,
+          );
           throw const ModelUnavailableException(
             message: FoodScanErrorCopy.modelUnavailableMessage,
             statusCode: 404,
           );
         }
         if (statusCode == 401) {
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 401,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.unauthorized,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.unauthorized,
             message: 'AI service authorization failed. Please check configuration.',
@@ -349,6 +447,17 @@ Schema:
           );
         }
         if (statusCode == 403) {
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 403,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.forbidden,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.forbidden,
             message: 'AI service authorization failed. Please check configuration.',
@@ -356,6 +465,17 @@ Schema:
           );
         }
         if (statusCode == 400) {
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 400,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.invalidRequest,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.invalidRequest,
             message: 'Failed to analyze food image: invalid request or response.',
@@ -370,6 +490,17 @@ Schema:
           }
           if (_isDailyQuotaExceeded(e)) {
             // Daily quota exceeded: Non-retryable
+            _emitTelemetry(
+              requestId: reqId,
+              model: model,
+              attemptCount: attempt,
+              statusCode: 429,
+              durationMs: stopwatch.elapsedMilliseconds,
+              imageSizeBytes: imageBytes.lengthInBytes,
+              isFallback: isFallback,
+              isSuccess: false,
+              failureType: FoodScanFailureType.dailyQuotaReached,
+            );
             throw FoodScanException(
               type: FoodScanFailureType.dailyQuotaReached,
               message: FoodScanErrorCopy.dailyQuotaMessage,
@@ -379,14 +510,26 @@ Schema:
 
           // Short-term rate limit: Retry if attempts remaining
           if (attempt <= maxRetries) {
+            final delay = _computeBackoff(attempt, retryAfterSeconds);
             if (kDebugMode) {
+              debugPrint('[FoodScan][$reqId] retrying in ${delay.inMilliseconds}ms');
               debugPrint('[FoodScan] retry $attempt/$maxRetries');
             }
-            final delay = _computeBackoff(attempt, retryAfterSeconds);
             await Future.delayed(delay);
             continue;
           }
 
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: 429,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.rateLimited,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.rateLimited,
             message: 'AI service rate limit reached. Please wait a moment and try again.',
@@ -401,14 +544,26 @@ Schema:
             debugPrint('[FoodScan] HTTP 503 serviceUnavailable');
           }
           if (attempt <= maxRetries) {
+            final delay = _computeBackoff(attempt, retryAfterSeconds);
             if (kDebugMode) {
+              debugPrint('[FoodScan][$reqId] retrying in ${delay.inMilliseconds}ms');
               debugPrint('[FoodScan] retry $attempt/$maxRetries');
             }
-            final delay = _computeBackoff(attempt, retryAfterSeconds);
             await Future.delayed(delay);
             continue;
           }
 
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: statusCode,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.serviceUnavailable,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.serviceUnavailable,
             message: FoodScanErrorCopy.serviceUnavailableMessage,
@@ -423,14 +578,26 @@ Schema:
             e.type == DioExceptionType.receiveTimeout ||
             e.type == DioExceptionType.sendTimeout) {
           if (attempt <= maxRetries) {
+            final delay = _computeBackoff(attempt, retryAfterSeconds);
             if (kDebugMode) {
+              debugPrint('[FoodScan][$reqId] retrying in ${delay.inMilliseconds}ms');
               debugPrint('[FoodScan] retry $attempt/$maxRetries');
             }
-            final delay = _computeBackoff(attempt, retryAfterSeconds);
             await Future.delayed(delay);
             continue;
           }
 
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: statusCode,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.timeout,
+          );
           throw FoodScanException(
             type: FoodScanFailureType.timeout,
             message: 'AI vision service timed out. Please try again.',
@@ -440,12 +607,34 @@ Schema:
 
         // 5. Connection Error / Network Unavailable
         if (e.type == DioExceptionType.connectionError) {
+          _emitTelemetry(
+            requestId: reqId,
+            model: model,
+            attemptCount: attempt,
+            statusCode: null,
+            durationMs: stopwatch.elapsedMilliseconds,
+            imageSizeBytes: imageBytes.lengthInBytes,
+            isFallback: isFallback,
+            isSuccess: false,
+            failureType: FoodScanFailureType.offline,
+          );
           throw NetworkException(
             message: 'No internet connection. Food scanning requires an internet connection.',
           );
         }
 
         // Fallback catch-all for other status codes
+        _emitTelemetry(
+          requestId: reqId,
+          model: model,
+          attemptCount: attempt,
+          statusCode: statusCode,
+          durationMs: stopwatch.elapsedMilliseconds,
+          imageSizeBytes: imageBytes.lengthInBytes,
+          isFallback: isFallback,
+          isSuccess: false,
+          failureType: FoodScanFailureType.unknownServiceFailure,
+        );
         throw FoodScanException(
           type: FoodScanFailureType.unknownServiceFailure,
           message: 'Failed to analyze food image: ${e.message ?? 'Unknown server error'}',
@@ -465,6 +654,33 @@ Schema:
         );
       }
     }
+  }
+
+  void _emitTelemetry({
+    required String requestId,
+    required String model,
+    required int attemptCount,
+    int? statusCode,
+    required int durationMs,
+    required int imageSizeBytes,
+    required bool isFallback,
+    required bool isSuccess,
+    FoodScanFailureType? failureType,
+  }) {
+    final event = FoodScanTelemetryEvent(
+      requestId: requestId,
+      model: model,
+      attemptCount: attemptCount,
+      statusCode: statusCode,
+      durationMs: durationMs,
+      imageSizeBytes: imageSizeBytes,
+      isFallback: isFallback,
+      isSuccess: isSuccess,
+      failureType: failureType,
+      timestamp: DateTime.now(),
+    );
+    _telemetrySink?.call(event);
+    defaultTelemetrySink?.call(event);
   }
 
   @override

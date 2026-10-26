@@ -1,0 +1,1838 @@
+{
+  "openvocab_penne_pasta_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_penne_pasta_01.jpg",
+    "cid": "openvocab_penne_pasta",
+    "cname": "Penne Pasta",
+    "title": "File:Entrecote with penne.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Entrecote_with_penne.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_penne_pasta_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_penne_pasta_02.jpg",
+    "cid": "openvocab_penne_pasta",
+    "cname": "Penne Pasta",
+    "title": "File:Makarna ve tavuk.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Makarna_ve_tavuk.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_creamy_penne_pasta_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_creamy_penne_pasta_01.jpg",
+    "cid": "openvocab_creamy_penne_pasta",
+    "cname": "Creamy Penne Pasta",
+    "title": "File:Creamy sauce pasta veg at Chin Lung Resto Bar, Majestic Gandhinagar, Bangalore (2025-09-22).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Creamy_sauce_pasta_veg_at_Chin_Lung_Resto_Bar,_Majestic_Gandhinagar,_Bangalore_(2025-09-22).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_creamy_penne_pasta_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_creamy_penne_pasta_02.jpg",
+    "cid": "openvocab_creamy_penne_pasta",
+    "cname": "Creamy Penne Pasta",
+    "title": "File:Creamy white sauce penne pasta.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Creamy_white_sauce_penne_pasta.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_creamy_penne_pasta_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_creamy_penne_pasta_03.jpg",
+    "cid": "openvocab_creamy_penne_pasta",
+    "cname": "Creamy Penne Pasta",
+    "title": "File:Penne Creamy Pasta.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Penne_Creamy_Pasta.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_pasta_alfredo_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pasta_alfredo_01.jpg",
+    "cid": "openvocab_pasta_alfredo",
+    "cname": "Pasta Alfredo",
+    "title": "File:2020-02-17 20 26 35 A serving of Stouffer's Fettuccini Alfredo before heating in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2020-02-17_20_26_35_A_serving_of_Stouffer%27s_Fettuccini_Alfredo_before_heating_in_the_Franklin_Farm_section_of_Oak_Hill,_Fairfax_County,_Virginia.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_pasta_alfredo_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pasta_alfredo_02.jpg",
+    "cid": "openvocab_pasta_alfredo",
+    "cname": "Pasta Alfredo",
+    "title": "File:Casa Del Sol - November 2022 - Sarah Stierch 04.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Casa_Del_Sol_-_November_2022_-_Sarah_Stierch_04.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_pasta_alfredo_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pasta_alfredo_03.jpg",
+    "cid": "openvocab_pasta_alfredo",
+    "cname": "Pasta Alfredo",
+    "title": "File:Chicken fettuccine alfredo.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_fettuccine_alfredo.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_creamy_pasta_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_creamy_pasta_01.jpg",
+    "cid": "openvocab_creamy_pasta",
+    "cname": "Creamy Pasta",
+    "title": "File:Chicken Lazagna.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_Lazagna.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_creamy_pasta_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_creamy_pasta_02.jpg",
+    "cid": "openvocab_creamy_pasta",
+    "cname": "Creamy Pasta",
+    "title": "File:Creamy Cheese White Sauce Pasta.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Creamy_Cheese_White_Sauce_Pasta.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_01.jpg",
+    "cid": "openvocab_spaghetti",
+    "cname": "Spaghetti",
+    "title": "File:DFC 5023 Stir-fried spaghetti with squid fresh basil and cherry tomatoes - a Thai-inspired seafood pasta served hot.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_5023_Stir-fried_spaghetti_with_squid_fresh_basil_and_cherry_tomatoes_-_a_Thai-inspired_seafood_pasta_served_hot.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_02.jpg",
+    "cid": "openvocab_spaghetti",
+    "cname": "Spaghetti",
+    "title": "File:\u0428\u043f\u0430\u0433\u0435\u0442\u0438 \u043f\u043e\u043c\u043e\u0434\u043e\u0440\u043e.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:%D0%A8%D0%BF%D0%B0%D0%B3%D0%B5%D1%82%D0%B8_%D0%BF%D0%BE%D0%BC%D0%BE%D0%B4%D0%BE%D1%80%D0%BE.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_bolognese_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_bolognese_01.jpg",
+    "cid": "openvocab_spaghetti_bolognese",
+    "cname": "Spaghetti Bolognese",
+    "title": "File:Baked meat sauce pasta.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Baked_meat_sauce_pasta.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_bolognese_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_bolognese_02.jpg",
+    "cid": "openvocab_spaghetti_bolognese",
+    "cname": "Spaghetti Bolognese",
+    "title": "File:HK Food Spaghetti with \u5348\u9910\u8089 spam Luncheon Meat.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:HK_Food_Spaghetti_with_%E5%8D%88%E9%A4%90%E8%82%89_spam_Luncheon_Meat.JPG",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_bolognese_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_bolognese_03.jpg",
+    "cid": "openvocab_spaghetti_bolognese",
+    "cname": "Spaghetti Bolognese",
+    "title": "File:HK Lunch Box Oil deep fried white bread n Minced Beef Spaghetti served with meat sauce Aug-2012.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:HK_Lunch_Box_Oil_deep_fried_white_bread_n_Minced_Beef_Spaghetti_served_with_meat_sauce_Aug-2012.JPG",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_tomato_pasta_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tomato_pasta_01.jpg",
+    "cid": "openvocab_tomato_pasta",
+    "cname": "Tomato Pasta",
+    "title": "File:Fresh Tomato Sauce (Unsplash).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Fresh_Tomato_Sauce_(Unsplash).jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_tomato_pasta_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tomato_pasta_02.jpg",
+    "cid": "openvocab_tomato_pasta",
+    "cname": "Tomato Pasta",
+    "title": "File:Orecchiette al Pomodoro.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Orecchiette_al_Pomodoro.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_tomato_pasta_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tomato_pasta_03.jpg",
+    "cid": "openvocab_tomato_pasta",
+    "cname": "Tomato Pasta",
+    "title": "File:Pasta al Pomodoro 01.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Pasta_al_Pomodoro_01.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_macaroni_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_macaroni_01.jpg",
+    "cid": "openvocab_macaroni",
+    "cname": "Macaroni",
+    "title": "File:Antique Pasta Machines P005.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Antique_Pasta_Machines_P005.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_macaroni_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_macaroni_02.jpg",
+    "cid": "openvocab_macaroni",
+    "cname": "Macaroni",
+    "title": "File:Antique Pasta Machines P005 crop.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Antique_Pasta_Machines_P005_crop.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_macaroni_and_cheese_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_macaroni_and_cheese_01.jpg",
+    "cid": "openvocab_macaroni_and_cheese",
+    "cname": "Macaroni and Cheese",
+    "title": "File:Baked Macaroni and Cheese - Rocky & Carlo's, Chalmette, Louisiana.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Baked_Macaroni_and_Cheese_-_Rocky_%26_Carlo%27s,_Chalmette,_Louisiana.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_macaroni_and_cheese_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_macaroni_and_cheese_02.jpg",
+    "cid": "openvocab_macaroni_and_cheese",
+    "cname": "Macaroni and Cheese",
+    "title": "File:Baked macaroni and cheese.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Baked_macaroni_and_cheese.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_macaroni_and_cheese_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_macaroni_and_cheese_03.jpg",
+    "cid": "openvocab_macaroni_and_cheese",
+    "cname": "Macaroni and Cheese",
+    "title": "File:Baked macaroni and cheese - Rocky & Carlo's.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Baked_macaroni_and_cheese_-_Rocky_%26_Carlo%27s.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_carbonara_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_carbonara_01.jpg",
+    "cid": "openvocab_spaghetti_carbonara",
+    "cname": "Spaghetti Carbonara",
+    "title": "File:Espaguetis carbonara.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Espaguetis_carbonara.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_spaghetti_carbonara_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_spaghetti_carbonara_02.jpg",
+    "cid": "openvocab_spaghetti_carbonara",
+    "cname": "Spaghetti Carbonara",
+    "title": "File:Pasta carbonara.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Pasta_carbonara.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_cheese_ravioli_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cheese_ravioli_01.jpg",
+    "cid": "openvocab_cheese_ravioli",
+    "cname": "Cheese Ravioli",
+    "title": "File:Liat Portal for Foodie Disorder - Four cheese ravioli with cream sauce.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Four_cheese_ravioli_with_cream_sauce.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_cheese_ravioli_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cheese_ravioli_02.jpg",
+    "cid": "openvocab_cheese_ravioli",
+    "cname": "Cheese Ravioli",
+    "title": "File:Liat Portal for Foodie Disorder - Ravioli with mushrooms and spinach in cream sauce.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Ravioli_with_mushrooms_and_spinach_in_cream_sauce.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_udon_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_udon_01.jpg",
+    "cid": "openvocab_udon",
+    "cname": "Udon",
+    "title": "File:Sanuki udon noodle (2223059600).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Sanuki_udon_noodle_(2223059600).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_hummus_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hummus_01.jpg",
+    "cid": "openvocab_hummus",
+    "cname": "Hummus",
+    "title": "File:Hummus with Olive Oil.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Hummus_with_Olive_Oil.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_hummus_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hummus_02.jpg",
+    "cid": "openvocab_hummus",
+    "cname": "Hummus",
+    "title": "File:Lebanese style hummus.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Lebanese_style_hummus.jpg",
+    "license": "CC BY 3.0",
+    "is_oov": false
+  },
+  "openvocab_hummus_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hummus_03.jpg",
+    "cid": "openvocab_hummus",
+    "cname": "Hummus",
+    "title": "File:Noura Restaurant (3385997679).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Noura_Restaurant_(3385997679).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_shakshuka_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_shakshuka_01.jpg",
+    "cid": "openvocab_shakshuka",
+    "cname": "Shakshuka",
+    "title": "File:Breakfast of bread and shakshuka at Artjuna cafe, Goa.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Breakfast_of_bread_and_shakshuka_at_Artjuna_cafe,_Goa.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_shakshuka_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_shakshuka_02.jpg",
+    "cid": "openvocab_shakshuka",
+    "cname": "Shakshuka",
+    "title": "File:Liat Portal for Foodie Disorder - Israeli Shakshuka.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Israeli_Shakshuka.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_shakshuka_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_shakshuka_03.jpg",
+    "cid": "openvocab_shakshuka",
+    "cname": "Shakshuka",
+    "title": "File:Liat Portal for Foodie Disorder - Shakshuka.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Shakshuka.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_vietnamese_pho_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_vietnamese_pho_01.jpg",
+    "cid": "openvocab_vietnamese_pho",
+    "cname": "Vietnamese Pho",
+    "title": "File:2016.10.14.133502 Noodle soup beef Pho Bac Vietnamese restaurant Seattle Washington USA.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2016.10.14.133502_Noodle_soup_beef_Pho_Bac_Vietnamese_restaurant_Seattle_Washington_USA.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_vietnamese_pho_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_vietnamese_pho_02.jpg",
+    "cid": "openvocab_vietnamese_pho",
+    "cname": "Vietnamese Pho",
+    "title": "File:Beef-pho-vietnamese-soup.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Beef-pho-vietnamese-soup.jpg",
+    "license": "Copyrighted free use",
+    "is_oov": false
+  },
+  "openvocab_vietnamese_pho_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_vietnamese_pho_03.jpg",
+    "cid": "openvocab_vietnamese_pho",
+    "cname": "Vietnamese Pho",
+    "title": "File:Beef noodle soup (Ph\u1edf b\u00f2) - Pho Hanoi Authentic 2024-12-01.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Beef_noodle_soup_(Ph%E1%BB%9F_b%C3%B2)_-_Pho_Hanoi_Authentic_2024-12-01.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_pad_thai_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pad_thai_01.jpg",
+    "cid": "openvocab_pad_thai",
+    "cname": "Pad Thai",
+    "title": "File:Candied shrimp- now how unusual is that?.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Candied_shrimp-_now_how_unusual_is_that%3F.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_pad_thai_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pad_thai_02.jpg",
+    "cid": "openvocab_pad_thai",
+    "cname": "Pad Thai",
+    "title": "File:DFC 2078 A plate of shrimp pad Thai garnished with lime bean sprouts scallions and crushed peanuts.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_2078_A_plate_of_shrimp_pad_Thai_garnished_with_lime_bean_sprouts_scallions_and_crushed_peanuts.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_pad_thai_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_pad_thai_03.jpg",
+    "cid": "openvocab_pad_thai",
+    "cname": "Pad Thai",
+    "title": "File:DZ6 0563 Savory shrimp pad thai topped with whole prawns fresh lime bean sprouts and scallions - ready to dig in.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DZ6_0563_Savory_shrimp_pad_thai_topped_with_whole_prawns_fresh_lime_bean_sprouts_and_scallions_-_ready_to_dig_in.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_bibimbap_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bibimbap_01.jpg",
+    "cid": "openvocab_bibimbap",
+    "cname": "Bibimbap",
+    "title": "File:Bibimbap 6.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bibimbap_6.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_bibimbap_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bibimbap_02.jpg",
+    "cid": "openvocab_bibimbap",
+    "cname": "Bibimbap",
+    "title": "File:Bibimbap 7.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bibimbap_7.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_bibimbap_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bibimbap_03.jpg",
+    "cid": "openvocab_bibimbap",
+    "cname": "Bibimbap",
+    "title": "File:Bibimbap and kimchi.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bibimbap_and_kimchi.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_kimchi_fried_rice_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kimchi_fried_rice_01.jpg",
+    "cid": "openvocab_kimchi_fried_rice",
+    "cname": "Kimchi Fried Rice",
+    "title": "File:Buldak and kimchi-bokkeum-bap burrito.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Buldak_and_kimchi-bokkeum-bap_burrito.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_kimchi_fried_rice_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kimchi_fried_rice_02.jpg",
+    "cid": "openvocab_kimchi_fried_rice",
+    "cname": "Kimchi Fried Rice",
+    "title": "File:Kimchi-bokkeum-bap.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Kimchi-bokkeum-bap.jpg",
+    "license": "CC BY-SA 2.0 kr",
+    "is_oov": false
+  },
+  "openvocab_croissant_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_croissant_01.jpg",
+    "cid": "openvocab_croissant",
+    "cname": "Croissant",
+    "title": "File:2018 01 Croissant IMG 0685.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2018_01_Croissant_IMG_0685.JPG",
+    "license": "GFDL 1.2",
+    "is_oov": false
+  },
+  "openvocab_croissant_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_croissant_02.jpg",
+    "cid": "openvocab_croissant",
+    "cname": "Croissant",
+    "title": "File:Croissant, whole.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Croissant,_whole.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_croissant_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_croissant_03.jpg",
+    "cid": "openvocab_croissant",
+    "cname": "Croissant",
+    "title": "File:Croissant-newspaper-and-tea.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Croissant-newspaper-and-tea.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_cheesecake_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cheesecake_01.jpg",
+    "cid": "openvocab_cheesecake",
+    "cname": "Cheesecake",
+    "title": "File:1963 mandarin cheesecake with blackberry jam.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:1963_mandarin_cheesecake_with_blackberry_jam.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_cheesecake_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cheesecake_02.jpg",
+    "cid": "openvocab_cheesecake",
+    "cname": "Cheesecake",
+    "title": "File:2019-06-20 23 06 23 A slice of \"The Cheesecake Factory at Home - Original Cheesecake\" in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2019-06-20_23_06_23_A_slice_of_%22The_Cheesecake_Factory_at_Home_-_Original_Cheesecake%22_in_the_Franklin_Farm_section_of_Oak_Hill,_Fairfax_County,_Virginia.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_cheesecake_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cheesecake_03.jpg",
+    "cid": "openvocab_cheesecake",
+    "cname": "Cheesecake",
+    "title": "File:2019-06-20 23 06 32 A slice of \"The Cheesecake Factory at Home - Original Cheesecake\" in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2019-06-20_23_06_32_A_slice_of_%22The_Cheesecake_Factory_at_Home_-_Original_Cheesecake%22_in_the_Franklin_Farm_section_of_Oak_Hill,_Fairfax_County,_Virginia.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_fish_and_chips_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_fish_and_chips_01.jpg",
+    "cid": "openvocab_fish_and_chips",
+    "cname": "Fish and Chips",
+    "title": "File:Fish & Chips at the Bellagio.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Fish_%26_Chips_at_the_Bellagio.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_fish_and_chips_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_fish_and_chips_02.jpg",
+    "cid": "openvocab_fish_and_chips",
+    "cname": "Fish and Chips",
+    "title": "File:Fish And Chips (125277525).jpeg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Fish_And_Chips_(125277525).jpeg",
+    "license": "CC BY 3.0",
+    "is_oov": false
+  },
+  "openvocab_greek_salad_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_greek_salad_01.jpg",
+    "cid": "openvocab_greek_salad",
+    "cname": "Greek Salad",
+    "title": "File:-2015-05-30 Sea bass, Greek tomato salad, sauteed new potatoes in garlic and butter, Trimingham, Norfolk (1).JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:-2015-05-30_Sea_bass,_Greek_tomato_salad,_sauteed_new_potatoes_in_garlic_and_butter,_Trimingham,_Norfolk_(1).JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_greek_salad_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_greek_salad_02.jpg",
+    "cid": "openvocab_greek_salad",
+    "cname": "Greek Salad",
+    "title": "File:-2019-06-05 Tomato, black olive and feta Greek salad.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:-2019-06-05_Tomato,_black_olive_and_feta_Greek_salad.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_jollof_rice_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_jollof_rice_01.jpg",
+    "cid": "openvocab_jollof_rice",
+    "cname": "Jollof Rice",
+    "title": "File:Ghana Jollof Rice with Chicken.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Ghana_Jollof_Rice_with_Chicken.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_jollof_rice_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_jollof_rice_02.jpg",
+    "cid": "openvocab_jollof_rice",
+    "cname": "Jollof Rice",
+    "title": "File:JOLLOF RICE WITH CHICKEN.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:JOLLOF_RICE_WITH_CHICKEN.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_moroccan_tagine_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moroccan_tagine_01.jpg",
+    "cid": "openvocab_moroccan_tagine",
+    "cname": "Moroccan Tagine",
+    "title": "File:Chicken Veg Tagine Rabat Nov25 A7CR 08908.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_Veg_Tagine_Rabat_Nov25_A7CR_08908.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_moroccan_tagine_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moroccan_tagine_02.jpg",
+    "cid": "openvocab_moroccan_tagine",
+    "cname": "Moroccan Tagine",
+    "title": "File:Chicken wings.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_wings.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_moroccan_couscous_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moroccan_couscous_01.jpg",
+    "cid": "openvocab_moroccan_couscous",
+    "cname": "Moroccan Couscous",
+    "title": "File:Couscous \"7 vegetables\".jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Couscous_%227_vegetables%22.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_moroccan_couscous_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moroccan_couscous_02.jpg",
+    "cid": "openvocab_moroccan_couscous",
+    "cname": "Moroccan Couscous",
+    "title": "File:Couscous Royal Marocain.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Couscous_Royal_Marocain.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_peruvian_ceviche_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_peruvian_ceviche_01.jpg",
+    "cid": "openvocab_peruvian_ceviche",
+    "cname": "Peruvian Ceviche",
+    "title": "File:Ceviche.png",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Ceviche.png",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_peruvian_ceviche_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_peruvian_ceviche_02.jpg",
+    "cid": "openvocab_peruvian_ceviche",
+    "cname": "Peruvian Ceviche",
+    "title": "File:Ceviche at Peru.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Ceviche_at_Peru.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_argentine_empanada_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_argentine_empanada_01.jpg",
+    "cid": "openvocab_argentine_empanada",
+    "cname": "Argentine Empanada",
+    "title": "File:A plate with six oven-baked Argentine ham and cheese empanadas.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_plate_with_six_oven-baked_Argentine_ham_and_cheese_empanadas.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_argentine_empanada_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_argentine_empanada_02.jpg",
+    "cid": "openvocab_argentine_empanada",
+    "cname": "Argentine Empanada",
+    "title": "File:Baked ham and cheese empanadas on a plate, highlighting the \"repulgue\" (crimping) detail.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Baked_ham_and_cheese_empanadas_on_a_plate,_highlighting_the_%22repulgue%22_(crimping)_detail.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_churros_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_churros_01.jpg",
+    "cid": "openvocab_churros",
+    "cname": "Churros",
+    "title": "File:Chocolate, churros y caf\u00e9.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chocolate,_churros_y_caf%C3%A9.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_churros_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_churros_02.jpg",
+    "cid": "openvocab_churros",
+    "cname": "Churros",
+    "title": "File:Chocolate con churros (27343655726).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chocolate_con_churros_(27343655726).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_churros_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_churros_03.jpg",
+    "cid": "openvocab_churros",
+    "cname": "Churros",
+    "title": "File:Chocolate con churros - San Gin\u00e9s - Madrid.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chocolate_con_churros_-_San_Gin%C3%A9s_-_Madrid.jpg",
+    "license": "CC BY-SA 2.5",
+    "is_oov": false
+  },
+  "openvocab_tiramisu_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tiramisu_01.jpg",
+    "cid": "openvocab_tiramisu",
+    "cname": "Tiramisu",
+    "title": "File:Binhui - tiramisu de cremaet.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Binhui_-_tiramisu_de_cremaet.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_tiramisu_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tiramisu_02.jpg",
+    "cid": "openvocab_tiramisu",
+    "cname": "Tiramisu",
+    "title": "File:Classic Italian Tiramisu-3 (29989504485).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Classic_Italian_Tiramisu-3_(29989504485).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_tiramisu_03.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tiramisu_03.jpg",
+    "cid": "openvocab_tiramisu",
+    "cname": "Tiramisu",
+    "title": "File:Dessert Tiramisu.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Dessert_Tiramisu.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_french_macarons_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_french_macarons_01.jpg",
+    "cid": "openvocab_french_macarons",
+    "cname": "French Macarons",
+    "title": "File:A rainbow of macarons (part deux).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_rainbow_of_macarons_(part_deux).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_french_macarons_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_french_macarons_02.jpg",
+    "cid": "openvocab_french_macarons",
+    "cname": "French Macarons",
+    "title": "File:Arc-en-ciel comestible.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Arc-en-ciel_comestible.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_cr_me_br_l_e_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cr_me_br_l_e_01.jpg",
+    "cid": "openvocab_cr_me_br_l_e",
+    "cname": "Cr\u00e8me Br\u00fbl\u00e9e",
+    "title": "File:2014 0531 Cr\u00e8me br\u00fbl\u00e9e Doi Mae Salong (cropped).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2014_0531_Cr%C3%A8me_br%C3%BBl%C3%A9e_Doi_Mae_Salong_(cropped).jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_cr_me_br_l_e_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cr_me_br_l_e_02.jpg",
+    "cid": "openvocab_cr_me_br_l_e",
+    "cname": "Cr\u00e8me Br\u00fbl\u00e9e",
+    "title": "File:Creme brulee (2).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Creme_brulee_(2).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_ratatouille_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_ratatouille_01.jpg",
+    "cid": "openvocab_ratatouille",
+    "cname": "Ratatouille",
+    "title": "File:Child Care Recipes (Team Nutiriton) (20211103-FNS-UNC-0009).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Child_Care_Recipes_(Team_Nutiriton)_(20211103-FNS-UNC-0009).jpg",
+    "license": "Public domain",
+    "is_oov": false
+  },
+  "openvocab_mushroom_risotto_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_mushroom_risotto_01.jpg",
+    "cid": "openvocab_mushroom_risotto",
+    "cname": "Mushroom Risotto",
+    "title": "File:Hoboken Art & Music Festival (2008) (2466985385).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Hoboken_Art_%26_Music_Festival_(2008)_(2466985385).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_mushroom_risotto_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_mushroom_risotto_02.jpg",
+    "cid": "openvocab_mushroom_risotto",
+    "cname": "Mushroom Risotto",
+    "title": "File:\ubf41\uc2dd\ub2f9 \uba38\uc26c\ub8f8 \ud06c\ub9bc \ub9ac\uc870\ub610, \ubd09\uace8\ub808 \ud30c\uc2a4\ud0c0 1.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:%EB%BD%81%EC%8B%9D%EB%8B%B9_%EB%A8%B8%EC%89%AC%EB%A3%B8_%ED%81%AC%EB%A6%BC_%EB%A6%AC%EC%A1%B0%EB%98%90,_%EB%B4%89%EA%B3%A8%EB%A0%88_%ED%8C%8C%EC%8A%A4%ED%83%80_1.jpg",
+    "license": "CC BY 2.0 kr",
+    "is_oov": false
+  },
+  "openvocab_bruschetta_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bruschetta_01.jpg",
+    "cid": "openvocab_bruschetta",
+    "cname": "Bruschetta",
+    "title": "File:BruschettaWiki.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:BruschettaWiki.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_bruschetta_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bruschetta_02.jpg",
+    "cid": "openvocab_bruschetta",
+    "cname": "Bruschetta",
+    "title": "File:Bruschetta on Rustic Bread - Fresh chopped vine ripe tomatoes seasoned with onion, basil, grated pecorino Romano salt & pepper, on a seasoned toasted rustic bread.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bruschetta_on_Rustic_Bread_-_Fresh_chopped_vine_ripe_tomatoes_seasoned_with_onion,_basil,_grated_pecorino_Romano_salt_%26_pepper,_on_a_seasoned_toasted_rustic_bread.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_caprese_salad_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_caprese_salad_01.jpg",
+    "cid": "openvocab_caprese_salad",
+    "cname": "Caprese Salad",
+    "title": "File:A Mozzarella and Tomato at Grand Cafe.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_Mozzarella_and_Tomato_at_Grand_Cafe.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_caprese_salad_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_caprese_salad_02.jpg",
+    "cid": "openvocab_caprese_salad",
+    "cname": "Caprese Salad",
+    "title": "File:Brown coloured tomato and mozzarella salad.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Brown_coloured_tomato_and_mozzarella_salad.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_gazpacho_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_gazpacho_01.jpg",
+    "cid": "openvocab_gazpacho",
+    "cname": "Gazpacho",
+    "title": "File:Gazpacho at Le 46, Avignon, France - 20140713.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Gazpacho_at_Le_46,_Avignon,_France_-_20140713.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_gazpacho_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_gazpacho_02.jpg",
+    "cid": "openvocab_gazpacho",
+    "cname": "Gazpacho",
+    "title": "File:Gazpacho in a white bowl.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Gazpacho_in_a_white_bowl.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_tortilla_espa_ola_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tortilla_espa_ola_01.jpg",
+    "cid": "openvocab_tortilla_espa_ola",
+    "cname": "Tortilla Espa\u00f1ola",
+    "title": "File:Bocadillo de Tortilla de patatas - 34.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bocadillo_de_Tortilla_de_patatas_-_34.jpg",
+    "license": "CC BY 3.0",
+    "is_oov": false
+  },
+  "openvocab_tortilla_espa_ola_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tortilla_espa_ola_02.jpg",
+    "cid": "openvocab_tortilla_espa_ola",
+    "cname": "Tortilla Espa\u00f1ola",
+    "title": "File:Bocadillo de pan con tomate y tortilla francesa.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bocadillo_de_pan_con_tomate_y_tortilla_francesa.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_moussaka_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moussaka_01.jpg",
+    "cid": "openvocab_moussaka",
+    "cname": "Moussaka",
+    "title": "File:Eggplant Potato Moussaka (43128264982).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Eggplant_Potato_Moussaka_(43128264982).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_moussaka_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_moussaka_02.jpg",
+    "cid": "openvocab_moussaka",
+    "cname": "Moussaka",
+    "title": "File:Mousakas.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Mousakas.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_chicken_souvlaki_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_souvlaki_01.jpg",
+    "cid": "openvocab_chicken_souvlaki",
+    "cname": "Chicken Souvlaki",
+    "title": "File:Gyros C5878.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Gyros_C5878.jpg",
+    "license": "Public domain",
+    "is_oov": false
+  },
+  "openvocab_chicken_souvlaki_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_souvlaki_02.jpg",
+    "cid": "openvocab_chicken_souvlaki",
+    "cname": "Chicken Souvlaki",
+    "title": "File:Lamb Gyro Souvlaki Wrap at Skewers on Commercial.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Lamb_Gyro_Souvlaki_Wrap_at_Skewers_on_Commercial.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_wiener_schnitzel_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_wiener_schnitzel_01.jpg",
+    "cid": "openvocab_wiener_schnitzel",
+    "cname": "Wiener Schnitzel",
+    "title": "File:Wiener Schnitzel at Hotel Dermuth.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Wiener_Schnitzel_at_Hotel_Dermuth.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_wiener_schnitzel_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_wiener_schnitzel_02.jpg",
+    "cid": "openvocab_wiener_schnitzel",
+    "cname": "Wiener Schnitzel",
+    "title": "File:Wiener Schnitzel at Mike's Diner.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Wiener_Schnitzel_at_Mike%27s_Diner.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_bratwurst_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bratwurst_01.jpg",
+    "cid": "openvocab_bratwurst",
+    "cname": "Bratwurst",
+    "title": "File:Bratwurst, sauerkraut and beer at restaurant Rymy-Eetu.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bratwurst,_sauerkraut_and_beer_at_restaurant_Rymy-Eetu.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_bratwurst_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bratwurst_02.jpg",
+    "cid": "openvocab_bratwurst",
+    "cname": "Bratwurst",
+    "title": "File:Bratwurst 7187.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bratwurst_7187.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_bavarian_pretzel_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bavarian_pretzel_01.jpg",
+    "cid": "openvocab_bavarian_pretzel",
+    "cname": "Bavarian Pretzel",
+    "title": "File:Hausgemachte Brezeln im Korb.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Hausgemachte_Brezeln_im_Korb.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_apple_strudel_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_apple_strudel_01.jpg",
+    "cid": "openvocab_apple_strudel",
+    "cname": "Apple Strudel",
+    "title": "File:AUT \u2014 Tirol \u2014 Bezirk Kufstein \u2014 Gemeinde Ellmau am Wilden Kaiser \u2014 Wei\u00dfachgraben 5 (Apfelstrudel) 2021.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:AUT_%E2%80%94_Tirol_%E2%80%94_Bezirk_Kufstein_%E2%80%94_Gemeinde_Ellmau_am_Wilden_Kaiser_%E2%80%94_Wei%C3%9Fachgraben_5_(Apfelstrudel)_2021.jpg",
+    "license": "CC BY 3.0 de",
+    "is_oov": false
+  },
+  "openvocab_apple_strudel_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_apple_strudel_02.jpg",
+    "cid": "openvocab_apple_strudel",
+    "cname": "Apple Strudel",
+    "title": "File:Apfelstrudel in \u00d6sterreich.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Apfelstrudel_in_%C3%96sterreich.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_swiss_cheese_fondue_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_swiss_cheese_fondue_01.jpg",
+    "cid": "openvocab_swiss_cheese_fondue",
+    "cname": "Swiss Cheese Fondue",
+    "title": "File:02021 0041 Caquelons, Late Middle Ages, Wieliczka.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:02021_0041_Caquelons,_Late_Middle_Ages,_Wieliczka.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_swiss_cheese_fondue_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_swiss_cheese_fondue_02.jpg",
+    "cid": "openvocab_swiss_cheese_fondue",
+    "cname": "Swiss Cheese Fondue",
+    "title": "File:Caquelon-Biblioth\u00e8que Humaniste.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Caquelon-Biblioth%C3%A8que_Humaniste.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_polish_pierogi_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_polish_pierogi_01.jpg",
+    "cid": "openvocab_polish_pierogi",
+    "cname": "Polish Pierogi",
+    "title": "File:Food in Lichen Stary (pierogi ruskie, dumplings).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Food_in_Lichen_Stary_(pierogi_ruskie,_dumplings).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_polish_pierogi_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_polish_pierogi_02.jpg",
+    "cid": "openvocab_polish_pierogi",
+    "cname": "Polish Pierogi",
+    "title": "File:Oborniki (pierogi ruskie).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Oborniki_(pierogi_ruskie).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_hungarian_goulash_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hungarian_goulash_01.jpg",
+    "cid": "openvocab_hungarian_goulash",
+    "cname": "Hungarian Goulash",
+    "title": "File:02026 Pulled beef goulash on collagen bone broth.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:02026_Pulled_beef_goulash_on_collagen_bone_broth.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_beef_stroganoff_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_beef_stroganoff_01.jpg",
+    "cid": "openvocab_beef_stroganoff",
+    "cname": "Beef Stroganoff",
+    "title": "File:-2019-12-10 Beef Stroganoff, Trimingham (2).JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:-2019-12-10_Beef_Stroganoff,_Trimingham_(2).JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_beef_stroganoff_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_beef_stroganoff_02.jpg",
+    "cid": "openvocab_beef_stroganoff",
+    "cname": "Beef Stroganoff",
+    "title": "File:-2020-09-14 Beef stroganoff, Trimingham.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:-2020-09-14_Beef_stroganoff,_Trimingham.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_swedish_meatballs_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_swedish_meatballs_01.jpg",
+    "cid": "openvocab_swedish_meatballs",
+    "cname": "Swedish Meatballs",
+    "title": "File:Holiday Swedish Meatballs.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Holiday_Swedish_Meatballs.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_swedish_meatballs_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_swedish_meatballs_02.jpg",
+    "cid": "openvocab_swedish_meatballs",
+    "cname": "Swedish Meatballs",
+    "title": "File:Holiday Swedish Meatballs - 39843240661.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Holiday_Swedish_Meatballs_-_39843240661.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_kung_pao_chicken_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kung_pao_chicken_01.jpg",
+    "cid": "openvocab_kung_pao_chicken",
+    "cname": "Kung Pao Chicken",
+    "title": "File:Kung Pao Chicken - Jadeland Restaurant, Ottawa (6453176819).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Kung_Pao_Chicken_-_Jadeland_Restaurant,_Ottawa_(6453176819).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_kung_pao_chicken_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kung_pao_chicken_02.jpg",
+    "cid": "openvocab_kung_pao_chicken",
+    "cname": "Kung Pao Chicken",
+    "title": "File:Kung Pao Chicken - Keung Kee Restaurant, Montreal (6650429089).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Kung_Pao_Chicken_-_Keung_Kee_Restaurant,_Montreal_(6650429089).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_har_gow_dim_sum_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_har_gow_dim_sum_01.jpg",
+    "cid": "openvocab_har_gow_dim_sum",
+    "cname": "Har Gow Dim Sum",
+    "title": "File:Dim Sum Steamed Bao.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Dim_Sum_Steamed_Bao.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_har_gow_dim_sum_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_har_gow_dim_sum_02.jpg",
+    "cid": "openvocab_har_gow_dim_sum",
+    "cname": "Har Gow Dim Sum",
+    "title": "File:Dim sum at Yu Garden restaurant, Hamburg.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Dim_sum_at_Yu_Garden_restaurant,_Hamburg.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_char_siu_bbq_pork_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_char_siu_bbq_pork_01.jpg",
+    "cid": "openvocab_char_siu_bbq_pork",
+    "cname": "Char Siu BBQ Pork",
+    "title": "File:Char siu, siu yuk and pork ribs, Empress, Asian Civilisations Museum, Singapore - 20160203-01.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Char_siu,_siu_yuk_and_pork_ribs,_Empress,_Asian_Civilisations_Museum,_Singapore_-_20160203-01.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_char_siu_bbq_pork_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_char_siu_bbq_pork_02.jpg",
+    "cid": "openvocab_char_siu_bbq_pork",
+    "cname": "Char Siu BBQ Pork",
+    "title": "File:Char siu, siu yuk and pork ribs, Empress, Asian Civilisations Museum, Singapore - 20160203-02.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Char_siu,_siu_yuk_and_pork_ribs,_Empress,_Asian_Civilisations_Museum,_Singapore_-_20160203-02.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_dan_dan_noodles_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_dan_dan_noodles_01.jpg",
+    "cid": "openvocab_dan_dan_noodles",
+    "cname": "Dan Dan Noodles",
+    "title": "File:Dan-dan noodles, Shanghai.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Dan-dan_noodles,_Shanghai.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_dan_dan_noodles_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_dan_dan_noodles_02.jpg",
+    "cid": "openvocab_dan_dan_noodles",
+    "cname": "Dan Dan Noodles",
+    "title": "File:Dandan noodles (\u64d4\u64d4\u9eb5).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Dandan_noodles_(%E6%93%94%E6%93%94%E9%BA%B5).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_tonkatsu_pork_cutlet_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tonkatsu_pork_cutlet_01.jpg",
+    "cid": "openvocab_tonkatsu_pork_cutlet",
+    "cname": "Tonkatsu Pork Cutlet",
+    "title": "File:Sesame pork cutlet (2238267183).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Sesame_pork_cutlet_(2238267183).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_tonkatsu_pork_cutlet_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tonkatsu_pork_cutlet_02.jpg",
+    "cid": "openvocab_tonkatsu_pork_cutlet",
+    "cname": "Tonkatsu Pork Cutlet",
+    "title": "File:Tonkatsu (1795368622).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Tonkatsu_(1795368622).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_japanese_katsu_curry_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_japanese_katsu_curry_01.jpg",
+    "cid": "openvocab_japanese_katsu_curry",
+    "cname": "Japanese Katsu Curry",
+    "title": "File:Chicken katsu curry rice - Korpan.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_katsu_curry_rice_-_Korpan.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_japanese_katsu_curry_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_japanese_katsu_curry_02.jpg",
+    "cid": "openvocab_japanese_katsu_curry",
+    "cname": "Japanese Katsu Curry",
+    "title": "File:Japanese Katsu Curry 01.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Japanese_Katsu_Curry_01.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_shrimp_tempura_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_shrimp_tempura_01.jpg",
+    "cid": "openvocab_shrimp_tempura",
+    "cname": "Shrimp Tempura",
+    "title": "File:Crab sticks Tempura dishesCNE 01.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Crab_sticks_Tempura_dishesCNE_01.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_shrimp_tempura_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_shrimp_tempura_02.jpg",
+    "cid": "openvocab_shrimp_tempura",
+    "cname": "Shrimp Tempura",
+    "title": "File:Deep fried Tempura dishesCNE 02.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Deep_fried_Tempura_dishesCNE_02.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_okonomiyaki_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_okonomiyaki_01.jpg",
+    "cid": "openvocab_okonomiyaki",
+    "cname": "Okonomiyaki",
+    "title": "File:Okonomiyaki -a Japanese savory pancake in Osaka, Japan.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Okonomiyaki_-a_Japanese_savory_pancake_in_Osaka,_Japan.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_okonomiyaki_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_okonomiyaki_02.jpg",
+    "cid": "openvocab_okonomiyaki",
+    "cname": "Okonomiyaki",
+    "title": "File:Okonomiyaki 001.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Okonomiyaki_001.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_yakitori_skewers_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_yakitori_skewers_01.jpg",
+    "cid": "openvocab_yakitori_skewers",
+    "cname": "Yakitori Skewers",
+    "title": "File:DFC 2095 Savory grilled pork skewers sizzling and caramelized to a perfect golden-brown.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_2095_Savory_grilled_pork_skewers_sizzling_and_caramelized_to_a_perfect_golden-brown.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_yakitori_skewers_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_yakitori_skewers_02.jpg",
+    "cid": "openvocab_yakitori_skewers",
+    "cname": "Yakitori Skewers",
+    "title": "File:DSCF0302 Skewers of marinated squid grilling over glowing charcoal embers.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DSCF0302_Skewers_of_marinated_squid_grilling_over_glowing_charcoal_embers.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_onigiri_rice_ball_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_onigiri_rice_ball_01.jpg",
+    "cid": "openvocab_onigiri_rice_ball",
+    "cname": "Onigiri Rice Ball",
+    "title": "File:Japanese rice balls (onigiri).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Japanese_rice_balls_(onigiri).jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_onigiri_rice_ball_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_onigiri_rice_ball_02.jpg",
+    "cid": "openvocab_onigiri_rice_ball",
+    "cname": "Onigiri Rice Ball",
+    "title": "File:Miura-Misaki Tuna Shogi onigiri 2025.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Miura-Misaki_Tuna_Shogi_onigiri_2025.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_miso_soup_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_miso_soup_01.jpg",
+    "cid": "openvocab_miso_soup",
+    "cname": "Miso Soup",
+    "title": "File:Tendon set by avlxyz.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Tendon_set_by_avlxyz.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_bulgogi_beef_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bulgogi_beef_01.jpg",
+    "cid": "openvocab_bulgogi_beef",
+    "cname": "Bulgogi Beef",
+    "title": "File:Bulgogi (Marinated beef. Served with rice) - Kogi 2023-09-11.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bulgogi_(Marinated_beef._Served_with_rice)_-_Kogi_2023-09-11.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_bulgogi_beef_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_bulgogi_beef_02.jpg",
+    "cid": "openvocab_bulgogi_beef",
+    "cname": "Bulgogi Beef",
+    "title": "File:Bulgogi 1.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bulgogi_1.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_tteokbokki_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tteokbokki_01.jpg",
+    "cid": "openvocab_tteokbokki",
+    "cname": "Tteokbokki",
+    "title": "File:DFC 2096 Skewered glazed intestines grilling to a shiny caramelized finish at a street food stall.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_2096_Skewered_glazed_intestines_grilling_to_a_shiny_caramelized_finish_at_a_street_food_stall.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_tteokbokki_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tteokbokki_02.jpg",
+    "cid": "openvocab_tteokbokki",
+    "cname": "Tteokbokki",
+    "title": "File:Home made Tteokbokki.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Home_made_Tteokbokki.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_japchae_glass_noodles_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_japchae_glass_noodles_01.jpg",
+    "cid": "openvocab_japchae_glass_noodles",
+    "cname": "Japchae Glass Noodles",
+    "title": "File:Homemade Japchae, Dhaka 02.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Homemade_Japchae,_Dhaka_02.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_japchae_glass_noodles_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_japchae_glass_noodles_02.jpg",
+    "cid": "openvocab_japchae_glass_noodles",
+    "cname": "Japchae Glass Noodles",
+    "title": "File:Homemade Japchae, Dhaka 03.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Homemade_Japchae,_Dhaka_03.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_kimbap_roll_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kimbap_roll_01.jpg",
+    "cid": "openvocab_kimbap_roll",
+    "cname": "Kimbap Roll",
+    "title": "File:Chungmu-gimbap.png",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chungmu-gimbap.png",
+    "license": "KOGL Type 1",
+    "is_oov": false
+  },
+  "openvocab_kimbap_roll_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kimbap_roll_02.jpg",
+    "cid": "openvocab_kimbap_roll",
+    "cname": "Kimbap Roll",
+    "title": "File:Gimbap (pixabay).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Gimbap_(pixabay).jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_tom_yum_goong_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tom_yum_goong_01.jpg",
+    "cid": "openvocab_tom_yum_goong",
+    "cname": "Tom Yum Goong",
+    "title": "File:Koh Kut, Thailand, Thai seafood.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Koh_Kut,_Thailand,_Thai_seafood.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_tom_yum_goong_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tom_yum_goong_02.jpg",
+    "cid": "openvocab_tom_yum_goong",
+    "cname": "Tom Yum Goong",
+    "title": "File:Tom Yum Goong Noodle Soup - Nok Nok Kitchen at The Cow 2024-03-28.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Tom_Yum_Goong_Noodle_Soup_-_Nok_Nok_Kitchen_at_The_Cow_2024-03-28.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_thai_green_curry_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_thai_green_curry_01.jpg",
+    "cid": "openvocab_thai_green_curry",
+    "cname": "Thai Green Curry",
+    "title": "File:Yellow curry and green curry - Nok Nok Kitchen at The Cow 2025-09-30.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Yellow_curry_and_green_curry_-_Nok_Nok_Kitchen_at_The_Cow_2025-09-30.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_som_tum_papaya_salad_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_som_tum_papaya_salad_01.jpg",
+    "cid": "openvocab_som_tum_papaya_salad",
+    "cname": "Som Tum Papaya Salad",
+    "title": "File:2013 Tam Lao.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2013_Tam_Lao.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_som_tum_papaya_salad_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_som_tum_papaya_salad_02.jpg",
+    "cid": "openvocab_som_tum_papaya_salad",
+    "cname": "Som Tum Papaya Salad",
+    "title": "File:Papaya Salad.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Papaya_Salad.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_mango_sticky_rice_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_mango_sticky_rice_01.jpg",
+    "cid": "openvocab_mango_sticky_rice",
+    "cname": "Mango Sticky Rice",
+    "title": "File:Mango Sticky Rice and Thai Milk tea.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Mango_Sticky_Rice_and_Thai_Milk_tea.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_mango_sticky_rice_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_mango_sticky_rice_02.jpg",
+    "cid": "openvocab_mango_sticky_rice",
+    "cname": "Mango Sticky Rice",
+    "title": "File:Mango over sticky rice with coconut sauce.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Mango_over_sticky_rice_with_coconut_sauce.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_chicken_satay_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_satay_01.jpg",
+    "cid": "openvocab_chicken_satay",
+    "cname": "Chicken Satay",
+    "title": "File:DFC 0330 Grilled meat skewers topped with sliced red onion chopped herbs and a sprinkle of seasoning served alongside fresh lettuce.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_0330_Grilled_meat_skewers_topped_with_sliced_red_onion_chopped_herbs_and_a_sprinkle_of_seasoning_served_alongside_fresh_lettuce.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_chicken_satay_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_satay_02.jpg",
+    "cid": "openvocab_chicken_satay",
+    "cname": "Chicken Satay",
+    "title": "File:DFC 2193 Sticky char-grilled skewers of savory satay glazed in a rich peanut sauce resting on a banana leaf.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:DFC_2193_Sticky_char-grilled_skewers_of_savory_satay_glazed_in_a_rich_peanut_sauce_resting_on_a_banana_leaf.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_banh_mi_baguette_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_banh_mi_baguette_01.jpg",
+    "cid": "openvocab_banh_mi_baguette",
+    "cname": "Banh Mi Baguette",
+    "title": "File:Banh mi PaMi 1.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Banh_mi_PaMi_1.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_banh_mi_baguette_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_banh_mi_baguette_02.jpg",
+    "cid": "openvocab_banh_mi_baguette",
+    "cname": "Banh Mi Baguette",
+    "title": "File:Banh mi and cuon.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Banh_mi_and_cuon.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_goi_cuon_summer_rolls_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_goi_cuon_summer_rolls_01.jpg",
+    "cid": "openvocab_goi_cuon_summer_rolls",
+    "cname": "Goi Cuon Summer Rolls",
+    "title": "File:Chill Out Vegie Spring Rolls.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chill_Out_Vegie_Spring_Rolls.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_goi_cuon_summer_rolls_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_goi_cuon_summer_rolls_02.jpg",
+    "cid": "openvocab_goi_cuon_summer_rolls",
+    "cname": "Goi Cuon Summer Rolls",
+    "title": "File:East-asian-food-spring-rolls-1.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:East-asian-food-spring-rolls-1.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_nasi_goreng_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_nasi_goreng_01.jpg",
+    "cid": "openvocab_nasi_goreng",
+    "cname": "Nasi Goreng",
+    "title": "File:Chinese egg fried rice.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chinese_egg_fried_rice.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_nasi_goreng_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_nasi_goreng_02.jpg",
+    "cid": "openvocab_nasi_goreng",
+    "cname": "Nasi Goreng",
+    "title": "File:Fried Rice with Eggs and Meat.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Fried_Rice_with_Eggs_and_Meat.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_beef_rendang_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_beef_rendang_01.jpg",
+    "cid": "openvocab_beef_rendang",
+    "cname": "Beef Rendang",
+    "title": "File:Nasi Padang With beef rendang.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Nasi_Padang_With_beef_rendang.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_beef_rendang_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_beef_rendang_02.jpg",
+    "cid": "openvocab_beef_rendang",
+    "cname": "Beef Rendang",
+    "title": "File:Plain rice with crisp beef lungs, sambal eggplant and curried potatoes - Minang Nasi Padang AUD6.50 (3158454967).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Plain_rice_with_crisp_beef_lungs,_sambal_eggplant_and_curried_potatoes_-_Minang_Nasi_Padang_AUD6.50_(3158454967).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_hainanese_chicken_rice_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hainanese_chicken_rice_01.jpg",
+    "cid": "openvocab_hainanese_chicken_rice",
+    "cname": "Hainanese Chicken Rice",
+    "title": "File:Chinese Olive Rice - Soup Restaurant (2500746236).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chinese_Olive_Rice_-_Soup_Restaurant_(2500746236).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_hainanese_chicken_rice_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_hainanese_chicken_rice_02.jpg",
+    "cid": "openvocab_hainanese_chicken_rice",
+    "cname": "Hainanese Chicken Rice",
+    "title": "File:Hainanese Chicken from Thai Restaurant from Public Food Court in Olympian City.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Hainanese_Chicken_from_Thai_Restaurant_from_Public_Food_Court_in_Olympian_City.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_curry_laksa_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_curry_laksa_01.jpg",
+    "cid": "openvocab_curry_laksa",
+    "cname": "Curry Laksa",
+    "title": "File:Curry Laksa - Laksa King (2597729514).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Curry_Laksa_-_Laksa_King_(2597729514).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_curry_laksa_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_curry_laksa_02.jpg",
+    "cid": "openvocab_curry_laksa",
+    "cname": "Curry Laksa",
+    "title": "File:Curry Laksa - Petaling Street, Box Hill AUD8.90 (4698168573).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Curry_Laksa_-_Petaling_Street,_Box_Hill_AUD8.90_(4698168573).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_nasi_lemak_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_nasi_lemak_01.jpg",
+    "cid": "openvocab_nasi_lemak",
+    "cname": "Nasi Lemak",
+    "title": "File:Nasi Lemak, Mamak, Sydney.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Nasi_Lemak,_Mamak,_Sydney.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_nasi_lemak_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_nasi_lemak_02.jpg",
+    "cid": "openvocab_nasi_lemak",
+    "cname": "Nasi Lemak",
+    "title": "File:Nasi Lemak Ayam.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Nasi_Lemak_Ayam.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_chicken_adobo_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_adobo_01.jpg",
+    "cid": "openvocab_chicken_adobo",
+    "cname": "Chicken Adobo",
+    "title": "File:Adobo Filipino sa 'gata'.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Adobo_Filipino_sa_%27gata%27.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": false
+  },
+  "openvocab_chicken_adobo_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_chicken_adobo_02.jpg",
+    "cid": "openvocab_chicken_adobo",
+    "cname": "Chicken Adobo",
+    "title": "File:Chicken Adobo with Coconut Milk.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_Adobo_with_Coconut_Milk.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_halo_halo_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_halo_halo_01.jpg",
+    "cid": "openvocab_halo_halo",
+    "cname": "Halo-Halo",
+    "title": "File:A glass of Halo-Halo (shaved or crushed ice dessert in the Philippines).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_glass_of_Halo-Halo_(shaved_or_crushed_ice_dessert_in_the_Philippines).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_halo_halo_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_halo_halo_02.jpg",
+    "cid": "openvocab_halo_halo",
+    "cname": "Halo-Halo",
+    "title": "File:Chicken empanada and halo-halo 20230602.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chicken_empanada_and_halo-halo_20230602.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_tabbouleh_salad_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_tabbouleh_salad_01.jpg",
+    "cid": "openvocab_tabbouleh_salad",
+    "cname": "Tabbouleh Salad",
+    "title": "File:2019-02-04 \u0441\u0430\u043b\u0430\u0442\u0430 \u0442\u0430\u0431\u0443\u043b\u0435 \u0441 \u043a\u0438\u043d\u043e\u0430.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2019-02-04_%D1%81%D0%B0%D0%BB%D0%B0%D1%82%D0%B0_%D1%82%D0%B0%D0%B1%D1%83%D0%BB%D0%B5_%D1%81_%D0%BA%D0%B8%D0%BD%D0%BE%D0%B0.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_kunafa_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kunafa_01.jpg",
+    "cid": "openvocab_kunafa",
+    "cname": "Kunafa",
+    "title": "File:2019 Marin Greek Festival - Sarah Stierch 05.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2019_Marin_Greek_Festival_-_Sarah_Stierch_05.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": false
+  },
+  "openvocab_kunafa_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kunafa_02.jpg",
+    "cid": "openvocab_kunafa",
+    "cname": "Kunafa",
+    "title": "File:Kanafeh in Isfiya.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Kanafeh_in_Isfiya.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_canadian_poutine_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_canadian_poutine_01.jpg",
+    "cid": "openvocab_canadian_poutine",
+    "cname": "Canadian Poutine",
+    "title": "File:Georgie's Poutine - Double-fried Kennebec potatoes with Oakdale Cheese Company Cheese Curds and St Hubert poutine gravy -squeaky -curds -poutine -Oakland -popup (15228252746).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Georgie%27s_Poutine_-_Double-fried_Kennebec_potatoes_with_Oakdale_Cheese_Company_Cheese_Curds_and_St_Hubert_poutine_gravy_-squeaky_-curds_-poutine_-Oakland_-popup_(15228252746).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_canadian_poutine_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_canadian_poutine_02.jpg",
+    "cid": "openvocab_canadian_poutine",
+    "cname": "Canadian Poutine",
+    "title": "File:Non-traditional poutine served in Minneapolis, Minnesota, USA.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Non-traditional_poutine_served_in_Minneapolis,_Minnesota,_USA.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_new_england_clam_chowder_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_new_england_clam_chowder_01.jpg",
+    "cid": "openvocab_new_england_clam_chowder",
+    "cname": "New England Clam Chowder",
+    "title": "File:Bread Bowl & Clam Chowder Soup (29842842338).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Bread_Bowl_%26_Clam_Chowder_Soup_(29842842338).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_new_england_clam_chowder_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_new_england_clam_chowder_02.jpg",
+    "cid": "openvocab_new_england_clam_chowder",
+    "cname": "New England Clam Chowder",
+    "title": "File:Sourdough Bread-Bowl with Clam Chowder Soup (25231380121).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Sourdough_Bread-Bowl_with_Clam_Chowder_Soup_(25231380121).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_eggs_benedict_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_eggs_benedict_01.jpg",
+    "cid": "openvocab_eggs_benedict",
+    "cname": "Eggs Benedict",
+    "title": "File:Eggs Benedict.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Eggs_Benedict.jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": false
+  },
+  "openvocab_eggs_benedict_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_eggs_benedict_02.jpg",
+    "cid": "openvocab_eggs_benedict",
+    "cname": "Eggs Benedict",
+    "title": "File:Eggs Benedict (Unsplash).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Eggs_Benedict_(Unsplash).jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_cinnamon_roll_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cinnamon_roll_01.jpg",
+    "cid": "openvocab_cinnamon_roll",
+    "cname": "Cinnamon Roll",
+    "title": "File:Cinnamon Bun - Caff\u00e8 Nero 2026-05-28.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Cinnamon_Bun_-_Caff%C3%A8_Nero_2026-05-28.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_cinnamon_roll_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_cinnamon_roll_02.jpg",
+    "cid": "openvocab_cinnamon_roll",
+    "cname": "Cinnamon Roll",
+    "title": "File:Cinnamon bun (7659511990).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Cinnamon_bun_(7659511990).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": false
+  },
+  "openvocab_fudge_brownie_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_fudge_brownie_01.jpg",
+    "cid": "openvocab_fudge_brownie",
+    "cname": "Fudge Brownie",
+    "title": "File:Brownie chocolate.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Brownie_chocolate.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_fudge_brownie_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_fudge_brownie_02.jpg",
+    "cid": "openvocab_fudge_brownie",
+    "cname": "Fudge Brownie",
+    "title": "File:Chocolate Brownie Donut - Down to Earth Coffee 2025-04-25.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chocolate_Brownie_Donut_-_Down_to_Earth_Coffee_2025-04-25.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_apple_pie_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_apple_pie_01.jpg",
+    "cid": "openvocab_apple_pie",
+    "cname": "Apple Pie",
+    "title": "File:Apple Pie (baked).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Apple_Pie_(baked).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_apple_pie_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_apple_pie_02.jpg",
+    "cid": "openvocab_apple_pie",
+    "cname": "Apple Pie",
+    "title": "File:Pie de manzana Peru (02).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Pie_de_manzana_Peru_(02).jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_brazilian_feijoada_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_brazilian_feijoada_01.jpg",
+    "cid": "openvocab_brazilian_feijoada",
+    "cname": "Brazilian Feijoada",
+    "title": "File:Feijoada, Mazatl\u00e1n, 12 de julio de 2023.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Feijoada,_Mazatl%C3%A1n,_12_de_julio_de_2023.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_brazilian_feijoada_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_brazilian_feijoada_02.jpg",
+    "cid": "openvocab_brazilian_feijoada",
+    "cname": "Brazilian Feijoada",
+    "title": "File:Feijoada, Mazatl\u00e1n, 12 de julio de 2023 02.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Feijoada,_Mazatl%C3%A1n,_12_de_julio_de_2023_02.jpg",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_p_o_de_queijo_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_p_o_de_queijo_01.jpg",
+    "cid": "openvocab_p_o_de_queijo",
+    "cname": "P\u00e3o de Queijo",
+    "title": "File:Caf\u00e9 da manh\u00e3 brasileiro.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Caf%C3%A9_da_manh%C3%A3_brasileiro.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_p_o_de_queijo_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_p_o_de_queijo_02.jpg",
+    "cid": "openvocab_p_o_de_queijo",
+    "cname": "P\u00e3o de Queijo",
+    "title": "File:P\u00e3o com manteiga e mortadela + Mam\u00e3o.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:P%C3%A3o_com_manteiga_e_mortadela_%2B_Mam%C3%A3o.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_vada_pav_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_vada_pav_01.jpg",
+    "cid": "openvocab_vada_pav",
+    "cname": "Vada Pav",
+    "title": "File:Aran Vada Pav Mumbai.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Aran_Vada_Pav_Mumbai.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_vada_pav_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_vada_pav_02.jpg",
+    "cid": "openvocab_vada_pav",
+    "cname": "Vada Pav",
+    "title": "File:Friendsof the Bombay Burger.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Friendsof_the_Bombay_Burger.JPG",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_rasmalai_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_rasmalai_01.jpg",
+    "cid": "openvocab_rasmalai",
+    "cname": "Rasmalai",
+    "title": "File:Indian sweet delight.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Indian_sweet_delight.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_rasmalai_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_rasmalai_02.jpg",
+    "cid": "openvocab_rasmalai",
+    "cname": "Rasmalai",
+    "title": "File:Ras Malai.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Ras_Malai.JPG",
+    "license": "CC0",
+    "is_oov": false
+  },
+  "openvocab_kaju_katli_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kaju_katli_01.jpg",
+    "cid": "openvocab_kaju_katli",
+    "cname": "Kaju Katli",
+    "title": "File:Homemade Kaju Katli.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Homemade_Kaju_Katli.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "openvocab_kaju_katli_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\openvocab_kaju_katli_02.jpg",
+    "cid": "openvocab_kaju_katli",
+    "cname": "Kaju Katli",
+    "title": "File:Kaju-katlii.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Kaju-katlii.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": false
+  },
+  "oov_khachapuri_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_khachapuri_01.jpg",
+    "cid": "oov_khachapuri",
+    "cname": "Khachapuri Georgian Cheese Bread",
+    "title": "File:Adjarian Khachapuri Tbilisuri We Are Georgians Restaurant Georgian Food NYC 2018.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Adjarian_Khachapuri_Tbilisuri_We_Are_Georgians_Restaurant_Georgian_Food_NYC_2018.jpg",
+    "license": "CC BY 4.0",
+    "is_oov": true
+  },
+  "oov_khachapuri_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_khachapuri_02.jpg",
+    "cid": "oov_khachapuri",
+    "cname": "Khachapuri Georgian Cheese Bread",
+    "title": "File:Adjarian khachapuri on a wooden tray.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Adjarian_khachapuri_on_a_wooden_tray.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": true
+  },
+  "oov_stroopwafel_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_stroopwafel_01.jpg",
+    "cid": "oov_stroopwafel",
+    "cname": "Dutch Stroopwafel Caramel Waffle",
+    "title": "File:Eenstroopwafel.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Eenstroopwafel.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": true
+  },
+  "oov_stroopwafel_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_stroopwafel_02.jpg",
+    "cid": "oov_stroopwafel",
+    "cname": "Dutch Stroopwafel Caramel Waffle",
+    "title": "File:Stroopkoeken.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Stroopkoeken.jpg",
+    "license": "CC BY-SA 3.0",
+    "is_oov": true
+  },
+  "oov_paniyaram_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_paniyaram_01.jpg",
+    "cid": "oov_paniyaram",
+    "cname": "South Indian Kuzhi Paniyaram",
+    "title": "File:A shot of Kuzhi paniyaram making.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_shot_of_Kuzhi_paniyaram_making.JPG",
+    "license": "CC BY-SA 3.0",
+    "is_oov": true
+  },
+  "oov_paniyaram_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_paniyaram_02.jpg",
+    "cid": "oov_paniyaram",
+    "cname": "South Indian Kuzhi Paniyaram",
+    "title": "File:A visual of Kuzhi paniyaram making.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:A_visual_of_Kuzhi_paniyaram_making.JPG",
+    "license": "CC BY-SA 3.0",
+    "is_oov": true
+  },
+  "oov_khao_soi_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_khao_soi_01.jpg",
+    "cid": "oov_khao_soi",
+    "cname": "Northern Thai Khao Soi Curry Noodles",
+    "title": "File:Chiang Mai Noodles - Ghin Khao AUD10.90 (3841831890).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Chiang_Mai_Noodles_-_Ghin_Khao_AUD10.90_(3841831890).jpg",
+    "license": "CC BY-SA 2.0",
+    "is_oov": true
+  },
+  "oov_khao_soi_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_khao_soi_02.jpg",
+    "cid": "oov_khao_soi",
+    "cname": "Northern Thai Khao Soi Curry Noodles",
+    "title": "File:KhaoSoi.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:KhaoSoi.JPG",
+    "license": "Public domain",
+    "is_oov": true
+  },
+  "oov_borscht_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_borscht_01.jpg",
+    "cid": "oov_borscht",
+    "cname": "Ukrainian Beetroot Borscht Soup",
+    "title": "File:Vegetables for borscht.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Vegetables_for_borscht.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": true
+  },
+  "oov_pastel_de_nata_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_pastel_de_nata_01.jpg",
+    "cid": "oov_pastel_de_nata",
+    "cname": "Portuguese Pastel de Nata Custard Tart",
+    "title": "File:Funchal (Madeira, Portugal), Rua Dr. Fern\u00e3o de Ornelas, Nata 7 - Fern\u00e3o Ornelas -- 2025 -- 1205.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Funchal_(Madeira,_Portugal),_Rua_Dr._Fern%C3%A3o_de_Ornelas,_Nata_7_-_Fern%C3%A3o_Ornelas_--_2025_--_1205.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": true
+  },
+  "oov_pastel_de_nata_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_pastel_de_nata_02.jpg",
+    "cid": "oov_pastel_de_nata",
+    "cname": "Portuguese Pastel de Nata Custard Tart",
+    "title": "File:Pastel De Nata.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Pastel_De_Nata.jpg",
+    "license": "CC BY-SA 4.0",
+    "is_oov": true
+  },
+  "oov_takoyaki_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_takoyaki_01.jpg",
+    "cid": "oov_takoyaki",
+    "cname": "Japanese Takoyaki Octopus Balls",
+    "title": "File:Honkeohtako's takoyaki, Osaka; December 2013 (02).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Honkeohtako%27s_takoyaki,_Osaka;_December_2013_(02).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": true
+  },
+  "oov_takoyaki_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_takoyaki_02.jpg",
+    "cid": "oov_takoyaki",
+    "cname": "Japanese Takoyaki Octopus Balls",
+    "title": "File:Honkeohtako's takoyaki, Osaka; December 2013 (03).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Honkeohtako%27s_takoyaki,_Osaka;_December_2013_(03).jpg",
+    "license": "CC BY 2.0",
+    "is_oov": true
+  },
+  "oov_spanakopita_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_spanakopita_01.jpg",
+    "cid": "oov_spanakopita",
+    "cname": "Greek Spanakopita Spinach Feta Pie",
+    "title": "File:-365 spinach pie to be (26698198381).jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:-365_spinach_pie_to_be_(26698198381).jpg",
+    "license": "CC0",
+    "is_oov": true
+  },
+  "oov_spanakopita_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_spanakopita_02.jpg",
+    "cid": "oov_spanakopita",
+    "cname": "Greek Spanakopita Spinach Feta Pie",
+    "title": "File:2010 Greek Fest 060.JPG",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:2010_Greek_Fest_060.JPG",
+    "license": "CC BY-SA 3.0",
+    "is_oov": true
+  },
+  "oov_banh_xeo_01.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_banh_xeo_01.jpg",
+    "cid": "oov_banh_xeo",
+    "cname": "Vietnamese Banh Xeo Crispy Crepe",
+    "title": "File:Banh Xeo with fish sauce and vegetables.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Banh_Xeo_with_fish_sauce_and_vegetables.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": true
+  },
+  "oov_banh_xeo_02.jpg": {
+    "path": "tools/benchmarks/food_open_vocabulary\\images_cache\\oov_banh_xeo_02.jpg",
+    "cid": "oov_banh_xeo",
+    "cname": "Vietnamese Banh Xeo Crispy Crepe",
+    "title": "File:Banh xeo with veggies on a plate.jpg",
+    "desc_url": "https://commons.wikimedia.org/wiki/File:Banh_xeo_with_veggies_on_a_plate.jpg",
+    "license": "CC BY 2.0",
+    "is_oov": true
+  }
+}

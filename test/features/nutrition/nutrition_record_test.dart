@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitfuel/features/food_scan/domain/entities/nutrition_profile_tier.dart';
 import 'package:fitfuel/features/nutrition/data/models/nutrition_record_model.dart';
 import 'package:fitfuel/features/nutrition/domain/entities/nutrition_record_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +16,20 @@ void main() {
     carbohydrates: 0.0,
     fats: 3.6,
     sugar: 0.0,
+    fiber: 0.0,
+    sodium: 74.0,
     servingSize: 100.0,
+    foodId: 'chicken_breast',
+    baseServingSize: 100.0,
+    baseCalories: 165.0,
+    baseProtein: 31.0,
+    baseCarbohydrates: 0.0,
+    baseFats: 3.6,
+    baseFiber: 0.0,
+    baseSugar: 0.0,
+    baseSodium: 74.0,
+    nutritionTier: NutritionProfileTier.verifiedExact,
+    nutritionAttribution: 'Curated FitFuel Food Database',
     consumedAt: now,
     createdAt: now,
     updatedAt: now,
@@ -30,7 +44,20 @@ void main() {
     carbohydrates: 0.0,
     fats: 3.6,
     sugar: 0.0,
+    fiber: 0.0,
+    sodium: 74.0,
     servingSize: 100.0,
+    foodId: 'chicken_breast',
+    baseServingSize: 100.0,
+    baseCalories: 165.0,
+    baseProtein: 31.0,
+    baseCarbohydrates: 0.0,
+    baseFats: 3.6,
+    baseFiber: 0.0,
+    baseSugar: 0.0,
+    baseSodium: 74.0,
+    nutritionTier: NutritionProfileTier.verifiedExact,
+    nutritionAttribution: 'Curated FitFuel Food Database',
     consumedAt: now,
     createdAt: now,
     updatedAt: now,
@@ -46,21 +73,56 @@ void main() {
       expect(testEntity.carbohydrates, 0.0);
       expect(testEntity.fats, 3.6);
       expect(testEntity.sugar, 0.0);
+      expect(testEntity.fiber, 0.0);
+      expect(testEntity.sodium, 74.0);
       expect(testEntity.servingSize, 100.0);
+      expect(testEntity.foodId, 'chicken_breast');
+      expect(testEntity.baseServingSize, 100.0);
+      expect(testEntity.nutritionTier, NutritionProfileTier.verifiedExact);
+      expect(testEntity.nutritionSourceLabel, 'Curated FitFuel Food Database');
       expect(testEntity.consumedAt, now);
       expect(testEntity.createdAt, now);
       expect(testEntity.updatedAt, now);
     });
 
     test('Entity equality and copyWith work correctly', () {
-      final copy = testEntity.copyWith(calories: 180.0);
+      final copy = testEntity.copyWith(calories: 180.0, sodium: 85.0);
       expect(copy.calories, 180.0);
+      expect(copy.sodium, 85.0);
       expect(copy.id, testEntity.id);
       expect(copy.foodName, testEntity.foodName);
       expect(copy.mealType, testEntity.mealType);
 
       final identicalCopy = testEntity.copyWith();
       expect(identicalCopy, testEntity);
+    });
+
+    test('Source labels for different tiers', () {
+      expect(
+        testEntity.copyWith(nutritionTier: NutritionProfileTier.recipeEstimate).nutritionSourceLabel,
+        'Recipe Estimate',
+      );
+      expect(
+        testEntity.copyWith(
+          nutritionTier: NutritionProfileTier.closelyRelatedGeneric,
+          nutritionAttribution: 'USDA FoodData Central',
+        ).nutritionSourceLabel,
+        'USDA Generic Baseline',
+      );
+      expect(
+        testEntity.copyWith(
+          nutritionTier: NutritionProfileTier.closelyRelatedGeneric,
+          nutritionAttribution: 'Standard Generic Table',
+        ).nutritionSourceLabel,
+        'Generic Nutrition Baseline',
+      );
+      expect(
+        testEntity.copyWith(
+          foodId: 'manual_123',
+          nutritionTier: null,
+        ).nutritionSourceLabel,
+        'User-entered nutrition',
+      );
     });
   });
 
@@ -80,7 +142,13 @@ void main() {
       expect(model.carbohydrates, testEntity.carbohydrates);
       expect(model.fats, testEntity.fats);
       expect(model.sugar, testEntity.sugar);
+      expect(model.fiber, testEntity.fiber);
+      expect(model.sodium, testEntity.sodium);
       expect(model.servingSize, testEntity.servingSize);
+      expect(model.foodId, testEntity.foodId);
+      expect(model.baseServingSize, testEntity.baseServingSize);
+      expect(model.nutritionTier, testEntity.nutritionTier);
+      expect(model.nutritionAttribution, testEntity.nutritionAttribution);
     });
 
     test('Model toFirestore produces valid Map parameters', () {
@@ -92,7 +160,13 @@ void main() {
       expect(firestoreMap['carbohydrates'], 0.0);
       expect(firestoreMap['fats'], 3.6);
       expect(firestoreMap['sugar'], 0.0);
+      expect(firestoreMap['fiber'], 0.0);
+      expect(firestoreMap['sodium'], 74.0);
       expect(firestoreMap['servingSize'], 100.0);
+      expect(firestoreMap['foodId'], 'chicken_breast');
+      expect(firestoreMap['baseServingSize'], 100.0);
+      expect(firestoreMap['nutritionTier'], 'verifiedExact');
+      expect(firestoreMap['nutritionAttribution'], 'Curated FitFuel Food Database');
       expect(firestoreMap['consumedAt'], isA<Timestamp>());
     });
   });

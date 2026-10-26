@@ -46,8 +46,13 @@ dependencies:
   # Logging & Utilities
   logger: ^2.3.0
 
+  # Machine Learning & On-Device Vision
+  tflite_flutter: ^0.12.1
+
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   flutter_lints: ^3.0.0
   mocktail: ^1.0.3
@@ -72,3 +77,4 @@ flutter:
     - assets/data/
     - assets/branding/
     - assets/decorations/
+    - assets/ml/

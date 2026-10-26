@@ -40,7 +40,10 @@ class GeminiConfig {
     return defaultFallbackModelName;
   }
 
-  static const Duration timeout = Duration(seconds: 20);
+  static const Duration connectTimeout = Duration(seconds: 15);
+  static const Duration sendTimeout = Duration(seconds: 15);
+  static const Duration receiveTimeout = Duration(seconds: 35);
+  static const Duration timeout = Duration(seconds: 35);
 }
 
 class AiNutritionRemoteDatasource implements AiNutritionService {

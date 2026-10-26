@@ -1,0 +1,239 @@
+food_id,food_name,category,baseline_url,corrected_url,baseline_status,final_status,duplicate_group,expected_subject,notes
+predefined_idli,Idli,Breakfast,,assets/images/foods/idli.webp,BRANDED_FALLBACK,VALID_EXACT,,Idli,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_dosa,Plain Dosa,Breakfast,https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Plain Dosa,Phase 35.7 verified baseline authentic photo
+predefined_masala_dosa,Masala Dosa,Breakfast,https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Masala Dosa,Phase 35.7 verified baseline authentic photo
+predefined_rava_dosa,Rava Dosa,Breakfast,,assets/images/foods/rava_dosa.webp,BRANDED_FALLBACK,VALID_EXACT,,Rava Dosa,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_uttapam,Uttapam,Breakfast,,assets/images/foods/uttapam.webp,BRANDED_FALLBACK,VALID_EXACT,,Uttapam,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_upma,Upma,Breakfast,,assets/images/foods/upma.webp,BRANDED_FALLBACK,VALID_EXACT,,Upma,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_poha,Poha,Breakfast,,assets/images/foods/poha.webp,BRANDED_FALLBACK,VALID_EXACT,,Poha,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_pongal,Ven Pongal,Breakfast,,assets/images/foods/pongal.webp,BRANDED_FALLBACK,VALID_EXACT,,Ven Pongal,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_pesarattu,Pesarattu (Moong Dal Dosa),Breakfast,,assets/images/foods/pesarattu.webp,BRANDED_FALLBACK,VALID_EXACT,,Pesarattu (Moong Dal Dosa),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_appam,Appam,Breakfast,,assets/images/foods/appam.webp,BRANDED_FALLBACK,VALID_EXACT,,Appam,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_aloo_paratha,Aloo Paratha,Breakfast,,assets/images/foods/aloo_paratha.webp,BRANDED_FALLBACK,VALID_EXACT,,Aloo Paratha,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_paneer_paratha,Paneer Paratha,Breakfast,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Paneer Paratha,Safe branded fallback
+predefined_gobhi_paratha,Gobi Paratha,Breakfast,,assets/images/foods/gobhi_paratha.webp,BRANDED_FALLBACK,VALID_EXACT,,Gobi Paratha,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_chapati,Chapati,Breakfast,,assets/images/foods/chapati.webp,BRANDED_FALLBACK,VALID_EXACT,,Chapati,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_roti,Tandoori Roti,Breakfast,,assets/images/foods/roti.webp,BRANDED_FALLBACK,VALID_EXACT,,Tandoori Roti,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_poori,Poori,Breakfast,,assets/images/foods/poori.webp,BRANDED_FALLBACK,VALID_EXACT,,Poori,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.5)
+predefined_medu_vada,Medu Vada,Breakfast,,assets/images/foods/medu_vada.webp,BRANDED_FALLBACK,VALID_EXACT,,Medu Vada,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.0)
+predefined_sabudana_khichdi,Sabudana Khichdi,Breakfast,,assets/images/foods/sabudana_khichdi.webp,BRANDED_FALLBACK,VALID_EXACT,,Sabudana Khichdi,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_dhokla,Dhokla,Breakfast,,assets/images/foods/dhokla.webp,BRANDED_FALLBACK,VALID_EXACT,,Dhokla,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_rava_upma,Rava Upma,Breakfast,,assets/images/foods/upma.webp,BRANDED_FALLBACK,VALID_CLOSE,Shared Alias,Rava Upma,Approved culinary alias mapping (Wikimedia Commons CC BY-SA 4.0)
+predefined_steamed_rice,Steamed Rice (Basmati),Grains,https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Steamed Rice (Basmati),Phase 35.7 verified baseline authentic photo
+predefined_brown_rice_ind,Indian Brown Rice,Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Indian Brown Rice,Safe branded fallback
+predefined_jeera_rice,Jeera Rice,Lunch,,assets/images/foods/jeera_rice.webp,BRANDED_FALLBACK,VALID_EXACT,,Jeera Rice,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_lemon_rice,Lemon Rice,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Lemon Rice,Safe branded fallback
+predefined_tomato_rice,Tomato Rice,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Tomato Rice,Safe branded fallback
+predefined_curd_rice,Curd Rice,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Curd Rice,Safe branded fallback
+predefined_veg_biryani,Vegetable Biryani,Lunch,,assets/images/foods/veg_biryani.webp,BRANDED_FALLBACK,VALID_EXACT,,Vegetable Biryani,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_chicken_biryani,Chicken Biryani,Lunch,https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Chicken Biryani,Phase 35.7 verified baseline authentic photo
+predefined_egg_biryani,Egg Biryani,Lunch,,assets/images/foods/egg_biryani.webp,BRANDED_FALLBACK,VALID_EXACT,,Egg Biryani,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_mutton_biryani,Mutton Biryani,Lunch,https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Mutton Biryani,Phase 35.7 verified baseline authentic photo
+predefined_veg_pulao,Vegetable Pulao,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Vegetable Pulao,Safe branded fallback
+predefined_chicken_pulao,Chicken Pulao,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Chicken Pulao,Safe branded fallback
+predefined_khichdi_ind,Moong Dal Khichdi,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Moong Dal Khichdi,Safe branded fallback
+predefined_kadhi_chawal,Kadhi Chawal,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Kadhi Chawal,Safe branded fallback
+predefined_rajma_chawal,Rajma Chawal,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Rajma Chawal,Safe branded fallback
+predefined_dal_tadka,Dal Tadka,Legumes,,assets/images/foods/dal_tadka.webp,BRANDED_FALLBACK,VALID_EXACT,,Dal Tadka,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_dal_fry,Dal Fry,Legumes,,assets/images/foods/dal_fry.webp,BRANDED_FALLBACK,VALID_EXACT,,Dal Fry,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_moong_dal,Yellow Moong Dal,Legumes,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Yellow Moong Dal,Safe branded fallback
+predefined_masoor_dal,Red Masoor Dal,Legumes,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Red Masoor Dal,Safe branded fallback
+predefined_toor_dal,Toor Dal (Arhar),Legumes,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Toor Dal (Arhar),Safe branded fallback
+predefined_chana_dal,Chana Dal Curry,Legumes,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Chana Dal Curry,Safe branded fallback
+predefined_rajma_curry,Rajma Curry (Kidney Beans),Legumes,,assets/images/foods/rajma_curry.webp,BRANDED_FALLBACK,VALID_EXACT,,Rajma Curry (Kidney Beans),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC0)
+predefined_chole_masala,Chole Masala (Chickpeas),Legumes,https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Chole Masala (Chickpeas),Phase 35.7 verified baseline authentic photo
+predefined_black_chana_curry,Kala Chana Curry,Legumes,,assets/images/foods/black_chana_curry.webp,BRANDED_FALLBACK,VALID_EXACT,,Kala Chana Curry,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_green_gram_whole,Moong Sabut (Whole Green Gram),Legumes,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Moong Sabut (Whole Green Gram),Safe branded fallback
+predefined_sprouted_moong_salad,Sprouted Moong Salad,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Sprouted Moong Salad,Safe branded fallback
+predefined_palak_paneer,Palak Paneer,Vegetables,https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Palak Paneer,Phase 35.7 verified baseline authentic photo
+predefined_aloo_gobi,Aloo Gobi,Vegetables,,assets/images/foods/aloo_gobi.webp,BRANDED_FALLBACK,VALID_EXACT,,Aloo Gobi,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.0)
+predefined_bhindi_masala,Bhindi Masala,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Bhindi Masala,Safe branded fallback
+predefined_baingan_bharta,Baingan Bharta,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Baingan Bharta,Safe branded fallback
+predefined_mixed_veg_curry,Mixed Vegetable Curry,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Mixed Vegetable Curry,Safe branded fallback
+predefined_veg_kurma,Vegetable Kurma,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Vegetable Kurma,Safe branded fallback
+predefined_sambar,Sambar,Vegetables,,assets/images/foods/sambar.webp,BRANDED_FALLBACK,VALID_EXACT,,Sambar,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_rasam,Rasam,Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Rasam,Safe branded fallback
+predefined_cabbage_poriyal,Cabbage Poriyal,Vegetables,,assets/images/foods/cabbage_poriyal.webp,BRANDED_FALLBACK,VALID_EXACT,,Cabbage Poriyal,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_beans_thoran,Beans Thoran,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Beans Thoran,Safe branded fallback
+predefined_carrot_methi,Carrot Methi Sukhi Sabzi,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Carrot Methi Sukhi Sabzi,Safe branded fallback
+predefined_lauki_curry,Lauki Ki Sabzi (Bottle Gourd),Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Lauki Ki Sabzi (Bottle Gourd),Safe branded fallback
+predefined_aloo_methi,Aloo Methi,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Aloo Methi,Safe branded fallback
+predefined_dum_aloo,Dum Aloo,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Dum Aloo,Safe branded fallback
+predefined_bhindi_fry,Bhindi Fry (Crispy Okra),Vegetables,,assets/images/foods/bhindi_fry.webp,BRANDED_FALLBACK,VALID_EXACT,,Bhindi Fry (Crispy Okra),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_ind_grilled_chicken,Indian Style Tandoori Grilled Chicken,Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Indian Style Tandoori Grilled Chicken,Safe branded fallback
+predefined_chicken_curry,Home Style Chicken Curry,Lunch,https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Home Style Chicken Curry,Phase 35.7 verified baseline authentic photo
+predefined_tandoori_chicken,Tandoori Chicken (Tikka),Protein,https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Tandoori Chicken (Tikka),Phase 35.7 verified baseline authentic photo
+predefined_chicken_tikka,Chicken Tikka,Snacks,https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Chicken Tikka,Phase 35.7 verified baseline authentic photo
+predefined_chicken_kebab,Chicken Seekh Kebab,Snacks,,assets/images/foods/chicken_kebab.webp,BRANDED_FALLBACK,VALID_EXACT,,Chicken Seekh Kebab,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_boiled_egg_salad,Desi Boiled Egg Salad,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Desi Boiled Egg Salad,Safe branded fallback
+predefined_egg_omelette,Masala Egg Omelette,Breakfast,,assets/images/foods/egg_omelette.webp,BRANDED_FALLBACK,VALID_EXACT,,Masala Egg Omelette,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_egg_bhurji,Egg Bhurji (Scrambled),Breakfast,,assets/images/foods/egg_bhurji.webp,BRANDED_FALLBACK,VALID_EXACT,,Egg Bhurji (Scrambled),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_egg_curry,Egg Curry,Lunch,,assets/images/foods/egg_curry.webp,BRANDED_FALLBACK,VALID_EXACT,,Egg Curry,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_fish_curry,Indian Fish Curry,Lunch,,assets/images/foods/fish_curry.webp,BRANDED_FALLBACK,VALID_EXACT,,Indian Fish Curry,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_grilled_fish_tikka,Amritsari Fish Tikka,Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Amritsari Fish Tikka,Safe branded fallback
+predefined_salmon_tikka,Tandoori Salmon Tikka,Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Tandoori Salmon Tikka,Safe branded fallback
+predefined_prawn_masala,Prawn Masala Curry,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Prawn Masala Curry,Safe branded fallback
+predefined_mutton_curry,Indian Mutton Curry,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Indian Mutton Curry,Safe branded fallback
+predefined_butter_chicken,Butter Chicken (Murgh Makhani),Dinner,https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Butter Chicken (Murgh Makhani),Phase 35.7 verified baseline authentic photo
+predefined_curd,Indian Curd (Dahi),Dairy,,assets/images/foods/curd.webp,BRANDED_FALLBACK,VALID_EXACT,,Indian Curd (Dahi),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_greek_yogurt_mint,Mint Raita (Yogurt Dip),Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Mint Raita (Yogurt Dip),Safe branded fallback
+predefined_ind_paneer,Paneer (Indian Cottage Cheese),Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Paneer (Indian Cottage Cheese),Safe branded fallback
+predefined_low_fat_paneer,Low-Fat Paneer,Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Low-Fat Paneer,Safe branded fallback
+predefined_buttermilk,Chaas (Indian Buttermilk),Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Chaas (Indian Buttermilk),Safe branded fallback
+predefined_sweet_lassi,Sweet Lassi,Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Sweet Lassi,Safe branded fallback
+predefined_mango_lassi,Mango Lassi,Beverages,,assets/images/foods/mango_lassi.webp,BRANDED_FALLBACK,VALID_EXACT,,Mango Lassi,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_paneer_bhurji,Paneer Bhurji,Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Paneer Bhurji,Safe branded fallback
+predefined_roasted_chana,Roasted Chana (Bhuna Chana),Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Roasted Chana (Bhuna Chana),Safe branded fallback
+predefined_peanut_chaat,Peanut Chaat,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Peanut Chaat,Safe branded fallback
+predefined_sprouts_chaat,Mix Sprouts Chaat,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Mix Sprouts Chaat,Safe branded fallback
+predefined_bhel_puri,Bhel Puri,Snacks,,assets/images/foods/bhel_puri.webp,BRANDED_FALLBACK,VALID_EXACT,,Bhel Puri,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.0)
+predefined_samosa,Samosa,Snacks,https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Samosa,Phase 35.7 verified baseline authentic photo
+predefined_veg_pakora,Vegetable Pakora,Snacks,,assets/images/foods/veg_pakora.webp,BRANDED_FALLBACK,VALID_EXACT,,Vegetable Pakora,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_khandvi,Khandvi,Snacks,,assets/images/foods/khandvi.webp,BRANDED_FALLBACK,VALID_EXACT,,Khandvi,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_murukku,Murukku,Snacks,,assets/images/foods/murukku.webp,BRANDED_FALLBACK,VALID_EXACT,,Murukku,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_rice_kheer,Rice Kheer (Rice Pudding),Desserts,,assets/images/foods/rice_kheer.webp,BRANDED_FALLBACK,VALID_EXACT,,Rice Kheer (Rice Pudding),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.0)
+predefined_gulab_jamun,Gulab Jamun,Desserts,,assets/images/foods/gulab_jamun.webp,BRANDED_FALLBACK,VALID_EXACT,,Gulab Jamun,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_rasgulla,Rasgulla,Desserts,,assets/images/foods/rasgulla.webp,BRANDED_FALLBACK,VALID_EXACT,,Rasgulla,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_jalebi,Jalebi,Desserts,,assets/images/foods/jalebi.webp,BRANDED_FALLBACK,VALID_EXACT,,Jalebi,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_gajar_halwa,Gajar Ka Halwa (Carrot Halwa),Desserts,,assets/images/foods/gajar_halwa.webp,BRANDED_FALLBACK,VALID_EXACT,,Gajar Ka Halwa (Carrot Halwa),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_besan_ladoo,Besan Ladoo,Desserts,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Besan Ladoo,Safe branded fallback
+predefined_coconut_ladoo,Coconut Ladoo,Desserts,,assets/images/foods/coconut_ladoo.webp,BRANDED_FALLBACK,VALID_EXACT,,Coconut Ladoo,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_apple,Red Apple,Fruits,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Red Apple,Phase 35.7 verified baseline authentic photo
+predefined_banana,Ripe Banana,Fruits,https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Ripe Banana,Phase 35.7 verified baseline authentic photo
+predefined_orange,Orange,Fruits,https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Orange,Phase 35.7 verified baseline authentic photo
+predefined_mango,Mango,Fruits,https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Mango,Phase 35.7 verified baseline authentic photo
+predefined_papaya,Papaya,Fruits,https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Papaya,Phase 35.7 verified baseline authentic photo
+predefined_watermelon,Watermelon,Fruits,https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Watermelon,Phase 35.7 verified baseline authentic photo
+predefined_muskmelon,Cantaloupe Muskmelon,Fruits,,assets/images/foods/muskmelon.webp,BRANDED_FALLBACK,VALID_EXACT,,Cantaloupe Muskmelon,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_pineapple,Pineapple,Fruits,https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Pineapple,Phase 35.7 verified baseline authentic photo
+predefined_grapes,Green Grapes,Fruits,,assets/images/foods/grapes.webp,BRANDED_FALLBACK,VALID_EXACT,,Green Grapes,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_guava,Guava,Fruits,,assets/images/foods/guava.webp,BRANDED_FALLBACK,VALID_EXACT,,Guava,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_pomegranate,Pomegranate Seeds,Fruits,,assets/images/foods/pomegranate.webp,BRANDED_FALLBACK,VALID_EXACT,,Pomegranate Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons GFDL 1.2)
+predefined_kiwi,Kiwi Fruit,Fruits,,assets/images/foods/kiwi.webp,BRANDED_FALLBACK,VALID_EXACT,,Kiwi Fruit,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.5)
+predefined_strawberry,Strawberry,Fruits,https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Strawberry,Phase 35.7 verified baseline authentic photo
+predefined_blueberry,Blueberries,Fruits,https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Blueberries,Phase 35.7 verified baseline authentic photo
+predefined_raspberry,Raspberries,Fruits,,assets/images/foods/raspberry.webp,BRANDED_FALLBACK,VALID_EXACT,,Raspberries,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_pear,Pear,Fruits,,assets/images/foods/pear.webp,BRANDED_FALLBACK,VALID_EXACT,,Pear,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_peach,Peach,Fruits,,assets/images/foods/peach.webp,BRANDED_FALLBACK,VALID_EXACT,,Peach,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_plum,Plum,Fruits,,assets/images/foods/plum.webp,BRANDED_FALLBACK,VALID_EXACT,,Plum,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_chikoo,Chikoo (Sapodilla),Fruits,,assets/images/foods/chikoo.webp,BRANDED_FALLBACK,VALID_EXACT,,Chikoo (Sapodilla),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_fresh_coconut,Fresh Coconut Meat,Fruits,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Fresh Coconut Meat,Safe branded fallback
+predefined_jackfruit,Jackfruit,Fruits,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Jackfruit,Safe branded fallback
+predefined_dragon_fruit,Dragon Fruit,Fruits,,assets/images/foods/dragon_fruit.webp,BRANDED_FALLBACK,VALID_EXACT,,Dragon Fruit,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_avocado,Avocado,Fruits,https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Avocado,Phase 35.7 verified baseline authentic photo
+predefined_lemon,Lemon Juice,Fruits,,assets/images/foods/lemon.webp,BRANDED_FALLBACK,VALID_EXACT,,Lemon Juice,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_sweet_lime,Sweet Lime (Mosambi),Fruits,,assets/images/foods/sweet_lime.webp,BRANDED_FALLBACK,VALID_EXACT,,Sweet Lime (Mosambi),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_cherries,Sweet Cherries,Fruits,,assets/images/foods/cherries.webp,BRANDED_FALLBACK,VALID_EXACT,,Sweet Cherries,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_fig,Fresh Fig (Anjeer),Fruits,,assets/images/foods/fig.webp,BRANDED_FALLBACK,VALID_EXACT,,Fresh Fig (Anjeer),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_blackberry,Blackberries,Fruits,,assets/images/foods/blackberry.webp,BRANDED_FALLBACK,VALID_EXACT,,Blackberries,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_potato,Potato (Raw),Vegetables,https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Potato (Raw),Phase 35.7 verified baseline authentic photo
+predefined_sweet_potato,Sweet Potato,Vegetables,,assets/images/foods/sweet_potato.webp,BRANDED_FALLBACK,VALID_EXACT,,Sweet Potato,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 3.0)
+predefined_tomato,Tomato (Red),Vegetables,https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Tomato (Red),Phase 35.7 verified baseline authentic photo
+predefined_onion,Raw Onion,Vegetables,https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Raw Onion,Phase 35.7 verified baseline authentic photo
+predefined_carrot,Raw Orange Carrot,Vegetables,https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Raw Orange Carrot,Phase 35.7 verified baseline authentic photo
+predefined_beetroot,Beetroot,Vegetables,,assets/images/foods/beetroot.webp,BRANDED_FALLBACK,VALID_EXACT,,Beetroot,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_spinach,Spinach (Raw),Vegetables,https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Spinach (Raw),Phase 35.7 verified baseline authentic photo
+predefined_broccoli,Broccoli,Vegetables,https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Broccoli,Phase 35.7 verified baseline authentic photo
+predefined_cauliflower,Cauliflower,Vegetables,,assets/images/foods/cauliflower.webp,BRANDED_FALLBACK,VALID_EXACT,,Cauliflower,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_cabbage,Green Cabbage,Vegetables,,assets/images/foods/cabbage.webp,BRANDED_FALLBACK,VALID_EXACT,,Green Cabbage,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_cucumber,Cucumber (With Peel),Vegetables,https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Cucumber (With Peel),Phase 35.7 verified baseline authentic photo
+predefined_capsicum,Green Bell Pepper (Capsicum),Vegetables,,assets/images/foods/capsicum.webp,BRANDED_FALLBACK,VALID_EXACT,,Green Bell Pepper (Capsicum),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_green_beans,Green Beans (French Beans),Vegetables,,assets/images/foods/green_beans.webp,BRANDED_FALLBACK,VALID_EXACT,,Green Beans (French Beans),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_green_peas,Green Peas,Vegetables,,assets/images/foods/green_peas.webp,BRANDED_FALLBACK,VALID_EXACT,,Green Peas,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_sweet_corn,Sweet Corn Seeds,Vegetables,,assets/images/foods/sweet_corn.webp,BRANDED_FALLBACK,VALID_EXACT,,Sweet Corn Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_pumpkin,Pumpkin,Vegetables,,assets/images/foods/pumpkin.webp,BRANDED_FALLBACK,VALID_EXACT,,Pumpkin,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_bottle_gourd,Bottle Gourd (Raw Lauki),Vegetables,,assets/images/foods/bottle_gourd.webp,BRANDED_FALLBACK,VALID_EXACT,,Bottle Gourd (Raw Lauki),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_bitter_gourd,Bitter Gourd (Karela),Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Bitter Gourd (Karela),Safe branded fallback
+predefined_ridge_gourd,Ridge Gourd (Turai),Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Ridge Gourd (Turai),Safe branded fallback
+predefined_eggplant,Eggplant (Brinjal),Vegetables,,assets/images/foods/eggplant.webp,BRANDED_FALLBACK,VALID_EXACT,,Eggplant (Brinjal),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_okra,Okra (Raw Bhindi),Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Okra (Raw Bhindi),Safe branded fallback
+predefined_mushroom,Button Mushrooms,Vegetables,https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Button Mushrooms,Phase 35.7 verified baseline authentic photo
+predefined_lettuce,Iceberg Lettuce,Vegetables,,assets/images/foods/lettuce.webp,BRANDED_FALLBACK,VALID_EXACT,,Iceberg Lettuce,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_zucchini,Zucchini,Vegetables,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Zucchini,Safe branded fallback
+predefined_kale,Kale (Raw),Vegetables,,assets/images/foods/kale.webp,BRANDED_FALLBACK,VALID_EXACT,,Kale (Raw),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_asparagus,Asparagus,Vegetables,,assets/images/foods/asparagus.webp,BRANDED_FALLBACK,VALID_EXACT,,Asparagus,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC0)
+predefined_garlic,Garlic Clove,Vegetables,,assets/images/foods/garlic.webp,BRANDED_FALLBACK,VALID_EXACT,,Garlic Clove,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 3.0)
+predefined_ginger,Ginger Root,Vegetables,,assets/images/foods/ginger.webp,BRANDED_FALLBACK,VALID_EXACT,,Ginger Root,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_oats,Oats (Rolled),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Oats (Rolled),Safe branded fallback
+predefined_oatmeal_cooked,Oatmeal (Cooked in Water),Breakfast,https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Oatmeal (Cooked in Water),Phase 35.7 verified baseline authentic photo
+predefined_quinoa,Quinoa (Uncooked),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Quinoa (Uncooked),Safe branded fallback
+predefined_brown_rice_grain,Brown Rice (Raw),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Brown Rice (Raw),Safe branded fallback
+predefined_white_rice_grain,White Rice (Raw Basmati),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,White Rice (Raw Basmati),Safe branded fallback
+predefined_whole_wheat_flour,Whole Wheat Flour (Atta),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Whole Wheat Flour (Atta),Safe branded fallback
+predefined_whole_wheat_bread,Whole Wheat Bread Slice,Breakfast,https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Whole Wheat Bread Slice,Phase 35.7 verified baseline authentic photo
+predefined_multigrain_bread,Multigrain Bread Slice,Breakfast,https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Multigrain Bread Slice,Phase 35.7 verified baseline authentic photo
+predefined_ragi_millet,Finger Millet (Ragi Flour),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Finger Millet (Ragi Flour),Safe branded fallback
+predefined_bajra_millet,Pearl Millet (Bajra Flour),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Pearl Millet (Bajra Flour),Safe branded fallback
+predefined_jowar_millet,Sorghum (Jowar Flour),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Sorghum (Jowar Flour),Safe branded fallback
+predefined_barley,Barley (Uncooked Jo),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Barley (Uncooked Jo),Safe branded fallback
+predefined_corn_meal,Corn Meal (Makai Atta),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Corn Meal (Makai Atta),Safe branded fallback
+predefined_couscous,Couscous (Dry),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Couscous (Dry),Safe branded fallback
+predefined_basmati_rice,Basmati Rice (Raw),Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Basmati Rice (Raw),Safe branded fallback
+predefined_oats_bran,Oats Bran,Grains,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Oats Bran,Safe branded fallback
+predefined_rice_cakes,Rice Cakes Plain,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Rice Cakes Plain,Safe branded fallback
+predefined_almonds,Almonds (Raw),Nuts & Seeds,https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Almonds (Raw),Phase 35.7 verified baseline authentic photo
+predefined_walnuts,Walnuts,Nuts & Seeds,,assets/images/foods/walnuts.webp,BRANDED_FALLBACK,VALID_EXACT,,Walnuts,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_cashews,Cashew Nuts,Nuts & Seeds,,assets/images/foods/cashews.webp,BRANDED_FALLBACK,VALID_EXACT,,Cashew Nuts,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_pistachios,Pistachio Nuts (Shelled),Nuts & Seeds,,assets/images/foods/pistachios.webp,BRANDED_FALLBACK,VALID_EXACT,,Pistachio Nuts (Shelled),Phase 35.7.1 verified authentic photo (Wikimedia Commons GFDL 1.2)
+predefined_peanuts,Peanuts (Raw),Nuts & Seeds,,assets/images/foods/peanuts.webp,BRANDED_FALLBACK,VALID_EXACT,,Peanuts (Raw),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_brazil_nuts,Brazil Nuts,Nuts & Seeds,,assets/images/foods/brazil_nuts.webp,BRANDED_FALLBACK,VALID_EXACT,,Brazil Nuts,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 2.0)
+predefined_hazelnuts,Hazelnuts,Nuts & Seeds,,assets/images/foods/hazelnuts.webp,BRANDED_FALLBACK,VALID_EXACT,,Hazelnuts,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_chia_seeds,Chia Seeds,Nuts & Seeds,,assets/images/foods/chia_seeds.webp,BRANDED_FALLBACK,VALID_EXACT,,Chia Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_flax_seeds,Flax Seeds,Nuts & Seeds,,assets/images/foods/flax_seeds.webp,BRANDED_FALLBACK,VALID_EXACT,,Flax Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_pumpkin_seeds,Pumpkin Seeds,Nuts & Seeds,,assets/images/foods/pumpkin_seeds.webp,BRANDED_FALLBACK,VALID_EXACT,,Pumpkin Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 3.0)
+predefined_sunflower_seeds,Sunflower Seeds,Nuts & Seeds,,assets/images/foods/sunflower_seeds.webp,BRANDED_FALLBACK,VALID_EXACT,,Sunflower Seeds,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_sesame_seeds,Sesame Seeds (Til),Nuts & Seeds,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Sesame Seeds (Til),Safe branded fallback
+predefined_peanut_butter,Peanut Butter Creamy,Nuts & Seeds,,assets/images/foods/peanut_butter.webp,BRANDED_FALLBACK,VALID_EXACT,,Peanut Butter Creamy,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC0)
+predefined_almond_butter,Almond Butter Pure,Nuts & Seeds,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Almond Butter Pure,Safe branded fallback
+predefined_tahini,Tahini Sesame Paste,Nuts & Seeds,,assets/images/foods/tahini.webp,BRANDED_FALLBACK,VALID_EXACT,,Tahini Sesame Paste,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_pecans,Pecans Raw,Nuts & Seeds,,assets/images/foods/pecans.webp,BRANDED_FALLBACK,VALID_EXACT,,Pecans Raw,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_chia_pudding,Chia Seed Pudding (Base),Breakfast,,assets/images/foods/chia_pudding.webp,BRANDED_FALLBACK,VALID_EXACT,,Chia Seed Pudding (Base),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC0)
+predefined_grilled_chicken_breast,Grilled Chicken Breast,Protein,https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Grilled Chicken Breast,Phase 35.7 verified baseline authentic photo
+predefined_turkey_breast,Roasted Turkey Breast,Protein,,assets/images/foods/turkey_breast.webp,BRANDED_FALLBACK,VALID_EXACT,,Roasted Turkey Breast,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY 4.0)
+predefined_canned_tuna,Canned Tuna (In Water),Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Canned Tuna (In Water),Safe branded fallback
+predefined_grilled_salmon,Grilled Salmon,Protein,https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Grilled Salmon,Phase 35.7 verified baseline authentic photo
+predefined_steamed_shrimp,Steamed Shrimp,Protein,,assets/images/foods/steamed_shrimp.webp,BRANDED_FALLBACK,VALID_EXACT,,Steamed Shrimp,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_beef_steak,Grilled Beef Sirloin Steak,Protein,,assets/images/foods/beef_steak.webp,BRANDED_FALLBACK,VALID_EXACT,,Grilled Beef Sirloin Steak,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_firm_tofu,Tofu (Firm),Protein,,assets/images/foods/firm_tofu.webp,BRANDED_FALLBACK,VALID_EXACT,,Tofu (Firm),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_tempeh,Tempeh (Organic),Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Tempeh (Organic),Safe branded fallback
+predefined_greek_yogurt_plain,"Greek Yogurt (Plain, Non-Fat)",Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,"Greek Yogurt (Plain, Non-Fat)",Safe branded fallback
+predefined_cottage_cheese,Cottage Cheese (Low Fat),Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Cottage Cheese (Low Fat),Safe branded fallback
+predefined_scrambled_eggs,Scrambled Eggs (Two Eggs),Breakfast,,assets/images/foods/scrambled_eggs.webp,BRANDED_FALLBACK,VALID_EXACT,,Scrambled Eggs (Two Eggs),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_hard_boiled_eggs,Hard Boiled Eggs,Breakfast,,assets/images/foods/hard_boiled_eggs.webp,BRANDED_FALLBACK,VALID_EXACT,,Hard Boiled Eggs,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 2.0)
+predefined_protein_oatmeal,Protein Oatmeal,Breakfast,https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Protein Oatmeal,Phase 35.7 verified baseline authentic photo
+predefined_overnight_oats,Overnight Oats with Chia,Breakfast,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Overnight Oats with Chia,Safe branded fallback
+predefined_chicken_salad,Healthy Chicken Salad,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Healthy Chicken Salad,Safe branded fallback
+predefined_tuna_salad,Tuna Salad (Light),Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Tuna Salad (Light),Safe branded fallback
+predefined_caesar_salad,Caesar Salad with Chicken,Lunch,,assets/images/foods/caesar_salad.webp,BRANDED_FALLBACK,VALID_EXACT,,Caesar Salad with Chicken,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_mixed_veg_salad,Mixed Garden Vegetable Salad,Snacks,https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Mixed Garden Vegetable Salad,Phase 35.7 verified baseline authentic photo
+predefined_quinoa_salad,Mediterranean Quinoa Salad,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Mediterranean Quinoa Salad,Safe branded fallback
+predefined_classic_hummus,Classic Chickpea Hummus,Snacks,https://images.unsplash.com/photo-1577906096429-f73c2c312435?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1577906096429-f73c2c312435?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Classic Chickpea Hummus,Phase 35.7 verified baseline authentic photo
+predefined_whole_grain_pasta,Whole Grain Pasta (Cooked),Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Whole Grain Pasta (Cooked),Safe branded fallback
+predefined_standard_pasta,Standard Pasta (Cooked),Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Standard Pasta (Cooked),Safe branded fallback
+predefined_baked_sweet_potato,Baked Sweet Potato,Lunch,,assets/images/foods/baked_sweet_potato.webp,BRANDED_FALLBACK,VALID_EXACT,,Baked Sweet Potato,Phase 35.7.1 verified authentic photo (Wikimedia Commons Public domain)
+predefined_baked_potato,Baked Potato (Plain),Lunch,,assets/images/foods/baked_potato.webp,BRANDED_FALLBACK,VALID_EXACT,,Baked Potato (Plain),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_honey_granola,Honey Granola Oats,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Honey Granola Oats,Safe branded fallback
+predefined_pb_toast,Peanut Butter Toast (1 slice),Breakfast,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Peanut Butter Toast (1 slice),Safe branded fallback
+predefined_avocado_toast,Avocado Whole Wheat Toast,Breakfast,https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Avocado Whole Wheat Toast,Phase 35.7 verified baseline authentic photo
+predefined_berry_smoothie,Mixed Berry Smoothie,Beverages,https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Mixed Berry Smoothie,Phase 35.7 verified baseline authentic photo
+predefined_protein_smoothie,Banana Protein Smoothie,Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Banana Protein Smoothie,Safe branded fallback
+predefined_whey_protein_shake,Whey Protein Shake,Protein,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Whey Protein Shake,Safe branded fallback
+predefined_veg_soup,Clear Vegetable Soup,Lunch,https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Clear Vegetable Soup,Phase 35.7 verified baseline authentic photo
+predefined_chicken_soup,Clear Chicken Noodle Soup,Dinner,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Clear Chicken Noodle Soup,Safe branded fallback
+predefined_egg_white_omelette,Egg White Omelette,Breakfast,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Egg White Omelette,Safe branded fallback
+predefined_chicken_wrap,Grilled Chicken Salad Wrap,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Grilled Chicken Salad Wrap,Safe branded fallback
+predefined_protein_bar,Double Chocolate Protein Bar,Snacks,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Double Chocolate Protein Bar,Safe branded fallback
+predefined_mineral_water,Mineral Water,Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Mineral Water,Safe branded fallback
+predefined_coconut_water,Tender Coconut Water,Beverages,,assets/images/foods/coconut_water.webp,BRANDED_FALLBACK,VALID_EXACT,,Tender Coconut Water,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_low_fat_milk,Low Fat Milk (1.5% Fat),Dairy,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Low Fat Milk (1.5% Fat),Safe branded fallback
+predefined_spiced_buttermilk,Spiced Buttermilk (Masala Chaas),Beverages,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Spiced Buttermilk (Masala Chaas),Safe branded fallback
+predefined_green_tea,Organic Green Tea (Unsweetened),Beverages,https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Organic Green Tea (Unsweetened),Phase 35.7 verified baseline authentic photo
+predefined_black_tea,Black Tea (Unsweetened),Beverages,https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80,VALID_CLOSE,VALID_CLOSE,Shared Alias,Black Tea (Unsweetened),Phase 35.7 verified baseline authentic photo
+predefined_filter_coffee,South Indian Filter Coffee,Beverages,,assets/images/foods/filter_coffee.webp,BRANDED_FALLBACK,VALID_EXACT,,South Indian Filter Coffee,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 3.0)
+predefined_black_coffee,Black Coffee (Espresso),Beverages,,assets/images/foods/black_coffee.webp,BRANDED_FALLBACK,VALID_EXACT,,Black Coffee (Espresso),Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_fresh_orange_juice,Fresh Orange Juice,Beverages,https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Fresh Orange Juice,Phase 35.7 verified baseline authentic photo
+predefined_lemon_water,Shikanji (Indian Lemonade),Beverages,https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Shikanji (Indian Lemonade),Phase 35.7 verified baseline authentic photo
+predefined_tomato_juice,Tomato Juice Pure,Beverages,,assets/images/foods/tomato_juice.webp,BRANDED_FALLBACK,VALID_EXACT,,Tomato Juice Pure,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_matcha_tea,Matcha Green Tea,Beverages,,assets/images/foods/matcha_tea.webp,BRANDED_FALLBACK,VALID_EXACT,,Matcha Green Tea,Phase 35.7.1 verified authentic photo (Wikimedia Commons CC BY-SA 4.0)
+predefined_paneer_tikka,Paneer Tikka,Snacks,https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80,https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80,VALID_EXACT,VALID_EXACT,,Paneer Tikka,Phase 35.7 verified baseline authentic photo
+predefined_fish_fry,Masala Fish Fry,Lunch,,,BRANDED_FALLBACK,BRANDED_FALLBACK,,Masala Fish Fry,Safe branded fallback

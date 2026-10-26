@@ -1,0 +1,51 @@
+{
+  "model_artifact": "assets/ml/fitfuel_food_classifier.tflite",
+  "model_version": "fitfuel_food_v5",
+  "architecture": "MobileNetV3Large",
+  "labels_path": "assets/ml/fitfuel_food_labels.txt",
+  "labels_count": 50,
+  "validation_metrics": {
+    "val_samples": 457,
+    "tflite_top1_pct": 47.05,
+    "tflite_top3_pct": 65.65,
+    "keras_top1_pct": 46.83,
+    "keras_top3_pct": 65.65,
+    "model_disagreements": 5,
+    "max_probability_delta": 0.018227
+  },
+  "frozen_calibration": {
+    "threshold": 0.85,
+    "margin": 0.15,
+    "production_classes_count": 12,
+    "production_classes": [
+      "predefined_medu_vada",
+      "predefined_whole_wheat_bread",
+      "predefined_steamed_rice",
+      "predefined_watermelon",
+      "predefined_scrambled_eggs",
+      "predefined_samosa",
+      "predefined_paneer_tikka",
+      "predefined_broccoli",
+      "predefined_dosa",
+      "predefined_potato",
+      "predefined_low_fat_milk",
+      "predefined_capsicum"
+    ],
+    "cloud_only_classes": [
+      "predefined_strawberry",
+      "predefined_rajma_curry",
+      "predefined_guava",
+      "predefined_chole_masala"
+    ]
+  },
+  "lockbox_evaluation": {
+    "accepted_local": 17,
+    "correct_local_accepted": 17,
+    "wrong_local_accepted": 0,
+    "gemini_fallback": 180,
+    "accepted_local_precision_pct": 100.0,
+    "local_acceptance_rate_pct": 8.63,
+    "safe_cloud_avoidance_pct": 8.63,
+    "wrong_local_rate_pct": 0.0
+  }
+}

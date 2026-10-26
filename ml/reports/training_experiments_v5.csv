@@ -1,0 +1,2 @@
+model_version,architecture,dataset_version,val_samples,val_top1,val_top3,model_size_mb
+fitfuel_food_v5,MobileNetV3Large,fitfuel_food_dataset_v5,457,46.61,65.21,5.85

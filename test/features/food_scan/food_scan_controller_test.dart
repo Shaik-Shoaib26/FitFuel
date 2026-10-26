@@ -31,6 +31,7 @@ class _FakeFoodScanRepository implements IFoodScanRepository {
     required String imagePath,
     required Uint8List imageBytes,
     List<FoodEntity> foodCatalog = const [],
+    String? requestId,
   }) async {
     if (errorToThrow != null) {
       throw const ServerFailure('AI vision service unavailable');

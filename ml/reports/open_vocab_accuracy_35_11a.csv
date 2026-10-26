@@ -1,0 +1,8 @@
+model_name,subset,images_count,top1_accuracy,top3_accuracy,top5_accuracy,mrr,non_food_false_acceptance_rate
+fitfuel_food_v5 (50 fixed classes),v5_overlapping_foods,390,0.4359,0.6051,N/A,N/A,N/A
+fitfuel_openvocab_mnv3_minilm_384,all_benchmark_foods,597,0.2965,0.3735,0.4154,0.3381,0.0182
+fitfuel_openvocab_mnv3_minilm_384,v5_overlapping_foods,390,0.4231,0.5154,0.559,,
+fitfuel_openvocab_mnv3_minilm_384,foods_outside_v5,207,0.058,0.1063,0.1449,,
+fitfuel_openvocab_effnetb0_minilm_384,all_benchmark_foods,597,0.3065,0.4137,0.4523,0.3613,0.0182
+fitfuel_openvocab_effnetb0_minilm_384,v5_overlapping_foods,390,0.4333,0.5769,0.6256,,
+fitfuel_openvocab_effnetb0_minilm_384,foods_outside_v5,207,0.0676,0.1063,0.1256,,

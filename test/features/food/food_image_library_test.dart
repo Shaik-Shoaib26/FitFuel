@@ -68,10 +68,10 @@ void main() {
       expect(resolved, 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80');
     });
 
-    // 9. Idli uses safe branded fallback when no accurate photo available
-    test('9. Idli uses safe branded fallback when no accurate photo available', () {
+    // 9. Idli maps to authentic verified photo
+    test('9. Idli maps to authentic verified photo', () {
       final resolved = FoodImageResolver.resolve('Idli');
-      expect(resolved, '');
+      expect(resolved, 'assets/images/foods/idli.webp');
     });
 
     // 10. Dosa maps correctly
@@ -80,16 +80,16 @@ void main() {
       expect(resolved, 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80');
     });
 
-    // 11. Egg Omelette maps correctly
-    test('11. Egg Omelette maps correctly', () {
+    // 11. Egg Omelette maps to authentic verified photo
+    test('11. Egg Omelette maps to authentic verified photo', () {
       final resolved = FoodImageResolver.resolve('Masala Egg Omelette');
-      expect(resolved, 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80');
+      expect(resolved, 'assets/images/foods/egg_omelette.webp');
     });
 
-    // 12. Fish Curry maps correctly
-    test('12. Fish Curry maps correctly', () {
+    // 12. Fish Curry maps to authentic verified photo
+    test('12. Fish Curry maps to authentic verified photo', () {
       final resolved = FoodImageResolver.resolve('Indian Fish Curry');
-      expect(resolved, 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80');
+      expect(resolved, 'assets/images/foods/fish_curry.webp');
     });
 
     // 13. Banana maps correctly
@@ -233,7 +233,7 @@ void main() {
       );
 
       final img = FoodImageResolver.resolve(food);
-      expect(img, '');
+      expect(img, 'assets/images/foods/idli.webp');
     });
 
     // 20. Grocery/Pantry uses shared resolver
@@ -291,7 +291,7 @@ void main() {
       }
 
       print('\n==================================================');
-      print('PHASE 35.3I — REAL FOOD PHOTOGRAPHY AUDIT REPORT');
+      print('PHASE 35.7 — REAL FOOD PHOTOGRAPHY AUDIT REPORT');
       print('==================================================');
       print('Total foods: $totalFoods');
       print('Foods with valid images: $validImagesCount');
@@ -301,8 +301,109 @@ void main() {
       print('==================================================\n');
 
       expect(invalidPaths, 0);
-      expect(fallbackCount, 10);
-      expect(validImagesCount, totalFoods - fallbackCount);
+      expect(fallbackCount, 75);
+      expect(validImagesCount, 163);
+      expect(duplicates.length, 7);
+    });
+
+    // 24. Steamed Shrimp Authentic Photo Test
+    test('24. Steamed Shrimp Authentic Photo Test', () {
+      expect(FoodImageResolver.resolve('Steamed Shrimp'), 'assets/images/foods/steamed_shrimp.webp');
+      expect(FoodImageResolver.resolve('predefined_steamed_shrimp'), 'assets/images/foods/steamed_shrimp.webp');
+    });
+
+    // 25. Authentic Disambiguated Photos Test
+    test('25. Authentic Disambiguated Photos Test', () {
+      expect(FoodImageResolver.resolve('predefined_beef_steak'), 'assets/images/foods/beef_steak.webp');
+      expect(FoodImageResolver.resolve('predefined_gulab_jamun'), 'assets/images/foods/gulab_jamun.webp');
+      expect(FoodImageResolver.resolve('predefined_chapati'), 'assets/images/foods/chapati.webp');
+      expect(FoodImageResolver.resolve('predefined_poori'), 'assets/images/foods/poori.webp');
+      expect(FoodImageResolver.resolve('predefined_curd'), 'assets/images/foods/curd.webp');
+      expect(FoodImageResolver.resolve('predefined_pumpkin'), 'assets/images/foods/pumpkin.webp');
+    });
+
+    // 26. Studio Broccoli Exact Match Test
+    test('26. Studio Broccoli Exact Match Test', () {
+      expect(
+        FoodImageResolver.resolve('predefined_broccoli'),
+        'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80',
+      );
+    });
+
+    // 27. Dynamic Plan Hero Image Resolution Test
+    test('27. Dynamic Plan Hero Image Resolution Test', () {
+      const breakfastFood = FoodEntity(
+        id: 'predefined_dosa',
+        name: 'Plain Dosa',
+        category: 'Breakfast',
+        servingSize: 100,
+        servingUnit: 'g',
+        calories: 165,
+        protein: 3.8,
+        carbohydrates: 29.0,
+        fats: 3.7,
+        fiber: 1.0,
+        sugar: 0,
+        sodium: 0,
+      );
+
+      const snackFood = FoodEntity(
+        id: 'predefined_berry_smoothie',
+        name: 'Mixed Berry Smoothie',
+        category: 'Beverages',
+        servingSize: 250,
+        servingUnit: 'ml',
+        calories: 140,
+        protein: 2.0,
+        carbohydrates: 30.0,
+        fats: 1.0,
+        fiber: 4.0,
+        sugar: 22,
+        sodium: 15,
+      );
+
+      final breakfastImg = FoodImageResolver.resolve(breakfastFood);
+      final snackImg = FoodImageResolver.resolve(snackFood);
+
+      expect(breakfastImg, isNotEmpty);
+      expect(snackImg, isNotEmpty);
+      expect(breakfastImg, isNot(equals(snackImg)));
+    });
+
+    // 28. Smart Eat Unmatched Recommendation Fallback Test
+    test('28. Smart Eat Unmatched Recommendation Fallback Test', () {
+      const rec = SmartFoodRecommendationEntity(
+        id: 'rec_custom_dish',
+        foodId: 'custom_quinoa_veggie_bowl_123',
+        foodName: 'Custom Quinoa Veggie Bowl',
+        imageUrl: '',
+        category: 'Lunch',
+        servingSize: 200,
+        calories: 320,
+        protein: 12,
+        carbs: 45,
+        fat: 8,
+        fiber: 6,
+        matchScore: 90,
+        priority: RecommendationPriority.high,
+        reasons: [],
+        tags: [],
+        pantryAvailable: false,
+        groceryAvailable: false,
+        recentlyConsumed: false,
+        isFavorite: false,
+        estimatedPreparationMinutes: 20,
+      );
+
+      final img = FoodImageResolver.resolve(rec.foodId);
+      expect(img, '');
+    });
+
+    // 29. Food Diary Custom/Unmapped Items Fallback Test
+    test('29. Food Diary Custom/Unmapped Items Fallback Test', () {
+      expect(FoodImageResolver.resolve('Homemade Chicken Biryani 500g'), '');
+      expect(FoodImageResolver.resolve('Mom\'s Special Roti'), '');
+      expect(FoodImageResolver.resolve('Protein Shake Chocolate Vanilla'), '');
     });
   });
 }

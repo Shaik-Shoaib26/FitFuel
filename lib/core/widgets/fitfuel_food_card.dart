@@ -12,6 +12,7 @@ class FitFuelFoodCard extends StatelessWidget {
   final VoidCallback? onAddTap;
   final VoidCallback? onFavoriteTap;
   final bool isFavorite;
+  final double? imageAspectRatio;
 
   const FitFuelFoodCard({
     super.key,
@@ -20,6 +21,7 @@ class FitFuelFoodCard extends StatelessWidget {
     this.onAddTap,
     this.onFavoriteTap,
     this.isFavorite = false,
+    this.imageAspectRatio,
   });
 
   @override
@@ -68,13 +70,25 @@ class FitFuelFoodCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(AppConstants.radiusLg),
                   ),
-                  child: FoodImageCard(
-                    food: food,
-                    width: double.infinity,
-                    height: 125,
-                    borderRadius: 0,
-                    semanticDescription: 'Photo of ${food.name}',
-                  ),
+                  child: imageAspectRatio != null
+                      ? AspectRatio(
+                          aspectRatio: imageAspectRatio!,
+                          child: FoodImageCard(
+                            food: food,
+                            width: double.infinity,
+                            borderRadius: 0,
+                            fit: BoxFit.cover,
+                            semanticDescription: 'Photo of ${food.name}',
+                          ),
+                        )
+                      : FoodImageCard(
+                          food: food,
+                          width: double.infinity,
+                          height: 125,
+                          borderRadius: 0,
+                          fit: BoxFit.cover,
+                          semanticDescription: 'Photo of ${food.name}',
+                        ),
                 ),
                 Positioned(
                   top: 8,

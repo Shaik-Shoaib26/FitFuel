@@ -1,0 +1,1511 @@
+<USER_REQUEST>
+FITFUEL — PHASE 35.11B.1
+SINGLE BEST FOOD RESULT + STRICT RELIABILITY GATE
+
+============================================================
+MISSION
+============================================================
+
+Phase 35.11B successfully integrated the two-tier local food scanner:
+
+Tier 1:
+fitfuel_food_v5
+→ fast trusted V5 classifier
+
+Tier 2:
+SigLIP-B/16 INT8
+→ 2,050-food open-vocabulary local recognizer
+
+Current Tier-2 behavior:
+
+Food photo
+→ SigLIP
+→ Top-3 suggestions
+→ user chooses one
+
+Example current Burger UI:
+
+Burger
+Juicy Lucy
+Pljeskavica
+
+Example current Pasta UI:
+
+Creamy Penne Pasta
+Penne Alfredo
+Creamy Pasta
+
+The user DOES NOT want three food names.
+
+The desired production behavior is:
+
+PHOTO
+  ↓
+LOCAL RECOGNITION
+  ↓
+ONE sufficiently reliable food result
+  ↓
+nutrition if trusted exact profile exists
+  ↓
+Change Food
+  ↓
+Add to Food Diary
+
+Example:
+
+Burger
+Calories: ...
+Protein: ...
+Carbs: ...
+Fat: ...
+Fiber: ...
+Sugar: ...
+Sodium: ...
+
+[Change Food]
+[Add to Food Diary]
+
+If the model cannot identify ONE food reliably:
+
+DO NOT show multiple alternatives.
+
+Instead show:
+
+"No reliable food match found."
+
+[Search Foods]
+[Analyze with AI]
+[Try Another Photo]
+
+============================================================
+1. CORE PRODUCT RULE
+============================================================
+
+Production Food Scan must show:
+
+MAXIMUM ONE detected food name.
+
+Never show:
+
+Top-2
+Top-3
+Top-5
+
+to normal users.
+
+Internal Top-K retrieval may still be used for:
+
+reliability calculation
+margin calculation
+debugging
+evaluation
+
+but only ONE food candidate may be exposed in production UI.
+
+============================================================
+2. IMPORTANT ACCURACY LIMIT
+============================================================
+
+Do NOT pretend SigLIP is always correct.
+
+The goal is:
+
+ONE RESULT WHEN RELIABLE
+
+not:
+
+FORCE ONE RESULT FOR EVERY IMAGE.
+
+If reliability is insufficient:
+
+abstain.
+
+Prefer:
+
+"No reliable food match found"
+
+over:
+
+a confident-looking wrong food.
+
+============================================================
+3. PRESERVE TWO-TIER CASCADE
+============================================================
+
+Keep:
+
+PHOTO
+ ↓
+Tier 1 fitfuel_food_v5
+ ↓
+trusted auto-local?
+ ├─ YES → one Tier-1 result
+ └─ NO
+      ↓
+   Tier 2 SigLIP
+      ↓
+   strict single-result reliability gate
+      ↓
+   reliable?
+      ├─ YES → show ONE food
+      └─ NO  → no reliable match
+
+Do NOT remove Tier 1.
+
+Do NOT call Gemini automatically.
+
+============================================================
+4. RESTORE APPROVED TIER-1 TRUSTED CLASS LIST
+============================================================
+
+Audit Phase 35.11B immediately.
+
+The approved Tier-1 auto-local allow-list must be exactly:
+
+predefined_medu_vada
+predefined_samosa
+predefined_whole_wheat_bread
+predefined_scrambled_eggs
+predefined_watermelon
+predefined_dosa
+predefined_low_fat_milk
+predefined_capsicum
+
+Poha must NOT be auto-trusted.
+
+Also ensure previously removed unsafe classes remain excluded:
+
+predefined_poha
+predefined_tandoori_chicken
+predefined_potato
+predefined_steamed_rice
+predefined_paneer_tikka
+predefined_broccoli
+
+Report any mismatch found.
+
+============================================================
+5. TIER-1 THRESHOLD AUDIT
+============================================================
+
+Phase 35.11B reported a Tier-1 margin of 0.25 even though the previously
+approved trusted-auto rule used:
+
+confidence >= 0.85
+margin >= 0.15
+
+Audit why this changed.
+
+Do NOT silently change thresholds.
+
+Either:
+
+A. restore approved 0.15
+
+OR
+
+B. prove with existing validation/lockbox data that 0.25 materially
+improves safety and does not create harmful regressions.
+
+Document final value.
+
+No arbitrary threshold changes.
+
+============================================================
+6. SIGLIP SINGLE-RESULT MODE
+============================================================
+
+Replace:
+
+Tier2OpenVocabSuggestionsAvailable
+
+as the normal user-facing outcome with a single-primary-result outcome.
+
+Suggested domain route:
+
+Tier2OpenVocabPrimaryResult
+
+or equivalent.
+
+It should contain:
+
+primaryCandidate
+reliabilityDecision
+recognitionSource
+nutritionMappingStatus
+
+Do NOT expose candidate #2/#3 to UI.
+
+============================================================
+7. KEEP INTERNAL TOP-K
+============================================================
+
+SigLIP should still retrieve at least Top-3 internally.
+
+Example internal result:
+
+1. Burger        0.0909
+2. Juicy Lucy    0.0749
+3. Pljeskavica   0.0622
+
+But production UI must show only:
+
+Burger
+
+Top-2 and Top-3 are used only to decide whether Top-1 is reliable.
+
+============================================================
+8. STRICT SINGLE-RESULT RELIABILITY GATE
+============================================================
+
+Do NOT reuse only the existing general food/non-food gate.
+
+A food can be clearly "food" but still have an ambiguous exact label.
+
+Add a SECOND gate:
+
+SingleResultReliabilityGate
+
+This answers:
+
+"Is Top-1 reliable enough to present as the one detected food?"
+
+============================================================
+9. CALIBRATE — DO NOT INVENT THRESHOLDS
+============================================================
+
+Use existing Phase 35.11A.1/A.2 benchmark data.
+
+Use:
+
+calibration split
+unseen food set
+V5 overlap
+pasta regression
+real Samsung gallery tests
+non-food set
+mixed-meal set
+
+Do not tune on final lockbox.
+
+Derive thresholds empirically.
+
+============================================================
+10. RELIABILITY SIGNALS
+============================================================
+
+Evaluate at least:
+
+top1 similarity
+top2 similarity
+top1 - top2 margin
+top1 / top2 relative separation if useful
+negative similarity
+food-vs-negative margin
+semantic similarity between Top-1 and Top-2
+whether Top-1 is exact FitFuel catalog food
+whether image appears mixed-meal-like
+
+Do not rely on one number blindly.
+
+============================================================
+11. SINGLE-RESULT QUALITY TARGET
+============================================================
+
+We prefer LOWER COVERAGE and HIGHER PRECISION.
+
+Target:
+
+When FitFuel shows ONE food automatically:
+
+precision should be very high.
+
+Desired calibration target:
+
+>= 90% exact or clearly equivalent Top-1 precision
+
+Prefer:
+>= 95%
+
+If this means many ambiguous images abstain:
+
+that is acceptable.
+
+Do NOT lower reliability gate just to increase coverage.
+
+============================================================
+12. EXACT VS EQUIVALENT
+============================================================
+
+For reliability evaluation distinguish:
+
+Exact:
+Burger → Burger
+
+Verified alias/equivalent:
+Butter Chicken → Murgh Makhani
+
+Close sibling:
+Spaghetti → Spaghetti Bolognese
+
+Related:
+Ramen → Tsukemen
+
+Only:
+
+exact
+or explicitly verified equivalent alias
+
+should count as correct for SINGLE-result precision.
+
+Sibling dishes should NOT count as exact single-result success.
+
+============================================================
+13. PASTA EXAMPLE
+============================================================
+
+Observed real gallery Pasta output:
+
+1. Creamy Penne Pasta
+2. Penne Alfredo
+3. Creamy Pasta
+4. Penne Pasta
+5. Pasta Alfredo
+
+If the calibrated reliability gate considers Top-1 sufficiently strong:
+
+show:
+
+Creamy Penne Pasta
+
+ONLY.
+
+If the first and second candidates are too close for safe exact
+identification:
+
+show:
+
+"No reliable food match found."
+
+Do NOT show:
+
+Creamy Penne Pasta
+Penne Alfredo
+Creamy Pasta
+
+together.
+
+============================================================
+14. BURGER EXAMPLE
+============================================================
+
+Observed:
+
+1. Burger
+2. Juicy Lucy
+3. Pljeskavica
+
+If Top-1 passes single-result reliability gate:
+
+UI:
+
+Burger
+
+ONLY.
+
+Do not show Juicy Lucy or Pljeskavica.
+
+============================================================
+15. SAMOSA EXAMPLE
+============================================================
+
+If Tier 1 recognizes trusted Samosa:
+
+skip SigLIP.
+
+Show:
+
+Samosa
+
+Calories
+Protein
+Carbs
+Fat
+Fiber
+Sugar
+Sodium
+
+according to trusted FitFuel record.
+
+============================================================
+16. AMBIGUOUS FOOD EXAMPLE
+============================================================
+
+If internal result is:
+
+Spaghetti Bolognese 0.1063
+Spaghetti           0.0980
+Cincinnati Chili    0.0890
+
+and exact label reliability is insufficient:
+
+do NOT choose one automatically.
+
+Show:
+
+"No reliable food match found."
+
+User can:
+
+Search Foods
+Analyze with AI
+Try Another Photo
+
+============================================================
+17. MIXED MEALS
+============================================================
+
+A mixed thali or plate is NOT suitable for one forced food label.
+
+If mixed-meal suspicion is high:
+
+do not show one arbitrary Top-1.
+
+Show:
+
+"Multiple foods may be present."
+
+Then:
+
+Add Foods Manually
+Search Foods
+Analyze with AI
+Try Another Photo
+
+Do not expose Top-3 food guesses.
+
+============================================================
+18. NON-FOOD
+============================================================
+
+Keep current SigLIP non-food safety.
+
+Non-food result:
+
+"No food detected"
+
+Do NOT expose internal food retrieval candidates.
+
+Cloud calls:
+0
+
+============================================================
+19. NEW RECOGNITION SOURCE
+============================================================
+
+A Tier-2 single result is NOT:
+
+"Confirmed by you"
+
+because the user did not select it from Top-3.
+
+Add/reuse a source such as:
+
+openVocabularyPrimary
+
+UI badge:
+
+"Found on your device"
+
+Do not falsely label it:
+
+Confirmed by you
+
+unless the user manually changes/selects the food.
+
+============================================================
+20. CHANGE FOOD
+============================================================
+
+Every single-result screen must include:
+
+Change Food
+
+This opens:
+
+FitFuel food search
+
+or existing correction flow.
+
+Do NOT expose raw SigLIP Top-3 as the correction UI.
+
+The user's requirement is one detected food at a time.
+
+============================================================
+21. USER CORRECTION
+============================================================
+
+If the user changes:
+
+Burger
+→ Cheeseburger
+
+then recognitionSource becomes:
+
+manualConfirmed
+
+or existing equivalent.
+
+Nutrition must update to selected trusted profile.
+
+============================================================
+22. NUTRITION IMMEDIATELY WHEN EXACT MATCH EXISTS
+============================================================
+
+If single detected food maps exactly to FitFuel trusted catalog:
+
+show nutrition immediately.
+
+Example:
+
+Burger
+→ predefined_burger exists
+
+Show:
+
+Calories
+Protein
+Carbs
+Fat
+
+and:
+
+Fiber
+Sugar
+Sodium
+
+if present.
+
+============================================================
+23. NO FAKE NUTRITION
+============================================================
+
+If single recognized food has NO exact trusted nutrition profile:
+
+do NOT invent macros.
+
+Example:
+
+Creamy Penne Pasta
+
+If exact profile missing:
+
+show:
+
+Creamy Penne Pasta
+Found on your device
+
+"Exact nutrition profile isn't available yet."
+
+[Select Nutrition Profile]
+[Change Food]
+[Analyze with AI]
+
+Do not show fake 0 kcal.
+
+============================================================
+24. ADD TO FOOD DIARY
+============================================================
+
+Enable Add to Food Diary only when:
+
+trusted nutrition has been resolved
+
+either through:
+
+exact catalog match
+
+or explicit manual nutrition-profile selection.
+
+Recognition alone does not create nutrition.
+
+============================================================
+25. RESULT UI
+============================================================
+
+Replace current:
+
+Possible Matches
+
+with a normal result screen when reliable.
+
+Example:
+
+--------------------------------
+Burger
+Found on your device
+
+320 kcal
+
+Protein   18 g
+Carbs     30 g
+Fat       14 g
+
+More nutrition
+Fiber ...
+Sugar ...
+Sodium ...
+
+Serving:
+...
+
+[Change Food]
+
+[Add to Food Diary]
+--------------------------------
+
+No second or third food names.
+
+============================================================
+26. WHEN NO EXACT NUTRITION
+============================================================
+
+Example:
+
+--------------------------------
+Creamy Penne Pasta
+Found on your device
+
+Exact nutrition profile isn't
+available yet.
+
+[Select Nutrition Profile]
+[Change Food]
+[Analyze with AI]
+--------------------------------
+
+No:
+
+Penne Alfredo
+Creamy Pasta
+
+on this screen.
+
+============================================================
+27. LOADING UI
+============================================================
+
+Tier 1:
+
+"Scanning on your device..."
+
+If Tier 2 needed:
+
+"Checking your food on your device..."
+
+Do not say:
+
+"Finding possible matches"
+
+because production no longer presents multiple matches.
+
+============================================================
+28. MAIN SCAN COPY
+============================================================
+
+Keep:
+
+Free • On-device
+
+Copy:
+
+"Take a photo and FitFuel will identify the food on your device first.
+Online AI is optional."
+
+============================================================
+29. PRIVACY
+============================================================
+
+Preserve:
+
+"Food photos are analyzed on your device first. Your photo is only sent
+to the online AI service if you choose 'Analyze with AI'."
+
+============================================================
+30. GEMINI LOCK
+============================================================
+
+Normal:
+
+camera
+gallery
+Tier 1
+Tier 2
+single result
+no match
+non-food
+manual search
+Change Food
+
+must always have:
+
+cloud_calls=0
+
+Only explicit:
+
+Analyze with AI
+Retry AI
+
+may call Gemini.
+
+============================================================
+31. PRODUCTION RUNTIME GUARD
+============================================================
+
+Keep/strengthen:
+
+if userRequestedAi != true:
+    block Gemini invocation
+
+Do not rely on debug assertions.
+
+============================================================
+32. PERFORMANCE
+============================================================
+
+Do not load SigLIP unless Tier 1 abstains.
+
+Reuse warm SigLIP session while Food Scan screen remains active.
+
+Dispose on screen exit.
+
+Do not regress Phase 35.11B memory lifecycle.
+
+============================================================
+33. DO NOT DISPLAY SIMILARITY SCORES
+============================================================
+
+Production UI must not show:
+
+sim: 0.125
+
+or:
+
+12.5% confidence
+
+Keep similarity scores debug-only.
+
+============================================================
+34. DEBUG LOGGING
+============================================================
+
+Reliable single result:
+
+[FoodScanSingleResult]
+request=scan_21
+model=siglip_b16_int8
+top1=burger
+top1_sim=0.0909
+top2=juicy_lucy
+top2_sim=0.0749
+margin=0.0160
+single_result_reliable=true
+reason=...
+route=tier2_single_result
+cloud_calls=0
+
+Rejected ambiguous result:
+
+[FoodScanSingleResult]
+request=scan_22
+top1=...
+top2=...
+margin=...
+single_result_reliable=false
+reason=ambiguous_top1
+route=no_reliable_match
+cloud_calls=0
+
+============================================================
+35. TELEMETRY
+============================================================
+
+Add/update mutually exclusive routes:
+
+tier1_auto_local
+tier2_single_result
+tier2_single_result_with_nutrition
+tier2_single_result_requires_nutrition
+tier2_ambiguous_abstain
+tier2_non_food
+tier2_unavailable
+manual_confirmed
+gemini_explicit
+
+Do not double-count one scan.
+
+============================================================
+36. RETAIN INTERNAL TOP-K FOR DIAGNOSTICS
+============================================================
+
+Do not delete Top-K retrieval code.
+
+It is valuable for:
+
+quality evaluation
+future calibration
+debugging
+
+But keep it out of normal UI.
+
+============================================================
+37. TEST — BURGER REAL PHOTO
+============================================================
+
+Use the same gallery Burger image.
+
+Expected if reliability gate passes:
+
+Burger
+
+ONLY ONE name.
+
+No:
+
+Juicy Lucy
+Pljeskavica
+
+If trusted Burger nutrition exists:
+
+show nutrition immediately.
+
+Cloud:
+0
+
+============================================================
+38. TEST — ORIGINAL CREAMY PENNE PASTA
+============================================================
+
+Use the exact original gallery image.
+
+Internal retrieval may remain:
+
+Creamy Penne Pasta
+Penne Alfredo
+Creamy Pasta
+
+Production UI:
+
+ONE OF TWO outcomes only:
+
+A. Reliable:
+
+Creamy Penne Pasta
+
+or
+
+B. Not sufficiently reliable:
+
+No reliable food match found
+
+NEVER:
+
+3 visible food choices.
+
+============================================================
+39. TEST — SAMOSA
+============================================================
+
+Expected:
+
+Tier 1 trusted local result if approved threshold passes.
+
+UI:
+
+Samosa
+
+only.
+
+Nutrition:
+visible.
+
+SigLIP:
+not invoked when Tier 1 accepts.
+
+============================================================
+40. TEST — POHA
+============================================================
+
+Critical regression test.
+
+Poha must NOT be in Tier-1 trusted auto allow-list.
+
+Expected:
+
+Tier 1 does not auto-trust based on the removed class.
+
+Tier 2 may evaluate the image.
+
+Single-result reliability gate determines final output.
+
+Report exact route.
+
+============================================================
+41. TEST — SPAGHETTI AMBIGUITY
+============================================================
+
+Use known case where SigLIP may prefer:
+
+Spaghetti Bolognese
+over:
+Spaghetti
+
+If gate cannot prove exact Top-1 reliability:
+
+abstain.
+
+This is an important single-result safety test.
+
+============================================================
+42. TEST — PIZZA / FLAMMKUCHEN
+============================================================
+
+Previous benchmark produced:
+
+Pizza image
+→ Flammkuchen Top-1
+
+This should be part of calibration.
+
+If exact food is Pizza but Top-1 is Flammkuchen:
+
+the single-result gate must ideally reject that result rather than
+presenting the wrong exact food.
+
+Use it as a hard negative for calibration.
+
+============================================================
+43. TEST — RAMEN / TSUKEMEN
+============================================================
+
+Previous result:
+
+Ramen
+→ Tsukemen Top-1
+→ Ramen in Top-3
+
+This is another important ambiguous exact-label case.
+
+A single-result gate should not blindly present Tsukemen as Ramen.
+
+Use for calibration.
+
+============================================================
+44. SINGLE-RESULT PRECISION REPORT
+============================================================
+
+Report:
+
+total food calibration images
+single-result accepted
+single-result abstained
+accepted exact correct
+accepted verified-alias correct
+accepted sibling wrong
+accepted unrelated wrong
+
+Calculate:
+
+singleResultPrecision =
+(exact + verified aliases) /
+all accepted single results
+
+Also report:
+
+coverage =
+accepted /
+all eligible food images
+
+============================================================
+45. TARGET DECISION
+============================================================
+
+Do NOT approve if precision is poor.
+
+Preferred:
+
+>=95% single-result precision
+
+Acceptable minimum for consideration:
+
+>=90%
+
+If <90%:
+
+status must be:
+
+MORE CALIBRATION REQUIRED
+
+Do not hide this behind Top-3 accuracy.
+
+============================================================
+46. REAL SAMSUNG MANUAL VALIDATION
+============================================================
+
+After integration run actual FitFuel on:
+
+RZCW8201QBV
+
+Test:
+
+Burger
+original Pasta
+Samosa
+Poha
+Pizza
+Ramen
+Spaghetti
+non-food
+
+For each report:
+
+single result
+or abstained
+nutrition shown?
+cloud calls
+latency
+
+============================================================
+47. OFFLINE
+============================================================
+
+Disable Wi-Fi + mobile data.
+
+Test:
+
+Burger
+Pasta
+Samosa
+
+Expected:
+
+same single-result behavior
+cloud_calls=0
+
+============================================================
+48. NO TOP-3 UI LEFT
+============================================================
+
+Search production code for:
+
+"Possible Matches"
+"Which food is this?"
+"Choose the closest match"
+
+These phrases may remain only if used elsewhere for unrelated/manual
+features.
+
+They must not appear for normal SigLIP recognition.
+
+============================================================
+49. TEST FILE
+============================================================
+
+Create:
+
+test/features/food_scan/
+phase_35_11b_1_single_best_result_test.dart
+
+Cover at minimum:
+
+Burger reliable → one result
+Pasta reliable/abstain → never Top-3 UI
+Samosa Tier-1 one result
+Poha not Tier-1 trusted
+Pizza/Flammkuchen ambiguity
+Ramen/Tsukemen ambiguity
+Spaghetti/Bolognese ambiguity
+non-food abstention
+mixed-meal abstention
+exact nutrition immediately
+missing nutrition handling
+Change Food
+manual correction
+no Top-3 UI
+cloud_calls=0
+Gemini explicit-only
+session reuse/disposal
+offline
+
+============================================================
+50. REGRESSION
+============================================================
+
+Preserve:
+
+Phase 35.10
+35.10.1
+35.10.2
+35.10.3
+35.11A
+35.11A.1
+35.11A.2
+35.11B
+
+Do not weaken existing safety tests just to make new behavior pass.
+
+============================================================
+51. BUILD VALIDATION
+============================================================
+
+Run:
+
+flutter analyze --no-pub
+
+flutter test --no-pub \
+test/features/food_scan/phase_35_11b_1_single_best_result_test.dart
+
+flutter test --no-pub test/features/food_scan/
+
+flutter test --no-pub
+
+flutter build apk --debug
+
+flutter build web --no-pub
+
+Do NOT deploy.
+
+============================================================
+52. REAL DEVICE COMMAND
+============================================================
+
+Run:
+
+flutter run -d RZCW8201QBV
+
+Use actual FitFuel app.
+
+Do not validate only through the benchmark harness.
+
+============================================================
+53. DO NOT START PHASE 35.11C
+============================================================
+
+Do NOT expand nutrition database in this phase.
+
+We must first prove:
+
+ONE-result recognition UX is sufficiently accurate.
+
+============================================================
+54. DO NOT START PHASE 36
+============================================================
+
+No Firebase Functions.
+
+No Gemini backend migration.
+
+No deployment.
+
+============================================================
+55. FINAL REPORT
+============================================================
+
+Return:
+
+# PHASE 35.11B.1 — SINGLE BEST FOOD RESULT REPORT
+
+## 1. UX Change
+
+Previous:
+Top-3 suggestions
+
+New:
+...
+
+Maximum visible detected food names:
+...
+
+Expected:
+1
+
+## 2. Tier-1 Audit
+
+Approved allow-list:
+...
+
+Actual allow-list:
+...
+
+Poha present:
+YES/NO
+
+Expected:
+NO
+
+Final auto confidence:
+...
+
+Final margin:
+...
+
+Reason:
+...
+
+## 3. Single-Result Reliability Gate
+
+Signals:
+...
+
+Thresholds:
+...
+
+Calibration source:
+...
+
+Final rule:
+...
+
+## 4. Calibration Performance
+
+Total eligible images:
+...
+
+Accepted as single result:
+...
+
+Abstained:
+...
+
+Exact correct:
+...
+
+Verified alias correct:
+...
+
+Sibling errors:
+...
+
+Unrelated errors:
+...
+
+Single-result precision:
+...
+
+Coverage:
+...
+
+Target >=90%:
+PASS/FAIL
+
+Preferred >=95%:
+PASS/FAIL
+
+## 5. Burger Real-Device Test
+
+Detected:
+...
+
+Number of food names visible:
+...
+
+Expected:
+1
+
+Nutrition available:
+YES/NO
+
+Cloud calls:
+...
+
+## 6. Original Pasta Real-Device Test
+
+Internal Top-3:
+...
+
+User-visible result:
+...
+
+Number of food names visible:
+...
+
+Expected:
+1 or 0 if abstained
+
+Nutrition available:
+...
+
+Cloud calls:
+...
+
+## 7. Samosa
+
+Route:
+...
+
+Visible food:
+...
+
+Nutrition:
+...
+
+Tier 2 loaded:
+YES/NO
+
+## 8. Poha Regression
+
+Tier 1 auto-trusted:
+YES/NO
+
+Expected:
+NO
+
+Final route:
+...
+
+## 9. Ambiguity Tests
+
+Pizza:
+...
+
+Ramen:
+...
+
+Spaghetti:
+...
+
+Wrong sibling automatically displayed:
+YES/NO
+
+Expected:
+NO
+
+## 10. Non-Food
+
+Result:
+...
+
+Food names visible:
+...
+
+Expected:
+0
+
+## 11. Mixed Meal
+
+Result:
+...
+
+Forced single food:
+YES/NO
+
+Expected:
+NO
+
+## 12. Nutrition
+
+Exact trusted match:
+...
+
+Nutrition immediately shown:
+YES/NO
+
+Missing exact profile:
+...
+
+Fake nutrition created:
+YES/NO
+
+Expected:
+NO
+
+## 13. Top-3 UI Removal
+
+"Possible Matches" shown for normal SigLIP:
+YES/NO
+
+Expected:
+NO
+
+Second/third candidates visible:
+YES/NO
+
+Expected:
+NO
+
+## 14. Offline
+
+Burger:
+PASS/FAIL
+
+Pasta:
+PASS/FAIL
+
+Samosa:
+PASS/FAIL
+
+Cloud calls:
+...
+
+Expected:
+0
+
+## 15. Gemini
+
+Automatic calls:
+...
+
+Expected:
+0
+
+Explicit Analyze with AI:
+PASS/FAIL
+
+## 16. Tests
+
+New:
+...
+
+Food Scan suite:
+...
+
+Full repository:
+...
+
+Failures:
+...
+
+## 17. Builds
+
+Analyze:
+...
+
+APK:
+...
+
+Web:
+...
+
+## 18. Final Recommendation
+
+Choose ONE:
+
+A. SINGLE-RESULT MODE UNSAFE / INCOMPLETE
+
+B. SINGLE-RESULT MODE WORKS BUT NEEDS MORE CALIBRATION
+
+C. SINGLE-RESULT MODE VERIFIED ON SAMSUNG —
+READY FOR PHASE 35.11C NUTRITION EXPANSION
+
+STOP.
+
+DO NOT START PHASE 35.11C AUTOMATICALLY.
+DO NOT DEPLOY.
+DO NOT START PHASE 36.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-14T22:47:16+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.8 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

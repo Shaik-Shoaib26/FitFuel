@@ -48,30 +48,35 @@ void main() {
       final ravaDosa = FoodImageResolver.resolve('predefined_rava_dosa');
       expect(ravaDosa.contains(toastUrlPart), isFalse);
 
-      // Medu Vada should use branded fallback (empty string)
+      // Medu Vada should NOT resolve to toast and resolves to authentic photo
       final meduVada = FoodImageResolver.resolve('predefined_medu_vada');
-      expect(meduVada, '');
+      expect(meduVada.contains(toastUrlPart), isFalse);
+      expect(meduVada, 'assets/images/foods/medu_vada.webp');
 
-      // Pongal should use branded fallback
+      // Pongal should NOT resolve to toast and resolves to authentic photo
       final pongal = FoodImageResolver.resolve('predefined_pongal');
-      expect(pongal, '');
+      expect(pongal.contains(toastUrlPart), isFalse);
+      expect(pongal, 'assets/images/foods/pongal.webp');
 
-      // Idli should use branded fallback
+      // Idli should NOT resolve to toast and resolves to authentic photo
       final idli = FoodImageResolver.resolve('predefined_idli');
-      expect(idli, '');
+      expect(idli.contains(toastUrlPart), isFalse);
+      expect(idli, 'assets/images/foods/idli.webp');
 
-      // Sambar and Rasam should use branded fallback
+      // Sambar resolves to authentic photo, Rasam uses safe branded fallback
       final sambar = FoodImageResolver.resolve('predefined_sambar');
-      expect(sambar, '');
+      expect(sambar.contains(toastUrlPart), isFalse);
+      expect(sambar, 'assets/images/foods/sambar.webp');
       final rasam = FoodImageResolver.resolve('predefined_rasam');
+      expect(rasam.contains(toastUrlPart), isFalse);
       expect(rasam, '');
     });
 
-    test('Paneer Paratha does not use yogurt bowl photo', () {
+    test('Paneer Paratha does not use yogurt bowl photo and uses safe branded fallback', () {
       const yogurtUrlPart = 'photo-1488477181946-6428a0291777';
       final paneerParatha = FoodImageResolver.resolve('predefined_paneer_paratha');
       expect(paneerParatha.contains(yogurtUrlPart), isFalse);
-      expect(paneerParatha.contains('photo-1626074353765-517a681e40be'), isTrue);
+      expect(paneerParatha, '');
     });
 
     testWidgets('FitFuelFoodPhoto renders branded fallback cleanly on empty or missing source', (tester) async {

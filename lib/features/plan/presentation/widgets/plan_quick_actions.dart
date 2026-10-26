@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 
 /// Reference-accurate Option A Quick Actions for the Plan Dashboard.
-/// Renders 4 compact cards: AI Plan, Add Meal, Recipes, and Preferences.
+/// Renders 5 compact cards: AI Plan, Add Meal, Recipes, Search Foods,
+/// and Preferences. Uses Wrap so actions reflow gracefully across
+/// breakpoints without squeezing text.
 class PlanQuickActions extends StatelessWidget {
   const PlanQuickActions({super.key});
 
@@ -25,54 +27,59 @@ class PlanQuickActions extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Row(
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
           children: [
-            Expanded(
-              child: _buildActionCard(
-                context: context,
-                icon: Icons.auto_awesome_rounded,
-                iconColor: const Color(0xFF8B5CF6),
-                bgColor: const Color(0xFF8B5CF6).withValues(alpha: isDark ? 0.2 : 0.1),
-                label: 'AI Plan',
-                onTap: () => context.go('/plan/meals'),
-                isDark: isDark,
-              ),
+            _buildActionCard(
+              context: context,
+              icon: Icons.auto_awesome_rounded,
+              iconColor: const Color(0xFF8B5CF6),
+              bgColor:
+                  const Color(0xFF8B5CF6).withValues(alpha: isDark ? 0.2 : 0.1),
+              label: 'AI Plan',
+              onTap: () => context.go('/plan/meals'),
+              isDark: isDark,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildActionCard(
-                context: context,
-                icon: Icons.add_rounded,
-                iconColor: AppColors.primaryLeafGreen,
-                bgColor: AppColors.primaryLeafGreen.withValues(alpha: isDark ? 0.2 : 0.1),
-                label: 'Add Meal',
-                onTap: () => context.go('/nutrition/log'),
-                isDark: isDark,
-              ),
+            _buildActionCard(
+              context: context,
+              icon: Icons.add_rounded,
+              iconColor: AppColors.primaryLeafGreen,
+              bgColor: AppColors.primaryLeafGreen
+                  .withValues(alpha: isDark ? 0.2 : 0.1),
+              label: 'Add Meal',
+              onTap: () => context.go('/nutrition/log'),
+              isDark: isDark,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildActionCard(
-                context: context,
-                icon: Icons.menu_book_rounded,
-                iconColor: const Color(0xFFF2B84B),
-                bgColor: const Color(0xFFF2B84B).withValues(alpha: isDark ? 0.2 : 0.12),
-                label: 'Recipes',
-                onTap: () => context.go('/nutrition/search?view=recipes'),
-                isDark: isDark,
-              ),
+            _buildActionCard(
+              context: context,
+              icon: Icons.menu_book_rounded,
+              iconColor: const Color(0xFFF2B84B),
+              bgColor: const Color(0xFFF2B84B)
+                  .withValues(alpha: isDark ? 0.2 : 0.12),
+              label: 'Recipes',
+              onTap: () => context.go('/nutrition/search?view=recipes'),
+              isDark: isDark,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildActionCard(
-                context: context,
-                icon: Icons.tune_rounded,
-                iconColor: const Color(0xFF075E48),
-                bgColor: const Color(0xFF075E48).withValues(alpha: isDark ? 0.2 : 0.1),
-                label: 'Preferences',
-                onTap: () => context.go('/settings/preferences'),
-                isDark: isDark,
-              ),
+            _buildActionCard(
+              context: context,
+              icon: Icons.search_rounded,
+              iconColor: const Color(0xFF2563EB),
+              bgColor: const Color(0xFF2563EB)
+                  .withValues(alpha: isDark ? 0.2 : 0.1),
+              label: 'Search Foods',
+              onTap: () => context.go('/nutrition/search?view=all'),
+              isDark: isDark,
+            ),
+            _buildActionCard(
+              context: context,
+              icon: Icons.tune_rounded,
+              iconColor: const Color(0xFF075E48),
+              bgColor:
+                  const Color(0xFF075E48).withValues(alpha: isDark ? 0.2 : 0.1),
+              label: 'Preferences',
+              onTap: () => context.go('/settings/preferences'),
+              isDark: isDark,
             ),
           ],
         ),
@@ -89,6 +96,13 @@ class PlanQuickActions extends StatelessWidget {
     required VoidCallback onTap,
     required bool isDark,
   }) {
+    // Responsive width: aim for ~5 per row on wide screens, gracefully
+    // wrap to 2 rows on phones without compressing the label.
+    final double cardWidth =
+        ((MediaQuery.of(context).size.width - 16 * 2 - 10 * 4) / 5)
+            .clamp(72.0, 160.0)
+            .toDouble();
+
     return Semantics(
       button: true,
       label: label,
@@ -99,6 +113,7 @@ class PlanQuickActions extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: onTap,
           child: Container(
+            width: cardWidth,
             constraints: const BoxConstraints(minHeight: 80),
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
             decoration: BoxDecoration(

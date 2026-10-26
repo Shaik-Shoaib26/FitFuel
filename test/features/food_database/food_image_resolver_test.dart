@@ -54,5 +54,17 @@ void main() {
       final p2 = FoodImageResolver.resolve('Mutton Biryani');
       expect(p1 != p2, isTrue);
     });
+
+    // 9. Unknown/unmapped foods never resolve to random image
+    test('Unknown/unmapped foods never resolve to random image', () {
+      final unknown = FoodImageResolver.resolve('Random Unknown Superfood');
+      expect(unknown, '');
+    });
+
+    // 10. Steamed Shrimp authentic photo resolves correctly
+    test('Steamed Shrimp authentic photo resolves correctly', () {
+      final shrimp = FoodImageResolver.resolve('Steamed Shrimp');
+      expect(shrimp, 'assets/images/foods/steamed_shrimp.webp');
+    });
   });
 }

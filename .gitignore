@@ -54,3 +54,5 @@ ios/Runner/GeneratedPluginRegistrant.h
 ios/Runner/GeneratedPluginRegistrant.m
 Pods/
 Podfile.lock
+# Local benchmark model binaries; do not commit to GitHub
+/tools/benchmarks/food_open_vocabulary/onnx_models/*.onnx

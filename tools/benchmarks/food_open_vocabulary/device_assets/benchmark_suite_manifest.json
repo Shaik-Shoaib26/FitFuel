@@ -1,0 +1,4008 @@
+{
+  "phase": "35.11A.2",
+  "totalImages": 56,
+  "items": [
+    {
+      "imageId": "food_0275",
+      "fileName": "food_0275.jpg",
+      "displayLabel": "Samosa",
+      "canonicalFoodId": "predefined_samosa",
+      "canonicalName": "Samosa",
+      "category": "Snacks",
+      "subsetType": "v5_overlap",
+      "split": "final_lockbox",
+      "testGroup": "real_food_core",
+      "packOffset": 0,
+      "packLength": 26909
+    },
+    {
+      "imageId": "food_0468",
+      "fileName": "food_0468.jpg",
+      "displayLabel": "Creamy Penne Pasta",
+      "canonicalFoodId": "openvocab_creamy_penne_pasta",
+      "canonicalName": "Creamy Penne Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "calibration",
+      "testGroup": "real_food_core",
+      "packOffset": 26909,
+      "packLength": 73906
+    },
+    {
+      "imageId": "food_0021",
+      "fileName": "food_0021.jpg",
+      "displayLabel": "Biryani",
+      "canonicalFoodId": "predefined_veg_biryani",
+      "canonicalName": "Vegetable Biryani",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_core",
+      "packOffset": 100815,
+      "packLength": 39221
+    },
+    {
+      "imageId": "food_0003",
+      "fileName": "food_0003.jpg",
+      "displayLabel": "Pizza",
+      "canonicalFoodId": "predefined_pizza",
+      "canonicalName": "Cheese Pizza",
+      "category": "Pizza & Flatbreads",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_core",
+      "packOffset": 140036,
+      "packLength": 24582
+    },
+    {
+      "imageId": "food_0009",
+      "fileName": "food_0009.jpg",
+      "displayLabel": "Burger",
+      "canonicalFoodId": "predefined_burger",
+      "canonicalName": "Burger",
+      "category": "Sandwiches & Wraps",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_core",
+      "packOffset": 164618,
+      "packLength": 29036
+    },
+    {
+      "imageId": "food_0249",
+      "fileName": "food_0249.jpg",
+      "displayLabel": "Dosa",
+      "canonicalFoodId": "predefined_dosa",
+      "canonicalName": "Plain Dosa",
+      "category": "Breakfast",
+      "subsetType": "v5_overlap",
+      "split": "calibration",
+      "testGroup": "real_food_core",
+      "packOffset": 193654,
+      "packLength": 23814
+    },
+    {
+      "imageId": "food_0075",
+      "fileName": "food_0075.jpg",
+      "displayLabel": "Ramen",
+      "canonicalFoodId": "predefined_ramen",
+      "canonicalName": "Ramen Noodles",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_core",
+      "packOffset": 217468,
+      "packLength": 37380
+    },
+    {
+      "imageId": "food_0354",
+      "fileName": "food_0354.jpg",
+      "displayLabel": "Idli",
+      "canonicalFoodId": "predefined_idli",
+      "canonicalName": "Idli",
+      "category": "Breakfast",
+      "subsetType": "v5_overlap",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 254848,
+      "packLength": 23117
+    },
+    {
+      "imageId": "food_0221",
+      "fileName": "food_0221.jpg",
+      "displayLabel": "Medu Vada",
+      "canonicalFoodId": "predefined_medu_vada",
+      "canonicalName": "Medu Vada",
+      "category": "Breakfast",
+      "subsetType": "v5_overlap",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 277965,
+      "packLength": 30653
+    },
+    {
+      "imageId": "food_0303",
+      "fileName": "food_0303.jpg",
+      "displayLabel": "Butter Chicken",
+      "canonicalFoodId": "predefined_butter_chicken",
+      "canonicalName": "Butter Chicken (Murgh Makhani)",
+      "category": "Dinner",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 308618,
+      "packLength": 23109
+    },
+    {
+      "imageId": "food_0289",
+      "fileName": "food_0289.jpg",
+      "displayLabel": "Paneer Tikka",
+      "canonicalFoodId": "predefined_paneer_tikka",
+      "canonicalName": "Paneer Tikka",
+      "category": "Snacks",
+      "subsetType": "v5_overlap",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 331727,
+      "packLength": 33458
+    },
+    {
+      "imageId": "food_0477",
+      "fileName": "food_0477.jpg",
+      "displayLabel": "Spaghetti",
+      "canonicalFoodId": "openvocab_spaghetti",
+      "canonicalName": "Spaghetti",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 365185,
+      "packLength": 38764
+    },
+    {
+      "imageId": "food_0472",
+      "fileName": "food_0472.jpg",
+      "displayLabel": "Pasta Alfredo",
+      "canonicalFoodId": "openvocab_pasta_alfredo",
+      "canonicalName": "Pasta Alfredo",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 403949,
+      "packLength": 43761
+    },
+    {
+      "imageId": "food_0046",
+      "fileName": "food_0046.jpg",
+      "displayLabel": "Sushi",
+      "canonicalFoodId": "predefined_sushi",
+      "canonicalName": "Sushi",
+      "category": "Main Dishes",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 447710,
+      "packLength": 24011
+    },
+    {
+      "imageId": "food_0061",
+      "fileName": "food_0061.jpg",
+      "displayLabel": "Tacos",
+      "canonicalFoodId": "predefined_tacos",
+      "canonicalName": "Mexican Tacos",
+      "category": "Main Dishes",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "real_food_extended",
+      "packOffset": 471721,
+      "packLength": 39761
+    },
+    {
+      "imageId": "food_0467",
+      "fileName": "food_0467.jpg",
+      "displayLabel": "Creamy Penne Pasta (Sample 1)",
+      "canonicalFoodId": "openvocab_creamy_penne_pasta",
+      "canonicalName": "Creamy Penne Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "development",
+      "testGroup": "pasta_regression",
+      "packOffset": 511482,
+      "packLength": 27246
+    },
+    {
+      "imageId": "food_0469",
+      "fileName": "food_0469.jpg",
+      "displayLabel": "Creamy Penne Pasta (Lockbox)",
+      "canonicalFoodId": "openvocab_creamy_penne_pasta",
+      "canonicalName": "Creamy Penne Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 538728,
+      "packLength": 24959
+    },
+    {
+      "imageId": "food_0470",
+      "fileName": "food_0470.jpg",
+      "displayLabel": "Pasta Alfredo (Sample 1)",
+      "canonicalFoodId": "openvocab_pasta_alfredo",
+      "canonicalName": "Pasta Alfredo",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "development",
+      "testGroup": "pasta_regression",
+      "packOffset": 563687,
+      "packLength": 29315
+    },
+    {
+      "imageId": "food_0471",
+      "fileName": "food_0471.jpg",
+      "displayLabel": "Pasta Alfredo (Sample 2)",
+      "canonicalFoodId": "openvocab_pasta_alfredo",
+      "canonicalName": "Pasta Alfredo",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "calibration",
+      "testGroup": "pasta_regression",
+      "packOffset": 593002,
+      "packLength": 35910
+    },
+    {
+      "imageId": "food_0475",
+      "fileName": "food_0475.jpg",
+      "displayLabel": "Spaghetti (Sample 1)",
+      "canonicalFoodId": "openvocab_spaghetti",
+      "canonicalName": "Spaghetti",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "development",
+      "testGroup": "pasta_regression",
+      "packOffset": 628912,
+      "packLength": 29201
+    },
+    {
+      "imageId": "food_0480",
+      "fileName": "food_0480.jpg",
+      "displayLabel": "Spaghetti (Carbonara Style)",
+      "canonicalFoodId": "openvocab_spaghetti",
+      "canonicalName": "Spaghetti",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 658113,
+      "packLength": 43128
+    },
+    {
+      "imageId": "food_0481",
+      "fileName": "food_0481.jpg",
+      "displayLabel": "Tomato Pasta (Sample 1)",
+      "canonicalFoodId": "openvocab_tomato_pasta",
+      "canonicalName": "Tomato Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "development",
+      "testGroup": "pasta_regression",
+      "packOffset": 701241,
+      "packLength": 37180
+    },
+    {
+      "imageId": "food_0482",
+      "fileName": "food_0482.jpg",
+      "displayLabel": "Tomato Pasta (Sample 2)",
+      "canonicalFoodId": "openvocab_tomato_pasta",
+      "canonicalName": "Tomato Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "calibration",
+      "testGroup": "pasta_regression",
+      "packOffset": 738421,
+      "packLength": 44232
+    },
+    {
+      "imageId": "food_0483",
+      "fileName": "food_0483.jpg",
+      "displayLabel": "Tomato Pasta (Lockbox)",
+      "canonicalFoodId": "openvocab_tomato_pasta",
+      "canonicalName": "Tomato Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 782653,
+      "packLength": 41066
+    },
+    {
+      "imageId": "food_0466",
+      "fileName": "food_0466.jpg",
+      "displayLabel": "Penne Pasta",
+      "canonicalFoodId": "openvocab_penne_pasta",
+      "canonicalName": "Penne Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 823719,
+      "packLength": 36151
+    },
+    {
+      "imageId": "food_0474",
+      "fileName": "food_0474.jpg",
+      "displayLabel": "Creamy Pasta",
+      "canonicalFoodId": "openvocab_creamy_pasta",
+      "canonicalName": "Creamy Pasta",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 859870,
+      "packLength": 45710
+    },
+    {
+      "imageId": "food_0490",
+      "fileName": "food_0490.jpg",
+      "displayLabel": "Cheese Ravioli",
+      "canonicalFoodId": "openvocab_cheese_ravioli",
+      "canonicalName": "Cheese Ravioli",
+      "category": "Pasta & Noodles",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "pasta_regression",
+      "packOffset": 905580,
+      "packLength": 33454
+    },
+    {
+      "imageId": "food_0004",
+      "fileName": "food_0004.jpg",
+      "displayLabel": "Cheese Pizza",
+      "canonicalFoodId": "predefined_pizza",
+      "canonicalName": "Cheese Pizza",
+      "category": "Pizza & Flatbreads",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 939034,
+      "packLength": 31667
+    },
+    {
+      "imageId": "food_0005",
+      "fileName": "food_0005.jpg",
+      "displayLabel": "Cheese Pizza",
+      "canonicalFoodId": "predefined_pizza",
+      "canonicalName": "Cheese Pizza",
+      "category": "Pizza & Flatbreads",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 970701,
+      "packLength": 31088
+    },
+    {
+      "imageId": "food_0006",
+      "fileName": "food_0006.jpg",
+      "displayLabel": "Cheese Pizza",
+      "canonicalFoodId": "predefined_pizza",
+      "canonicalName": "Cheese Pizza",
+      "category": "Pizza & Flatbreads",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1001789,
+      "packLength": 24582
+    },
+    {
+      "imageId": "food_0010",
+      "fileName": "food_0010.jpg",
+      "displayLabel": "Burger",
+      "canonicalFoodId": "predefined_burger",
+      "canonicalName": "Burger",
+      "category": "Sandwiches & Wraps",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1026371,
+      "packLength": 28879
+    },
+    {
+      "imageId": "food_0011",
+      "fileName": "food_0011.jpg",
+      "displayLabel": "Burger",
+      "canonicalFoodId": "predefined_burger",
+      "canonicalName": "Burger",
+      "category": "Sandwiches & Wraps",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1055250,
+      "packLength": 26425
+    },
+    {
+      "imageId": "food_0012",
+      "fileName": "food_0012.jpg",
+      "displayLabel": "Burger",
+      "canonicalFoodId": "predefined_burger",
+      "canonicalName": "Burger",
+      "category": "Sandwiches & Wraps",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1081675,
+      "packLength": 30896
+    },
+    {
+      "imageId": "food_0015",
+      "fileName": "food_0015.jpg",
+      "displayLabel": "Indian Fish Curry",
+      "canonicalFoodId": "predefined_fish_curry",
+      "canonicalName": "Indian Fish Curry",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1112571,
+      "packLength": 30674
+    },
+    {
+      "imageId": "food_0016",
+      "fileName": "food_0016.jpg",
+      "displayLabel": "Indian Fish Curry",
+      "canonicalFoodId": "predefined_fish_curry",
+      "canonicalName": "Indian Fish Curry",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1143245,
+      "packLength": 28962
+    },
+    {
+      "imageId": "food_0017",
+      "fileName": "food_0017.jpg",
+      "displayLabel": "Indian Fish Curry",
+      "canonicalFoodId": "predefined_fish_curry",
+      "canonicalName": "Indian Fish Curry",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1172207,
+      "packLength": 27135
+    },
+    {
+      "imageId": "food_0018",
+      "fileName": "food_0018.jpg",
+      "displayLabel": "Indian Fish Curry",
+      "canonicalFoodId": "predefined_fish_curry",
+      "canonicalName": "Indian Fish Curry",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1199342,
+      "packLength": 27519
+    },
+    {
+      "imageId": "food_0022",
+      "fileName": "food_0022.jpg",
+      "displayLabel": "Vegetable Biryani",
+      "canonicalFoodId": "predefined_veg_biryani",
+      "canonicalName": "Vegetable Biryani",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1226861,
+      "packLength": 39221
+    },
+    {
+      "imageId": "food_0023",
+      "fileName": "food_0023.jpg",
+      "displayLabel": "Vegetable Biryani",
+      "canonicalFoodId": "predefined_veg_biryani",
+      "canonicalName": "Vegetable Biryani",
+      "category": "Lunch",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1266082,
+      "packLength": 40431
+    },
+    {
+      "imageId": "food_0026",
+      "fileName": "food_0026.jpg",
+      "displayLabel": "Chocolate Cake",
+      "canonicalFoodId": "predefined_chocolate_cake",
+      "canonicalName": "Chocolate Cake",
+      "category": "Desserts",
+      "subsetType": "unseen_to_v5",
+      "split": "final_lockbox",
+      "testGroup": "unseen_lockbox_fidelity",
+      "packOffset": 1306513,
+      "packLength": 45308
+    },
+    {
+      "imageId": "non_food_laptop",
+      "fileName": "non_food_laptop.jpg",
+      "displayLabel": "Laptop",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Laptop Computer",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1351821,
+      "packLength": 31781
+    },
+    {
+      "imageId": "non_food_phone",
+      "fileName": "non_food_phone.jpg",
+      "displayLabel": "Phone",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Smartphone",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1383602,
+      "packLength": 23384
+    },
+    {
+      "imageId": "non_food_hand",
+      "fileName": "non_food_hand.jpg",
+      "displayLabel": "Hand",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Human Hand",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1406986,
+      "packLength": 42296
+    },
+    {
+      "imageId": "non_food_keyboard",
+      "fileName": "non_food_keyboard.jpg",
+      "displayLabel": "Keyboard",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Computer Keyboard",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1449282,
+      "packLength": 20673
+    },
+    {
+      "imageId": "non_food_desk",
+      "fileName": "non_food_desk.jpg",
+      "displayLabel": "Desk",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Wooden Table Desk",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1469955,
+      "packLength": 27534
+    },
+    {
+      "imageId": "non_food_shoe",
+      "fileName": "non_food_shoe.jpg",
+      "displayLabel": "Shoe",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Leather Shoe",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1497489,
+      "packLength": 22868
+    },
+    {
+      "imageId": "non_food_plant",
+      "fileName": "non_food_plant.jpg",
+      "displayLabel": "Plant",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Houseplant",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1520357,
+      "packLength": 14206
+    },
+    {
+      "imageId": "non_food_empty_plate",
+      "fileName": "non_food_empty_plate.jpg",
+      "displayLabel": "Empty plate",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Empty Plate / Dishware",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1534563,
+      "packLength": 25421
+    },
+    {
+      "imageId": "non_food_utensils",
+      "fileName": "non_food_utensils.jpg",
+      "displayLabel": "Utensils",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Cutlery Utensils",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1559984,
+      "packLength": 35608
+    },
+    {
+      "imageId": "non_food_car",
+      "fileName": "non_food_car.jpg",
+      "displayLabel": "Automobile",
+      "canonicalFoodId": "non_food",
+      "canonicalName": "Automobile",
+      "category": "Non-Food",
+      "subsetType": "non_food",
+      "split": "final_lockbox",
+      "testGroup": "non_food_safety",
+      "packOffset": 1595592,
+      "packLength": 29562
+    },
+    {
+      "imageId": "mixed_meal_001",
+      "fileName": "mixed_meal_001.jpg",
+      "displayLabel": "South Indian Thali",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "South Indian Thali",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "calibration",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Steamed Rice (Basmati)",
+        "Indian Brown Rice",
+        "Plain Dosa",
+        "Masala Dosa",
+        "Idli",
+        "Medu Vada",
+        "Sambar",
+        "Rasam",
+        "Indian Curd (Dahi)",
+        "Papad",
+        "Coconut Chutney",
+        "Avial",
+        "Poriyal",
+        "Kootu",
+        "Payasam",
+        "Puttu",
+        "Vatha Kuzhambu",
+        "Mor Kuzhambu",
+        "Pulihora",
+        "Bisi Bele Bath",
+        "Appam"
+      ],
+      "packOffset": 1625154,
+      "packLength": 35127
+    },
+    {
+      "imageId": "mixed_meal_003",
+      "fileName": "mixed_meal_003.jpg",
+      "displayLabel": "North Indian Thali",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "North Indian Thali",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "final_lockbox",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Steamed Rice (Basmati)",
+        "Chapati",
+        "Tandoori Roti",
+        "Dal Tadka",
+        "Dal Makhani",
+        "Chole Masala",
+        "Rajma Curry (Kidney Beans)",
+        "Paneer Butter Masala",
+        "Palak Paneer",
+        "Indian Curd (Dahi)",
+        "Butter Naan",
+        "Garlic Naan",
+        "Gulab Jamun",
+        "Raita",
+        "Jeera Rice",
+        "Aloo Gobi",
+        "Bhindi Masala",
+        "Puri",
+        "Bhatura",
+        "Jolada Rotti",
+        "Pithla Bhakri",
+        "Tambda Rassa",
+        "Dhansak"
+      ],
+      "packOffset": 1660281,
+      "packLength": 29843
+    },
+    {
+      "imageId": "mixed_meal_005",
+      "fileName": "mixed_meal_005.jpg",
+      "displayLabel": "Banana Leaf Meal",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "Banana Leaf Meal",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "final_lockbox",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Steamed Rice (Basmati)",
+        "Sambar",
+        "Rasam",
+        "Avial",
+        "Poriyal",
+        "Kootu",
+        "Plain Dosa",
+        "Idli",
+        "Medu Vada",
+        "Indian Curd (Dahi)",
+        "Payasam",
+        "Vatha Kuzhambu",
+        "Mor Kuzhambu",
+        "Bagara Khana",
+        "Dalma",
+        "Odia Dalma",
+        "Dal Bhat Tarkari",
+        "Kori Gassi"
+      ],
+      "packOffset": 1690124,
+      "packLength": 37511
+    },
+    {
+      "imageId": "mixed_meal_007",
+      "fileName": "mixed_meal_007.jpg",
+      "displayLabel": "Indian Thali Meal",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "Indian Thali Meal",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "calibration",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Steamed Rice (Basmati)",
+        "Chapati",
+        "Tandoori Roti",
+        "Dal Tadka",
+        "Dal Makhani",
+        "Sambar",
+        "Rasam",
+        "Chole Masala",
+        "Rajma Curry (Kidney Beans)",
+        "Paneer Butter Masala",
+        "Indian Curd (Dahi)",
+        "Gulab Jamun",
+        "Puri",
+        "Odia Dalma",
+        "Dal Bhat Tarkari",
+        "Bagara Khana",
+        "Mor Kuzhambu",
+        "Cholar Dal",
+        "Begun Bhaja",
+        "Aloo Posto",
+        "Shukto",
+        "Luchi",
+        "Kootu"
+      ],
+      "packOffset": 1727635,
+      "packLength": 33531
+    },
+    {
+      "imageId": "mixed_meal_027",
+      "fileName": "mixed_meal_027.jpg",
+      "displayLabel": "Bento Lunch Box",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "Bento Lunch Box",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "final_lockbox",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Steamed Rice (Basmati)",
+        "Sushi",
+        "Salmon Nigiri",
+        "Tonkatsu",
+        "Tempura",
+        "Shrimp Tempura",
+        "Onigiri",
+        "Onigiri Rice Ball",
+        "Gyoza",
+        "Karaage",
+        "Tamagoyaki",
+        "Edamame",
+        "Yakisoba",
+        "Fried Noodles",
+        "Broccoli",
+        "Teriyaki Chicken",
+        "Miso Soup",
+        "Takoyaki",
+        "Okonomiyaki"
+      ],
+      "packOffset": 1761166,
+      "packLength": 35600
+    },
+    {
+      "imageId": "mixed_meal_047",
+      "fileName": "mixed_meal_047.jpg",
+      "displayLabel": "Full Breakfast Plate",
+      "canonicalFoodId": "mixed_meal",
+      "canonicalName": "Full Breakfast Plate",
+      "category": "Mixed Meal",
+      "subsetType": "mixed_meal",
+      "split": "final_lockbox",
+      "testGroup": "mixed_meal",
+      "trueComponents": [
+        "Scrambled Eggs (Two Eggs)",
+        "Masala Egg Omelette",
+        "Hard Boiled Eggs",
+        "Whole Wheat Bread Slice",
+        "Pancakes",
+        "Belgian Waffle",
+        "Hash Browns",
+        "Bacon",
+        "Sausage",
+        "Bratwurst",
+        "Baked Beans",
+        "Tomato (Red)",
+        "Sautéed Mushrooms",
+        "Croissant",
+        "French Toast",
+        "Black Coffee (Espresso)"
+      ],
+      "packOffset": 1796766,
+      "packLength": 21971
+    }
+  ],
+  "desktopReference": {
+    "siglip_b16_int8": {
+      "food_0275": {
+        "top5Ids": [
+          "predefined_samosa",
+          "openvocab_sambusa",
+          "openvocab_mughlai_paratha",
+          "predefined_aloo_paratha",
+          "openvocab_rfissa"
+        ],
+        "top5Names": [
+          "Samosa",
+          "Sambusa",
+          "Mughlai Paratha",
+          "Aloo Paratha",
+          "Rfissa"
+        ],
+        "top5Scores": [
+          0.106373,
+          0.088125,
+          0.065419,
+          0.064456,
+          0.060357
+        ],
+        "maxFoodSim": 0.106373,
+        "maxNegSim": -0.017042,
+        "negMargin": 0.123415,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0468": {
+        "top5Ids": [
+          "openvocab_creamy_penne_pasta",
+          "openvocab_penne_alfredo",
+          "openvocab_creamy_pasta",
+          "openvocab_pasta_alfredo",
+          "openvocab_macaroni_salad"
+        ],
+        "top5Names": [
+          "Creamy Penne Pasta",
+          "Penne Alfredo",
+          "Creamy Pasta",
+          "Pasta Alfredo",
+          "Macaroni Salad"
+        ],
+        "top5Scores": [
+          0.11348,
+          0.109417,
+          0.105719,
+          0.103554,
+          0.089707
+        ],
+        "maxFoodSim": 0.11348,
+        "maxNegSim": -0.002755,
+        "negMargin": 0.116235,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0021": {
+        "top5Ids": [
+          "predefined_veg_biryani",
+          "predefined_veg_pulao",
+          "openvocab_masale_bhaat",
+          "openvocab_tahiri_rice",
+          "predefined_mutton_biryani"
+        ],
+        "top5Names": [
+          "Vegetable Biryani",
+          "Vegetable Pulao",
+          "Masale Bhaat",
+          "Tahiri Rice",
+          "Mutton Biryani"
+        ],
+        "top5Scores": [
+          0.09951,
+          0.096464,
+          0.092088,
+          0.087555,
+          0.08698
+        ],
+        "maxFoodSim": 0.09951,
+        "maxNegSim": -0.004562,
+        "negMargin": 0.104072,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0003": {
+        "top5Ids": [
+          "openvocab_flammkuchen",
+          "openvocab_zanzibar_pizza",
+          "openvocab_prosciutto",
+          "openvocab_varz_a_la_cluj",
+          "predefined_pizza"
+        ],
+        "top5Names": [
+          "Flammkuchen",
+          "Zanzibar Pizza",
+          "Prosciutto",
+          "Varză a la Cluj",
+          "Cheese Pizza"
+        ],
+        "top5Scores": [
+          0.08779,
+          0.081571,
+          0.070217,
+          0.067286,
+          0.065944
+        ],
+        "maxFoodSim": 0.08779,
+        "maxNegSim": 0.002036,
+        "negMargin": 0.085754,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0009": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_blt_sandwich",
+          "openvocab_bake_and_shark",
+          "openvocab_jucy_lucy",
+          "predefined_sandwich"
+        ],
+        "top5Names": [
+          "Burger",
+          "BLT Sandwich",
+          "Bake and Shark",
+          "Jucy Lucy",
+          "Club Sandwich"
+        ],
+        "top5Scores": [
+          0.084349,
+          0.070299,
+          0.064468,
+          0.056082,
+          0.050756
+        ],
+        "maxFoodSim": 0.084349,
+        "maxNegSim": 0.000359,
+        "negMargin": 0.08399,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0249": {
+        "top5Ids": [
+          "predefined_dosa",
+          "predefined_masala_dosa",
+          "predefined_appam",
+          "openvocab_adai",
+          "openvocab_neer_dosa"
+        ],
+        "top5Names": [
+          "Plain Dosa",
+          "Masala Dosa",
+          "Appam",
+          "Adai",
+          "Neer Dosa"
+        ],
+        "top5Scores": [
+          0.115105,
+          0.106067,
+          0.103443,
+          0.103024,
+          0.094437
+        ],
+        "maxFoodSim": 0.115105,
+        "maxNegSim": 0.019599,
+        "negMargin": 0.095506,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0075": {
+        "top5Ids": [
+          "openvocab_tsukemen",
+          "openvocab_mien_ga",
+          "predefined_ramen",
+          "openvocab_udon",
+          "openvocab_kalguksu"
+        ],
+        "top5Names": [
+          "Tsukemen",
+          "Mien Ga",
+          "Ramen Noodles",
+          "Udon",
+          "Kalguksu"
+        ],
+        "top5Scores": [
+          0.115624,
+          0.098637,
+          0.0905,
+          0.087385,
+          0.087273
+        ],
+        "maxFoodSim": 0.115624,
+        "maxNegSim": 0.002567,
+        "negMargin": 0.113057,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0354": {
+        "top5Ids": [
+          "predefined_idli",
+          "predefined_sambar",
+          "predefined_appam",
+          "predefined_rasam",
+          "openvocab_mor_kuzhambu"
+        ],
+        "top5Names": [
+          "Idli",
+          "Sambar",
+          "Appam",
+          "Rasam",
+          "Mor Kuzhambu"
+        ],
+        "top5Scores": [
+          0.112561,
+          0.099734,
+          0.097287,
+          0.096653,
+          0.089552
+        ],
+        "maxFoodSim": 0.112561,
+        "maxNegSim": 0.012338,
+        "negMargin": 0.100222,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0221": {
+        "top5Ids": [
+          "predefined_medu_vada",
+          "predefined_idli",
+          "predefined_pongal",
+          "predefined_sambar",
+          "openvocab_kori_gassi"
+        ],
+        "top5Names": [
+          "Medu Vada",
+          "Idli",
+          "Ven Pongal",
+          "Sambar",
+          "Kori Gassi"
+        ],
+        "top5Scores": [
+          0.084609,
+          0.081695,
+          0.066466,
+          0.064008,
+          0.059839
+        ],
+        "maxFoodSim": 0.084609,
+        "maxNegSim": -0.016888,
+        "negMargin": 0.101496,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0303": {
+        "top5Ids": [
+          "predefined_butter_chicken",
+          "openvocab_kukul_mas_curry",
+          "openvocab_kori_gassi",
+          "openvocab_vatap",
+          "openvocab_dhansak"
+        ],
+        "top5Names": [
+          "Butter Chicken (Murgh Makhani)",
+          "Kukul Mas Curry",
+          "Kori Gassi",
+          "Vatapá",
+          "Dhansak"
+        ],
+        "top5Scores": [
+          0.103635,
+          0.098375,
+          0.093385,
+          0.09197,
+          0.091276
+        ],
+        "maxFoodSim": 0.103635,
+        "maxNegSim": 0.014095,
+        "negMargin": 0.08954,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0289": {
+        "top5Ids": [
+          "predefined_paneer_tikka",
+          "predefined_chicken_tikka",
+          "predefined_tandoori_chicken",
+          "predefined_salmon_tikka",
+          "predefined_low_fat_paneer"
+        ],
+        "top5Names": [
+          "Paneer Tikka",
+          "Chicken Tikka",
+          "Tandoori Chicken (Tikka)",
+          "Tandoori Salmon Tikka",
+          "Low-Fat Paneer"
+        ],
+        "top5Scores": [
+          0.104262,
+          0.090943,
+          0.084158,
+          0.079386,
+          0.078524
+        ],
+        "maxFoodSim": 0.104262,
+        "maxNegSim": -0.003131,
+        "negMargin": 0.107393,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0477": {
+        "top5Ids": [
+          "openvocab_spaghetti_bolognese",
+          "openvocab_spaghetti",
+          "openvocab_cincinnati_chili",
+          "openvocab_pastitsio",
+          "predefined_pasta"
+        ],
+        "top5Names": [
+          "Spaghetti Bolognese",
+          "Spaghetti",
+          "Cincinnati Chili",
+          "Pastitsio",
+          "Pasta"
+        ],
+        "top5Scores": [
+          0.10491,
+          0.096875,
+          0.089679,
+          0.085624,
+          0.081151
+        ],
+        "maxFoodSim": 0.10491,
+        "maxNegSim": 0.023815,
+        "negMargin": 0.081095,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0472": {
+        "top5Ids": [
+          "openvocab_pasta_alfredo",
+          "openvocab_linguine_clam_sauce",
+          "openvocab_creamy_pasta",
+          "openvocab_cacio_e_pepe",
+          "predefined_standard_pasta"
+        ],
+        "top5Names": [
+          "Pasta Alfredo",
+          "Linguine Clam Sauce",
+          "Creamy Pasta",
+          "Cacio e Pepe",
+          "Standard Pasta (Cooked)"
+        ],
+        "top5Scores": [
+          0.102678,
+          0.097338,
+          0.095688,
+          0.085682,
+          0.083935
+        ],
+        "maxFoodSim": 0.102678,
+        "maxNegSim": 0.03322,
+        "negMargin": 0.069458,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0046": {
+        "top5Ids": [
+          "predefined_sushi",
+          "openvocab_shrimp_tempura",
+          "openvocab_ebi_chili",
+          "openvocab_monjayaki",
+          "openvocab_kimbap_roll"
+        ],
+        "top5Names": [
+          "Sushi",
+          "Shrimp Tempura",
+          "Ebi Chili",
+          "Monjayaki",
+          "Kimbap Roll"
+        ],
+        "top5Scores": [
+          0.094268,
+          0.08985,
+          0.081039,
+          0.0689,
+          0.06356
+        ],
+        "maxFoodSim": 0.094268,
+        "maxNegSim": -0.015463,
+        "negMargin": 0.109731,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0061": {
+        "top5Ids": [
+          "predefined_tacos",
+          "openvocab_tostadas",
+          "openvocab_huevos_rancheros",
+          "openvocab_camarones_a_la_diabla",
+          "predefined_burrito"
+        ],
+        "top5Names": [
+          "Mexican Tacos",
+          "Tostadas",
+          "Huevos Rancheros",
+          "Camarones a la Diabla",
+          "Burrito"
+        ],
+        "top5Scores": [
+          0.109343,
+          0.085749,
+          0.079712,
+          0.076208,
+          0.07599
+        ],
+        "maxFoodSim": 0.109343,
+        "maxNegSim": -0.012231,
+        "negMargin": 0.121574,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0467": {
+        "top5Ids": [
+          "openvocab_penne_alfredo",
+          "openvocab_creamy_penne_pasta",
+          "openvocab_pasta_alfredo",
+          "openvocab_creamy_pasta",
+          "openvocab_penne_pasta"
+        ],
+        "top5Names": [
+          "Penne Alfredo",
+          "Creamy Penne Pasta",
+          "Pasta Alfredo",
+          "Creamy Pasta",
+          "Penne Pasta"
+        ],
+        "top5Scores": [
+          0.134414,
+          0.121297,
+          0.116106,
+          0.10471,
+          0.101783
+        ],
+        "maxFoodSim": 0.134414,
+        "maxNegSim": 0.027768,
+        "negMargin": 0.106646,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0469": {
+        "top5Ids": [
+          "openvocab_creamy_penne_pasta",
+          "openvocab_tomato_pasta",
+          "openvocab_penne_pasta",
+          "openvocab_pasta_puttanesca",
+          "openvocab_creamy_pasta"
+        ],
+        "top5Names": [
+          "Creamy Penne Pasta",
+          "Tomato Pasta",
+          "Penne Pasta",
+          "Pasta Puttanesca",
+          "Creamy Pasta"
+        ],
+        "top5Scores": [
+          0.107135,
+          0.106345,
+          0.102333,
+          0.098405,
+          0.093964
+        ],
+        "maxFoodSim": 0.107135,
+        "maxNegSim": 0.012232,
+        "negMargin": 0.094903,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0470": {
+        "top5Ids": [
+          "openvocab_pasta_alfredo",
+          "openvocab_fu_i_with_truffles",
+          "openvocab_cacio_e_pepe",
+          "predefined_standard_pasta",
+          "openvocab_liangpi_cold_noodles"
+        ],
+        "top5Names": [
+          "Pasta Alfredo",
+          "Fuži with Truffles",
+          "Cacio e Pepe",
+          "Standard Pasta (Cooked)",
+          "Liangpi Cold Noodles"
+        ],
+        "top5Scores": [
+          0.107687,
+          0.102878,
+          0.095128,
+          0.094847,
+          0.091897
+        ],
+        "maxFoodSim": 0.107687,
+        "maxNegSim": 0.038751,
+        "negMargin": 0.068936,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0471": {
+        "top5Ids": [
+          "openvocab_pasta_alfredo",
+          "openvocab_creamy_pasta",
+          "predefined_pasta",
+          "openvocab_cacio_e_pepe",
+          "openvocab_shrimp_and_grits"
+        ],
+        "top5Names": [
+          "Pasta Alfredo",
+          "Creamy Pasta",
+          "Pasta",
+          "Cacio e Pepe",
+          "Shrimp and Grits"
+        ],
+        "top5Scores": [
+          0.095192,
+          0.095181,
+          0.084535,
+          0.084248,
+          0.080291
+        ],
+        "maxFoodSim": 0.095192,
+        "maxNegSim": 0.026497,
+        "negMargin": 0.068695,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0475": {
+        "top5Ids": [
+          "openvocab_pad_kee_mao",
+          "openvocab_pho_xao",
+          "openvocab_japchae_glass_noodles",
+          "openvocab_mien_luon",
+          "openvocab_chao_vit"
+        ],
+        "top5Names": [
+          "Pad Kee Mao",
+          "Pho Xao",
+          "Japchae Glass Noodles",
+          "Mien Luon",
+          "Chao Vit"
+        ],
+        "top5Scores": [
+          0.115253,
+          0.114596,
+          0.102725,
+          0.102535,
+          0.097692
+        ],
+        "maxFoodSim": 0.115253,
+        "maxNegSim": 0.013131,
+        "negMargin": 0.102122,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0480": {
+        "top5Ids": [
+          "openvocab_spaghetti_carbonara",
+          "openvocab_creamy_pasta",
+          "openvocab_spaghetti",
+          "predefined_pasta",
+          "predefined_standard_pasta"
+        ],
+        "top5Names": [
+          "Spaghetti Carbonara",
+          "Creamy Pasta",
+          "Spaghetti",
+          "Pasta",
+          "Standard Pasta (Cooked)"
+        ],
+        "top5Scores": [
+          0.119838,
+          0.093569,
+          0.09095,
+          0.088808,
+          0.084709
+        ],
+        "maxFoodSim": 0.119838,
+        "maxNegSim": 0.026341,
+        "negMargin": 0.093497,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0481": {
+        "top5Ids": [
+          "openvocab_lyutenitsa",
+          "openvocab_gazpacho",
+          "predefined_tomato_juice",
+          "predefined_tomato",
+          "openvocab_tomato_bisque"
+        ],
+        "top5Names": [
+          "Lyutenitsa",
+          "Gazpacho",
+          "Tomato Juice Pure",
+          "Tomato (Red)",
+          "Tomato Bisque"
+        ],
+        "top5Scores": [
+          0.083428,
+          0.075003,
+          0.071345,
+          0.066914,
+          0.057049
+        ],
+        "maxFoodSim": 0.083428,
+        "maxNegSim": -0.004444,
+        "negMargin": 0.087871,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0482": {
+        "top5Ids": [
+          "openvocab_pasta_e_fagioli",
+          "openvocab_tomato_pasta",
+          "openvocab_pasta_alla_norma",
+          "predefined_standard_pasta",
+          "openvocab_pasta_puttanesca"
+        ],
+        "top5Names": [
+          "Pasta e Fagioli",
+          "Tomato Pasta",
+          "Pasta alla Norma",
+          "Standard Pasta (Cooked)",
+          "Pasta Puttanesca"
+        ],
+        "top5Scores": [
+          0.10236,
+          0.099292,
+          0.094953,
+          0.092324,
+          0.09047
+        ],
+        "maxFoodSim": 0.10236,
+        "maxNegSim": 0.02273,
+        "negMargin": 0.079629,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0483": {
+        "top5Ids": [
+          "openvocab_fideu",
+          "predefined_standard_pasta",
+          "openvocab_spaghetti",
+          "openvocab_hal_szl",
+          "openvocab_lyutenitsa"
+        ],
+        "top5Names": [
+          "Fideuà",
+          "Standard Pasta (Cooked)",
+          "Spaghetti",
+          "Halászlé",
+          "Lyutenitsa"
+        ],
+        "top5Scores": [
+          0.111975,
+          0.096473,
+          0.093379,
+          0.090844,
+          0.085831
+        ],
+        "maxFoodSim": 0.111975,
+        "maxNegSim": 0.035725,
+        "negMargin": 0.076251,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0466": {
+        "top5Ids": [
+          "openvocab_chicken_paprikash",
+          "predefined_standard_pasta",
+          "openvocab_poulet_dg",
+          "openvocab_tav_kosi",
+          "openvocab_kugel_noodle"
+        ],
+        "top5Names": [
+          "Chicken Paprikash",
+          "Standard Pasta (Cooked)",
+          "Poulet DG",
+          "Tavë Kosi",
+          "Kugel Noodle"
+        ],
+        "top5Scores": [
+          0.120345,
+          0.100084,
+          0.097435,
+          0.091779,
+          0.091373
+        ],
+        "maxFoodSim": 0.120345,
+        "maxNegSim": 0.027315,
+        "negMargin": 0.093029,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0474": {
+        "top5Ids": [
+          "openvocab_shan_noodles",
+          "predefined_standard_pasta",
+          "openvocab_macaroni",
+          "openvocab_crossing_the_bridge_noodles",
+          "openvocab_macaroni_salad"
+        ],
+        "top5Names": [
+          "Shan Noodles",
+          "Standard Pasta (Cooked)",
+          "Macaroni",
+          "Crossing the Bridge Noodles",
+          "Macaroni Salad"
+        ],
+        "top5Scores": [
+          0.105375,
+          0.095448,
+          0.093551,
+          0.092689,
+          0.091729
+        ],
+        "maxFoodSim": 0.105375,
+        "maxNegSim": 0.023698,
+        "negMargin": 0.081677,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0490": {
+        "top5Ids": [
+          "openvocab_farfalle_mushroom",
+          "openvocab_cheese_ravioli",
+          "openvocab_creamy_pasta",
+          "predefined_pasta",
+          "predefined_standard_pasta"
+        ],
+        "top5Names": [
+          "Farfalle Mushroom",
+          "Cheese Ravioli",
+          "Creamy Pasta",
+          "Pasta",
+          "Standard Pasta (Cooked)"
+        ],
+        "top5Scores": [
+          0.101011,
+          0.093409,
+          0.088264,
+          0.081325,
+          0.079464
+        ],
+        "maxFoodSim": 0.101011,
+        "maxNegSim": 0.024305,
+        "negMargin": 0.076705,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0004": {
+        "top5Ids": [
+          "openvocab_raclette",
+          "openvocab_ploughman_s_lunch",
+          "openvocab_chorrillana",
+          "openvocab_ciabatta",
+          "openvocab_sm_rrebr_d"
+        ],
+        "top5Names": [
+          "Raclette",
+          "Ploughman's Lunch",
+          "Chorrillana",
+          "Ciabatta",
+          "Smørrebrød"
+        ],
+        "top5Scores": [
+          0.103212,
+          0.099405,
+          0.098423,
+          0.098201,
+          0.095797
+        ],
+        "maxFoodSim": 0.103212,
+        "maxNegSim": 0.027814,
+        "negMargin": 0.075398,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0005": {
+        "top5Ids": [
+          "openvocab_sm_rrebr_d",
+          "openvocab_croque_madame",
+          "openvocab_focaccia",
+          "openvocab_ciabatta",
+          "openvocab_chorrillana"
+        ],
+        "top5Names": [
+          "Smørrebrød",
+          "Croque Madame",
+          "Focaccia",
+          "Ciabatta",
+          "Chorrillana"
+        ],
+        "top5Scores": [
+          0.098636,
+          0.094423,
+          0.094042,
+          0.09339,
+          0.09108
+        ],
+        "maxFoodSim": 0.098636,
+        "maxNegSim": 0.004685,
+        "negMargin": 0.093951,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0006": {
+        "top5Ids": [
+          "openvocab_flammkuchen",
+          "openvocab_zanzibar_pizza",
+          "openvocab_prosciutto",
+          "openvocab_varz_a_la_cluj",
+          "predefined_pizza"
+        ],
+        "top5Names": [
+          "Flammkuchen",
+          "Zanzibar Pizza",
+          "Prosciutto",
+          "Varză a la Cluj",
+          "Cheese Pizza"
+        ],
+        "top5Scores": [
+          0.08779,
+          0.081571,
+          0.070217,
+          0.067286,
+          0.065944
+        ],
+        "maxFoodSim": 0.08779,
+        "maxNegSim": 0.002036,
+        "negMargin": 0.085754,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0010": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_jucy_lucy",
+          "openvocab_mezbani_beef",
+          "openvocab_hash_browns",
+          "openvocab_h_el"
+        ],
+        "top5Names": [
+          "Burger",
+          "Jucy Lucy",
+          "Mezbani Beef",
+          "Hash Browns",
+          "Hینگel"
+        ],
+        "top5Scores": [
+          0.045732,
+          0.029276,
+          0.014111,
+          0.012446,
+          0.012228
+        ],
+        "maxFoodSim": 0.045732,
+        "maxNegSim": 0.01,
+        "negMargin": 0.035732,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "food_0011": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_bake_and_shark",
+          "openvocab_poulet_dg",
+          "openvocab_pique_macho",
+          "openvocab_chicken_fried_steak"
+        ],
+        "top5Names": [
+          "Burger",
+          "Bake and Shark",
+          "Poulet DG",
+          "Pique Macho",
+          "Chicken Fried Steak"
+        ],
+        "top5Scores": [
+          0.0711,
+          0.067097,
+          0.040781,
+          0.039902,
+          0.0384
+        ],
+        "maxFoodSim": 0.0711,
+        "maxNegSim": 0.000346,
+        "negMargin": 0.070754,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0012": {
+        "top5Ids": [
+          "openvocab_jucy_lucy",
+          "predefined_burger",
+          "predefined_french_fries",
+          "openvocab_sloppy_joe",
+          "openvocab_pljeskavica"
+        ],
+        "top5Names": [
+          "Jucy Lucy",
+          "Burger",
+          "French Fries",
+          "Sloppy Joe",
+          "Pljeskavica"
+        ],
+        "top5Scores": [
+          0.099534,
+          0.091139,
+          0.081652,
+          0.061336,
+          0.060643
+        ],
+        "maxFoodSim": 0.099534,
+        "maxNegSim": 0.015632,
+        "negMargin": 0.083903,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0015": {
+        "top5Ids": [
+          "openvocab_bun_oc",
+          "openvocab_bun_rieu",
+          "openvocab_bun_moc",
+          "openvocab_hu_tieu",
+          "openvocab_bun_cha"
+        ],
+        "top5Names": [
+          "Bun Oc",
+          "Bun Rieu",
+          "Bun Moc",
+          "Hu Tieu",
+          "Bun Cha"
+        ],
+        "top5Scores": [
+          0.140808,
+          0.139186,
+          0.137724,
+          0.128102,
+          0.128
+        ],
+        "maxFoodSim": 0.140808,
+        "maxNegSim": -0.009878,
+        "negMargin": 0.150687,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0016": {
+        "top5Ids": [
+          "openvocab_mi_quang",
+          "openvocab_bun_ca",
+          "openvocab_bun_oc",
+          "openvocab_bun_moc",
+          "openvocab_bun_rieu"
+        ],
+        "top5Names": [
+          "Mi Quang",
+          "Bun Ca",
+          "Bun Oc",
+          "Bun Moc",
+          "Bun Rieu"
+        ],
+        "top5Scores": [
+          0.128047,
+          0.12581,
+          0.124025,
+          0.121442,
+          0.120189
+        ],
+        "maxFoodSim": 0.128047,
+        "maxNegSim": -0.010596,
+        "negMargin": 0.138643,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0017": {
+        "top5Ids": [
+          "openvocab_taiwanese_beef_noodle_soup",
+          "openvocab_boat_noodles",
+          "openvocab_lanzhou_beef_noodles",
+          "openvocab_kuy_teav",
+          "openvocab_mien_luon"
+        ],
+        "top5Names": [
+          "Taiwanese Beef Noodle Soup",
+          "Boat Noodles",
+          "Lanzhou Beef Noodles",
+          "Kuy Teav",
+          "Mien Luon"
+        ],
+        "top5Scores": [
+          0.122642,
+          0.118906,
+          0.118085,
+          0.109679,
+          0.10728
+        ],
+        "maxFoodSim": 0.122642,
+        "maxNegSim": 0.006845,
+        "negMargin": 0.115796,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0018": {
+        "top5Ids": [
+          "openvocab_lanzhou_beef_noodles",
+          "openvocab_taiwanese_beef_noodle_soup",
+          "openvocab_bo_ne",
+          "openvocab_kuy_teav",
+          "openvocab_shan_noodles"
+        ],
+        "top5Names": [
+          "Lanzhou Beef Noodles",
+          "Taiwanese Beef Noodle Soup",
+          "Bo Ne",
+          "Kuy Teav",
+          "Shan Noodles"
+        ],
+        "top5Scores": [
+          0.12315,
+          0.115597,
+          0.106234,
+          0.105827,
+          0.105544
+        ],
+        "maxFoodSim": 0.12315,
+        "maxNegSim": 0.00664,
+        "negMargin": 0.11651,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0022": {
+        "top5Ids": [
+          "predefined_veg_biryani",
+          "predefined_veg_pulao",
+          "openvocab_masale_bhaat",
+          "openvocab_tahiri_rice",
+          "predefined_mutton_biryani"
+        ],
+        "top5Names": [
+          "Vegetable Biryani",
+          "Vegetable Pulao",
+          "Masale Bhaat",
+          "Tahiri Rice",
+          "Mutton Biryani"
+        ],
+        "top5Scores": [
+          0.09951,
+          0.096464,
+          0.092088,
+          0.087555,
+          0.08698
+        ],
+        "maxFoodSim": 0.09951,
+        "maxNegSim": -0.004562,
+        "negMargin": 0.104072,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0023": {
+        "top5Ids": [
+          "openvocab_coconut_rice",
+          "openvocab_tamarind_rice",
+          "predefined_pongal",
+          "predefined_lemon_rice",
+          "predefined_curd_rice"
+        ],
+        "top5Names": [
+          "Coconut Rice",
+          "Tamarind Rice",
+          "Ven Pongal",
+          "Lemon Rice",
+          "Curd Rice"
+        ],
+        "top5Scores": [
+          0.096678,
+          0.087423,
+          0.081538,
+          0.076465,
+          0.072156
+        ],
+        "maxFoodSim": 0.096678,
+        "maxNegSim": -0.019787,
+        "negMargin": 0.116465,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0026": {
+        "top5Ids": [
+          "openvocab_fudge_brownie",
+          "openvocab_piernik",
+          "openvocab_karidopita",
+          "predefined_chocolate_cake",
+          "openvocab_medovn_k"
+        ],
+        "top5Names": [
+          "Fudge Brownie",
+          "Piernik",
+          "Karidopita",
+          "Chocolate Cake",
+          "Medovník"
+        ],
+        "top5Scores": [
+          0.090507,
+          0.087983,
+          0.084971,
+          0.082269,
+          0.076403
+        ],
+        "maxFoodSim": 0.090507,
+        "maxNegSim": 0.003988,
+        "negMargin": 0.086519,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "non_food_laptop": {
+        "top5Ids": [
+          "openvocab_chao_vit",
+          "openvocab_sai_ua",
+          "openvocab_thong_yip",
+          "openvocab_chao_long",
+          "openvocab_nuoc_mia"
+        ],
+        "top5Names": [
+          "Chao Vit",
+          "Sai Ua",
+          "Thong Yip",
+          "Chao Long",
+          "Nuoc Mia"
+        ],
+        "top5Scores": [
+          0.014047,
+          0.013613,
+          0.012459,
+          0.012398,
+          0.011858
+        ],
+        "maxFoodSim": 0.014047,
+        "maxNegSim": 0.068133,
+        "negMargin": -0.054086,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_phone": {
+        "top5Ids": [
+          "openvocab_saka_saka",
+          "openvocab_irden",
+          "openvocab_s_kacz",
+          "openvocab_americano",
+          "openvocab_sai_ua"
+        ],
+        "top5Names": [
+          "Saka Saka",
+          "Širden",
+          "Sękacz",
+          "Americano",
+          "Sai Ua"
+        ],
+        "top5Scores": [
+          0.005733,
+          0.004301,
+          0.00382,
+          0.000584,
+          0.000289
+        ],
+        "maxFoodSim": 0.005733,
+        "maxNegSim": 0.100739,
+        "negMargin": -0.095007,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_hand": {
+        "top5Ids": [
+          "openvocab_brudet",
+          "openvocab_prosciutto",
+          "openvocab_americano",
+          "openvocab_m_m_lig",
+          "openvocab_saka_saka"
+        ],
+        "top5Names": [
+          "Brudet",
+          "Prosciutto",
+          "Americano",
+          "Mămăligă",
+          "Saka Saka"
+        ],
+        "top5Scores": [
+          0.003831,
+          0.000975,
+          -0.000196,
+          -0.001086,
+          -0.002084
+        ],
+        "maxFoodSim": 0.003831,
+        "maxNegSim": 0.045711,
+        "negMargin": -0.04188,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_keyboard": {
+        "top5Ids": [
+          "openvocab_h_el",
+          "openvocab_irden",
+          "openvocab_brudet",
+          "openvocab_anal_k_zl",
+          "openvocab_laskonky"
+        ],
+        "top5Names": [
+          "Hینگel",
+          "Širden",
+          "Brudet",
+          "Analı Kızlı",
+          "Laskonky"
+        ],
+        "top5Scores": [
+          -0.020957,
+          -0.023193,
+          -0.03138,
+          -0.032556,
+          -0.034457
+        ],
+        "maxFoodSim": -0.020957,
+        "maxNegSim": 0.079585,
+        "negMargin": -0.100542,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_desk": {
+        "top5Ids": [
+          "openvocab_laskonky",
+          "openvocab_san_bei_ji",
+          "openvocab_americano",
+          "openvocab_yurinchi",
+          "openvocab_speca_te_mbushura"
+        ],
+        "top5Names": [
+          "Laskonky",
+          "San Bei Ji",
+          "Americano",
+          "Yurinchi",
+          "Speca te Mbushura"
+        ],
+        "top5Scores": [
+          -0.021269,
+          -0.024037,
+          -0.025943,
+          -0.026193,
+          -0.027164
+        ],
+        "maxFoodSim": -0.021269,
+        "maxNegSim": 0.077616,
+        "negMargin": -0.098885,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_shoe": {
+        "top5Ids": [
+          "openvocab_americano",
+          "openvocab_caffe_mocha",
+          "openvocab_espresso",
+          "openvocab_chocolate_milkshake",
+          "openvocab_cold_brew_coffee"
+        ],
+        "top5Names": [
+          "Americano",
+          "Caffe Mocha",
+          "Espresso",
+          "Chocolate Milkshake",
+          "Cold Brew Coffee"
+        ],
+        "top5Scores": [
+          0.001811,
+          0.000313,
+          -0.005389,
+          -0.01224,
+          -0.013035
+        ],
+        "maxFoodSim": 0.001811,
+        "maxNegSim": 0.069907,
+        "negMargin": -0.068096,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_plant": {
+        "top5Ids": [
+          "openvocab_h_el",
+          "openvocab_sinjski_aramba_i_i",
+          "openvocab_fi_paprika",
+          "openvocab_kyopolou",
+          "openvocab_yurinchi"
+        ],
+        "top5Names": [
+          "Hینگel",
+          "Sinjski Arambašići",
+          "Fiš Paprikaš",
+          "Kyopolou",
+          "Yurinchi"
+        ],
+        "top5Scores": [
+          0.033883,
+          0.028287,
+          0.02168,
+          0.021488,
+          0.019715
+        ],
+        "maxFoodSim": 0.033883,
+        "maxNegSim": 0.007973,
+        "negMargin": 0.02591,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_empty_plate": {
+        "top5Ids": [
+          "openvocab_cappuccino",
+          "openvocab_espresso",
+          "openvocab_caffe_latte",
+          "openvocab_flat_white",
+          "openvocab_caffe_mocha"
+        ],
+        "top5Names": [
+          "Cappuccino",
+          "Espresso",
+          "Caffe Latte",
+          "Flat White",
+          "Caffe Mocha"
+        ],
+        "top5Scores": [
+          0.102658,
+          0.09812,
+          0.09659,
+          0.090298,
+          0.077391
+        ],
+        "maxFoodSim": 0.102658,
+        "maxNegSim": 0.051494,
+        "negMargin": 0.051164,
+        "acceptedModeA": true,
+        "acceptedModeB": false
+      },
+      "non_food_utensils": {
+        "top5Ids": [
+          "openvocab_brudet",
+          "openvocab_irden",
+          "openvocab_f_zel_k",
+          "openvocab_anal_k_zl",
+          "openvocab_m_m_lig"
+        ],
+        "top5Names": [
+          "Brudet",
+          "Širden",
+          "Főzelék",
+          "Analı Kızlı",
+          "Mămăligă"
+        ],
+        "top5Scores": [
+          0.031742,
+          0.028279,
+          0.01919,
+          0.018848,
+          0.018494
+        ],
+        "maxFoodSim": 0.031742,
+        "maxNegSim": 0.108432,
+        "negMargin": -0.07669,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_car": {
+        "top5Ids": [
+          "openvocab_sloppy_joe",
+          "openvocab_agua_de_jamaica",
+          "openvocab_yurinchi",
+          "openvocab_spiedie",
+          "openvocab_mud_pie"
+        ],
+        "top5Names": [
+          "Sloppy Joe",
+          "Agua de Jamaica",
+          "Yurinchi",
+          "Spiedie",
+          "Mud Pie"
+        ],
+        "top5Scores": [
+          0.001972,
+          -0.001021,
+          -0.006589,
+          -0.006744,
+          -0.007218
+        ],
+        "maxFoodSim": 0.001972,
+        "maxNegSim": 0.024326,
+        "negMargin": -0.022355,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "mixed_meal_001": {
+        "top5Ids": [
+          "predefined_rasam",
+          "openvocab_yuvalama",
+          "openvocab_olan",
+          "openvocab_kavarma",
+          "predefined_sambar"
+        ],
+        "top5Names": [
+          "Rasam",
+          "Yuvalama",
+          "Olan",
+          "Kavarma",
+          "Sambar"
+        ],
+        "top5Scores": [
+          0.07307,
+          0.06506,
+          0.060849,
+          0.059387,
+          0.056064
+        ],
+        "maxFoodSim": 0.07307,
+        "maxNegSim": 0.000861,
+        "negMargin": 0.072209,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_003": {
+        "top5Ids": [
+          "openvocab_shorbat_adas",
+          "openvocab_rfissa",
+          "predefined_chapati",
+          "openvocab_tharid",
+          "openvocab_pithla_bhakri"
+        ],
+        "top5Names": [
+          "Shorbat Adas",
+          "Rfissa",
+          "Chapati",
+          "Tharid",
+          "Pithla Bhakri"
+        ],
+        "top5Scores": [
+          0.055767,
+          0.055656,
+          0.055458,
+          0.053526,
+          0.052132
+        ],
+        "maxFoodSim": 0.055767,
+        "maxNegSim": -0.010292,
+        "negMargin": 0.066059,
+        "acceptedModeA": false,
+        "acceptedModeB": true
+      },
+      "mixed_meal_005": {
+        "top5Ids": [
+          "openvocab_kootu",
+          "openvocab_bagara_khana",
+          "openvocab_dal_bhat_tarkari",
+          "openvocab_odia_dalma",
+          "openvocab_mor_kuzhambu"
+        ],
+        "top5Names": [
+          "Kootu",
+          "Bagara Khana",
+          "Dal Bhat Tarkari",
+          "Odia Dalma",
+          "Mor Kuzhambu"
+        ],
+        "top5Scores": [
+          0.076398,
+          0.076343,
+          0.074333,
+          0.0733,
+          0.070572
+        ],
+        "maxFoodSim": 0.076398,
+        "maxNegSim": 0.000849,
+        "negMargin": 0.075548,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_007": {
+        "top5Ids": [
+          "openvocab_dal_bhat_tarkari",
+          "openvocab_bagara_khana",
+          "predefined_rasam",
+          "openvocab_pakhala_bhata",
+          "openvocab_masale_bhaat"
+        ],
+        "top5Names": [
+          "Dal Bhat Tarkari",
+          "Bagara Khana",
+          "Rasam",
+          "Pakhala Bhata",
+          "Masale Bhaat"
+        ],
+        "top5Scores": [
+          0.081565,
+          0.081391,
+          0.069108,
+          0.068262,
+          0.066234
+        ],
+        "maxFoodSim": 0.081565,
+        "maxNegSim": 0.01817,
+        "negMargin": 0.063394,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_027": {
+        "top5Ids": [
+          "openvocab_japanese_katsu_curry",
+          "openvocab_yurinchi",
+          "openvocab_xoi_xeo",
+          "openvocab_emmental",
+          "openvocab_look_choup"
+        ],
+        "top5Names": [
+          "Japanese Katsu Curry",
+          "Yurinchi",
+          "Xoi Xeo",
+          "Emmental",
+          "Look Choup"
+        ],
+        "top5Scores": [
+          0.042371,
+          0.041734,
+          0.041556,
+          0.03922,
+          0.039171
+        ],
+        "maxFoodSim": 0.042371,
+        "maxNegSim": -0.020724,
+        "negMargin": 0.063095,
+        "acceptedModeA": false,
+        "acceptedModeB": true
+      },
+      "mixed_meal_047": {
+        "top5Ids": [
+          "openvocab_croissant",
+          "openvocab_americano",
+          "openvocab_fish_and_chips",
+          "openvocab_espresso",
+          "openvocab_paris_brest"
+        ],
+        "top5Names": [
+          "Croissant",
+          "Americano",
+          "Fish and Chips",
+          "Espresso",
+          "Paris-Brest"
+        ],
+        "top5Scores": [
+          0.094184,
+          0.087339,
+          0.079973,
+          0.073655,
+          0.070991
+        ],
+        "maxFoodSim": 0.094184,
+        "maxNegSim": 0.035783,
+        "negMargin": 0.058401,
+        "acceptedModeA": true,
+        "acceptedModeB": false
+      }
+    },
+    "tinyclip_40m_int8": {
+      "food_0275": {
+        "top5Ids": [
+          "predefined_samosa",
+          "openvocab_fatayer",
+          "openvocab_hamantaschen",
+          "openvocab_jamaican_beef_patty",
+          "openvocab_gozleme"
+        ],
+        "top5Names": [
+          "Samosa",
+          "Fatayer",
+          "Hamantaschen",
+          "Jamaican Beef Patty",
+          "Gozleme"
+        ],
+        "top5Scores": [
+          0.352097,
+          0.342528,
+          0.339869,
+          0.32695,
+          0.326347
+        ],
+        "maxFoodSim": 0.352097,
+        "maxNegSim": 0.170854,
+        "negMargin": 0.181242,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0468": {
+        "top5Ids": [
+          "openvocab_huaraches",
+          "openvocab_kaju_katli",
+          "openvocab_string_hoppers",
+          "openvocab_gaz_nougat",
+          "openvocab_khorovats"
+        ],
+        "top5Names": [
+          "Huaraches",
+          "Kaju Katli",
+          "String Hoppers",
+          "Gaz Nougat",
+          "Khorovats"
+        ],
+        "top5Scores": [
+          0.301194,
+          0.30022,
+          0.295003,
+          0.294911,
+          0.294623
+        ],
+        "maxFoodSim": 0.301194,
+        "maxNegSim": 0.196971,
+        "negMargin": 0.104223,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0021": {
+        "top5Ids": [
+          "openvocab_kashmiri_pulao",
+          "predefined_veg_pulao",
+          "openvocab_yakhni_pulao",
+          "openvocab_zarda_pulao",
+          "predefined_jeera_rice"
+        ],
+        "top5Names": [
+          "Kashmiri Pulao",
+          "Vegetable Pulao",
+          "Yakhni Pulao",
+          "Zarda Pulao",
+          "Jeera Rice"
+        ],
+        "top5Scores": [
+          0.350168,
+          0.338318,
+          0.337229,
+          0.33292,
+          0.323526
+        ],
+        "maxFoodSim": 0.350168,
+        "maxNegSim": 0.164739,
+        "negMargin": 0.185429,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0003": {
+        "top5Ids": [
+          "openvocab_flammkuchen",
+          "openvocab_zanzibar_pizza",
+          "openvocab_pepperoni",
+          "predefined_pizza",
+          "openvocab_prosciutto"
+        ],
+        "top5Names": [
+          "Flammkuchen",
+          "Zanzibar Pizza",
+          "Pepperoni",
+          "Cheese Pizza",
+          "Prosciutto"
+        ],
+        "top5Scores": [
+          0.285771,
+          0.284799,
+          0.28101,
+          0.262214,
+          0.260519
+        ],
+        "maxFoodSim": 0.285771,
+        "maxNegSim": 0.118695,
+        "negMargin": 0.167076,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0009": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_bun_oc",
+          "openvocab_bun_ca",
+          "openvocab_bun_moc",
+          "openvocab_chivito_sandwich"
+        ],
+        "top5Names": [
+          "Burger",
+          "Bun Oc",
+          "Bun Ca",
+          "Bun Moc",
+          "Chivito Sandwich"
+        ],
+        "top5Scores": [
+          0.320823,
+          0.303704,
+          0.299337,
+          0.298916,
+          0.28684
+        ],
+        "maxFoodSim": 0.320823,
+        "maxNegSim": 0.156223,
+        "negMargin": 0.164601,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0249": {
+        "top5Ids": [
+          "predefined_dosa",
+          "openvocab_neer_dosa",
+          "predefined_rava_dosa",
+          "predefined_masala_dosa",
+          "openvocab_adai"
+        ],
+        "top5Names": [
+          "Plain Dosa",
+          "Neer Dosa",
+          "Rava Dosa",
+          "Masala Dosa",
+          "Adai"
+        ],
+        "top5Scores": [
+          0.392936,
+          0.379086,
+          0.374745,
+          0.371801,
+          0.359817
+        ],
+        "maxFoodSim": 0.392936,
+        "maxNegSim": 0.213024,
+        "negMargin": 0.179912,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0075": {
+        "top5Ids": [
+          "openvocab_pho_cuon",
+          "openvocab_pho_xao",
+          "openvocab_mee_rebus",
+          "openvocab_dan_dan_noodles",
+          "openvocab_crossing_the_bridge_noodles"
+        ],
+        "top5Names": [
+          "Pho Cuon",
+          "Pho Xao",
+          "Mee Rebus",
+          "Dan Dan Noodles",
+          "Crossing the Bridge Noodles"
+        ],
+        "top5Scores": [
+          0.32372,
+          0.322951,
+          0.318041,
+          0.316314,
+          0.315314
+        ],
+        "maxFoodSim": 0.32372,
+        "maxNegSim": 0.171617,
+        "negMargin": 0.152103,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0354": {
+        "top5Ids": [
+          "predefined_rasam",
+          "openvocab_tarhana_soup",
+          "predefined_sambar",
+          "openvocab_mor_kuzhambu",
+          "openvocab_parippu"
+        ],
+        "top5Names": [
+          "Rasam",
+          "Tarhana Soup",
+          "Sambar",
+          "Mor Kuzhambu",
+          "Parippu"
+        ],
+        "top5Scores": [
+          0.342771,
+          0.342585,
+          0.335267,
+          0.331751,
+          0.328422
+        ],
+        "maxFoodSim": 0.342771,
+        "maxNegSim": 0.18558,
+        "negMargin": 0.157191,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0221": {
+        "top5Ids": [
+          "openvocab_unniyappam",
+          "openvocab_watalappan",
+          "openvocab_parippu",
+          "predefined_idli",
+          "openvocab_kootu"
+        ],
+        "top5Names": [
+          "Unniyappam",
+          "Watalappan",
+          "Parippu",
+          "Idli",
+          "Kootu"
+        ],
+        "top5Scores": [
+          0.333733,
+          0.330304,
+          0.327663,
+          0.326865,
+          0.325548
+        ],
+        "maxFoodSim": 0.333733,
+        "maxNegSim": 0.163253,
+        "negMargin": 0.170481,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0303": {
+        "top5Ids": [
+          "openvocab_curry_goat",
+          "predefined_sambar",
+          "openvocab_chicken_paprikash",
+          "predefined_butter_chicken",
+          "openvocab_mor_kuzhambu"
+        ],
+        "top5Names": [
+          "Curry Goat",
+          "Sambar",
+          "Chicken Paprikash",
+          "Butter Chicken (Murgh Makhani)",
+          "Mor Kuzhambu"
+        ],
+        "top5Scores": [
+          0.304142,
+          0.300371,
+          0.296905,
+          0.294462,
+          0.293463
+        ],
+        "maxFoodSim": 0.304142,
+        "maxNegSim": 0.162347,
+        "negMargin": 0.141795,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0289": {
+        "top5Ids": [
+          "predefined_paneer_tikka",
+          "predefined_chicken_tikka",
+          "openvocab_bihari_kebab",
+          "predefined_tandoori_chicken",
+          "predefined_veg_pakora"
+        ],
+        "top5Names": [
+          "Paneer Tikka",
+          "Chicken Tikka",
+          "Bihari Kebab",
+          "Tandoori Chicken (Tikka)",
+          "Vegetable Pakora"
+        ],
+        "top5Scores": [
+          0.353741,
+          0.35179,
+          0.350476,
+          0.344164,
+          0.342772
+        ],
+        "maxFoodSim": 0.353741,
+        "maxNegSim": 0.120215,
+        "negMargin": 0.233526,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0477": {
+        "top5Ids": [
+          "openvocab_chilaquiles",
+          "openvocab_cincinnati_chili",
+          "openvocab_chicken_parmigiana",
+          "openvocab_lasagna",
+          "openvocab_baked_ziti"
+        ],
+        "top5Names": [
+          "Chilaquiles",
+          "Cincinnati Chili",
+          "Chicken Parmigiana",
+          "Lasagna",
+          "Baked Ziti"
+        ],
+        "top5Scores": [
+          0.323245,
+          0.322309,
+          0.316034,
+          0.311185,
+          0.309422
+        ],
+        "maxFoodSim": 0.323245,
+        "maxNegSim": 0.188013,
+        "negMargin": 0.135232,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0472": {
+        "top5Ids": [
+          "openvocab_pasta_alfredo",
+          "predefined_standard_pasta",
+          "openvocab_pasta_primavera",
+          "openvocab_crossing_the_bridge_noodles",
+          "openvocab_orecchiette_broccoli_rabe"
+        ],
+        "top5Names": [
+          "Pasta Alfredo",
+          "Standard Pasta (Cooked)",
+          "Pasta Primavera",
+          "Crossing the Bridge Noodles",
+          "Orecchiette Broccoli Rabe"
+        ],
+        "top5Scores": [
+          0.317477,
+          0.312089,
+          0.311271,
+          0.309674,
+          0.309319
+        ],
+        "maxFoodSim": 0.317477,
+        "maxNegSim": 0.244613,
+        "negMargin": 0.072864,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0046": {
+        "top5Ids": [
+          "openvocab_shrimp_tempura",
+          "openvocab_potica_roll",
+          "openvocab_la_zi_ji",
+          "predefined_sushi",
+          "openvocab_monjayaki"
+        ],
+        "top5Names": [
+          "Shrimp Tempura",
+          "Potica Roll",
+          "La Zi Ji",
+          "Sushi",
+          "Monjayaki"
+        ],
+        "top5Scores": [
+          0.307299,
+          0.299971,
+          0.29817,
+          0.293988,
+          0.289005
+        ],
+        "maxFoodSim": 0.307299,
+        "maxNegSim": 0.139279,
+        "negMargin": 0.168019,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0061": {
+        "top5Ids": [
+          "openvocab_tostadas",
+          "openvocab_gua_bao",
+          "openvocab_sopes",
+          "predefined_tacos",
+          "openvocab_gai_tod_hat_yai"
+        ],
+        "top5Names": [
+          "Tostadas",
+          "Gua Bao",
+          "Sopes",
+          "Mexican Tacos",
+          "Gai Tod Hat Yai"
+        ],
+        "top5Scores": [
+          0.347442,
+          0.323918,
+          0.323047,
+          0.319684,
+          0.316003
+        ],
+        "maxFoodSim": 0.347442,
+        "maxNegSim": 0.160447,
+        "negMargin": 0.186995,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0467": {
+        "top5Ids": [
+          "openvocab_penne_alfredo",
+          "openvocab_enoki_mushrooms",
+          "openvocab_creamy_penne_pasta",
+          "openvocab_cacio_e_pepe",
+          "openvocab_calamari"
+        ],
+        "top5Names": [
+          "Penne Alfredo",
+          "Enoki Mushrooms",
+          "Creamy Penne Pasta",
+          "Cacio e Pepe",
+          "Calamari"
+        ],
+        "top5Scores": [
+          0.352378,
+          0.345462,
+          0.340947,
+          0.33682,
+          0.334848
+        ],
+        "maxFoodSim": 0.352378,
+        "maxNegSim": 0.18734,
+        "negMargin": 0.165038,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0469": {
+        "top5Ids": [
+          "openvocab_pasta_puttanesca",
+          "openvocab_farfalle_mushroom",
+          "openvocab_lotus_root",
+          "openvocab_tagliatelle_al_ragu",
+          "openvocab_sp_tzle"
+        ],
+        "top5Names": [
+          "Pasta Puttanesca",
+          "Farfalle Mushroom",
+          "Lotus Root",
+          "Tagliatelle al Ragu",
+          "Spätzle"
+        ],
+        "top5Scores": [
+          0.339714,
+          0.33068,
+          0.323901,
+          0.318966,
+          0.316586
+        ],
+        "maxFoodSim": 0.339714,
+        "maxNegSim": 0.198607,
+        "negMargin": 0.141107,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0470": {
+        "top5Ids": [
+          "openvocab_pasta_alfredo",
+          "openvocab_manti_dumplings",
+          "openvocab_udon",
+          "openvocab_creamy_pasta",
+          "openvocab_crossing_the_bridge_noodles"
+        ],
+        "top5Names": [
+          "Pasta Alfredo",
+          "Manti Dumplings",
+          "Udon",
+          "Creamy Pasta",
+          "Crossing the Bridge Noodles"
+        ],
+        "top5Scores": [
+          0.332465,
+          0.326775,
+          0.321857,
+          0.320723,
+          0.319253
+        ],
+        "maxFoodSim": 0.332465,
+        "maxNegSim": 0.233468,
+        "negMargin": 0.098997,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0471": {
+        "top5Ids": [
+          "openvocab_bacalhau_br_s",
+          "openvocab_new_england_clam_chowder",
+          "predefined_egg_white_omelette",
+          "openvocab_pa_ticada",
+          "openvocab_pasta_alfredo"
+        ],
+        "top5Names": [
+          "Bacalhau à Brás",
+          "New England Clam Chowder",
+          "Egg White Omelette",
+          "Pašticada",
+          "Pasta Alfredo"
+        ],
+        "top5Scores": [
+          0.314551,
+          0.314476,
+          0.30641,
+          0.304615,
+          0.304017
+        ],
+        "maxFoodSim": 0.314551,
+        "maxNegSim": 0.17672,
+        "negMargin": 0.13783,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0475": {
+        "top5Ids": [
+          "openvocab_hokkien_mee",
+          "openvocab_dan_dan_noodles",
+          "openvocab_mee_rebus",
+          "openvocab_boat_noodles",
+          "predefined_noodles"
+        ],
+        "top5Names": [
+          "Hokkien Mee",
+          "Dan Dan Noodles",
+          "Mee Rebus",
+          "Boat Noodles",
+          "Fried Noodles"
+        ],
+        "top5Scores": [
+          0.317807,
+          0.314697,
+          0.310661,
+          0.31056,
+          0.307364
+        ],
+        "maxFoodSim": 0.317807,
+        "maxNegSim": 0.161794,
+        "negMargin": 0.156013,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0480": {
+        "top5Ids": [
+          "openvocab_spaghetti_carbonara",
+          "openvocab_bucatini_amatriciana",
+          "openvocab_spaghetti",
+          "openvocab_cacio_e_pepe",
+          "openvocab_tagliatelle_al_ragu"
+        ],
+        "top5Names": [
+          "Spaghetti Carbonara",
+          "Bucatini Amatriciana",
+          "Spaghetti",
+          "Cacio e Pepe",
+          "Tagliatelle al Ragu"
+        ],
+        "top5Scores": [
+          0.365389,
+          0.343697,
+          0.299699,
+          0.299175,
+          0.294712
+        ],
+        "maxFoodSim": 0.365389,
+        "maxNegSim": 0.180136,
+        "negMargin": 0.185253,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0481": {
+        "top5Ids": [
+          "predefined_tomato_juice",
+          "openvocab_gazpacho",
+          "openvocab_ajvar_relish",
+          "predefined_rasam",
+          "openvocab_tomato_bath"
+        ],
+        "top5Names": [
+          "Tomato Juice Pure",
+          "Gazpacho",
+          "Ajvar Relish",
+          "Rasam",
+          "Tomato Bath"
+        ],
+        "top5Scores": [
+          0.327718,
+          0.323396,
+          0.296285,
+          0.293304,
+          0.292801
+        ],
+        "maxFoodSim": 0.327718,
+        "maxNegSim": 0.116607,
+        "negMargin": 0.211111,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0482": {
+        "top5Ids": [
+          "openvocab_pasta_alla_norma",
+          "openvocab_tortellini_in_brodo",
+          "openvocab_calamari",
+          "openvocab_tomato_pasta",
+          "openvocab_pasta_e_fagioli"
+        ],
+        "top5Names": [
+          "Pasta alla Norma",
+          "Tortellini in Brodo",
+          "Calamari",
+          "Tomato Pasta",
+          "Pasta e Fagioli"
+        ],
+        "top5Scores": [
+          0.330272,
+          0.328571,
+          0.325922,
+          0.317177,
+          0.311414
+        ],
+        "maxFoodSim": 0.330272,
+        "maxNegSim": 0.192478,
+        "negMargin": 0.137794,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0483": {
+        "top5Ids": [
+          "openvocab_spaghetti",
+          "openvocab_bucatini_amatriciana",
+          "openvocab_crossing_the_bridge_noodles",
+          "openvocab_pasta_alla_norma",
+          "openvocab_mee_rebus"
+        ],
+        "top5Names": [
+          "Spaghetti",
+          "Bucatini Amatriciana",
+          "Crossing the Bridge Noodles",
+          "Pasta alla Norma",
+          "Mee Rebus"
+        ],
+        "top5Scores": [
+          0.353178,
+          0.347021,
+          0.334079,
+          0.329187,
+          0.327208
+        ],
+        "maxFoodSim": 0.353178,
+        "maxNegSim": 0.218288,
+        "negMargin": 0.13489,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0466": {
+        "top5Ids": [
+          "openvocab_chicken_paprikash",
+          "openvocab_arroz_con_mariscos",
+          "openvocab_arroz_rojo",
+          "openvocab_bratwurst",
+          "openvocab_banku_and_tilapia"
+        ],
+        "top5Names": [
+          "Chicken Paprikash",
+          "Arroz con Mariscos",
+          "Arroz Rojo",
+          "Bratwurst",
+          "Banku and Tilapia"
+        ],
+        "top5Scores": [
+          0.310984,
+          0.310646,
+          0.296811,
+          0.293622,
+          0.291802
+        ],
+        "maxFoodSim": 0.310984,
+        "maxNegSim": 0.174982,
+        "negMargin": 0.136002,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0474": {
+        "top5Ids": [
+          "openvocab_sp_tzle",
+          "openvocab_macaroni",
+          "openvocab_k_sesp_tzle",
+          "openvocab_creamy_pasta",
+          "openvocab_h_el"
+        ],
+        "top5Names": [
+          "Spätzle",
+          "Macaroni",
+          "Käsespätzle",
+          "Creamy Pasta",
+          "Hینگel"
+        ],
+        "top5Scores": [
+          0.318485,
+          0.310692,
+          0.309827,
+          0.306837,
+          0.305077
+        ],
+        "maxFoodSim": 0.318485,
+        "maxNegSim": 0.168122,
+        "negMargin": 0.150363,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0490": {
+        "top5Ids": [
+          "openvocab_orecchiette_broccoli_rabe",
+          "openvocab_tortellini_in_brodo",
+          "predefined_mushroom",
+          "openvocab_farfalle_mushroom",
+          "openvocab_mushroom_risotto"
+        ],
+        "top5Names": [
+          "Orecchiette Broccoli Rabe",
+          "Tortellini in Brodo",
+          "Button Mushrooms",
+          "Farfalle Mushroom",
+          "Mushroom Risotto"
+        ],
+        "top5Scores": [
+          0.336444,
+          0.328269,
+          0.325269,
+          0.321041,
+          0.310521
+        ],
+        "maxFoodSim": 0.336444,
+        "maxNegSim": 0.216912,
+        "negMargin": 0.119531,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0004": {
+        "top5Ids": [
+          "openvocab_ploughman_s_lunch",
+          "openvocab_raclette",
+          "openvocab_pa_ticada",
+          "openvocab_travesseiros",
+          "openvocab_pastilla"
+        ],
+        "top5Names": [
+          "Ploughman's Lunch",
+          "Raclette",
+          "Pašticada",
+          "Travesseiros",
+          "Pastilla"
+        ],
+        "top5Scores": [
+          0.342001,
+          0.321531,
+          0.30685,
+          0.302079,
+          0.301515
+        ],
+        "maxFoodSim": 0.342001,
+        "maxNegSim": 0.152211,
+        "negMargin": 0.18979,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0005": {
+        "top5Ids": [
+          "openvocab_pastilla",
+          "openvocab_raclette",
+          "openvocab_horseshoe_sandwich",
+          "openvocab_ploughman_s_lunch",
+          "openvocab_travesseiros"
+        ],
+        "top5Names": [
+          "Pastilla",
+          "Raclette",
+          "Horseshoe Sandwich",
+          "Ploughman's Lunch",
+          "Travesseiros"
+        ],
+        "top5Scores": [
+          0.319312,
+          0.318678,
+          0.313147,
+          0.306251,
+          0.303306
+        ],
+        "maxFoodSim": 0.319312,
+        "maxNegSim": 0.154894,
+        "negMargin": 0.164417,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0006": {
+        "top5Ids": [
+          "openvocab_flammkuchen",
+          "openvocab_zanzibar_pizza",
+          "openvocab_pepperoni",
+          "predefined_pizza",
+          "openvocab_prosciutto"
+        ],
+        "top5Names": [
+          "Flammkuchen",
+          "Zanzibar Pizza",
+          "Pepperoni",
+          "Cheese Pizza",
+          "Prosciutto"
+        ],
+        "top5Scores": [
+          0.285771,
+          0.284799,
+          0.28101,
+          0.262214,
+          0.260519
+        ],
+        "maxFoodSim": 0.285771,
+        "maxNegSim": 0.118695,
+        "negMargin": 0.167076,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0010": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_harees",
+          "openvocab_bun_moc",
+          "openvocab_bun_oc",
+          "openvocab_bun_ca"
+        ],
+        "top5Names": [
+          "Burger",
+          "Harees",
+          "Bun Moc",
+          "Bun Oc",
+          "Bun Ca"
+        ],
+        "top5Scores": [
+          0.261577,
+          0.252664,
+          0.252183,
+          0.247445,
+          0.24342
+        ],
+        "maxFoodSim": 0.261577,
+        "maxNegSim": 0.196329,
+        "negMargin": 0.065249,
+        "acceptedModeA": false,
+        "acceptedModeB": true
+      },
+      "food_0011": {
+        "top5Ids": [
+          "openvocab_sans_rival",
+          "openvocab_whoopie_pie",
+          "openvocab_bun_oc",
+          "openvocab_dorayaki",
+          "openvocab_bun_moc"
+        ],
+        "top5Names": [
+          "Sans Rival",
+          "Whoopie Pie",
+          "Bun Oc",
+          "Dorayaki",
+          "Bun Moc"
+        ],
+        "top5Scores": [
+          0.319356,
+          0.308236,
+          0.307294,
+          0.306424,
+          0.304497
+        ],
+        "maxFoodSim": 0.319356,
+        "maxNegSim": 0.133962,
+        "negMargin": 0.185395,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0012": {
+        "top5Ids": [
+          "predefined_burger",
+          "openvocab_steak_frites",
+          "predefined_french_fries",
+          "openvocab_bun_oc",
+          "openvocab_bun_ca"
+        ],
+        "top5Names": [
+          "Burger",
+          "Steak Frites",
+          "French Fries",
+          "Bun Oc",
+          "Bun Ca"
+        ],
+        "top5Scores": [
+          0.318794,
+          0.27493,
+          0.274411,
+          0.269045,
+          0.268648
+        ],
+        "maxFoodSim": 0.318794,
+        "maxNegSim": 0.141129,
+        "negMargin": 0.177665,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0015": {
+        "top5Ids": [
+          "openvocab_mee_rebus",
+          "openvocab_thit_kho_tau",
+          "openvocab_suppli",
+          "openvocab_dan_dan_noodles",
+          "openvocab_chicken_yassa"
+        ],
+        "top5Names": [
+          "Mee Rebus",
+          "Thit Kho Tau",
+          "Suppli",
+          "Dan Dan Noodles",
+          "Chicken Yassa"
+        ],
+        "top5Scores": [
+          0.323993,
+          0.309394,
+          0.304206,
+          0.304108,
+          0.303564
+        ],
+        "maxFoodSim": 0.323993,
+        "maxNegSim": 0.153989,
+        "negMargin": 0.170004,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0016": {
+        "top5Ids": [
+          "openvocab_mee_rebus",
+          "openvocab_dan_dan_noodles",
+          "openvocab_thit_kho_tau",
+          "openvocab_tantanmen",
+          "openvocab_longganisa"
+        ],
+        "top5Names": [
+          "Mee Rebus",
+          "Dan Dan Noodles",
+          "Thit Kho Tau",
+          "Tantanmen",
+          "Longganisa"
+        ],
+        "top5Scores": [
+          0.30839,
+          0.289115,
+          0.286477,
+          0.280812,
+          0.280286
+        ],
+        "maxFoodSim": 0.30839,
+        "maxNegSim": 0.153388,
+        "negMargin": 0.155002,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0017": {
+        "top5Ids": [
+          "openvocab_lanzhou_beef_noodles",
+          "openvocab_taiwanese_beef_noodle_soup",
+          "openvocab_dan_dan_noodles",
+          "openvocab_mee_rebus",
+          "openvocab_beef_tehari"
+        ],
+        "top5Names": [
+          "Lanzhou Beef Noodles",
+          "Taiwanese Beef Noodle Soup",
+          "Dan Dan Noodles",
+          "Mee Rebus",
+          "Beef Tehari"
+        ],
+        "top5Scores": [
+          0.328956,
+          0.319577,
+          0.299385,
+          0.297855,
+          0.296904
+        ],
+        "maxFoodSim": 0.328956,
+        "maxNegSim": 0.156342,
+        "negMargin": 0.172614,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0018": {
+        "top5Ids": [
+          "openvocab_lanzhou_beef_noodles",
+          "openvocab_taiwanese_beef_noodle_soup",
+          "openvocab_beef_tehari",
+          "openvocab_mee_rebus",
+          "openvocab_dan_dan_noodles"
+        ],
+        "top5Names": [
+          "Lanzhou Beef Noodles",
+          "Taiwanese Beef Noodle Soup",
+          "Beef Tehari",
+          "Mee Rebus",
+          "Dan Dan Noodles"
+        ],
+        "top5Scores": [
+          0.320437,
+          0.305063,
+          0.303303,
+          0.300566,
+          0.295356
+        ],
+        "maxFoodSim": 0.320437,
+        "maxNegSim": 0.16459,
+        "negMargin": 0.155847,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0022": {
+        "top5Ids": [
+          "openvocab_kashmiri_pulao",
+          "predefined_veg_pulao",
+          "openvocab_yakhni_pulao",
+          "openvocab_zarda_pulao",
+          "predefined_jeera_rice"
+        ],
+        "top5Names": [
+          "Kashmiri Pulao",
+          "Vegetable Pulao",
+          "Yakhni Pulao",
+          "Zarda Pulao",
+          "Jeera Rice"
+        ],
+        "top5Scores": [
+          0.350168,
+          0.338318,
+          0.337229,
+          0.33292,
+          0.323526
+        ],
+        "maxFoodSim": 0.350168,
+        "maxNegSim": 0.164739,
+        "negMargin": 0.185429,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0023": {
+        "top5Ids": [
+          "openvocab_dahi_bhalla",
+          "openvocab_kashmiri_pulao",
+          "openvocab_coconut_rice",
+          "predefined_pongal",
+          "openvocab_yakhni_pulao"
+        ],
+        "top5Names": [
+          "Dahi Bhalla",
+          "Kashmiri Pulao",
+          "Coconut Rice",
+          "Ven Pongal",
+          "Yakhni Pulao"
+        ],
+        "top5Scores": [
+          0.320005,
+          0.316069,
+          0.314645,
+          0.305182,
+          0.302857
+        ],
+        "maxFoodSim": 0.320005,
+        "maxNegSim": 0.182141,
+        "negMargin": 0.137863,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "food_0026": {
+        "top5Ids": [
+          "openvocab_nanaimo_bar",
+          "openvocab_gaz_nougat",
+          "openvocab_anjeer_barfi",
+          "openvocab_kaju_barfi",
+          "openvocab_buckeye_candy"
+        ],
+        "top5Names": [
+          "Nanaimo Bar",
+          "Gaz Nougat",
+          "Anjeer Barfi",
+          "Kaju Barfi",
+          "Buckeye Candy"
+        ],
+        "top5Scores": [
+          0.304958,
+          0.302439,
+          0.300824,
+          0.293011,
+          0.289292
+        ],
+        "maxFoodSim": 0.304958,
+        "maxNegSim": 0.13026,
+        "negMargin": 0.174697,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "non_food_laptop": {
+        "top5Ids": [
+          "openvocab_xoi_man",
+          "openvocab_sugarcane_juice",
+          "openvocab_bika_ambon",
+          "openvocab_bo_luc_lac",
+          "openvocab_sosaties"
+        ],
+        "top5Names": [
+          "Xoi Man",
+          "Sugarcane Juice",
+          "Bika Ambon",
+          "Bo Luc Lac",
+          "Sosaties"
+        ],
+        "top5Scores": [
+          0.202893,
+          0.189081,
+          0.182915,
+          0.182112,
+          0.180668
+        ],
+        "maxFoodSim": 0.202893,
+        "maxNegSim": 0.130898,
+        "negMargin": 0.071995,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_phone": {
+        "top5Ids": [
+          "openvocab_seblak",
+          "openvocab_lapis_legit",
+          "openvocab_sahlab",
+          "openvocab_luwombo",
+          "openvocab_lecs"
+        ],
+        "top5Names": [
+          "Seblak",
+          "Lapis Legit",
+          "Sahlab",
+          "Luwombo",
+          "Lecsó"
+        ],
+        "top5Scores": [
+          0.223251,
+          0.219159,
+          0.216587,
+          0.215003,
+          0.209915
+        ],
+        "maxFoodSim": 0.223251,
+        "maxNegSim": 0.298338,
+        "negMargin": -0.075086,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_hand": {
+        "top5Ids": [
+          "openvocab_chiroti",
+          "openvocab_medialunas",
+          "openvocab_sarmale",
+          "openvocab_msemen",
+          "openvocab_handvo"
+        ],
+        "top5Names": [
+          "Chiroti",
+          "Medialunas",
+          "Sarmale",
+          "Msemen",
+          "Handvo"
+        ],
+        "top5Scores": [
+          0.201664,
+          0.195364,
+          0.194967,
+          0.194132,
+          0.187771
+        ],
+        "maxFoodSim": 0.201664,
+        "maxNegSim": 0.207856,
+        "negMargin": -0.006192,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_keyboard": {
+        "top5Ids": [
+          "openvocab_handvo",
+          "openvocab_seblak",
+          "openvocab_pandebono",
+          "openvocab_medialunas",
+          "openvocab_sukuma_wiki"
+        ],
+        "top5Names": [
+          "Handvo",
+          "Seblak",
+          "Pandebono",
+          "Medialunas",
+          "Sukuma Wiki"
+        ],
+        "top5Scores": [
+          0.160718,
+          0.146343,
+          0.146132,
+          0.143448,
+          0.142855
+        ],
+        "maxFoodSim": 0.160718,
+        "maxNegSim": 0.29033,
+        "negMargin": -0.129611,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_desk": {
+        "top5Ids": [
+          "openvocab_charoset",
+          "openvocab_dinuguan",
+          "openvocab_fu_qi_fei_pian",
+          "openvocab_chao_long",
+          "openvocab_anpan"
+        ],
+        "top5Names": [
+          "Charoset",
+          "Dinuguan",
+          "Fu Qi Fei Pian",
+          "Chao Long",
+          "Anpan"
+        ],
+        "top5Scores": [
+          0.152096,
+          0.15207,
+          0.150165,
+          0.149802,
+          0.14969
+        ],
+        "maxFoodSim": 0.152096,
+        "maxNegSim": 0.216562,
+        "negMargin": -0.064466,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_shoe": {
+        "top5Ids": [
+          "openvocab_sholezard",
+          "openvocab_diples",
+          "openvocab_look_choup",
+          "openvocab_fesenjan",
+          "openvocab_brambor_ky"
+        ],
+        "top5Names": [
+          "Sholezard",
+          "Diples",
+          "Look Choup",
+          "Fesenjan",
+          "Bramboráky"
+        ],
+        "top5Scores": [
+          0.183792,
+          0.182499,
+          0.178395,
+          0.172352,
+          0.167026
+        ],
+        "maxFoodSim": 0.183792,
+        "maxNegSim": 0.231914,
+        "negMargin": -0.048122,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_plant": {
+        "top5Ids": [
+          "openvocab_prekmurska_gibanica",
+          "openvocab_purica_s_mlincima",
+          "openvocab_celery",
+          "openvocab_santula",
+          "openvocab_speca_te_mbushura"
+        ],
+        "top5Names": [
+          "Prekmurska Gibanica",
+          "Purica s Mlincima",
+          "Celery",
+          "Santula",
+          "Speca te Mbushura"
+        ],
+        "top5Scores": [
+          0.213591,
+          0.21289,
+          0.21287,
+          0.21237,
+          0.210549
+        ],
+        "maxFoodSim": 0.213591,
+        "maxNegSim": 0.176185,
+        "negMargin": 0.037407,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_empty_plate": {
+        "top5Ids": [
+          "openvocab_cappuccino",
+          "openvocab_caffe_latte",
+          "openvocab_flat_white",
+          "openvocab_caffe_mocha",
+          "openvocab_teh_tarik"
+        ],
+        "top5Names": [
+          "Cappuccino",
+          "Caffe Latte",
+          "Flat White",
+          "Caffe Mocha",
+          "Teh Tarik"
+        ],
+        "top5Scores": [
+          0.329888,
+          0.322136,
+          0.321074,
+          0.315732,
+          0.312404
+        ],
+        "maxFoodSim": 0.329888,
+        "maxNegSim": 0.202236,
+        "negMargin": 0.127652,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "non_food_utensils": {
+        "top5Ids": [
+          "openvocab_anchovies",
+          "openvocab_bamboo_shoots",
+          "openvocab_alu_vadi",
+          "openvocab_sardines",
+          "openvocab_string_hoppers"
+        ],
+        "top5Names": [
+          "Anchovies",
+          "Bamboo Shoots",
+          "Alu Vadi",
+          "Sardines",
+          "String Hoppers"
+        ],
+        "top5Scores": [
+          0.25079,
+          0.237143,
+          0.234647,
+          0.232088,
+          0.231468
+        ],
+        "maxFoodSim": 0.25079,
+        "maxNegSim": 0.321895,
+        "negMargin": -0.071105,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "non_food_car": {
+        "top5Ids": [
+          "openvocab_saltah",
+          "openvocab_es_doger",
+          "openvocab_spiedie",
+          "openvocab_xoi_xeo",
+          "openvocab_fartons"
+        ],
+        "top5Names": [
+          "Saltah",
+          "Es Doger",
+          "Spiedie",
+          "Xoi Xeo",
+          "Fartons"
+        ],
+        "top5Scores": [
+          0.196117,
+          0.18917,
+          0.183425,
+          0.181476,
+          0.180727
+        ],
+        "maxFoodSim": 0.196117,
+        "maxNegSim": 0.161657,
+        "negMargin": 0.034461,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "mixed_meal_001": {
+        "top5Ids": [
+          "openvocab_aamras",
+          "openvocab_pathiri",
+          "openvocab_dhokar_dalna",
+          "openvocab_watalappan",
+          "openvocab_jhalmuri"
+        ],
+        "top5Names": [
+          "Aamras",
+          "Pathiri",
+          "Dhokar Dalna",
+          "Watalappan",
+          "Jhalmuri"
+        ],
+        "top5Scores": [
+          0.317188,
+          0.311921,
+          0.310457,
+          0.309809,
+          0.309741
+        ],
+        "maxFoodSim": 0.317188,
+        "maxNegSim": 0.147685,
+        "negMargin": 0.169504,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_003": {
+        "top5Ids": [
+          "openvocab_bamieh",
+          "openvocab_sindhi_koki",
+          "openvocab_ghevar",
+          "openvocab_sindhi_sai_bhaji",
+          "openvocab_aamras"
+        ],
+        "top5Names": [
+          "Bamieh",
+          "Sindhi Koki",
+          "Ghevar",
+          "Sindhi Sai Bhaji",
+          "Aamras"
+        ],
+        "top5Scores": [
+          0.313206,
+          0.306607,
+          0.305091,
+          0.303998,
+          0.303265
+        ],
+        "maxFoodSim": 0.313206,
+        "maxNegSim": 0.176834,
+        "negMargin": 0.136372,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_005": {
+        "top5Ids": [
+          "openvocab_aamras",
+          "openvocab_pathiri",
+          "openvocab_watalappan",
+          "openvocab_parippu",
+          "openvocab_adai"
+        ],
+        "top5Names": [
+          "Aamras",
+          "Pathiri",
+          "Watalappan",
+          "Parippu",
+          "Adai"
+        ],
+        "top5Scores": [
+          0.327984,
+          0.324091,
+          0.321027,
+          0.319873,
+          0.318789
+        ],
+        "maxFoodSim": 0.327984,
+        "maxNegSim": 0.142197,
+        "negMargin": 0.185787,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_007": {
+        "top5Ids": [
+          "openvocab_parippu",
+          "predefined_toor_dal",
+          "openvocab_kozhukattai",
+          "openvocab_jhalmuri",
+          "openvocab_pathiri"
+        ],
+        "top5Names": [
+          "Parippu",
+          "Toor Dal (Arhar)",
+          "Kozhukattai",
+          "Jhalmuri",
+          "Pathiri"
+        ],
+        "top5Scores": [
+          0.317863,
+          0.315389,
+          0.315112,
+          0.314593,
+          0.314301
+        ],
+        "maxFoodSim": 0.317863,
+        "maxNegSim": 0.180759,
+        "negMargin": 0.137105,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      },
+      "mixed_meal_027": {
+        "top5Ids": [
+          "openvocab_ayam_geprek",
+          "openvocab_klepon",
+          "openvocab_bebek_betutu",
+          "openvocab_olan",
+          "openvocab_wife_cake_lou_po_beng"
+        ],
+        "top5Names": [
+          "Ayam Geprek",
+          "Klepon",
+          "Bebek Betutu",
+          "Olan",
+          "Wife Cake Lou Po Beng"
+        ],
+        "top5Scores": [
+          0.251664,
+          0.248884,
+          0.234454,
+          0.234066,
+          0.231786
+        ],
+        "maxFoodSim": 0.251664,
+        "maxNegSim": 0.171779,
+        "negMargin": 0.079884,
+        "acceptedModeA": false,
+        "acceptedModeB": false
+      },
+      "mixed_meal_047": {
+        "top5Ids": [
+          "openvocab_sausage_roll",
+          "openvocab_fish_and_chips",
+          "openvocab_travesseiros",
+          "openvocab_trdeln_k",
+          "openvocab_completo_hot_dog"
+        ],
+        "top5Names": [
+          "Sausage Roll",
+          "Fish and Chips",
+          "Travesseiros",
+          "Trdelník",
+          "Completo Hot Dog"
+        ],
+        "top5Scores": [
+          0.2859,
+          0.285745,
+          0.282357,
+          0.281807,
+          0.281521
+        ],
+        "maxFoodSim": 0.2859,
+        "maxNegSim": 0.195924,
+        "negMargin": 0.089976,
+        "acceptedModeA": true,
+        "acceptedModeB": true
+      }
+    }
+  }
+}

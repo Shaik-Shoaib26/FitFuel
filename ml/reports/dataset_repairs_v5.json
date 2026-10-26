@@ -1,0 +1,292 @@
+{
+  "dataset_name": "fitfuel_food_dataset_v5",
+  "previous_total_images": 3188,
+  "total_removed_contaminated_images": 46,
+  "clean_remaining_base_images": 3142,
+  "new_targeted_supplement_images": 30,
+  "final_usable_images": 3172,
+  "train_samples": 2715,
+  "val_samples": 457,
+  "supported_classes_count": 50,
+  "wrong_labels_removed": 43,
+  "apple_tomato_contamination_removed": 5,
+  "side_dish_dominant_removed": 1,
+  "compound_dish_removed": 2,
+  "issue_breakdown": {
+    "LABEL_CONTAMINATION_TOMATO": 5,
+    "LABEL_CONFLICT_ORANGE": 1,
+    "LABEL_CONFLICT_FRUIT_SALAD": 1,
+    "COMPOUND_FRUIT_BOWL": 2,
+    "LABEL_CONFLICT_MANGO": 2,
+    "LABEL_CONFLICT_MELON": 3,
+    "LABEL_CONFLICT_FRUIT_BOWL": 1,
+    "LABEL_CONFLICT_DOSA": 3,
+    "SIDE_DISH_DOMINANCE_SAMBAR": 1,
+    "LABEL_CONFLICT_BIRYANI": 2,
+    "LABEL_CONFLICT_CHAPATI": 6,
+    "LABEL_CONFLICT_MUESLI": 1,
+    "LABEL_CONFLICT_CAKE": 1,
+    "LABEL_CONFLICT_SANDWICH": 1,
+    "LABEL_CONFLICT_FRITTATA": 5,
+    "LABEL_CONFLICT_BACON": 3,
+    "LABEL_CONFLICT_TANDOORI": 1,
+    "LABEL_CONFLICT_CURD": 1,
+    "LABEL_CONFLICT_COCONUT_MILK": 1,
+    "LABEL_CONFLICT_SAMBAR": 1,
+    "LABEL_CONFLICT_RED_PEPPER": 1,
+    "LABEL_CONFLICT_CABBAGE": 1,
+    "LABEL_CONFLICT_BROCCOLI": 2
+  },
+  "per_class_counts": {
+    "predefined_apple": {
+      "total": 74,
+      "train": 63,
+      "val": 11
+    },
+    "predefined_banana": {
+      "total": 78,
+      "train": 67,
+      "val": 11
+    },
+    "predefined_orange": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_mango": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_papaya": {
+      "total": 69,
+      "train": 59,
+      "val": 10
+    },
+    "predefined_watermelon": {
+      "total": 67,
+      "train": 57,
+      "val": 10
+    },
+    "predefined_pineapple": {
+      "total": 69,
+      "train": 59,
+      "val": 10
+    },
+    "predefined_grapes": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_guava": {
+      "total": 58,
+      "train": 50,
+      "val": 8
+    },
+    "predefined_strawberry": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_idli": {
+      "total": 68,
+      "train": 58,
+      "val": 10
+    },
+    "predefined_dosa": {
+      "total": 76,
+      "train": 65,
+      "val": 11
+    },
+    "predefined_uttapam": {
+      "total": 52,
+      "train": 45,
+      "val": 7
+    },
+    "predefined_poha": {
+      "total": 69,
+      "train": 59,
+      "val": 10
+    },
+    "predefined_upma": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_medu_vada": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_steamed_rice": {
+      "total": 68,
+      "train": 58,
+      "val": 10
+    },
+    "predefined_brown_rice_ind": {
+      "total": 56,
+      "train": 48,
+      "val": 8
+    },
+    "predefined_chapati": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_roti": {
+      "total": 64,
+      "train": 55,
+      "val": 9
+    },
+    "predefined_oats": {
+      "total": 58,
+      "train": 50,
+      "val": 8
+    },
+    "predefined_whole_wheat_bread": {
+      "total": 68,
+      "train": 58,
+      "val": 10
+    },
+    "predefined_hard_boiled_eggs": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_egg_omelette": {
+      "total": 65,
+      "train": 56,
+      "val": 9
+    },
+    "predefined_scrambled_eggs": {
+      "total": 67,
+      "train": 57,
+      "val": 10
+    },
+    "predefined_grilled_chicken_breast": {
+      "total": 47,
+      "train": 40,
+      "val": 7
+    },
+    "predefined_tandoori_chicken": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_ind_paneer": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_firm_tofu": {
+      "total": 29,
+      "train": 24,
+      "val": 5
+    },
+    "predefined_paneer_tikka": {
+      "total": 50,
+      "train": 43,
+      "val": 7
+    },
+    "predefined_low_fat_milk": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_curd": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_greek_yogurt_plain": {
+      "total": 22,
+      "train": 17,
+      "val": 5
+    },
+    "predefined_coconut_water": {
+      "total": 69,
+      "train": 59,
+      "val": 10
+    },
+    "predefined_dal_tadka": {
+      "total": 50,
+      "train": 43,
+      "val": 7
+    },
+    "predefined_chole_masala": {
+      "total": 71,
+      "train": 61,
+      "val": 10
+    },
+    "predefined_rajma_curry": {
+      "total": 60,
+      "train": 51,
+      "val": 9
+    },
+    "predefined_moong_dal": {
+      "total": 50,
+      "train": 43,
+      "val": 7
+    },
+    "predefined_sambar": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_potato": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_tomato": {
+      "total": 68,
+      "train": 58,
+      "val": 10
+    },
+    "predefined_carrot": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_broccoli": {
+      "total": 59,
+      "train": 51,
+      "val": 8
+    },
+    "predefined_cauliflower": {
+      "total": 58,
+      "train": 50,
+      "val": 8
+    },
+    "predefined_cucumber": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_spinach": {
+      "total": 60,
+      "train": 51,
+      "val": 9
+    },
+    "predefined_capsicum": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_onion": {
+      "total": 70,
+      "train": 60,
+      "val": 10
+    },
+    "predefined_samosa": {
+      "total": 57,
+      "train": 49,
+      "val": 8
+    },
+    "predefined_almonds": {
+      "total": 36,
+      "train": 31,
+      "val": 5
+    }
+  }
+}

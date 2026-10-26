@@ -1,0 +1,610 @@
+{
+  "timestampMs": 1791725542383,
+  "device": "RZCW8201QBV",
+  "deviceModel": "SM-E346B",
+  "networkActiveBefore": true,
+  "networkActiveAfter": true,
+  "wifiAndMobileDataDisabled": false,
+  "cloudCalls": 0,
+  "offlinePass": true,
+  "models": {
+    "siglip_b16_int8": {
+      "coldStart": {
+        "modelKey": "siglip_b16_int8",
+        "modelFileBytes": 101248915,
+        "modelFileSizeMb": 96.56,
+        "indexFileBytes": 3167232,
+        "indexFileSizeMb": 3.02,
+        "totalAssetSizeMb": 99.58,
+        "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+        "modelLoadMs": 592.75,
+        "indexLoadMs": 140.54,
+        "firstInferenceMs": 786.67,
+        "totalColdStartMs": 1519.96,
+        "baselinePssMb": 173.26,
+        "baselineRssMb": 225.06,
+        "loadedPssMb": 449.5,
+        "loadedRssMb": 504.19
+      },
+      "scans": [
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "siglip_b16_int8",
+          "modelDisplayName": "SigLIP-B\/16 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_food_0275",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/food_0275.jpg",
+          "preprocessMs": 14.59,
+          "encoderMs": 625.17,
+          "retrievalMs": 56.49,
+          "totalMs": 696.25,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "predefined_samosa",
+              "name": "Samosa",
+              "category": "Snacks",
+              "inFitFuel238": true,
+              "inV5": false,
+              "score": 0.1081
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_sambusa",
+              "name": "Sambusa",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0916
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_briouat",
+              "name": "Briouat",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0618
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_rfissa",
+              "name": "Rfissa",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0618
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_mughlai_paratha",
+              "name": "Mughlai Paratha",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.061
+            }
+          ],
+          "top5Ids": [
+            "predefined_samosa",
+            "openvocab_sambusa",
+            "openvocab_briouat",
+            "openvocab_rfissa",
+            "openvocab_mughlai_paratha"
+          ],
+          "top5Names": [
+            "Samosa",
+            "Sambusa",
+            "Briouat",
+            "Rfissa",
+            "Mughlai Paratha"
+          ],
+          "maxFoodSim": 0.1081,
+          "maxNegSim": -0.0144,
+          "topNegativePrompt": "Mobile Phone \/ Smartphone",
+          "negMargin": 0.1224,
+          "acceptedModeA": true,
+          "acceptedModeB": true,
+          "foodAccepted": true,
+          "abstained": false,
+          "decisionLabel": "FOOD ACCEPTED (Show Top-3 Confirmation)",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 461.73,
+            "rssMb": 503.98,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 267.76
+          },
+          "displayLabel": "Samosa"
+        },
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "siglip_b16_int8",
+          "modelDisplayName": "SigLIP-B\/16 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_food_0468",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/food_0468.jpg",
+          "preprocessMs": 7.65,
+          "encoderMs": 853.8,
+          "retrievalMs": 11.91,
+          "totalMs": 873.36,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "openvocab_creamy_penne_pasta",
+              "name": "Creamy Penne Pasta",
+              "category": "Pasta & Noodles",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.114
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_creamy_pasta",
+              "name": "Creamy Pasta",
+              "category": "Pasta & Noodles",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1084
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_penne_alfredo",
+              "name": "Penne Alfredo",
+              "category": "Pasta & Noodles",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1076
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_pasta_alfredo",
+              "name": "Pasta Alfredo",
+              "category": "Pasta & Noodles",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1043
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_macaroni_salad",
+              "name": "Macaroni Salad",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.09
+            }
+          ],
+          "top5Ids": [
+            "openvocab_creamy_penne_pasta",
+            "openvocab_creamy_pasta",
+            "openvocab_penne_alfredo",
+            "openvocab_pasta_alfredo",
+            "openvocab_macaroni_salad"
+          ],
+          "top5Names": [
+            "Creamy Penne Pasta",
+            "Creamy Pasta",
+            "Penne Alfredo",
+            "Pasta Alfredo",
+            "Macaroni Salad"
+          ],
+          "maxFoodSim": 0.114,
+          "maxNegSim": 0.0044,
+          "topNegativePrompt": "Empty Plate \/ Empty Bowl",
+          "negMargin": 0.1096,
+          "acceptedModeA": true,
+          "acceptedModeB": true,
+          "foodAccepted": true,
+          "abstained": false,
+          "decisionLabel": "FOOD ACCEPTED (Show Top-3 Confirmation)",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 472.75,
+            "rssMb": 513.53,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 268.4
+          },
+          "displayLabel": "Creamy Penne Pasta"
+        },
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "siglip_b16_int8",
+          "modelDisplayName": "SigLIP-B\/16 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_non_food_laptop",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/non_food_laptop.jpg",
+          "preprocessMs": 5.89,
+          "encoderMs": 1016.48,
+          "retrievalMs": 18.59,
+          "totalMs": 1040.96,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "openvocab_aseed",
+              "name": "Aseed",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0083
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_sai_ua",
+              "name": "Sai Ua",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0079
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_luwombo",
+              "name": "Luwombo",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0075
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_chao_vit",
+              "name": "Chao Vit",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0065
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_bo_ne",
+              "name": "Bo Ne",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.0063
+            }
+          ],
+          "top5Ids": [
+            "openvocab_aseed",
+            "openvocab_sai_ua",
+            "openvocab_luwombo",
+            "openvocab_chao_vit",
+            "openvocab_bo_ne"
+          ],
+          "top5Names": [
+            "Aseed",
+            "Sai Ua",
+            "Luwombo",
+            "Chao Vit",
+            "Bo Ne"
+          ],
+          "maxFoodSim": 0.0083,
+          "maxNegSim": 0.0658,
+          "topNegativePrompt": "Laptop Computer \/ Monitor",
+          "negMargin": -0.0575,
+          "acceptedModeA": false,
+          "acceptedModeB": false,
+          "foodAccepted": false,
+          "abstained": true,
+          "decisionLabel": "ABSTAINED \/ NON-FOOD REJECTED",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 470.76,
+            "rssMb": 514.32,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 269.12
+          },
+          "displayLabel": "Non-Food (Laptop)"
+        }
+      ],
+      "worksOffline": true,
+      "cloudCalls": 0
+    },
+    "tinyclip_40m_int8": {
+      "coldStart": {
+        "modelKey": "tinyclip_40m_int8",
+        "modelFileBytes": 45116319,
+        "modelFileSizeMb": 43.03,
+        "indexFileBytes": 2111488,
+        "indexFileSizeMb": 2.01,
+        "totalAssetSizeMb": 45.04,
+        "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+        "modelLoadMs": 517.08,
+        "indexLoadMs": 84.01,
+        "firstInferenceMs": 121.9,
+        "totalColdStartMs": 722.99,
+        "baselinePssMb": 454.09,
+        "baselineRssMb": 426.83,
+        "loadedPssMb": 418,
+        "loadedRssMb": 458.36
+      },
+      "scans": [
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "tinyclip_40m_int8",
+          "modelDisplayName": "TinyCLIP-ViT-40M\/32 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_food_0275",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/food_0275.jpg",
+          "preprocessMs": 5.24,
+          "encoderMs": 103.26,
+          "retrievalMs": 3.06,
+          "totalMs": 111.56,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "predefined_samosa",
+              "name": "Samosa",
+              "category": "Snacks",
+              "inFitFuel238": true,
+              "inV5": false,
+              "score": 0.3569
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_fatayer",
+              "name": "Fatayer",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3467
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_hamantaschen",
+              "name": "Hamantaschen",
+              "category": "Desserts & Sweets",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3404
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_jamaican_beef_patty",
+              "name": "Jamaican Beef Patty",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3318
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_mandazi",
+              "name": "Mandazi",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3272
+            }
+          ],
+          "top5Ids": [
+            "predefined_samosa",
+            "openvocab_fatayer",
+            "openvocab_hamantaschen",
+            "openvocab_jamaican_beef_patty",
+            "openvocab_mandazi"
+          ],
+          "top5Names": [
+            "Samosa",
+            "Fatayer",
+            "Hamantaschen",
+            "Jamaican Beef Patty",
+            "Mandazi"
+          ],
+          "maxFoodSim": 0.3569,
+          "maxNegSim": 0.1708,
+          "topNegativePrompt": "Empty Plate \/ Empty Bowl",
+          "negMargin": 0.1861,
+          "acceptedModeA": true,
+          "acceptedModeB": true,
+          "foodAccepted": true,
+          "abstained": false,
+          "decisionLabel": "FOOD ACCEPTED (Show Top-3 Confirmation)",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 352.12,
+            "rssMb": 394.18,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 150.55
+          },
+          "displayLabel": "Samosa"
+        },
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "tinyclip_40m_int8",
+          "modelDisplayName": "TinyCLIP-ViT-40M\/32 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_food_0468",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/food_0468.jpg",
+          "preprocessMs": 8.76,
+          "encoderMs": 136.45,
+          "retrievalMs": 9.57,
+          "totalMs": 154.77,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "openvocab_string_hoppers",
+              "name": "String Hoppers",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3028
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_kaju_katli",
+              "name": "Kaju Katli",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3011
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_pepes_ikan",
+              "name": "Pepes Ikan",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.3005
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_kaju_barfi",
+              "name": "Kaju Barfi",
+              "category": "Desserts & Sweets",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.2996
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_khorovats",
+              "name": "Khorovats",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.2987
+            }
+          ],
+          "top5Ids": [
+            "openvocab_string_hoppers",
+            "openvocab_kaju_katli",
+            "openvocab_pepes_ikan",
+            "openvocab_kaju_barfi",
+            "openvocab_khorovats"
+          ],
+          "top5Names": [
+            "String Hoppers",
+            "Kaju Katli",
+            "Pepes Ikan",
+            "Kaju Barfi",
+            "Khorovats"
+          ],
+          "maxFoodSim": 0.3028,
+          "maxNegSim": 0.1994,
+          "topNegativePrompt": "Cardboard Packaging \/ Plastic Bottle",
+          "negMargin": 0.1034,
+          "acceptedModeA": true,
+          "acceptedModeB": true,
+          "foodAccepted": true,
+          "abstained": false,
+          "decisionLabel": "FOOD ACCEPTED (Show Top-3 Confirmation)",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 359.05,
+            "rssMb": 400.09,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 150.57
+          },
+          "displayLabel": "Creamy Penne Pasta"
+        },
+        {
+          "device": "RZCW8201QBV",
+          "deviceModel": "SM-E346B",
+          "modelKey": "tinyclip_40m_int8",
+          "modelDisplayName": "TinyCLIP-ViT-40M\/32 INT8",
+          "executionProvider": "CPUExecutionProvider (ARM64 NEON\/SDOT, 4 intra-op threads)",
+          "imageId": "offline_non_food_laptop",
+          "imagePath": "\/data\/user\/0\/com.fitfuel.openvocab_device_benchmark\/files\/images\/non_food_laptop.jpg",
+          "preprocessMs": 5.69,
+          "encoderMs": 75,
+          "retrievalMs": 3.05,
+          "totalMs": 83.74,
+          "top5": [
+            {
+              "rank": 1,
+              "id": "openvocab_xoi_man",
+              "name": "Xoi Man",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.2127
+            },
+            {
+              "rank": 2,
+              "id": "openvocab_sugarcane_juice",
+              "name": "Sugarcane Juice",
+              "category": "Produce & Staples",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1957
+            },
+            {
+              "rank": 3,
+              "id": "openvocab_bika_ambon",
+              "name": "Bika Ambon",
+              "category": "Regional Specialties",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1889
+            },
+            {
+              "rank": 4,
+              "id": "openvocab_papa_a_la_huancaina",
+              "name": "Papa a la Huancaina",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.1888
+            },
+            {
+              "rank": 5,
+              "id": "openvocab_bo_luc_lac",
+              "name": "Bo Luc Lac",
+              "category": "Main Dishes",
+              "inFitFuel238": false,
+              "inV5": false,
+              "score": 0.188
+            }
+          ],
+          "top5Ids": [
+            "openvocab_xoi_man",
+            "openvocab_sugarcane_juice",
+            "openvocab_bika_ambon",
+            "openvocab_papa_a_la_huancaina",
+            "openvocab_bo_luc_lac"
+          ],
+          "top5Names": [
+            "Xoi Man",
+            "Sugarcane Juice",
+            "Bika Ambon",
+            "Papa a la Huancaina",
+            "Bo Luc Lac"
+          ],
+          "maxFoodSim": 0.2127,
+          "maxNegSim": 0.1275,
+          "topNegativePrompt": "Mobile Phone \/ Smartphone",
+          "negMargin": 0.0852,
+          "acceptedModeA": false,
+          "acceptedModeB": false,
+          "foodAccepted": false,
+          "abstained": true,
+          "decisionLabel": "ABSTAINED \/ NON-FOOD REJECTED",
+          "cloudCalls": 0,
+          "networkActive": true,
+          "memory": {
+            "pssMb": 360.15,
+            "rssMb": 404.68,
+            "hwmMb": 518.02,
+            "nativeHeapMb": 150.62
+          },
+          "displayLabel": "Non-Food (Laptop)"
+        }
+      ],
+      "worksOffline": true,
+      "cloudCalls": 0
+    }
+  }
+}

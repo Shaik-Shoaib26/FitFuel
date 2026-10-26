@@ -113,6 +113,53 @@ class NutritionEstimateCard extends StatelessWidget {
             ],
           ),
 
+          // Secondary Nutrition ("More nutrition": Fiber, Sugar, Sodium)
+          if (result.hasMoreNutrition) ...[
+            const SizedBox(height: AppConstants.spaceMd),
+            Text(
+              'More nutrition',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: isDark ? Colors.white70 : AppColors.primaryText,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                if (result.totalFiber != null)
+                  Expanded(
+                    child: _secondaryTile(
+                      'Fiber',
+                      '${result.totalFiber!.toStringAsFixed(1)}g',
+                      isDark,
+                    ),
+                  ),
+                if (result.totalFiber != null &&
+                    (result.totalSugar != null || result.totalSodium != null))
+                  const SizedBox(width: AppConstants.spaceSm),
+                if (result.totalSugar != null)
+                  Expanded(
+                    child: _secondaryTile(
+                      'Sugar',
+                      '${result.totalSugar!.toStringAsFixed(1)}g',
+                      isDark,
+                    ),
+                  ),
+                if (result.totalSugar != null && result.totalSodium != null)
+                  const SizedBox(width: AppConstants.spaceSm),
+                if (result.totalSodium != null)
+                  Expanded(
+                    child: _secondaryTile(
+                      'Sodium',
+                      '${result.totalSodium!.toStringAsFixed(0)}mg',
+                      isDark,
+                    ),
+                  ),
+              ],
+            ),
+          ],
+
           const SizedBox(height: AppConstants.spaceMd),
 
           // Estimation notice
@@ -130,7 +177,9 @@ class NutritionEstimateCard extends StatelessWidget {
                   child: Text(
                     result.hasIncompleteNutrition
                         ? 'One or more items have incomplete nutrition. Totals reflect confirmed items only. Choose the correct food from FitFuel to complete.'
-                        : 'Estimated from photo. Preparation methods, oils, and sauces may alter actual values.',
+                        : (!result.hasAiEstimatedFoods && !result.hasUnmatchedFoods
+                            ? "Nutrition is based on FitFuel's food database and your selected serving. Actual preparation may vary."
+                            : 'Estimated from photo. Preparation methods, oils, and sauces may alter actual values.'),
                     style: TextStyle(
                       fontSize: 11,
                       color: isDark ? AppColors.darkTextSecondary : AppColors.secondaryText,
@@ -171,6 +220,41 @@ class NutritionEstimateCard extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _secondaryTile(String label, String value, bool isDark) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkBgSurface : Colors.white70,
+        borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+        border: Border.all(
+          color: isDark ? AppColors.darkBorderSubtle : AppColors.border,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: isDark ? AppColors.darkTextSecondary : AppColors.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: isDark ? Colors.white : AppColors.primaryText,
             ),
           ),
         ],

@@ -15,6 +15,7 @@ enum FoodScanFailureType {
   invalidImage,
   noFoodDetected,
   lowConfidence,
+  offlineLowConfidence,
   imageQualityPoor,
   incompleteNutrition,
   invalidResponse,
@@ -24,25 +25,25 @@ enum FoodScanFailureType {
 /// Standardized user-facing copy for Food Scan.
 /// No Food Scan screen or widget will ever show "Something Went Wrong".
 class FoodScanErrorCopy {
-  static const String offlineTitle = 'No internet connection';
+  static const String offlineTitle = 'AI analysis needs an internet connection.';
   static const String offlineMessage =
-      'Food scanning needs an internet connection. Reconnect and try again.';
+      'Choose a match below or search foods manually from the FitFuel catalog.';
 
-  static const String rateLimitedTitle = 'Food Scan is temporarily limited';
+  static const String rateLimitedTitle = 'AI analysis is temporarily busy.';
   static const String rateLimitedMessage =
-      "We've reached the AI scanning limit for now. Please wait a moment and try again.";
+      "We've reached the temporary AI scanning limit. You can choose a match below, search foods manually, or try AI again in a moment.";
 
-  static const String dailyQuotaTitle = "Today's scan limit has been reached";
+  static const String dailyQuotaTitle = "AI analysis isn't available right now.";
   static const String dailyQuotaMessage =
-      'AI scanning is unavailable until the provider quota resets. You can still log food manually.';
+      'AI analysis is unavailable until provider quota resets. You can still use local suggestions or search foods manually.';
 
-  static const String serviceUnavailableTitle = 'Food Scan is temporarily unavailable';
+  static const String serviceUnavailableTitle = "AI analysis couldn't finish.";
   static const String serviceUnavailableMessage =
-      'The AI service is busy right now. Your photo is still here — try again in a moment.';
+      'The AI service is busy right now. Your photo is still here — choose a match below, search foods manually, or retry AI.';
 
-  static const String timeoutTitle = 'Food Scan is taking too long';
+  static const String timeoutTitle = 'AI analysis is taking too long';
   static const String timeoutMessage =
-      "We couldn't finish analyzing this photo. Please retry.";
+      "We couldn't finish AI analysis for this photo. Choose a match below, search foods manually, or retry AI.";
 
   static const String noFoodTitle = 'No food detected';
   static const String noFoodMessage =
@@ -52,6 +53,10 @@ class FoodScanErrorCopy {
   static const String lowConfidenceMessage =
       'Try a clearer photo or choose the food manually.';
 
+  static const String offlineLowConfidenceTitle = 'Choose the closest match';
+  static const String offlineLowConfidenceMessage =
+      "Couldn't identify this food confidently offline. Please choose the closest match or search foods manually.";
+
   static const String imageQualityTitle = 'Image quality may be affecting recognition';
   static const String imageQualityMessage =
       'Try the original image or take a clearer photo.';
@@ -60,12 +65,12 @@ class FoodScanErrorCopy {
   static const String incompleteNutritionMessage =
       "We identified the food, but couldn't estimate all nutrition values. Choose the correct food from FitFuel to continue.";
 
-  static const String modelUnavailableTitle = 'Food Scan is temporarily unavailable';
+  static const String modelUnavailableTitle = 'AI analysis is temporarily unavailable';
   static const String modelUnavailableMessage =
-      'The AI model is unavailable right now. Please try again later.';
+      'The AI model is unavailable right now. You can still choose a match or search foods manually.';
 
-  static const String authTitle = "Food Scan isn't available right now";
-  static const String authMessage = 'Please try again later.';
+  static const String authTitle = "AI analysis isn't available right now";
+  static const String authMessage = 'Please use local suggestions or search foods manually.';
 
   static const String unknownTitle = "Food Scan couldn't finish";
   static const String unknownMessage =
@@ -179,6 +184,14 @@ class FoodScanFailure extends Failure {
           type: type,
           title: titleOverride ?? FoodScanErrorCopy.lowConfidenceTitle,
           message: messageOverride ?? FoodScanErrorCopy.lowConfidenceMessage,
+          retryAfterSeconds: retryAfterSeconds,
+          statusCode: statusCode,
+        );
+      case FoodScanFailureType.offlineLowConfidence:
+        return FoodScanFailure(
+          type: type,
+          title: titleOverride ?? FoodScanErrorCopy.offlineLowConfidenceTitle,
+          message: messageOverride ?? FoodScanErrorCopy.offlineLowConfidenceMessage,
           retryAfterSeconds: retryAfterSeconds,
           statusCode: statusCode,
         );

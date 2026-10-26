@@ -1,0 +1,8 @@
+{
+  "backbone": "MobileNetV3Large",
+  "val_loss": 2.1751,
+  "val_accuracy": 57.0,
+  "val_top3": 71.0,
+  "epochs_phase1": 12,
+  "epochs_phase2": 6
+}

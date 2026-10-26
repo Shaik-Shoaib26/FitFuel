@@ -15,18 +15,31 @@ class FoodSearchEngine {
       final catLower = food.category.toLowerCase();
       int score = 0;
 
+      final idLower = food.id.toLowerCase();
+      final strippedId = idLower.replaceFirst('predefined_', '').replaceAll('_', ' ');
+      final cleanQueryNoUnderscore = cleanQuery.replaceAll('_', ' ');
+
+      // ID matching
+      if (idLower == cleanQuery) {
+        score += 120;
+      } else if (strippedId == cleanQueryNoUnderscore || strippedId == cleanQuery) {
+        score += 100;
+      } else if (idLower.contains(cleanQuery) || strippedId.contains(cleanQueryNoUnderscore)) {
+        score += 40;
+      }
+
       if (nameLower == cleanQuery) {
         score += 100;
       } else if (nameLower.startsWith(cleanQuery)) {
         score += 50;
       } else if (nameLower.contains(cleanQuery)) {
-        score += 20;
+        score += 25;
       }
 
       if (catLower == cleanQuery) {
-        score += 15;
+        score += 30;
       } else if (catLower.contains(cleanQuery)) {
-        score += 10;
+        score += 15;
       }
 
       // Check inside dietary tags or meal types
@@ -47,21 +60,24 @@ class FoodSearchEngine {
         }
       }
 
-      // Simple regional aliases
-      if (cleanQuery == 'roti' && nameLower.contains('chapati')) {
-        score += 30;
-      } else if (cleanQuery == 'chapati' && nameLower.contains('roti')) {
-        score += 30;
-      } else if (cleanQuery == 'dahi' && nameLower.contains('curd')) {
-        score += 30;
-      } else if (cleanQuery == 'chaas' && nameLower.contains('buttermilk')) {
-        score += 30;
-      } else if (cleanQuery == 'karela' && nameLower.contains('bitter gourd')) {
-        score += 30;
-      } else if (cleanQuery == 'lauki' && nameLower.contains('bottle gourd')) {
-        score += 30;
-      } else if (cleanQuery == 'paneer' && nameLower.contains('cottage cheese')) {
-        score += 20;
+      // Comprehensive culinary aliases & synonyms
+      for (final entry in _searchAliases.entries) {
+        final key = entry.key;
+        final synonyms = entry.value;
+        if (cleanQuery == key || synonyms.contains(cleanQuery)) {
+          if (nameLower.contains(key) || strippedId.contains(key) ||
+              synonyms.any((s) => nameLower.contains(s) || strippedId.contains(s))) {
+            score += 35;
+          }
+        }
+      }
+
+      // Plural handling (e.g. samosas -> samosa, burgers -> burger)
+      if (cleanQuery.endsWith('s') && cleanQuery.length > 2) {
+        final singular = cleanQuery.substring(0, cleanQuery.length - 1);
+        if (nameLower.contains(singular) || strippedId.contains(singular)) {
+          score += 30;
+        }
       }
 
       // Check partial words matching
@@ -92,6 +108,41 @@ class FoodSearchEngine {
 
     return scoredFoods.map((sf) => sf.food).toList();
   }
+
+  static const Map<String, List<String>> _searchAliases = {
+    'roti': ['chapati', 'phulka', 'flatbread', 'wheat roti'],
+    'chapati': ['roti', 'phulka', 'flatbread'],
+    'dahi': ['curd', 'yogurt'],
+    'curd': ['dahi', 'yogurt'],
+    'chaas': ['buttermilk'],
+    'buttermilk': ['chaas'],
+    'karela': ['bitter gourd'],
+    'bitter gourd': ['karela'],
+    'lauki': ['bottle gourd', 'ghiya'],
+    'bottle gourd': ['lauki', 'ghiya'],
+    'paneer': ['cottage cheese'],
+    'cottage cheese': ['paneer'],
+    'rice': ['chawal', 'basmati', 'steamed rice', 'brown rice'],
+    'chawal': ['rice', 'steamed rice'],
+    'dal': ['lentils', 'yellow dal', 'dal tadka', 'dal fry', 'moong dal'],
+    'lentils': ['dal', 'yellow dal'],
+    'rajma': ['kidney beans', 'rajma curry', 'rajma chawal'],
+    'kidney beans': ['rajma', 'rajma chawal', 'rajma curry'],
+    'samosa': ['samosas', 'sambusa', 'singara'],
+    'samosas': ['samosa'],
+    'dosa': ['dosas', 'plain dosa', 'masala dosa', 'rava dosa', 'neer dosa'],
+    'dosas': ['dosa'],
+    'pasta': ['standard pasta', 'whole grain pasta', 'penne', 'spaghetti', 'macaroni', 'noodles'],
+    'spaghetti': ['pasta', 'standard pasta', 'whole grain pasta'],
+    'penne': ['pasta', 'standard pasta', 'whole grain pasta'],
+    'pizza': ['cheese pizza', 'margherita'],
+    'burger': ['burgers', 'cheeseburger', 'hamburger', 'veggie burger'],
+    'burgers': ['burger'],
+    'chicken': ['chicken breast', 'chicken curry', 'murgh'],
+    'murgh': ['chicken'],
+    'egg': ['eggs', 'boiled egg', 'egg omelette', 'scrambled eggs'],
+    'eggs': ['egg'],
+  };
 }
 
 class _ScoredFood {

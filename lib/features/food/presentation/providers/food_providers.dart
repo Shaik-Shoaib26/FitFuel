@@ -8,6 +8,7 @@ import '../../data/datasources/predefined_food_data.dart';
 import '../../data/repositories/food_repository_impl.dart';
 import '../../domain/entities/food_entity.dart';
 import '../../domain/repositories/food_repository.dart';
+import '../../domain/utils/food_category_normalizer.dart';
 import '../../domain/utils/food_recommendation_engine.dart';
 import '../../domain/utils/food_search_engine.dart';
 
@@ -120,29 +121,16 @@ final searchFoodsProvider = FutureProvider<List<FoodEntity>>((ref) async {
     } catch (_) {}
   }
 
-  // 1. Search Query filter (using FoodSearchEngine if not empty)
   List<FoodEntity> filtered = allFoods;
-  if (query.trim().isNotEmpty) {
-    filtered = FoodSearchEngine.search(foods: allFoods, query: query);
+
+  // 1. Category / Meal Chip filter (using centralized FoodCategoryNormalizer)
+  if (category != null && category.toLowerCase().trim() != 'all') {
+    filtered = filtered
+        .where((food) => FoodCategoryNormalizer.matchesFilter(food, category))
+        .toList();
   }
 
-  // 2. Category filter
-  if (category != null && category.toLowerCase() != 'all') {
-    filtered = filtered.where((food) {
-      final cleanCat = category.toLowerCase().trim();
-      if (cleanCat == 'indian') return food.isIndian;
-      if (cleanCat == 'breakfast') return food.mealTypes.contains('Breakfast');
-      if (cleanCat == 'lunch') return food.mealTypes.contains('Lunch');
-      if (cleanCat == 'dinner') return food.mealTypes.contains('Dinner');
-      if (cleanCat == 'snacks') return food.mealTypes.contains('Snacks') || food.mealTypes.contains('Snack') || food.category.toLowerCase() == 'snacks';
-      if (cleanCat == 'healthy / fitness' || cleanCat == 'healthy' || cleanCat == 'fitness') {
-        return food.dietaryTags.contains('Healthy') || food.dietaryTags.contains('Fitness') || food.dietaryTags.contains('Low Calorie') || food.dietaryTags.contains('High Protein');
-      }
-      return food.category.toLowerCase().trim() == cleanCat;
-    }).toList();
-  }
-
-  // 3. Diet filter (Any, Vegetarian, Vegan, Non-Vegetarian)
+  // 2. Diet filter (Any, Vegetarian, Vegan, Non-Vegetarian)
   if (diet != 'Any') {
     filtered = filtered.where((food) {
       if (diet == 'Vegetarian') return food.isVegetarian;
@@ -152,18 +140,21 @@ final searchFoodsProvider = FutureProvider<List<FoodEntity>>((ref) async {
     }).toList();
   }
 
-  // 4. Meal filter (Any, Breakfast, Lunch, Dinner, Snack)
+  // 3. Meal filter from advanced modal (Any, Breakfast, Lunch, Dinner, Snack)
   if (meal != 'Any') {
+    final mLower = meal.toLowerCase().trim();
     filtered = filtered.where((food) {
-      final mLower = meal.toLowerCase();
-      if (mLower == 'snack') {
-        return food.mealTypes.contains('Snack') || food.mealTypes.contains('Snacks');
+      if (mLower == 'snack' || mLower == 'snacks') {
+        return food.mealTypes.any((mt) {
+          final t = mt.toLowerCase().trim();
+          return t == 'snack' || t == 'snacks';
+        });
       }
-      return food.mealTypes.any((mt) => mt.toLowerCase() == mLower);
+      return food.mealTypes.any((mt) => mt.toLowerCase().trim() == mLower);
     }).toList();
   }
 
-  // 5. Cuisine filter (Any, Indian, International)
+  // 4. Cuisine filter (Any, Indian, International)
   if (cuisine != 'Any') {
     filtered = filtered.where((food) {
       if (cuisine == 'Indian') return food.isIndian;
@@ -172,7 +163,7 @@ final searchFoodsProvider = FutureProvider<List<FoodEntity>>((ref) async {
     }).toList();
   }
 
-  // 6. Nutrition filters (Set of: High Protein, Low Calorie, Low Fat, Low Sugar, High Fiber)
+  // 5. Nutrition filters (Set of: High Protein, Low Calorie, Low Fat, Low Sugar, High Fiber)
   if (nutrition.isNotEmpty) {
     filtered = filtered.where((food) {
       return nutrition.every((nut) {
@@ -184,6 +175,14 @@ final searchFoodsProvider = FutureProvider<List<FoodEntity>>((ref) async {
         return true;
       });
     }).toList();
+  }
+
+  // 6. Search Query filter (using FoodSearchEngine if query is non-empty)
+  if (query.trim().isNotEmpty) {
+    filtered = FoodSearchEngine.search(foods: filtered, query: query);
+  } else {
+    // Alphabetical sort A-Z by default when browsing without a query
+    filtered.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
   }
 
   return filtered;

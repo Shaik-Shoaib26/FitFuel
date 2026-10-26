@@ -1,0 +1,309 @@
+{
+  "dataset_version": "fitfuel_independent_holdout_v4",
+  "total_images": 401,
+  "supported_food_count": 261,
+  "non_food_count": 55,
+  "unsupported_food_count": 55,
+  "mixed_meal_count": 30,
+  "routing_metrics": {
+    "accepted_local": 31,
+    "correct_local_accepted": 31,
+    "wrong_local_accepted": 0,
+    "gemini_fallback": 230,
+    "accepted_local_precision_pct": 100.0,
+    "safe_cloud_avoidance_pct": 11.88,
+    "local_acceptance_rate_pct": 11.88,
+    "global_threshold": 0.85,
+    "global_margin": 0.15
+  },
+  "per_class_results": {
+    "predefined_watermelon": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_strawberry": {
+      "samples": 15,
+      "accepted": 7,
+      "correct_accepted": 7,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 46.67,
+      "status": "RETAINED"
+    },
+    "predefined_medu_vada": {
+      "samples": 15,
+      "accepted": 1,
+      "correct_accepted": 1,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 6.67,
+      "status": "RETAINED"
+    },
+    "predefined_steamed_rice": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_scrambled_eggs": {
+      "samples": 15,
+      "accepted": 1,
+      "correct_accepted": 1,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 6.67,
+      "status": "RETAINED"
+    },
+    "predefined_rajma_curry": {
+      "samples": 10,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_capsicum": {
+      "samples": 15,
+      "accepted": 5,
+      "correct_accepted": 5,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 33.33,
+      "status": "RETAINED"
+    },
+    "predefined_whole_wheat_bread": {
+      "samples": 15,
+      "accepted": 12,
+      "correct_accepted": 12,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 80.0,
+      "status": "RETAINED"
+    },
+    "predefined_guava": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_dosa": {
+      "samples": 15,
+      "accepted": 2,
+      "correct_accepted": 2,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 13.33,
+      "status": "RETAINED"
+    },
+    "predefined_broccoli": {
+      "samples": 15,
+      "accepted": 1,
+      "correct_accepted": 1,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 6.67,
+      "status": "RETAINED"
+    },
+    "predefined_chole_masala": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_low_fat_milk": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_poha": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_potato": {
+      "samples": 15,
+      "accepted": 1,
+      "correct_accepted": 1,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 6.67,
+      "status": "RETAINED"
+    },
+    "predefined_samosa": {
+      "samples": 11,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    },
+    "predefined_tandoori_chicken": {
+      "samples": 15,
+      "accepted": 1,
+      "correct_accepted": 1,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 6.67,
+      "status": "RETAINED"
+    },
+    "predefined_paneer_tikka": {
+      "samples": 15,
+      "accepted": 0,
+      "correct_accepted": 0,
+      "wrong_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 0.0,
+      "status": "RETAINED"
+    }
+  },
+  "retained_classes": [
+    "predefined_watermelon",
+    "predefined_strawberry",
+    "predefined_medu_vada",
+    "predefined_steamed_rice",
+    "predefined_scrambled_eggs",
+    "predefined_rajma_curry",
+    "predefined_capsicum",
+    "predefined_whole_wheat_bread",
+    "predefined_guava",
+    "predefined_dosa",
+    "predefined_broccoli",
+    "predefined_chole_masala",
+    "predefined_low_fat_milk",
+    "predefined_poha",
+    "predefined_potato",
+    "predefined_samosa",
+    "predefined_tandoori_chicken",
+    "predefined_paneer_tikka"
+  ],
+  "removed_classes": [],
+  "removed_reasons": {},
+  "threshold_analysis": {
+    "0.80": {
+      "accepted": 36,
+      "correct_accepted": 36,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 3,
+      "precision_pct": 100.0,
+      "coverage_pct": 13.79
+    },
+    "0.85": {
+      "accepted": 31,
+      "correct_accepted": 31,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 11.88
+    },
+    "0.90": {
+      "accepted": 25,
+      "correct_accepted": 25,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 9.58
+    },
+    "0.95": {
+      "accepted": 21,
+      "correct_accepted": 21,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 0,
+      "precision_pct": 100.0,
+      "coverage_pct": 8.05
+    }
+  },
+  "margin_analysis": {
+    "0.10": {
+      "accepted": 31,
+      "correct_accepted": 31,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 11.88
+    },
+    "0.15": {
+      "accepted": 31,
+      "correct_accepted": 31,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 11.88
+    },
+    "0.20": {
+      "accepted": 31,
+      "correct_accepted": 31,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 11.88
+    },
+    "0.25": {
+      "accepted": 31,
+      "correct_accepted": 31,
+      "wrong_accepted": 0,
+      "ood_false_accepted": 2,
+      "precision_pct": 100.0,
+      "coverage_pct": 11.88
+    }
+  },
+  "ood_safety": {
+    "non_food": {
+      "tested": 55,
+      "rejected": 55,
+      "false_accepted": 0
+    },
+    "unsupported_foods": {
+      "tested": 55,
+      "rejected": 53,
+      "false_accepted": 2,
+      "false_accepted_details": [
+        {
+          "actual": "predefined_biryani",
+          "predicted": "predefined_poha",
+          "confidence": 0.9298179149627686,
+          "margin": 0.9120564498007298
+        },
+        {
+          "actual": "predefined_paneer_butter_masala",
+          "predicted": "predefined_tandoori_chicken",
+          "confidence": 0.921827495098114,
+          "margin": 0.8783976323902607
+        }
+      ]
+    },
+    "mixed_meals": {
+      "tested": 30,
+      "fallback": 30,
+      "incorrectly_accepted": 0
+    }
+  },
+  "forensic_category_tally": {
+    "B. BACKGROUND / CONTAINER BIAS": 3,
+    "D. TEXTURE BIAS": 2,
+    "J. TRUE VISUAL AMBIGUITY": 2
+  }
+}

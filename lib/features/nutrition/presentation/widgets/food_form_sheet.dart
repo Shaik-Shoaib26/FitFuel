@@ -7,6 +7,7 @@ import '../../../../core/network/network_status.dart';
 import '../../../../core/network/network_status_provider.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/fitfuel_button.dart';
+import '../../../food_scan/domain/entities/nutrition_profile_tier.dart';
 import '../../domain/entities/meal_type.dart';
 import '../../domain/entities/nutrition_record_entity.dart';
 import '../controllers/nutrition_controller.dart';
@@ -36,8 +37,24 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
   late final TextEditingController _carbsController;
   late final TextEditingController _fatsController;
   late final TextEditingController _sugarController;
+  late final TextEditingController _fiberController;
+  late final TextEditingController _sodiumController;
   late final TextEditingController _servingController;
   String _selectedMealType = 'Breakfast';
+
+  // Stable reference base values for portion scaling
+  String? _foodId;
+  double? _baseServingSize;
+  double? _baseCalories;
+  double? _baseProtein;
+  double? _baseCarbs;
+  double? _baseFats;
+  double? _baseFiber;
+  double? _baseSugar;
+  double? _baseSodium;
+  NutritionProfileTier? _nutritionTier;
+  String? _nutritionAttribution;
+  String? _recipeAssumptions;
 
   final List<String> _mealTypes = MealType.displayNames;
 
@@ -46,13 +63,50 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
     super.initState();
     final record = widget.existingRecord;
     _nameController = TextEditingController(text: record?.foodName ?? '');
-    _caloriesController = TextEditingController(text: record?.calories.toString() ?? '');
-    _proteinController = TextEditingController(text: record?.protein.toString() ?? '');
-    _carbsController = TextEditingController(text: record?.carbohydrates.toString() ?? '');
-    _fatsController = TextEditingController(text: record?.fats.toString() ?? '');
-    _sugarController = TextEditingController(text: record?.sugar.toString() ?? '');
-    _servingController = TextEditingController(text: record?.servingSize.toString() ?? '');
+    _caloriesController = TextEditingController(
+        text: record != null ? record.calories.toStringAsFixed(0) : '');
+    _proteinController = TextEditingController(
+        text: record != null ? record.protein.toStringAsFixed(1) : '');
+    _carbsController = TextEditingController(
+        text: record != null ? record.carbohydrates.toStringAsFixed(1) : '');
+    _fatsController = TextEditingController(
+        text: record != null ? record.fats.toStringAsFixed(1) : '');
+    _sugarController = TextEditingController(
+        text: record != null ? record.sugar.toStringAsFixed(1) : '');
+    _fiberController = TextEditingController(
+        text: record?.fiber != null ? record!.fiber!.toStringAsFixed(1) : '');
+    _sodiumController = TextEditingController(
+        text: record?.sodium != null ? record!.sodium!.toStringAsFixed(0) : '');
+    _servingController = TextEditingController(
+        text: record != null ? record.servingSize.toStringAsFixed(0) : '100');
     _selectedMealType = MealType.normalize(record?.mealType ?? 'Breakfast');
+
+    if (record != null) {
+      _foodId = record.foodId;
+      _nutritionTier = record.nutritionTier;
+      _nutritionAttribution = record.nutritionAttribution;
+      _recipeAssumptions = record.recipeAssumptions;
+
+      if (record.baseServingSize != null && record.baseServingSize! > 0) {
+        _baseServingSize = record.baseServingSize;
+        _baseCalories = record.baseCalories ?? record.calories;
+        _baseProtein = record.baseProtein ?? record.protein;
+        _baseCarbs = record.baseCarbohydrates ?? record.carbohydrates;
+        _baseFats = record.baseFats ?? record.fats;
+        _baseFiber = record.baseFiber ?? record.fiber;
+        _baseSugar = record.baseSugar ?? record.sugar;
+        _baseSodium = record.baseSodium ?? record.sodium;
+      } else {
+        _baseServingSize = record.servingSize > 0 ? record.servingSize : 100.0;
+        _baseCalories = record.calories;
+        _baseProtein = record.protein;
+        _baseCarbs = record.carbohydrates;
+        _baseFats = record.fats;
+        _baseFiber = record.fiber;
+        _baseSugar = record.sugar;
+        _baseSodium = record.sodium;
+      }
+    }
   }
 
   @override
@@ -63,8 +117,40 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
     _carbsController.dispose();
     _fatsController.dispose();
     _sugarController.dispose();
+    _fiberController.dispose();
+    _sodiumController.dispose();
     _servingController.dispose();
     super.dispose();
+  }
+
+  void _onServingSizeChanged(String val) {
+    final newServing = double.tryParse(val);
+    if (newServing == null || newServing <= 0) return;
+    final baseServing = _baseServingSize;
+    if (baseServing != null && baseServing > 0 && _baseCalories != null) {
+      final scale = newServing / baseServing;
+      setState(() {
+        _caloriesController.text = (_baseCalories! * scale).toStringAsFixed(0);
+        if (_baseProtein != null) {
+          _proteinController.text = (_baseProtein! * scale).toStringAsFixed(1);
+        }
+        if (_baseCarbs != null) {
+          _carbsController.text = (_baseCarbs! * scale).toStringAsFixed(1);
+        }
+        if (_baseFats != null) {
+          _fatsController.text = (_baseFats! * scale).toStringAsFixed(1);
+        }
+        if (_baseFiber != null) {
+          _fiberController.text = (_baseFiber! * scale).toStringAsFixed(1);
+        }
+        if (_baseSugar != null) {
+          _sugarController.text = (_baseSugar! * scale).toStringAsFixed(1);
+        }
+        if (_baseSodium != null) {
+          _sodiumController.text = (_baseSodium! * scale).toStringAsFixed(0);
+        }
+      });
+    }
   }
 
   void _onSaveSubmitted() async {
@@ -92,7 +178,21 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
       carbohydrates: double.tryParse(_carbsController.text) ?? 0.0,
       fats: double.tryParse(_fatsController.text) ?? 0.0,
       sugar: double.tryParse(_sugarController.text) ?? 0.0,
+      fiber: double.tryParse(_fiberController.text.trim()),
+      sodium: double.tryParse(_sodiumController.text.trim()),
       servingSize: double.tryParse(_servingController.text) ?? 100.0,
+      foodId: _foodId ?? widget.existingRecord?.foodId,
+      baseServingSize: _baseServingSize ?? widget.existingRecord?.baseServingSize,
+      baseCalories: _baseCalories ?? widget.existingRecord?.baseCalories,
+      baseProtein: _baseProtein ?? widget.existingRecord?.baseProtein,
+      baseCarbohydrates: _baseCarbs ?? widget.existingRecord?.baseCarbohydrates,
+      baseFats: _baseFats ?? widget.existingRecord?.baseFats,
+      baseFiber: _baseFiber ?? widget.existingRecord?.baseFiber,
+      baseSugar: _baseSugar ?? widget.existingRecord?.baseSugar,
+      baseSodium: _baseSodium ?? widget.existingRecord?.baseSodium,
+      nutritionTier: _nutritionTier ?? widget.existingRecord?.nutritionTier,
+      nutritionAttribution: _nutritionAttribution ?? widget.existingRecord?.nutritionAttribution,
+      recipeAssumptions: _recipeAssumptions ?? widget.existingRecord?.recipeAssumptions,
       consumedAt: widget.existingRecord?.consumedAt ?? DateTime.now(),
       createdAt: widget.existingRecord?.createdAt ?? DateTime.now(),
       updatedAt: DateTime.now(),
@@ -149,6 +249,28 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
                     ),
                   ],
                 ),
+                if (widget.existingRecord != null) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryLeafGreen.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(AppConstants.radiusSm),
+                        ),
+                        child: Text(
+                          widget.existingRecord!.nutritionSourceLabel,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryLeafGreen,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 const SizedBox(height: AppConstants.spaceMd),
 
                 // Error message from controller
@@ -177,7 +299,21 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
                               _carbsController.text = selectedFood.carbohydrates.toStringAsFixed(1);
                               _fatsController.text = selectedFood.fats.toStringAsFixed(1);
                               _sugarController.text = selectedFood.sugar.toStringAsFixed(1);
+                              _fiberController.text = selectedFood.fiber.toStringAsFixed(1);
+                              _sodiumController.text = selectedFood.sodium.toStringAsFixed(0);
                               _servingController.text = selectedFood.servingSize.toStringAsFixed(0);
+
+                              _foodId = selectedFood.id;
+                              _baseServingSize = selectedFood.servingSize;
+                              _baseCalories = selectedFood.calories;
+                              _baseProtein = selectedFood.protein;
+                              _baseCarbs = selectedFood.carbohydrates;
+                              _baseFats = selectedFood.fats;
+                              _baseFiber = selectedFood.fiber;
+                              _baseSugar = selectedFood.sugar;
+                              _baseSodium = selectedFood.sodium;
+                              _nutritionTier = NutritionProfileTier.verifiedExact;
+                              _nutritionAttribution = 'Curated FitFuel Food Database';
                             });
                           }
                         },
@@ -254,6 +390,7 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
                           labelText: 'Serving Size (g/ml)',
                           prefixIcon: Icon(Icons.scale_rounded),
                         ),
+                        onChanged: _onServingSizeChanged,
                         validator: (val) => Validators.validateNumber(val, min: 0),
                       ),
                     ),
@@ -303,16 +440,45 @@ class _FoodFormSheetState extends ConsumerState<FoodFormSheet> {
                 ),
                 const SizedBox(height: AppConstants.spaceMd),
 
-                // Sugar Field
-                TextFormField(
-                  controller: _sugarController,
-                  enabled: !isLoading,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    labelText: 'Sugar (g)',
-                    prefixIcon: Icon(Icons.cookie_outlined),
-                  ),
-                  validator: (val) => Validators.validateNumber(val, min: 0),
+                // Sugar, Fiber, and Sodium Row
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _sugarController,
+                        enabled: !isLoading,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: 'Sugar (g)',
+                        ),
+                        validator: (val) => Validators.validateNumber(val, min: 0),
+                      ),
+                    ),
+                    const SizedBox(width: AppConstants.spaceSm),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _fiberController,
+                        enabled: !isLoading,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: 'Fiber (g)',
+                        ),
+                        validator: (val) => Validators.validateNumber(val, min: 0),
+                      ),
+                    ),
+                    const SizedBox(width: AppConstants.spaceSm),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _sodiumController,
+                        enabled: !isLoading,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: 'Sodium (mg)',
+                        ),
+                        validator: (val) => Validators.validateNumber(val, min: 0),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppConstants.spaceLg),
 

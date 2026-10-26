@@ -38,6 +38,7 @@ class _FakeFoodScanRepository implements IFoodScanRepository {
     required String imagePath,
     required Uint8List imageBytes,
     List<FoodEntity> foodCatalog = const [],
+    String? requestId,
   }) async {
     return FoodScanResult(
       id: 'scan_ui_test',
@@ -110,7 +111,7 @@ void main() {
         await tester.pump();
 
         expect(find.text('Scan Food'), findsOneWidget);
-        expect(find.text('Scan Your Meal'), findsOneWidget);
+        expect(find.text('Scan Your Food'), findsOneWidget);
         expect(find.text('Take Photo'), findsOneWidget);
         expect(find.text('Choose from Gallery'), findsOneWidget);
         expect(find.text('Privacy & Estimation Notice'), findsOneWidget);
@@ -126,7 +127,7 @@ void main() {
       await tester.pumpWidget(_wrapScanScreen(width: 390, textScale: 1.4));
       await tester.pump();
 
-      expect(find.text('Scan Your Meal'), findsOneWidget);
+      expect(find.text('Scan Your Food'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 
@@ -138,7 +139,7 @@ void main() {
       await tester.pumpWidget(_wrapScanScreen(width: 1024, isDark: true));
       await tester.pump();
 
-      expect(find.text('Scan Your Meal'), findsOneWidget);
+      expect(find.text('Scan Your Food'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 

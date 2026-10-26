@@ -27,10 +27,14 @@ service cloud.firestore {
       match /nutrition/{docId} {
         allow read: if isOwner(userId);
         allow create, update: if isOwner(userId)
-          && (request.resource.data.calories == null || request.resource.data.calories >= 0)
-          && (request.resource.data.protein == null || request.resource.data.protein >= 0)
-          && (request.resource.data.carbohydrates == null || request.resource.data.carbohydrates >= 0)
-          && (request.resource.data.fats == null || request.resource.data.fats >= 0);
+          && request.resource.data.calories is number && request.resource.data.calories >= 0
+          && request.resource.data.protein is number && request.resource.data.protein >= 0
+          && request.resource.data.carbohydrates is number && request.resource.data.carbohydrates >= 0
+          && request.resource.data.fats is number && request.resource.data.fats >= 0
+          && (!('servingSize' in request.resource.data) || (request.resource.data.servingSize is number && request.resource.data.servingSize > 0))
+          && (!('sugar' in request.resource.data) || request.resource.data.sugar == null || (request.resource.data.sugar is number && request.resource.data.sugar >= 0))
+          && (!('fiber' in request.resource.data) || request.resource.data.fiber == null || (request.resource.data.fiber is number && request.resource.data.fiber >= 0))
+          && (!('sodium' in request.resource.data) || request.resource.data.sodium == null || (request.resource.data.sodium is number && request.resource.data.sodium >= 0));
         allow delete: if isOwner(userId);
       }
 
@@ -63,8 +67,27 @@ service cloud.firestore {
         }
       }
 
-      // Generic fallback for any other subcollections under users/{userId}
-      match /{document=**} {
+      match /customFoods/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /favoriteFoods/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /recentFoods/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /groceryPreferences/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /mealPlans/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /reminderSettings/{docId} {
         allow read, write: if isOwner(userId);
       }
     }

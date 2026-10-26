@@ -46,7 +46,7 @@ void main() {
       );
 
       morningSnackFood = const FoodEntity(
-        id: 'food_smoothie',
+        id: 'predefined_berry_smoothie',
         name: 'Berry Protein Smoothie',
         category: 'beverages',
         calories: 320,
@@ -61,7 +61,7 @@ void main() {
       );
 
       lunchFood = const FoodEntity(
-        id: 'food_chicken_quinoa',
+        id: 'predefined_grilled_chicken_breast',
         name: 'Chicken Quinoa Bowl',
         category: 'lunch',
         calories: 550,

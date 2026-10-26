@@ -1,0 +1,59 @@
+{
+  "model_artifact": "assets/ml/fitfuel_food_classifier.tflite",
+  "model_version": "fitfuel_food_v3",
+  "labels_path": "assets/ml/fitfuel_food_labels.txt",
+  "labels_count": 50,
+  "deployed_tflite_metrics": {
+    "top1_accuracy_pct": 28.57,
+    "top3_accuracy_pct": 43.34,
+    "test_samples": 413,
+    "correct_top1": 118,
+    "correct_top3": 179
+  },
+  "keras_checkpoint_metrics": {
+    "checkpoint_path": "ml/checkpoints/mobilenet_v3_exp2.keras",
+    "top1_accuracy_pct": 28.33,
+    "top3_accuracy_pct": 43.34,
+    "test_samples": 413,
+    "correct_top1": 117,
+    "correct_top3": 179
+  },
+  "metric_inconsistency_resolution": {
+    "status": "RESOLVED",
+    "canonical_tflite_top1_pct": 28.57,
+    "canonical_tflite_top3_pct": 43.34,
+    "root_cause": "In Phase 35.9.3, training_experiments.csv recorded 28.81% Top-1 / 45.28% Top-3 from an intermediate in-memory batched test evaluation during training, whereas the exported TFLite deployed model evaluated on individual sample images yields exactly 28.57% (118/413) Top-1 and 43.34% (179/413) Top-3. The 43.34% Top-3 number coincidentally matched EXP_003 EfficientNetB0 test Top-3, leading to documentation confusion. Canonical metrics are now 28.57% and 43.34%."
+  },
+  "independent_holdout_summary": {
+    "manifest": "ml/independent_holdout_manifest.csv",
+    "total_samples": 401,
+    "supported_18_samples": 261,
+    "non_food_samples": 55,
+    "unsupported_food_samples": 55,
+    "mixed_meal_samples": 30,
+    "zero_leakage_verified": true,
+    "retained_production_classes_count": 18,
+    "retained_classes": [
+      "predefined_watermelon",
+      "predefined_strawberry",
+      "predefined_medu_vada",
+      "predefined_steamed_rice",
+      "predefined_scrambled_eggs",
+      "predefined_rajma_curry",
+      "predefined_capsicum",
+      "predefined_whole_wheat_bread",
+      "predefined_guava",
+      "predefined_dosa",
+      "predefined_broccoli",
+      "predefined_chole_masala",
+      "predefined_low_fat_milk",
+      "predefined_poha",
+      "predefined_potato",
+      "predefined_samosa",
+      "predefined_tandoori_chicken",
+      "predefined_paneer_tikka"
+    ],
+    "removed_classes_count": 0,
+    "removed_classes": []
+  }
+}

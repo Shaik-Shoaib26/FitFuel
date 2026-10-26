@@ -1,5 +1,7 @@
 import 'package:fitfuel/features/food/domain/entities/food_entity.dart';
 import 'package:fitfuel/features/food_scan/domain/entities/estimated_nutrition.dart';
+import 'package:fitfuel/features/food_scan/domain/entities/food_scan_recognition_source.dart';
+import 'package:fitfuel/features/food_scan/domain/entities/nutrition_profile_tier.dart';
 
 enum ScanConfidenceLevel {
   high,
@@ -21,6 +23,12 @@ class DetectedFoodCandidate {
   final double matchConfidence;
   final String? visualNotes;
   final EstimatedNutrition? aiEstimatedNutrition;
+  final FoodScanRecognitionSource? recognitionSource;
+  final bool isUserConfirmed;
+  final NutritionProfileTier? nutritionTier;
+  final String? nutritionExplanation;
+  final String? recipeAssumptions;
+  final String? nutritionAttribution;
 
   const DetectedFoodCandidate({
     required this.id,
@@ -33,7 +41,17 @@ class DetectedFoodCandidate {
     this.matchConfidence = 0.0,
     this.visualNotes,
     this.aiEstimatedNutrition,
+    this.recognitionSource,
+    this.isUserConfirmed = false,
+    this.nutritionTier,
+    this.nutritionExplanation,
+    this.recipeAssumptions,
+    this.nutritionAttribution,
   });
+
+  /// True when the user explicitly confirmed this food via local suggestion or manual search/change.
+  bool get isConfirmedByUser =>
+      isUserConfirmed || (recognitionSource?.isUserConfirmed ?? false);
 
   ScanConfidenceLevel get confidenceLevel {
     if (confidence >= 0.80) return ScanConfidenceLevel.high;
@@ -41,8 +59,15 @@ class DetectedFoodCandidate {
     return ScanConfidenceLevel.low;
   }
 
-  /// Whether the AI recognition confidence is weak.
-  bool get isLowConfidence => confidence < 0.60;
+  /// Whether recognition confidence is weak for an unconfirmed prediction.
+  /// Once confirmed by the user or presented as a gated Tier-2 primary single result,
+  /// raw similarity/confidence never triggers low-confidence warnings.
+  bool get isLowConfidence =>
+      !isConfirmedByUser &&
+      recognitionSource != FoodScanRecognitionSource.openVocabularyPrimary &&
+      recognitionSource !=
+          FoodScanRecognitionSource.openVocabularyPrimarySuggested &&
+      confidence < 0.60;
 
   /// Whether a trusted FitFuel catalog match was found.
   bool get isMatched => matchedFood != null;
@@ -56,16 +81,47 @@ class DetectedFoodCandidate {
   /// Human-readable food display name.
   String get displayName => matchedFood?.name ?? detectedName;
 
+  /// True when this food candidate represents user-entered manual nutrition.
+  bool get isUserEnteredNutrition =>
+      nutritionAttribution == 'User-entered nutrition' ||
+      (matchedFood != null &&
+          (matchedFood!.id.startsWith('manual_') ||
+              (matchedFood!.isCustom && nutritionTier == null))) ||
+      (recognitionSource == FoodScanRecognitionSource.manual &&
+          (matchedFood == null || matchedFood!.id.startsWith('manual_')));
+
   /// Human-readable source indicator label for UI.
   String get nutritionSourceLabel {
-    if (isDatabaseMatch) return 'Database Match';
+    if (isUserEnteredNutrition) {
+      return 'User-entered nutrition';
+    }
+    if (nutritionTier != null) {
+      switch (nutritionTier!) {
+        case NutritionProfileTier.verifiedExact:
+          return 'Curated FitFuel Food Database';
+        case NutritionProfileTier.closelyRelatedGeneric:
+          final isUsda = nutritionAttribution != null &&
+              (nutritionAttribution!.contains('USDA') ||
+                  nutritionAttribution!.contains('Department of Agriculture'));
+          return isUsda ? 'USDA Generic Baseline' : 'Generic Nutrition Baseline';
+        case NutritionProfileTier.recipeEstimate:
+          return 'Recipe Estimate';
+        case NutritionProfileTier.unavailable:
+          return 'Nutrition Unavailable';
+      }
+    }
+    if (isDatabaseMatch) return 'Curated FitFuel Food Database';
     if (isAiEstimated) return 'AI Estimate • Needs confirmation';
-    return 'Nutrition Unavailable • Needs confirmation';
+    return 'Needs confirmation';
   }
 
   /// True if all 4 macronutrients are determined (non-null).
   bool get hasNutrition =>
       calories != null && protein != null && carbs != null && fats != null;
+
+  /// True if trusted secondary nutrition fields (fiber, sugar, sodium) are available.
+  bool get hasSecondaryNutrition =>
+      fiber != null || sugar != null || sodium != null;
 
   /// True if nutrition requires user review/confirmation.
   bool get isNutritionUncertain => !hasNutrition || isAiEstimated || isLowConfidence;
@@ -115,6 +171,30 @@ class DetectedFoodCandidate {
     return null;
   }
 
+  /// Nullable Fiber (g) from trusted FitFuel database. Returns null if unknown/unavailable.
+  double? get fiber {
+    if (matchedFood != null) {
+      return _scaleDb(matchedFood!.fiber);
+    }
+    return null;
+  }
+
+  /// Nullable Sugar (g) from trusted FitFuel database. Returns null if unknown/unavailable.
+  double? get sugar {
+    if (matchedFood != null) {
+      return _scaleDb(matchedFood!.sugar);
+    }
+    return null;
+  }
+
+  /// Nullable Sodium (mg) from trusted FitFuel database. Returns null if unknown/unavailable.
+  double? get sodium {
+    if (matchedFood != null) {
+      return _scaleDb(matchedFood!.sodium);
+    }
+    return null;
+  }
+
   /// Scaled non-null values for diary logging and display math.
   double get scaledCalories => calories ?? 0.0;
   double get scaledProtein => protein ?? 0.0;
@@ -149,6 +229,12 @@ class DetectedFoodCandidate {
     double? matchConfidence,
     String? visualNotes,
     EstimatedNutrition? aiEstimatedNutrition,
+    FoodScanRecognitionSource? recognitionSource,
+    bool? isUserConfirmed,
+    NutritionProfileTier? nutritionTier,
+    String? nutritionExplanation,
+    String? recipeAssumptions,
+    String? nutritionAttribution,
   }) {
     return DetectedFoodCandidate(
       id: id ?? this.id,
@@ -161,6 +247,12 @@ class DetectedFoodCandidate {
       matchConfidence: matchConfidence ?? this.matchConfidence,
       visualNotes: visualNotes ?? this.visualNotes,
       aiEstimatedNutrition: aiEstimatedNutrition ?? this.aiEstimatedNutrition,
+      recognitionSource: recognitionSource ?? this.recognitionSource,
+      isUserConfirmed: isUserConfirmed ?? this.isUserConfirmed,
+      nutritionTier: nutritionTier ?? this.nutritionTier,
+      nutritionExplanation: nutritionExplanation ?? this.nutritionExplanation,
+      recipeAssumptions: recipeAssumptions ?? this.recipeAssumptions,
+      nutritionAttribution: nutritionAttribution ?? this.nutritionAttribution,
     );
   }
 }

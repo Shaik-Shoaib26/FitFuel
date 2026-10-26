@@ -11,6 +11,7 @@ import '../../../../core/widgets/fitfuel_card.dart';
 import '../../../nutrition/domain/entities/meal_type.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
 import '../../../nutrition/presentation/controllers/nutrition_controller.dart';
+import '../../../food_scan/domain/entities/nutrition_profile_tier.dart';
 import '../../domain/entities/food_entity.dart';
 import '../../domain/utils/food_nutrition_calculator.dart';
 import '../providers/food_providers.dart';
@@ -43,6 +44,10 @@ class _FoodDetailsScreenState extends ConsumerState<FoodDetailsScreen> {
   @override
   void didUpdateWidget(covariant FoodDetailsScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.food.id != oldWidget.food.id) {
+      _scaledFood = widget.food;
+      _servingController.text = widget.food.servingSize.toStringAsFixed(0);
+    }
     if (widget.showRecipe != oldWidget.showRecipe) _revealRecipe();
   }
 
@@ -126,7 +131,20 @@ class _FoodDetailsScreenState extends ConsumerState<FoodDetailsScreen> {
       carbohydrates: _scaledFood.carbohydrates,
       fats: _scaledFood.fats,
       sugar: _scaledFood.sugar,
+      fiber: _scaledFood.fiber,
+      sodium: _scaledFood.sodium,
       servingSize: _scaledFood.servingSize,
+      foodId: widget.food.id,
+      baseServingSize: widget.food.servingSize,
+      baseCalories: widget.food.calories,
+      baseProtein: widget.food.protein,
+      baseCarbohydrates: widget.food.carbohydrates,
+      baseFats: widget.food.fats,
+      baseFiber: widget.food.fiber,
+      baseSugar: widget.food.sugar,
+      baseSodium: widget.food.sodium,
+      nutritionTier: NutritionProfileTier.verifiedExact,
+      nutritionAttribution: 'Curated FitFuel Food Database',
       consumedAt: DateTime.now(),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),

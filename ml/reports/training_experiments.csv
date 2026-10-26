@@ -1,0 +1,4 @@
+experiment_id,dataset_version,architecture,learning_rate,batch_size,epochs,fine_tuned_layers,dropout,label_smoothing,augmentation_profile,best_val_accuracy,best_val_top3,test_top1,test_top3,model_size,notes
+EXP_001_MobileNetV3Large_Standard,fitfuel_food_dataset_v3,MobileNetV3Large,0.001,32,14,30,0.3,0.1,"Safe-Food (flip, rot 0.06, zoom 0.08, bright 0.08)",33.33,50.24,26.63,40.68,15.11 MB,MobileNetV3Large baseline on expanded 3.1k dataset
+EXP_002_MobileNetV3Large_DirectHead,fitfuel_food_dataset_v3,MobileNetV3Large,0.001,16,16,60,0.25,0.05,"Mild-Food (flip, rot 0.05, zoom 0.06, bright 0.06)",33.33,49.76,28.81,45.28,31.68 MB,"Direct classification head, batch 16, deeper fine-tuning"
+EXP_003_EfficientNetB0,fitfuel_food_dataset_v3,EfficientNetB0,0.001,16,12,25,0.25,0.05,"Mild-Food (flip, rot 0.05, zoom 0.06, bright 0.06)",39.13,52.17,29.3,43.34,28.18 MB,EfficientNetB0 architecture comparison on 3.1k dataset

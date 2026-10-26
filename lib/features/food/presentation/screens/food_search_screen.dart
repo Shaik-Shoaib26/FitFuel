@@ -1,6 +1,7 @@
 import 'package:fitfuel/app/navigation/fitfuel_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../../data/repositories/food_asset_repository.dart';
+import '../../data/datasources/predefined_food_data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_constants.dart';
@@ -14,8 +15,11 @@ import '../../../../core/widgets/fitfuel_section_header.dart';
 import '../../../../core/widgets/food_image_resolver.dart';
 import '../../../nutrition/presentation/widgets/food_form_sheet.dart';
 import '../../../nutrition/domain/entities/nutrition_record_entity.dart';
+import '../../../food_scan/domain/entities/nutrition_profile_tier.dart';
 import '../../../authentication/presentation/providers/auth_providers.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/food_entity.dart';
+import '../../domain/utils/food_category_normalizer.dart';
 import '../providers/food_providers.dart';
 
 class FoodSearchScreen extends ConsumerStatefulWidget {
@@ -29,20 +33,11 @@ class FoodSearchScreen extends ConsumerStatefulWidget {
 class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  final List<String> _categories = [
-    'All',
-    'Breakfast',
-    'Lunch',
-    'Dinner',
-    'Snacks',
-    'Indian',
-    'Vegetarian',
-    'High Protein',
-    'Low Carb',
-    'Low Sugar',
-    'Fruits',
-    'Drinks',
-  ];
+  final List<String> _categories = FoodCategoryNormalizer.primaryFilters;
+
+  /// Total foods available in the local predefined catalog.
+  /// Computed dynamically so we never hardcode the catalog length.
+  int get _catalogSize => PredefinedFoodData.foods.length;
 
   @override
   void initState() {
@@ -58,6 +53,11 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _clearSearchQuery() {
+    _searchController.clear();
+    ref.read(foodSearchQueryProvider.notifier).state = '';
   }
 
   void _clearSearch() {
@@ -209,9 +209,25 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                     ),
                     const SizedBox(height: AppConstants.spaceLg),
 
-                    FilledButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Apply Filters'),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              _clearSearch();
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Reset All'),
+                          ),
+                        ),
+                        const SizedBox(width: AppConstants.spaceMd),
+                        Expanded(
+                          child: FilledButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Apply Filters'),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -250,25 +266,48 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
     final favoriteFoodsAsync = ref.watch(favoriteFoodsProvider);
     final recommendedFoodsAsync = ref.watch(recommendedFoodsProvider);
     final selectedView = switch (widget.view) {
-      'favorites' || 'recent' || 'custom' || 'recipes' => widget.view,
+      'favorites' || 'recent' || 'custom' || 'recipes' || 'all' => widget.view,
       _ => null,
     };
     final viewFoods = switch (selectedView) {
       'favorites' => favoriteFoodsAsync,
       'recent' => recentFoodsAsync,
       'custom' => ref.watch(customFoodsProvider),
+      'all' => searchResultsAsync,
       _ => searchResultsAsync,
     };
 
     return Scaffold(
       appBar: FitFuelAppBar(
-        title: Text(switch (selectedView) {
-          'favorites' => 'Favorite Foods',
-          'recent' => 'Recent Foods',
-          'custom' => 'Custom Foods',
-          'recipes' => 'Recipes',
-          _ => 'Food Library'
-        }),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(switch (selectedView) {
+              'favorites' => 'Favorite Foods',
+              'recent' => 'Recent Foods',
+              'custom' => 'Custom Foods',
+              _ => 'Search Foods',
+            }),
+            Text(
+              switch (selectedView) {
+                'favorites' => 'Your saved foods',
+                'recent' => 'Foods you logged',
+                'custom' => 'Your custom entries',
+                _ => 'Explore nutrition, ingredients & recipes',
+              },
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white60
+                    : Colors.black54,
+                letterSpacing: 0.1,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
       backgroundColor: pageBackground,
       floatingActionButton: FloatingActionButton.extended(
@@ -295,10 +334,10 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                       decoration: InputDecoration(
                         hintText: 'Search foods by name or category...',
                         prefixIcon: const Icon(Icons.search_rounded),
-                        suffixIcon: isSearching
+                        suffixIcon: searchQuery.trim().isNotEmpty
                             ? IconButton(
                                 icon: const Icon(Icons.clear_rounded),
-                                onPressed: _clearSearch,
+                                onPressed: _clearSearchQuery,
                               )
                             : null,
                       ),
@@ -334,15 +373,31 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                 itemBuilder: (context, index) {
                   final cat = _categories[index];
                   final isSelected = selectedCategory == cat ||
-                      (selectedCategory == null && cat == 'All');
+                      (selectedCategory == null && cat == 'All') ||
+                      (selectedCategory?.toLowerCase() == 'all' && cat == 'All');
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: ChoiceChip(
                       label: Text(cat),
                       selected: isSelected,
+                      selectedColor: isDark
+                          ? AppColors.primary400.withAlpha(50)
+                          : AppColors.primary100,
+                      labelStyle: TextStyle(
+                        color: isSelected
+                            ? (isDark ? AppColors.primary300 : AppColors.primaryLeafGreen)
+                            : (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary),
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                      ),
+                      side: BorderSide(
+                        color: isSelected
+                            ? (isDark ? AppColors.primary400 : AppColors.primaryLeafGreen)
+                            : (isDark ? AppColors.darkBorderSubtle : AppColors.lightBorder),
+                        width: isSelected ? 1.5 : 1.0,
+                      ),
                       onSelected: (selected) {
                         ref.read(foodCategoryFilterProvider.notifier).state =
-                            selected ? cat : null;
+                            selected ? (cat == 'All' ? null : cat) : null;
                       },
                     ),
                   );
@@ -355,28 +410,33 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
             Expanded(
               child: selectedView != null
                   ? viewFoods.when(
-                      data: (foods) => _buildResponsiveResults(
-                          foods.where((food) {
-                            final matchesQuery = food.name
+                      data: (rawFoods) {
+                        // For "All Foods" view, present foods A–Z so the
+                        // full catalog is browsable without typing.
+                        final base = (selectedView == 'all' && !isSearching)
+                            ? ([...rawFoods]..sort((a, b) => a.name
                                 .toLowerCase()
-                                .contains(searchQuery.toLowerCase());
-                            final hasRecipe =
-                                (food.instructions?.isNotEmpty ?? false) ||
-                                    (food.recipe?.isNotEmpty ?? false) ||
-                                    FoodAssetRepository.instance
-                                            .getRecipe(food.id) !=
-                                        null;
-                            final matchesFilters = !isSearching ||
-                                (searchResultsAsync.valueOrNull?.any(
-                                        (candidate) =>
-                                            candidate.id == food.id) ??
-                                    false);
-                            return matchesQuery &&
-                                matchesFilters &&
-                                (selectedView != 'recipes' || hasRecipe);
-                          }).toList(),
-                          isDark,
-                          selectedView),
+                                .compareTo(b.name.toLowerCase())))
+                            : rawFoods;
+                        return _buildResponsiveResults(
+                            base.where((food) {
+                              final hasRecipe =
+                                  (food.instructions?.isNotEmpty ?? false) ||
+                                      (food.recipe?.isNotEmpty ?? false) ||
+                                      FoodAssetRepository.instance
+                                              .getRecipe(food.id) !=
+                                          null;
+                              final matchesFilters = !isSearching ||
+                                  (searchResultsAsync.valueOrNull?.any(
+                                          (candidate) =>
+                                              candidate.id == food.id) ??
+                                      false);
+                              return matchesFilters &&
+                                  (selectedView != 'recipes' || hasRecipe);
+                            }).toList(),
+                            isDark,
+                            selectedView);
+                      },
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (error, _) => FitFuelErrorState(
@@ -476,6 +536,31 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                                     error: (err, _) => FitFuelErrorState(
                                       error: err,
                                       onRetry: () => ref.read(recentFoodsProvider.notifier).load(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceLg),
+
+                                  // 4. Browse All Foods (manual QA — alphabetical)
+                                  FitFuelSectionHeader(
+                                    title: 'Browse All Foods',
+                                    subtitle:
+                                        '$_catalogSize foods · sorted A–Z',
+                                    actionLabel: 'Open',
+                                    onActionPressed: () => context.go(
+                                        '/nutrition/search?view=all'),
+                                  ),
+                                  const SizedBox(height: AppConstants.spaceSmd),
+                                  searchResultsAsync.when(
+                                    data: (foods) =>
+                                        _buildAllFoodsPreview(foods, isDark),
+                                    loading: () => const SizedBox(
+                                        height: 200,
+                                        child: Center(
+                                            child: CircularProgressIndicator())),
+                                    error: (err, _) => FitFuelErrorState(
+                                      error: err,
+                                      onRetry: () =>
+                                          ref.invalidate(searchFoodsProvider),
                                     ),
                                   ),
                                   const SizedBox(height: 80), // spacer for FAB
@@ -647,6 +732,98 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
     );
   }
 
+  /// Compact alphabetical preview of every food in the catalog.
+  /// Tapping any row opens the canonical food details route.
+  Widget _buildAllFoodsPreview(List<FoodEntity> foods, bool isDark) {
+    if (foods.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppConstants.spaceMd),
+        child: Text(
+          'No foods available in the catalog.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      );
+    }
+
+    final text = Theme.of(context).textTheme;
+    final semantic = FitFuelSemanticColors.of(context);
+    final scheme = Theme.of(context).colorScheme;
+
+    final sorted = [...foods]
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (var i = 0; i < sorted.length && i < 8; i++) ...[
+          FitFuelCard(
+            onTap: () {
+              context.push('/nutrition/food/${Uri.encodeComponent(sorted[i].id)}');
+            },
+            isInteractive: true,
+            padding: const EdgeInsets.all(AppConstants.spaceSmd),
+            child: Row(
+              children: [
+                FoodImageCard(
+                  food: sorted[i],
+                  width: 44,
+                  height: 44,
+                  borderRadius: AppConstants.radiusSm,
+                ),
+                const SizedBox(width: AppConstants.spaceSmd),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        sorted[i].name,
+                        style: text.titleSmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        sorted[i].category,
+                        style: text.bodySmall?.copyWith(
+                          color: scheme.onSurfaceVariant,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppConstants.spaceSm),
+                Text(
+                  '${sorted[i].calories.toStringAsFixed(0)} kcal',
+                  style: text.titleSmall?.copyWith(
+                    color: semantic.calories,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (i < sorted.length - 1 && i < 7)
+            const SizedBox(height: AppConstants.spaceSm),
+        ],
+        if (sorted.length > 8) ...[
+          const SizedBox(height: AppConstants.spaceSm),
+          Center(
+            child: TextButton.icon(
+              onPressed: () =>
+                  context.go('/nutrition/search?view=all'),
+              icon: const Icon(Icons.arrow_forward_rounded, size: 18),
+              label: Text(
+                  'See all $_catalogSize foods'),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
   Widget _buildResponsiveResults(List<FoodEntity> foods, bool isDark, String? selectedView) {
     if (foods.isEmpty) {
       final emptyTitle = switch (selectedView) {
@@ -654,13 +831,13 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
         'recent' => 'No recent foods',
         'custom' => 'No custom foods',
         'recipes' => 'No recipes found',
-        _ => 'No results found',
+        _ => 'No foods found',
       };
       final emptyDesc = switch (selectedView) {
         'favorites' => 'Tap the heart icon on any food to save it as a favorite.',
         'recent' => 'Foods you log will appear here for quick access.',
         'custom' => 'Create your own foods with exact nutrition info.',
-        _ => 'Try adjusting your search or filters to find more foods.',
+        _ => 'Try another search or category.',
       };
       return FitFuelEmptyState(
         icon: switch (selectedView) {
@@ -691,14 +868,30 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
       if (crossAxisCount == 1) {
         // Single column list — most compact for mobile
         return ListView.builder(
-          padding: const EdgeInsets.all(AppConstants.spaceMd),
-          itemCount: foods.length,
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.spaceMd, vertical: AppConstants.spaceSm),
+          itemCount: foods.length + 1,
           itemBuilder: (context, index) {
-            final food = foods[index];
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(
+                    bottom: AppConstants.spaceSm, left: 4),
+                child: Text(
+                  '${foods.length} food${foods.length == 1 ? '' : 's'}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: isDark ? Colors.white60 : Colors.black54,
+                  ),
+                ),
+              );
+            }
+            final food = foods[index - 1];
             return Padding(
               padding: const EdgeInsets.only(bottom: AppConstants.spaceSmd),
               child: FitFuelFoodCard(
                 food: food,
+                imageAspectRatio: 16 / 9,
                 isFavorite: food.isFavorite,
                 onTap: () {
                   context.push(
@@ -719,7 +912,20 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                           carbohydrates: food.carbohydrates,
                           fats: food.fats,
                           sugar: food.sugar,
+                          fiber: food.fiber,
+                          sodium: food.sodium,
                           servingSize: food.servingSize,
+                          foodId: food.id,
+                          baseServingSize: food.servingSize,
+                          baseCalories: food.calories,
+                          baseProtein: food.protein,
+                          baseCarbohydrates: food.carbohydrates,
+                          baseFats: food.fats,
+                          baseFiber: food.fiber,
+                          baseSugar: food.sugar,
+                          baseSodium: food.sodium,
+                          nutritionTier: NutritionProfileTier.verifiedExact,
+                          nutritionAttribution: 'Curated FitFuel Food Database',
                           consumedAt: DateTime.now(),
                           createdAt: DateTime.now(),
                           updatedAt: DateTime.now(),
@@ -739,57 +945,90 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
       }
 
       final media = MediaQuery.of(context);
-      final double cardExtent = media.textScaler.scale(16) > 19.2 ? 305 : 260;
+      final double cardExtent = media.textScaler.scale(16) > 19.2 ? 340 : 300;
 
       // Multi-column grid for tablet/desktop
-      return GridView.builder(
-        padding: const EdgeInsets.all(AppConstants.spaceMd),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 340,
-          crossAxisSpacing: AppConstants.spaceMd,
-          mainAxisSpacing: AppConstants.spaceMd,
-          mainAxisExtent: cardExtent,
-        ),
-        itemCount: foods.length,
-        itemBuilder: (context, index) {
-          final food = foods[index];
-          return FitFuelFoodCard(
-            food: food,
-            isFavorite: food.isFavorite,
-            onTap: () {
-              context.push(
-                  '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
-            },
-            onFavoriteTap: () {
-              ref.read(favoriteFoodsProvider.notifier).toggleFavorite(food.id);
-            },
-            onAddTap: authUserUid == null
-                ? null
-                : () {
-                    final record = NutritionRecordEntity(
-                      id: '',
-                      foodName: food.name,
-                      mealType: 'Snack',
-                      calories: food.calories,
-                      protein: food.protein,
-                      carbohydrates: food.carbohydrates,
-                      fats: food.fats,
-                      sugar: food.sugar,
-                      servingSize: food.servingSize,
-                      consumedAt: DateTime.now(),
-                      createdAt: DateTime.now(),
-                      updatedAt: DateTime.now(),
-                    );
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) => FoodFormSheet(
-                          uid: authUserUid, existingRecord: record),
-                    );
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.spaceMd, vertical: 4),
+            child: Text(
+              '${foods.length} food${foods.length == 1 ? '' : 's'}',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white60 : Colors.black54,
+              ),
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(AppConstants.spaceMd),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 340,
+                crossAxisSpacing: AppConstants.spaceMd,
+                mainAxisSpacing: AppConstants.spaceMd,
+                mainAxisExtent: cardExtent,
+              ),
+              itemCount: foods.length,
+              itemBuilder: (context, index) {
+                final food = foods[index];
+                return FitFuelFoodCard(
+                  food: food,
+                  imageAspectRatio: 16 / 9,
+                  isFavorite: food.isFavorite,
+                  onTap: () {
+                    context.push(
+                        '/nutrition/food/${Uri.encodeComponent(food.id)}${widget.view == 'recipes' ? '?section=recipe' : ''}');
                   },
-          );
-        },
+                  onFavoriteTap: () {
+                    ref.read(favoriteFoodsProvider.notifier).toggleFavorite(food.id);
+                  },
+                  onAddTap: authUserUid == null
+                      ? null
+                      : () {
+                          final record = NutritionRecordEntity(
+                            id: '',
+                            foodName: food.name,
+                            mealType: 'Snack',
+                            calories: food.calories,
+                            protein: food.protein,
+                            carbohydrates: food.carbohydrates,
+                            fats: food.fats,
+                            sugar: food.sugar,
+                            fiber: food.fiber,
+                            sodium: food.sodium,
+                            servingSize: food.servingSize,
+                            foodId: food.id,
+                            baseServingSize: food.servingSize,
+                            baseCalories: food.calories,
+                            baseProtein: food.protein,
+                            baseCarbohydrates: food.carbohydrates,
+                            baseFats: food.fats,
+                            baseFiber: food.fiber,
+                            baseSugar: food.sugar,
+                            baseSodium: food.sodium,
+                            nutritionTier: NutritionProfileTier.verifiedExact,
+                            nutritionAttribution: 'Curated FitFuel Food Database',
+                            consumedAt: DateTime.now(),
+                            createdAt: DateTime.now(),
+                            updatedAt: DateTime.now(),
+                          );
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => FoodFormSheet(
+                                uid: authUserUid, existingRecord: record),
+                          );
+                        },
+                );
+              },
+            ),
+          ),
+        ],
       );
     });
   }
